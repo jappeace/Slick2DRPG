@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="Pokemon map" tilewidth="16" tileheight="16" spacing="1">
+  <image source="tileset.png" width="1036" height="475"/>
+ </tileset>
+ <layer name="background" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3WMQrAIAxA0Sw5R4ee217Ey3Xo5CZYlNo3vFVCPgFrRFSAjZRcP8OfnNl6691Lxyk9eu9Fjzk90IMx/gDQchPf2q1ewKgjH6vnAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2MUNU3ghRkCcAAA=
+  </data>
+ </layer>
+ <layer name="objects" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3aXVLUQBSG4R5nxp3IAkS9lZ9iI7oAFK/92QksAMRtCXipwB1nSgKUkjDp9On+OnmfqlNFVWZ6TvcHSSfDsxDCXLAWQdfe3G/st35D33mxDGFj2X58bscWVkur57ev287QV6za83hna/ze6rf9/Mfq0urK6vr2+JYd27basdolD3eHtsZHVi9nIWxavbJ6bfVm9vd4nzw812JdtefRnK/2bf0/WH20OrD69EQeq3k/Vk9pe19X9VF7Hs356tjW/8Tqu9Wp1Y+Iv48+vNat9jya89VPW/8zq3OrC6tf5PGfHHk85uF2izzulcrjIfK4Rx5x43qNPeY8PJGHFvLQMuY8PlsGX6y+Wn2beB6qYu6xve7H2/qbMs89TQylXkponmepUOqlBPLQwvlKi9r81frJTW3+av3kpjZ/tX5yU5u/Vz8l/pcnpqfV/HP2sI4an+enotgjeWiZah5q9x6NKefh9bx3SNZTzkNx7oo95aI49xI9eX8P0bYfzfVdhloeJa+Vnt8X9e0h9r2p1XCu8kYeWpTOWeQxjEceuTNRvb+LMZZzFnnEj+nxLJU8usf0rNh5ePeV4r4m9948xRil7zE81ZbH2JGHFvLQQh5acq3RmK65qZXYl3TtU1Pul1LsOXMq1VfMZ6Z+Llf6/kPpdyQ2jyF/J2iXe13Jo9vQ60Guz5uKFNfovu9BtyHXsn9fq3qdrF1t+xIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABouQHH92UWQJwAAA==
+  </data>
+ </layer>
+</map>
