@@ -1,5 +1,5 @@
 package org.bakkes.game;
-import org.bakkes.game.math.Point;
+import org.bakkes.game.math.Vector2;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
@@ -98,7 +98,7 @@ public class Camera {
       this.centerOn(shape.getCenterX(), shape.getCenterY());
    }
    
-   public void centerOn(Point p) {
+   public void centerOn(Vector2 p) {
       this.centerOn(p.getX(), p.getY());
    }
    

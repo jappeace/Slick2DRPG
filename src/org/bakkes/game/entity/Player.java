@@ -2,7 +2,7 @@ package org.bakkes.game.entity;
 
 import org.bakkes.game.Constants;
 import org.bakkes.game.math.GridGraphicTranslator;
-import org.bakkes.game.math.Point;
+import org.bakkes.game.math.Vector2;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,7 +13,7 @@ import org.newdawn.slick.util.pathfinding.Path.Step;
 
 public class Player extends Entity {
 
-	private Point _pixelPosition;
+	private Vector2 _pixelPosition;
 	private SpriteSheet _spriteSheet;
 	private Animation[] _animation;
 	
@@ -39,7 +39,7 @@ public class Player extends Entity {
 				_animation[i].setAutoUpdate(false);
 			}
 			
-			_pixelPosition = GridGraphicTranslator.GridToPixels(new Point(8, 8));
+			_pixelPosition = GridGraphicTranslator.GridToPixels(new Vector2(8, 8));
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,8 +50,8 @@ public class Player extends Entity {
 	public void update(GameContainer gc, int delta) {
 		if(isCurrentlyMoving) {
 			Step s = currentPath.getStep(currentStep);
-			Point destinationPoint = new Point(s.getX(), s.getY());
-			Point destinationPixelPoint = GridGraphicTranslator.GridToPixels(destinationPoint);
+			Vector2 destinationPoint = new Vector2(s.getX(), s.getY());
+			Vector2 destinationPixelPoint = GridGraphicTranslator.GridToPixels(destinationPoint);
 			float dX = delta / 10f;
 			float dY = delta / 10f;
 
@@ -73,7 +73,7 @@ public class Player extends Entity {
 			addedX += dX;
 			addedY += dY;
 			
-			_pixelPosition.add(new Point(dX, dY));
+			_pixelPosition.add(new Vector2(dX, dY));
 			
 			
 			if(GridGraphicTranslator.PixelsInTile(_pixelPosition, destinationPoint)) {
@@ -89,7 +89,7 @@ public class Player extends Entity {
 					_animation[facing].setCurrentFrame(0);
 				} else {
 					Step nextStep = currentPath.getStep(currentStep);
-					Point p = new Point(nextStep.getX(), nextStep.getY()).minusOperator(getGridPosition());
+					Vector2 p = new Vector2(nextStep.getX(), nextStep.getY()).minusOperator(getGridPosition());
 					if(p.getX() == 1)
 						facing = Direction.EAST;
 					else if(p.getX() == -1)
@@ -111,11 +111,11 @@ public class Player extends Entity {
 		_animation[facing].draw(_pixelPosition.getX(), _pixelPosition.getY());
 	}
 	
-	public Point getGridPosition() {
+	public Vector2 getGridPosition() {
 		return GridGraphicTranslator.PixelsToGrid(_pixelPosition);
 	}
 	
-	public Point getPixelPosition() {
+	public Vector2 getPixelPosition() {
 		return _pixelPosition;
 	}
 

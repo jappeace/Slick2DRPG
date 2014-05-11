@@ -3,7 +3,7 @@ package org.bakkes.game;
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.map.LayerBasedMap;
 import org.bakkes.game.math.GridGraphicTranslator;
-import org.bakkes.game.math.Point;
+import org.bakkes.game.math.Vector2;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -20,7 +20,7 @@ public class Game extends BasicGame {
 	private TiledMap map;
 	private LayerBasedMap layerMap;
 	private Camera camera;
-	private Point destinationTile;
+	private Vector2 destinationTile;
 	public Game(String title) {
 		super(title);
 	}
@@ -40,8 +40,8 @@ public class Game extends BasicGame {
 		Input input = gc.getInput();
 		
 		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-			Point mousePos = new Point(input.getMouseX(), input.getMouseY());
-			mousePos = new Point(mousePos.getX() + camera.cameraX, mousePos.getY() + camera.cameraY);
+			Vector2 mousePos = new Vector2(input.getMouseX(), input.getMouseY());
+			mousePos = new Vector2(mousePos.getX() + camera.cameraX, mousePos.getY() + camera.cameraY);
 			destinationTile = GridGraphicTranslator.PixelsToGrid(mousePos);
 			
 			if(!layerMap.blocked(null, (int)destinationTile.getX(), (int)destinationTile.getY())) {
@@ -60,18 +60,17 @@ public class Game extends BasicGame {
 		player.update(gc, delta);
 	}
 	
-	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		Input input = gc.getInput();
-		Point mousePos = new Point(input.getMouseX(), input.getMouseY());
-		Point paintPos = GridGraphicTranslator.PixelsToGridPixels(mousePos);
+		Vector2 mousePos = new Vector2(input.getMouseX(), input.getMouseY());
+		Vector2 paintPos = GridGraphicTranslator.PixelsToGridPixels(mousePos);
 		
 		camera.centerOn((int)player.getPixelPosition().getX(), (int)player.getPixelPosition().getY());
 		camera.drawMap();
 		
 		camera.translateGraphics();
-		if(destinationTile != null) {
-			g.setColor(Color.blue);
+		if(destinationTile != null && destinationTile != player.getGridPosition()) {
+			g.setColor(new Color(0, 0, 255, 64));
 			g.fillRect(destinationTile.getX() * 16, destinationTile.getY() * 16, Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
 		}
 		player.render(gc, g);

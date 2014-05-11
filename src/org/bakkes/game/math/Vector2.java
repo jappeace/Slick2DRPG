@@ -1,10 +1,10 @@
 package org.bakkes.game.math;
 
-public class Point {
+public class Vector2 {
 	private float x;
 	private float y;
 	
-	public Point(float x, float y) {
+	public Vector2(float x, float y) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -26,13 +26,13 @@ public class Point {
 		this.y = y;
 	}
 	
-	public void add(Point p) {
+	public void add(Vector2 p) {
 		this.x += p.x;
 		this.y += p.y;
 	}
 	
-	public Point minusOperator(Point p) {
-		return new Point(this.x - p.x, this.y - p.y);
+	public Vector2 minusOperator(Vector2 p) {
+		return new Vector2(this.x - p.x, this.y - p.y);
 	}
 	
 	public void addX(float x) {
