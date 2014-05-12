@@ -1,6 +1,7 @@
 package org.bakkes.game.entity;
 
 import org.bakkes.game.Constants;
+import org.bakkes.game.World;
 import org.bakkes.game.math.GridGraphicTranslator;
 import org.bakkes.game.math.Vector2;
 import org.newdawn.slick.Animation;
@@ -8,6 +9,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.util.pathfinding.AStarPathFinder;
 import org.newdawn.slick.util.pathfinding.Path;
 import org.newdawn.slick.util.pathfinding.Path.Step;
 
@@ -22,6 +24,7 @@ public class Player extends Entity {
 	private int currentStep;
 	private float addedX, addedY;
 	private int facing = Direction.NORTH;
+	private Inventory inventory;
 	
 	@Override
 	public void init(GameContainer gc) {
@@ -40,6 +43,7 @@ public class Player extends Entity {
 			}
 			
 			_pixelPosition = GridGraphicTranslator.GridToPixels(new Vector2(8, 8));
+			inventory = new Inventory();
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,6 +121,18 @@ public class Player extends Entity {
 	
 	public Vector2 getPixelPosition() {
 		return _pixelPosition;
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
+	}
+	
+	public void MoveTo(Vector2 toTile) {
+		AStarPathFinder pathFinder = new AStarPathFinder(World.getWorld().getLayerMap(), 500, false);
+		Path path = pathFinder.findPath(null, (int)getGridPosition().getX(), (int)getGridPosition().getY(), 
+				(int)toTile.getX(), (int)toTile.getY());
+		if(path != null)
+			Move(path);
 	}
 
 	public void Move(Path p) {

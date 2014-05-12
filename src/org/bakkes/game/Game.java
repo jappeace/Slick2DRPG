@@ -18,8 +18,7 @@ import org.newdawn.slick.util.pathfinding.Path;
 public class Game extends BasicGame {
 
 	private Player player;
-	private TiledMap map;
-	private LayerBasedMap layerMap;
+
 	private Camera camera;
 	private Vector2 destinationTile;
 	public Game(String title) {
@@ -30,9 +29,7 @@ public class Game extends BasicGame {
 	public void init(GameContainer gc) throws SlickException {
 		player = new Player();
 		player.init(gc);
-		map = new TiledMap("res/map/map.tmx");
-		layerMap = new LayerBasedMap(map, map.getLayerIndex("objects"));
-		camera = new Camera(gc, map);
+		camera = new Camera(gc, World.getWorld().getMap());
 		ScriptManager.loadScripts();
 	}
 
@@ -46,14 +43,8 @@ public class Game extends BasicGame {
 			mousePos = new Vector2(mousePos.getX() + camera.cameraX, mousePos.getY() + camera.cameraY);
 			destinationTile = GridGraphicTranslator.PixelsToGrid(mousePos);
 			
-			if(!layerMap.blocked(null, (int)destinationTile.getX(), (int)destinationTile.getY())) {
-				AStarPathFinder pathFinder = new AStarPathFinder(layerMap, 500, false);
-				Path path = pathFinder.findPath(null, (int)player.getGridPosition().getX(), (int)player.getGridPosition().getY(), 
-						(int)destinationTile.getX(), (int)destinationTile.getY());
-				if(path != null)
-					player.Move(path);
-				else
-					destinationTile = null;
+			if(!World.getWorld().getLayerMap().blocked(null, (int)destinationTile.getX(), (int)destinationTile.getY())) {
+				player.MoveTo(destinationTile);
 			} else {
 				destinationTile = null;
 			}
