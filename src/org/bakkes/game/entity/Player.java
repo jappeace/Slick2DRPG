@@ -1,6 +1,7 @@
 package org.bakkes.game.entity;
 
 import org.bakkes.game.Constants;
+import org.bakkes.game.Game;
 import org.bakkes.game.World;
 import org.bakkes.game.math.GridGraphicTranslator;
 import org.bakkes.game.math.Vector2;
@@ -26,6 +27,11 @@ public class Player extends Entity {
 	private float addedX, addedY;
 	private int facing = Direction.NORTH;
 	private Inventory inventory;
+	private Game game;
+	
+	public Player(Game g) {
+		game = g;
+	}
 	
 	@Override
 	public void init(GameContainer gc) {
@@ -44,7 +50,7 @@ public class Player extends Entity {
 			}
 			
 			_pixelPosition = GridGraphicTranslator.GridToPixels(new Vector2(8, 8));
-			inventory = new Inventory();
+			inventory = new Inventory(this);
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -126,6 +132,10 @@ public class Player extends Entity {
 	
 	public Inventory getInventory() {
 		return inventory;
+	}
+	
+	public void sendMessage(String text) {
+		game.showDialog(text);
 	}
 	
 	public void MoveTo(Vector2 toTile) {

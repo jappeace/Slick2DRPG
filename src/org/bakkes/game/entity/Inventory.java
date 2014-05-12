@@ -1,10 +1,15 @@
 package org.bakkes.game.entity;
 
-import org.bakkes.game.Item;
+import org.bakkes.game.items.Item;
 
 public class Inventory {
 
+	private Player owner;
 	private Item[] items = new Item[10];
+	
+	public Inventory(Player p) {
+		owner = p;
+	}
 	
 	public void addItem(Item item) {
 		for(int i = 0; i < items.length; i++) {
@@ -13,7 +18,7 @@ public class Inventory {
 				return;
 			}
 		}
-		//send message inventory is full
+		owner.sendMessage("Cannot accept " + item.getName() + ", inventory is full!");
 	}
 	
 	public void deleteItem(int slot) {

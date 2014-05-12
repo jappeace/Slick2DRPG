@@ -34,7 +34,7 @@ public class Game extends BasicGame implements KeyListener {
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-		player = new Player();
+		player = new Player(this);
 		player.init(gc);
 		camera = new Camera(gc, World.getWorld().getMap());
 		
