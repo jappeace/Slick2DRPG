@@ -1,6 +1,6 @@
+package org.bakkes.game;
 import java.io.File;
 
-import org.bakkes.game.Game;
 import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
