@@ -4,6 +4,7 @@ import org.bakkes.game.entity.Player;
 import org.bakkes.game.map.LayerBasedMap;
 import org.bakkes.game.math.GridGraphicTranslator;
 import org.bakkes.game.math.Vector2;
+import org.bakkes.game.scripting.ScriptManager;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -32,6 +33,7 @@ public class Game extends BasicGame {
 		map = new TiledMap("res/map/map.tmx");
 		layerMap = new LayerBasedMap(map, map.getLayerIndex("objects"));
 		camera = new Camera(gc, map);
+		ScriptManager.loadScripts();
 	}
 
 	@Override
