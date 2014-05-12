@@ -42,4 +42,8 @@ public class Vector2 {
 	public void addY(float y) {
 		this.y += y;
 	}
+	
+	public Vector2 copy() {
+		return new Vector2(x, y);
+	}
 }

@@ -16,7 +16,7 @@ public class World {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		layerMap = new LayerBasedMap(map, map.getLayerIndex("objects"));
+		layerMap = new LayerBasedMap(map, map.getLayerIndex("objects"), map.getLayerIndex("npc"));
 	}
 	
 	public TiledMap getMap() {

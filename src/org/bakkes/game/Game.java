@@ -1,13 +1,16 @@
 package org.bakkes.game;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.events.GameKeyListener;
+import org.bakkes.game.events.TalkToNPCListener;
 import org.bakkes.game.map.LayerBasedMap;
 import org.bakkes.game.math.GridGraphicTranslator;
 import org.bakkes.game.math.Vector2;
 import org.bakkes.game.scripting.ScriptManager;
+import org.bakkes.game.ui.DialogBox;
 import org.bakkes.game.ui.DrawableGameComponent;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -39,6 +42,8 @@ public class Game extends BasicGame implements KeyListener {
 		
 		drawables = new ArrayList<DrawableGameComponent>();
 		keyListeners = new ArrayList<GameKeyListener>();
+		
+		addKeyListener(new TalkToNPCListener(this));
 		
 		ScriptManager.loadScripts();
 	}
@@ -84,6 +89,15 @@ public class Game extends BasicGame implements KeyListener {
 		for(DrawableGameComponent drawable : drawables) {
 			drawable.Render(gc, g);
 		}
+	}
+	
+	public void showDialog(String text) {
+		DialogBox d = new DialogBox(this, text);
+		d.show();
+	}
+	
+	public Player getPlayer() {
+		return player;
 	}
 	
 	@Override

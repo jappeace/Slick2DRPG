@@ -9,6 +9,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.AStarPathFinder;
 import org.newdawn.slick.util.pathfinding.Path;
 import org.newdawn.slick.util.pathfinding.Path.Step;
@@ -139,5 +140,35 @@ public class Player extends Entity {
 		isCurrentlyMoving = true;
 		currentPath = p;
 		currentStep = 0;
+	}
+
+	public int getDirection() {
+		// TODO Auto-generated method stub
+		return facing;
+	}
+	
+	public int getFacingNPC() {
+		TiledMap map = World.getWorld().getMap();
+		int layerIndex = map.getLayerIndex("npc");
+		Vector2 diff = getGridPosition().copy();
+		switch(getDirection()) {
+		case Direction.NORTH:
+			diff.addY(-1);
+			break;
+		case Direction.EAST:
+			diff.addX(2);
+			break;
+		case Direction.SOUTH:
+			diff.addY(2);
+			break;
+		case Direction.WEST:
+			diff.addX(-2);
+			diff.addY(1);
+			break;
+		}
+		int tileId = map.getTileId((int)diff.getX(), (int)diff.getY(), layerIndex);
+		if(tileId == 0)
+			return -1;
+		return Integer.parseInt(map.getTileProperty(tileId, "npcid", "-1"));
 	}
 }
