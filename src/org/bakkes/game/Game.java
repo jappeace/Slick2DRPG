@@ -5,6 +5,8 @@ import java.util.Iterator;
 
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.events.GameKeyListener;
+import org.bakkes.game.events.MovementListener;
+import org.bakkes.game.events.ScriptReloadListener;
 import org.bakkes.game.events.TalkToNPCListener;
 import org.bakkes.game.math.GridGraphicTranslator;
 import org.bakkes.game.math.Vector2;
@@ -40,7 +42,8 @@ public class Game extends BasicGame implements KeyListener {
 		keyListeners = new ArrayList<GameKeyListener>();
 		
 		addKeyListener(new TalkToNPCListener(this));
-		
+		addKeyListener(new ScriptReloadListener());
+		addKeyListener(new MovementListener(this));
 		ScriptManager.loadScripts();
 	}
 
@@ -109,7 +112,7 @@ public class Game extends BasicGame implements KeyListener {
 
     @Override
     public void keyReleased(int key, char c) {
-		ArrayList<GameKeyListener> keyListenersCopy = new ArrayList<GameKeyListener>(keyListeners); //Create a copy because scripts can register keypress components.
+		ArrayList<GameKeyListener> keyListenersCopy = new ArrayList<GameKeyListener>(keyListeners); //Create a copy because scripts can register keyrelease components.
 		System.out.println("Released key: " + key);
 		Iterator<GameKeyListener> it = keyListenersCopy.iterator();
 		while(it.hasNext()) {
