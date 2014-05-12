@@ -22,7 +22,7 @@ public class TalkToNPCListener implements GameKeyListener {
 
 	public void KeyUp(int key, char c) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

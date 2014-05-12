@@ -134,7 +134,7 @@ public class Player extends Entity {
 		return inventory;
 	}
 	
-	public void sendMessage(String text) {
+	public void showDialog(String text) {
 		game.showDialog(text);
 	}
 	

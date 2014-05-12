@@ -101,6 +101,16 @@ public class Game extends BasicGame implements KeyListener {
 			currentDialogBox.Render(gc, g);
 	}
 	
+	public void checkDialogs() {
+		if(dialogQueue.size() > 0) {
+			inputEnabled = false;
+			currentDialogBox = dialogQueue.remove();
+		} else {
+			inputEnabled = true;
+			currentDialogBox = null;
+		}
+	}
+	
 	public void showDialog(String text) {
 		DialogBox d = new DialogBox(this, text);
 		d.show();
@@ -126,13 +136,7 @@ public class Game extends BasicGame implements KeyListener {
     @Override
     public void keyReleased(int key, char c) {
 		if(key == 57) { //space
-			if(dialogQueue.size() > 0) {
-				inputEnabled = false;
-				currentDialogBox = dialogQueue.remove();
-			} else {
-				inputEnabled = true;
-				currentDialogBox = null;
-			}
+			checkDialogs();
 		}
 		if(!inputEnabled)
 			return;

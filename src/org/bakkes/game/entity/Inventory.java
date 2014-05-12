@@ -19,7 +19,7 @@ public class Inventory {
 				return;
 			}
 		}
-		owner.sendMessage("Cannot accept " + item.getName() + ", inventory is full!");
+		owner.showDialog("Cannot accept " + item.getName() + ", inventory is full!");
 	}
 	
 	public void addItem(int itemID) {

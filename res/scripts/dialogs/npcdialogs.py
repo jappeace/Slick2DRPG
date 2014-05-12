@@ -17,3 +17,4 @@ def talkto_4(game):
 	game.showDialog("I'll just send you back.")
 	game.getPlayer().moveTo(Vector2(8, 8))
 	game.showDialog("bye")
+	

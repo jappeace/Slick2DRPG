@@ -1,6 +1,7 @@
 package org.bakkes.game.events;
 
 import org.bakkes.game.Game;
+import org.bakkes.game.scripting.ScriptManager;
 import org.bakkes.game.ui.InventoryGameComponent;
 
 public class InventoryToggleListener implements GameKeyListener {
@@ -22,6 +23,18 @@ public class InventoryToggleListener implements GameKeyListener {
 				game.removeComponent(inventoryComponent);
 			}
 		}
+		if(enabled) {
+			if(key == 208) { //up
+				inventoryComponent.up();
+			} else if(key == 200) { //down
+				inventoryComponent.down();
+			} else if(key == 28) { //enter
+				int selectedSlot = inventoryComponent.getCurrentlySelected();
+				
+				ScriptManager.executeFunction("inventorySelected", selectedSlot, game.getPlayer().getInventory().getItem(selectedSlot), game);
+			}
+		}
+		
 	}
 
 	public void KeyUp(int key, char c) {
