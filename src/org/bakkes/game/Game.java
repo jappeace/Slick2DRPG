@@ -1,6 +1,7 @@
 package org.bakkes.game;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.events.GameKeyListener;
@@ -97,16 +98,23 @@ public class Game extends BasicGame implements KeyListener {
 	
 	@Override
     public void keyPressed(int key, char c) {
+		ArrayList<GameKeyListener> keyListenersCopy = new ArrayList<GameKeyListener>(keyListeners); //Create a copy because scripts can register keypress components.
 		System.out.println("Pressed key: " + key);
-		for(GameKeyListener listener : keyListeners) {
-			listener.KeyDown(key, c);
+		Iterator<GameKeyListener> it = keyListenersCopy.iterator();
+		while(it.hasNext()) {
+			GameKeyListener next = it.next();
+			next.KeyDown(key, c);
 		}
     }
 
     @Override
     public void keyReleased(int key, char c) {
-		for(GameKeyListener listener : keyListeners) {
-			listener.KeyUp(key, c);
+		ArrayList<GameKeyListener> keyListenersCopy = new ArrayList<GameKeyListener>(keyListeners); //Create a copy because scripts can register keypress components.
+		System.out.println("Released key: " + key);
+		Iterator<GameKeyListener> it = keyListenersCopy.iterator();
+		while(it.hasNext()) {
+			GameKeyListener next = it.next();
+			next.KeyUp(key, c);
 		}
     }
 	
