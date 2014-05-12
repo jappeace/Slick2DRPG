@@ -1,6 +1,7 @@
 package org.bakkes.game.entity;
 
 import org.bakkes.game.items.Item;
+import org.bakkes.game.items.ItemCache;
 
 public class Inventory {
 
@@ -21,6 +22,16 @@ public class Inventory {
 		owner.sendMessage("Cannot accept " + item.getName() + ", inventory is full!");
 	}
 	
+	public void addItem(int itemID) {
+		addItem(ItemCache.getItemById(itemID));
+	}
+	
+	public Item getItem(int slot) {
+		if(slot >= 0 && slot < items.length && items[slot] != null)
+			return items[slot];
+		return null;
+	}
+	
 	public void deleteItem(int slot) {
 		if(slot >= 0 && slot < items.length)
 			items[slot] = null;
@@ -37,5 +48,13 @@ public class Inventory {
 	
 	public int getSlot(Item item) {
 		return getSlot(item.getItemID());
+	}
+	
+	public int getItemCount() {
+		return items.length;
+	}
+	
+	public boolean hasItem(int itemID) {
+		return getSlot(itemID) != -1;
 	}
 }

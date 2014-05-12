@@ -138,7 +138,7 @@ public class Player extends Entity {
 		game.showDialog(text);
 	}
 	
-	public void MoveTo(Vector2 toTile) {
+	public void moveTo(Vector2 toTile) {
 		AStarPathFinder pathFinder = new AStarPathFinder(World.getWorld().getLayerMap(), 500, false);
 		Path path = pathFinder.findPath(null, (int)getGridPosition().getX(), (int)getGridPosition().getY(), 
 				(int)toTile.getX(), (int)toTile.getY());

@@ -62,7 +62,7 @@ public class Game extends BasicGame implements KeyListener {
 			destinationTile = GridGraphicTranslator.PixelsToGrid(mousePos);
 			
 			if(!World.getWorld().getLayerMap().blocked(null, (int)destinationTile.getX(), (int)destinationTile.getY())) {
-				player.MoveTo(destinationTile);
+				player.moveTo(destinationTile);
 			} else {
 				destinationTile = null;
 			}

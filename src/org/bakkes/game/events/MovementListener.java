@@ -25,7 +25,7 @@ public class MovementListener implements GameKeyListener {
 		}
 		Vector2 newPos = game.getPlayer().getGridPosition().copy();
 		newPos.add(diff);
-		game.getPlayer().MoveTo(newPos);
+		game.getPlayer().moveTo(newPos);
 	}
 
 	public void KeyUp(int key, char c) {
