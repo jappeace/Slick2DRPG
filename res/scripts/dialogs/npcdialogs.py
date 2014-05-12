@@ -13,5 +13,7 @@ def talkto_3(game):
 	game.showDialog("What are you doing here?");
 	
 def talkto_4(game):
-	game.showDialog("Sorry, I can't let you in here!\nGo back")
+	game.showDialog("Sorry, I can't let you in here!")
+	game.showDialog("I'll just send you back.")
 	game.getPlayer().moveTo(Vector2(8, 8))
+	game.showDialog("bye")

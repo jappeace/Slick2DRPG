@@ -33,13 +33,15 @@ public class DialogBox implements DrawableGameComponent, GameKeyListener {
 	}
 	
 	public void show() {
-		container.addComponent(this);
-		container.addKeyListener(this);
+		container.queueDialogBox(this);
+		//Functionality is now handled by Game
+		//container.addComponent(this);
+		//container.addKeyListener(this);
 	}
 	
 	public void hide() {
-		container.removeComponent(this);
-		container.removeKeyListener(this);
+		//container.removeComponent(this);
+		//container.removeKeyListener(this);
 	}
 
 	public void Render(GameContainer gc, Graphics g) {
@@ -54,9 +56,9 @@ public class DialogBox implements DrawableGameComponent, GameKeyListener {
 	}
 
 	public void KeyDown(int key, char c) {
-		if(key == 57) {
+		/*if(key == 57) {
 			hide();
-		}
+		}*/
 	}
 
 	public void KeyUp(int key, char c) {

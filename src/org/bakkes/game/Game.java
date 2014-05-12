@@ -2,6 +2,8 @@ package org.bakkes.game;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.events.GameKeyListener;
@@ -25,6 +27,9 @@ import org.newdawn.slick.SlickException;
 
 public class Game extends BasicGame implements KeyListener {
 
+	private boolean inputEnabled = true;
+	private DialogBox currentDialogBox = null;
+	private Queue<DialogBox> dialogQueue = new LinkedList<DialogBox>();
 	private ArrayList<DrawableGameComponent> drawables;
 	private ArrayList<GameKeyListener> keyListeners;
 	private Player player;
@@ -56,7 +61,7 @@ public class Game extends BasicGame implements KeyListener {
 		
 		Input input = gc.getInput();
 		
-		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && inputEnabled) {
 			Vector2 mousePos = new Vector2(input.getMouseX(), input.getMouseY());
 			mousePos = new Vector2(mousePos.getX() + camera.cameraX, mousePos.getY() + camera.cameraY);
 			destinationTile = GridGraphicTranslator.PixelsToGrid(mousePos);
@@ -92,6 +97,8 @@ public class Game extends BasicGame implements KeyListener {
 		for(DrawableGameComponent drawable : drawables) {
 			drawable.Render(gc, g);
 		}
+		if(currentDialogBox != null)
+			currentDialogBox.Render(gc, g);
 	}
 	
 	public void showDialog(String text) {
@@ -105,6 +112,8 @@ public class Game extends BasicGame implements KeyListener {
 	
 	@Override
     public void keyPressed(int key, char c) {
+		if(!inputEnabled)
+			return;
 		ArrayList<GameKeyListener> keyListenersCopy = new ArrayList<GameKeyListener>(keyListeners); //Create a copy because scripts can register keypress components.
 		System.out.println("Pressed key: " + key);
 		Iterator<GameKeyListener> it = keyListenersCopy.iterator();
@@ -116,6 +125,17 @@ public class Game extends BasicGame implements KeyListener {
 
     @Override
     public void keyReleased(int key, char c) {
+		if(key == 57) { //space
+			if(dialogQueue.size() > 0) {
+				inputEnabled = false;
+				currentDialogBox = dialogQueue.remove();
+			} else {
+				inputEnabled = true;
+				currentDialogBox = null;
+			}
+		}
+		if(!inputEnabled)
+			return;
 		ArrayList<GameKeyListener> keyListenersCopy = new ArrayList<GameKeyListener>(keyListeners); //Create a copy because scripts can register keyrelease components.
 		System.out.println("Released key: " + key);
 		Iterator<GameKeyListener> it = keyListenersCopy.iterator();
@@ -139,6 +159,10 @@ public class Game extends BasicGame implements KeyListener {
 	
 	public void removeKeyListener(GameKeyListener keylistener) {
 		this.keyListeners.remove(keylistener);
+	}
+
+	public void queueDialogBox(DialogBox dialogBox) {
+		dialogQueue.add(dialogBox);
 	}
 
 }
