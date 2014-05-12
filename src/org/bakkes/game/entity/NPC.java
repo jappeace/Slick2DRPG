@@ -5,6 +5,8 @@ import org.newdawn.slick.Graphics;
 
 public class NPC extends Entity {
 
+	private int npcId;
+	
 	@Override
 	public void update(GameContainer gc, int delta) {
 		// TODO Auto-generated method stub
