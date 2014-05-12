@@ -49,7 +49,8 @@ public class ScriptManager {
 	
 	public static void loadScripts() {
 		interpreter.cleanup();
-		loadRecursively(new File("./scripts/"));
+		loadRecursively(new File("./res/scripts/"));
+		System.out.println("Scripts loaded.");
 	}
 	
 	private static void loadRecursively(File dir) {

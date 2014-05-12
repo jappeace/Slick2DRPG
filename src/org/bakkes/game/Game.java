@@ -1,12 +1,10 @@
 package org.bakkes.game;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.events.GameKeyListener;
 import org.bakkes.game.events.TalkToNPCListener;
-import org.bakkes.game.map.LayerBasedMap;
 import org.bakkes.game.math.GridGraphicTranslator;
 import org.bakkes.game.math.Vector2;
 import org.bakkes.game.scripting.ScriptManager;
@@ -19,9 +17,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.KeyListener;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.tiled.TiledMap;
-import org.newdawn.slick.util.pathfinding.AStarPathFinder;
-import org.newdawn.slick.util.pathfinding.Path;
 
 public class Game extends BasicGame implements KeyListener {
 
@@ -102,6 +97,7 @@ public class Game extends BasicGame implements KeyListener {
 	
 	@Override
     public void keyPressed(int key, char c) {
+		System.out.println("Pressed key: " + key);
 		for(GameKeyListener listener : keyListeners) {
 			listener.KeyDown(key, c);
 		}
