@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.events.GameKeyListener;
+import org.bakkes.game.events.InventoryToggleListener;
 import org.bakkes.game.events.MovementListener;
 import org.bakkes.game.events.ScriptReloadListener;
 import org.bakkes.game.events.TalkToNPCListener;
@@ -13,6 +14,7 @@ import org.bakkes.game.math.Vector2;
 import org.bakkes.game.scripting.ScriptManager;
 import org.bakkes.game.ui.DialogBox;
 import org.bakkes.game.ui.DrawableGameComponent;
+import org.bakkes.game.ui.InventoryGameComponent;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -44,6 +46,8 @@ public class Game extends BasicGame implements KeyListener {
 		addKeyListener(new TalkToNPCListener(this));
 		addKeyListener(new ScriptReloadListener());
 		addKeyListener(new MovementListener(this));
+		addKeyListener(new InventoryToggleListener(this, new InventoryGameComponent(player)));
+		
 		ScriptManager.loadScripts();
 	}
 
