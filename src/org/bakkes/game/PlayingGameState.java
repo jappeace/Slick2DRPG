@@ -25,14 +25,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class PlayingGameState extends BasicGameState {
-	private boolean inputEnabled = true;
-	private DialogBox currentDialogBox = null;
-	private Queue<DialogBox> dialogQueue = new LinkedList<DialogBox>();
-	
-	
-	private ArrayList<DrawableGameComponent> drawables;
-	private ArrayList<GameKeyListener> keyListeners;
+public class PlayingGameState extends CommonGameState {
+	public static final int PLAYING_STATE_ID = 0;
+
 	private Player player;
 	private Camera camera;
 	private Vector2 destinationTile;
@@ -43,85 +38,19 @@ public class PlayingGameState extends BasicGameState {
 	public Player getPlayer() {
 		return player;
 	}
-	
-	@Override
-    public void keyPressed(int key, char c) {
-		if(!inputEnabled)
-			return;
-		ArrayList<GameKeyListener> keyListenersCopy = new ArrayList<GameKeyListener>(keyListeners); //Create a copy because scripts can register keypress components.
-		System.out.println("Pressed key: " + key);
-		Iterator<GameKeyListener> it = keyListenersCopy.iterator();
-		while(it.hasNext()) {
-			GameKeyListener next = it.next();
-			next.KeyDown(key, c);
-		}
-    }
-
-    @Override
-    public void keyReleased(int key, char c) {
-		if(key == 57) { //space
-			checkDialogs();
-		}
-		if(!inputEnabled)
-			return;
-		ArrayList<GameKeyListener> keyListenersCopy = new ArrayList<GameKeyListener>(keyListeners); //Create a copy because scripts can register keyrelease components.
-		System.out.println("Released key: " + key);
-		Iterator<GameKeyListener> it = keyListenersCopy.iterator();
-		while(it.hasNext()) {
-			GameKeyListener next = it.next();
-			next.KeyUp(key, c);
-		}
-    }
-	
-	public void addComponent(DrawableGameComponent gameComponent) {
-		this.drawables.add(gameComponent);
-	}
-	
-	public void addKeyListener(GameKeyListener keylistener) {
-		this.keyListeners.add(keylistener);
-	}
-	
-	public void removeComponent(DrawableGameComponent gameComponent) {
-		this.drawables.remove(gameComponent);
-	}
-	
-	public void removeKeyListener(GameKeyListener keylistener) {
-		this.keyListeners.remove(keylistener);
-	}
-
-	public void queueDialogBox(DialogBox dialogBox) {
-		dialogQueue.add(dialogBox);
-	}
-	
-	public void checkDialogs() {
-		if(dialogQueue.size() > 0) {
-			inputEnabled = false;
-			currentDialogBox = dialogQueue.remove();
-		} else {
-			inputEnabled = true;
-			currentDialogBox = null;
-		}
-	}
-	
-	public void showDialog(String text) {
-		DialogBox d = new DialogBox(this, text);
-		d.show();
-	}
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
-		return 0;
+		return PLAYING_STATE_ID;
 	}
 
 	public void init(GameContainer gc, StateBasedGame arg1)
 			throws SlickException {
+		super.init(gc, arg1);
+		
 		player = new Player(this);
 		player.init(gc);
 		camera = new Camera(gc, World.getWorld().getMap());
-		
-		drawables = new ArrayList<DrawableGameComponent>();
-		keyListeners = new ArrayList<GameKeyListener>();
 		
 		addKeyListener(new TalkToNPCListener(this));
 		addKeyListener(new ScriptReloadListener());
@@ -133,6 +62,7 @@ public class PlayingGameState extends BasicGameState {
 
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
+		
 		Input input = gc.getInput();
 		
 		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && inputEnabled) {
@@ -153,6 +83,7 @@ public class PlayingGameState extends BasicGameState {
 
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics g)
 			throws SlickException {
+		
 		Input input = gc.getInput();
 		Vector2 mousePos = new Vector2(input.getMouseX(), input.getMouseY());
 		Vector2 paintPos = GridGraphicTranslator.PixelsToGridPixels(mousePos);
@@ -170,11 +101,7 @@ public class PlayingGameState extends BasicGameState {
 		
 		g.setColor(Color.black);
 		g.drawRect(paintPos.getX(), paintPos.getY(), Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
-		for(DrawableGameComponent drawable : drawables) {
-			drawable.Render(gc, g);
-		}
-		if(currentDialogBox != null)
-			currentDialogBox.Render(gc, g);
+		super.render(gc, arg1, g);
 	}
 
 }
