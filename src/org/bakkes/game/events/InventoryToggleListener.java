@@ -1,7 +1,7 @@
 package org.bakkes.game.events;
 
-import org.bakkes.game.PlayingGameState;
 import org.bakkes.game.scripting.ScriptManager;
+import org.bakkes.game.state.PlayingGameState;
 import org.bakkes.game.ui.InventoryGameComponent;
 
 public class InventoryToggleListener implements GameKeyListener {

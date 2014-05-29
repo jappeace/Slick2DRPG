@@ -1,4 +1,4 @@
-package org.bakkes.game;
+package org.bakkes.game.state;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import org.bakkes.game.Constants;
 import org.bakkes.game.Game;
-import org.bakkes.game.PlayingGameState;
 import org.bakkes.game.World;
 import org.bakkes.game.math.GridGraphicTranslator;
 import org.bakkes.game.math.Vector2;
 import org.bakkes.game.math.pathfinding.IPathFinder;
 import org.bakkes.game.math.pathfinding.AStarPathFinder;
 import org.bakkes.game.math.pathfinding.Node;
+import org.bakkes.game.state.PlayingGameState;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;

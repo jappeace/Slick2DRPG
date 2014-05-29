@@ -1,8 +1,8 @@
 package org.bakkes.game.events;
 
 import org.bakkes.game.Game;
-import org.bakkes.game.PlayingGameState;
 import org.bakkes.game.scripting.ScriptManager;
+import org.bakkes.game.state.PlayingGameState;
 
 public class TalkToNPCListener implements GameKeyListener {
 	private PlayingGameState game;

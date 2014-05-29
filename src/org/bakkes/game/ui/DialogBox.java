@@ -2,10 +2,10 @@ package org.bakkes.game.ui;
 
 import java.awt.Font;
 
-import org.bakkes.game.CommonGameState;
 import org.bakkes.game.Game;
-import org.bakkes.game.PlayingGameState;
 import org.bakkes.game.events.GameKeyListener;
+import org.bakkes.game.state.CommonGameState;
+import org.bakkes.game.state.PlayingGameState;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

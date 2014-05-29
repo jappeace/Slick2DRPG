@@ -32,10 +32,10 @@ public class Camera {
    protected GameContainer gc;
 
    /** the x-position of our "camera" in pixel */
-   protected float cameraX;
+   public float cameraX;
    
    /** the y-position of our "camera" in pixel */
-   protected float cameraY;
+   public float cameraY;
    
    /**
     * Create a new camera

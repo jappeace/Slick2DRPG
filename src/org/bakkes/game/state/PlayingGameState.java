@@ -1,10 +1,13 @@
-package org.bakkes.game;
+package org.bakkes.game.state;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import org.bakkes.game.Camera;
+import org.bakkes.game.Constants;
+import org.bakkes.game.World;
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.events.GameKeyListener;
 import org.bakkes.game.events.InventoryToggleListener;
@@ -32,9 +35,6 @@ public class PlayingGameState extends CommonGameState {
 	private Camera camera;
 	private Vector2 destinationTile;
 
-
-
-	
 	public Player getPlayer() {
 		return player;
 	}
