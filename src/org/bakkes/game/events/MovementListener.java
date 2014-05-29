@@ -14,7 +14,7 @@ public class MovementListener implements GameKeyListener {
 	}
 	
 	public void KeyDown(int key, char c) {
-		Vector2 diff = new Vector2(0, 0);
+		/*Vector2 diff = new Vector2(0, 0);
 		if(key == 17) { //W
 			diff.addY(-1);
 		} else if(key == 30) { //a
@@ -26,7 +26,7 @@ public class MovementListener implements GameKeyListener {
 		}
 		Vector2 newPos = game.getPlayer().getGridPosition().copy();
 		newPos.add(diff);
-		game.getPlayer().moveTo(newPos);
+		game.getPlayer().moveTo(newPos);*/
 	}
 
 	public void KeyUp(int key, char c) {

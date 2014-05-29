@@ -9,6 +9,7 @@ import org.bakkes.game.Camera;
 import org.bakkes.game.Constants;
 import org.bakkes.game.World;
 import org.bakkes.game.entity.Player;
+import org.bakkes.game.events.ChangeToBirdListener;
 import org.bakkes.game.events.GameKeyListener;
 import org.bakkes.game.events.InventoryToggleListener;
 import org.bakkes.game.events.MovementListener;
@@ -56,7 +57,7 @@ public class PlayingGameState extends CommonGameState {
 		addKeyListener(new ScriptReloadListener());
 		addKeyListener(new MovementListener(this));
 		addKeyListener(new InventoryToggleListener(this, new InventoryGameComponent(player)));
-		
+		addKeyListener(new ChangeToBirdListener(arg1));
 		ScriptManager.loadScripts();
 	}
 
