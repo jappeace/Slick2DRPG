@@ -1,7 +1,7 @@
 package org.bakkes.game;
 
-import org.bakkes.game.minigames.bird.BirdMinigame;
 import org.bakkes.game.state.PlayingGameState;
+import org.bakkes.game.state.minigames.bird.BirdMinigame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.KeyListener;
 import org.newdawn.slick.SlickException;
