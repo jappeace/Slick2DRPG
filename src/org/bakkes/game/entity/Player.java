@@ -1,5 +1,7 @@
 package org.bakkes.game.entity;
 
+import java.util.ArrayList;
+
 import org.bakkes.game.Constants;
 import org.bakkes.game.Game;
 import org.bakkes.game.World;
@@ -7,7 +9,9 @@ import org.bakkes.game.math.GridGraphicTranslator;
 import org.bakkes.game.math.Vector2;
 import org.bakkes.game.math.pathfinding.IPathFinder;
 import org.bakkes.game.math.pathfinding.AStarPathFinder;
+import org.bakkes.game.math.pathfinding.Node;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -29,6 +33,9 @@ public class Player extends Entity {
 	private int facing = Direction.NORTH;
 	private Inventory inventory;
 	private Game game;
+	
+	public ArrayList<Node> considered; 
+	public ArrayList<Node> usedPath;
 	
 	public Player(Game g) {
 		game = g;
@@ -121,6 +128,18 @@ public class Player extends Entity {
 	@Override
 	public void render(GameContainer gc, Graphics g) {
 		_animation[facing].draw(_pixelPosition.getX(), _pixelPosition.getY());
+		if(considered != null && isCurrentlyMoving) {
+			g.setColor(new Color(0, 255, 255, 64));
+			for(Node node : considered) {
+				Vector2 pos = node.getPosition();
+				g.fillRect(pos.getX() * 16, pos.getY() * 16, Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
+			}
+			g.setColor(new Color(255, 255, 255, 64));
+			for(Node node : usedPath) {
+				Vector2 pos = node.getPosition();
+				g.fillRect(pos.getX() * 16, pos.getY() * 16, Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
+			}
+		}
 	}
 	
 	public Vector2 getGridPosition() {
@@ -142,6 +161,8 @@ public class Player extends Entity {
 	public void moveTo(Vector2 toTile) {
 		IPathFinder pathFinder = new AStarPathFinder(World.getWorld().getLayerMap());
 		Path path = pathFinder.getShortestPath(getGridPosition(), toTile);
+		this.considered = ((AStarPathFinder)pathFinder).considered;
+		this.usedPath = ((AStarPathFinder)pathFinder).thePath;
 		if(path != null)
 			Move(path);
 	}

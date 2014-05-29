@@ -26,6 +26,14 @@ public class Vector2 {
 		this.y = y;
 	}
 	
+	public int getXI() {
+		return (int) getX();
+	}
+	
+	public int getYI() {
+		return (int) getY();
+	}
+	
 	public void add(Vector2 p) {
 		this.x += p.x;
 		this.y += p.y;
@@ -45,5 +53,9 @@ public class Vector2 {
 	
 	public Vector2 copy() {
 		return new Vector2(x, y);
+	}
+	
+	public String toString() {
+		return "(" + x + ", " + y + ")";
 	}
 }

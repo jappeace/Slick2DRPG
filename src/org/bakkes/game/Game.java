@@ -66,7 +66,7 @@ public class Game extends BasicGame implements KeyListener {
 			mousePos = new Vector2(mousePos.getX() + camera.cameraX, mousePos.getY() + camera.cameraY);
 			destinationTile = GridGraphicTranslator.PixelsToGrid(mousePos);
 			
-			if(!World.getWorld().getLayerMap().blocked(null, (int)destinationTile.getX(), (int)destinationTile.getY())) {
+			if(!World.getWorld().getLayerMap().isBlocked(destinationTile)) {
 				player.moveTo(destinationTile);
 			} else {
 				destinationTile = null;

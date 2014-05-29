@@ -4,21 +4,25 @@ import org.bakkes.game.math.Vector2;
 
 public class Node {
 	private Vector2 position;
-	private int fScore;
 	
-	public Node(Vector2 position, int fScore) {
+	public Node parent;
+	public float h;
+	public float cost;
+	
+	public Node(Vector2 position) {
 		super();
 		this.position = position;
-		this.fScore = fScore;
 	}
 
 	public Vector2 getPosition() {
 		return position;
 	}
 
-	public int getfScore() {
-		return fScore;
+	public Node getParent() {
+		return parent;
 	}
-	
-	
+
+	public void setParent(Node parent) {
+		this.parent = parent;
+	}
 }

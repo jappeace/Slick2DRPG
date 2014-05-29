@@ -5,9 +5,12 @@ import java.util.Comparator;
 public class NodeComparator implements Comparator<Node> {
 
 	public int compare(Node arg0, Node arg1) {
-		if(arg0.getfScore() > arg1.getfScore())
+		float diff0 = arg0.h + arg0.cost;
+		float diff1 = arg1.h + arg1.cost;
+		
+		if(diff0 > diff1)
 			return 1;
-		else if(arg0.getfScore() < arg1.getfScore())
+		else if(diff0 < diff1)
 			return -1;
 		return 0;
 	}

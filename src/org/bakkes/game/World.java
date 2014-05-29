@@ -1,13 +1,13 @@
 package org.bakkes.game;
 
-import org.bakkes.game.map.LayerBasedMap;
+import org.bakkes.game.map.CustomLayerBasedMap;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class World {
 	
 	private TiledMap map;
-	private LayerBasedMap layerMap;
+	private CustomLayerBasedMap layerMap;
 
 	public World() {
 		try {
@@ -16,14 +16,14 @@ public class World {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		layerMap = new LayerBasedMap(map, map.getLayerIndex("objects"), map.getLayerIndex("npc"));
+		layerMap = new CustomLayerBasedMap(map, map.getLayerIndex("objects"), map.getLayerIndex("npc"));
 	}
 	
 	public TiledMap getMap() {
 		return map;
 	}
 
-	public LayerBasedMap getLayerMap() {
+	public CustomLayerBasedMap getLayerMap() {
 		return layerMap;
 	}
 	
