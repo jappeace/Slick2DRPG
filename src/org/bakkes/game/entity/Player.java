@@ -5,13 +5,14 @@ import org.bakkes.game.Game;
 import org.bakkes.game.World;
 import org.bakkes.game.math.GridGraphicTranslator;
 import org.bakkes.game.math.Vector2;
+import org.bakkes.game.math.pathfinding.IPathFinder;
+import org.bakkes.game.math.pathfinding.AStarPathFinder;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.tiled.TiledMap;
-import org.newdawn.slick.util.pathfinding.AStarPathFinder;
 import org.newdawn.slick.util.pathfinding.Path;
 import org.newdawn.slick.util.pathfinding.Path.Step;
 
@@ -139,9 +140,8 @@ public class Player extends Entity {
 	}
 	
 	public void moveTo(Vector2 toTile) {
-		AStarPathFinder pathFinder = new AStarPathFinder(World.getWorld().getLayerMap(), 500, false);
-		Path path = pathFinder.findPath(null, (int)getGridPosition().getX(), (int)getGridPosition().getY(), 
-				(int)toTile.getX(), (int)toTile.getY());
+		IPathFinder pathFinder = new AStarPathFinder(World.getWorld().getLayerMap());
+		Path path = pathFinder.getShortestPath(getGridPosition(), toTile);
 		if(path != null)
 			Move(path);
 	}
