@@ -1,11 +1,12 @@
-package org.bakkes.game.state.minigames.bird.entity.behavior;
+package org.bakkes.game.state.minigames.bird.entity.behavior.simple;
 
 import org.bakkes.game.math.Vector2;
 import org.bakkes.game.state.minigames.bird.entity.MovingEntity;
+import org.bakkes.game.state.minigames.bird.entity.behavior.IBehavior;
 
 public class ArriveBehavior implements IBehavior {
-
 	private MovingEntity entity;
+	
 	public ArriveBehavior(MovingEntity entity) {
 		this.entity = entity;
 	}

@@ -63,7 +63,7 @@ public class PlayingGameState extends CommonGameState {
 
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
-		
+		super.update(gc, arg1, delta);
 		Input input = gc.getInput();
 		
 		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && inputEnabled) {

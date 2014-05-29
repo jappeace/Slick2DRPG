@@ -44,10 +44,11 @@ public class BirdMinigame extends Minigame {
 		}
 	}
 	
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
+	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
+		super.update(gc, arg1, delta);
 		for(Bird bird : birds) {
-			bird.update(arg0, arg2);
+			bird.update(gc, delta);
 		}
 	}
 	

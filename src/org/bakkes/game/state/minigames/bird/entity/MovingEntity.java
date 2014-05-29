@@ -4,8 +4,8 @@ import org.bakkes.game.math.Vector2;
 
 public abstract class MovingEntity extends BaseGameEntity {
 	public Vector2 velocity;
-	protected Vector2 heading;
-	protected Vector2 side;
+	public Vector2 heading;
+	public Vector2 side;
 	protected float mass;
 	public float maxSpeed;
 	protected float maxForce;

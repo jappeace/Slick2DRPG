@@ -1,10 +1,12 @@
 package org.bakkes.game.state.minigames.bird.entity;
 
 import org.bakkes.game.math.Vector2;
-import org.bakkes.game.state.minigames.bird.entity.behavior.ArriveBehavior;
 import org.bakkes.game.state.minigames.bird.entity.behavior.IBehavior;
-import org.bakkes.game.state.minigames.bird.entity.behavior.SeekBehavior;
 import org.bakkes.game.state.minigames.bird.entity.behavior.SteeringBehavior;
+import org.bakkes.game.state.minigames.bird.entity.behavior.simple.ArriveBehavior;
+import org.bakkes.game.state.minigames.bird.entity.behavior.simple.FleeBehavior;
+import org.bakkes.game.state.minigames.bird.entity.behavior.simple.SeekBehavior;
+import org.bakkes.game.state.minigames.bird.entity.behavior.simple.WanderBehavior;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,7 +22,7 @@ public class Bird extends MovingEntity {
 		super(position, radius, velocity, maxSpeed, heading, mass, scale, turnRate,
 				maxForce);
 		behavior = new SteeringBehavior(this);
-		behavior.addBehavior(new ArriveBehavior(this));
+		behavior.addBehavior(new WanderBehavior(this));
 	}
 
 	@Override
