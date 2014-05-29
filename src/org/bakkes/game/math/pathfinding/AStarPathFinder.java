@@ -5,24 +5,24 @@ import java.util.PriorityQueue;
 
 import org.bakkes.game.map.CustomLayerBasedMap;
 import org.bakkes.game.math.Vector2;
-import org.bakkes.game.math.pathfinding.distance.IDistanceCalculator;
-import org.bakkes.game.math.pathfinding.distance.ManhattanDistance;
+import org.bakkes.game.math.pathfinding.heuristic.IHeuristicCalculator;
+import org.bakkes.game.math.pathfinding.heuristic.ManhattanHeuristic;
 import org.newdawn.slick.util.pathfinding.Path;
 
 public class AStarPathFinder implements IPathFinder {
 
 	private CustomLayerBasedMap map;
-	private IDistanceCalculator distanceCalculator;
+	private IHeuristicCalculator distanceCalculator;
 	private Node[][] nodes;
 	
 	public ArrayList<Node> considered = new ArrayList<Node>();
 	public ArrayList<Node> thePath = new ArrayList<Node>();
 	
 	public AStarPathFinder(CustomLayerBasedMap map) {
-		this(map, new ManhattanDistance());
+		this(map, new ManhattanHeuristic());
 	}
 	
-	public AStarPathFinder(CustomLayerBasedMap map, IDistanceCalculator distanceCalculator) {
+	public AStarPathFinder(CustomLayerBasedMap map, IHeuristicCalculator distanceCalculator) {
 		this.map = map;
 		this.distanceCalculator = distanceCalculator;
 		
