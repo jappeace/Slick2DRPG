@@ -52,6 +52,7 @@ public class DialogBox implements DrawableGameComponent, GameKeyListener {
 		g.setLineWidth(5f);
 		g.setColor(Color.black);
 		g.drawRect(1, 400, 797, 197);
+		g.setLineWidth(1f);
 		g.resetLineWidth();
 		//g.setFont(font);
 		g.drawString(this.getText(), 20, 420);
