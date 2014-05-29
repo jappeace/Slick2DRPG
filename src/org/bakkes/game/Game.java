@@ -35,6 +35,7 @@ public class Game extends BasicGame implements KeyListener {
 	private Player player;
 	private Camera camera;
 	private Vector2 destinationTile;
+	
 	public Game(String title) {
 		super(title);
 	}

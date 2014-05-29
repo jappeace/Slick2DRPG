@@ -9,8 +9,8 @@ public class CustomLayerBasedMap implements CustomTileBasedMap {
 	private int[] blockingLayers;
 	
 	public CustomLayerBasedMap(TiledMap map, int... blockingLayers) {
-        this.map = map;
-        this.blockingLayers = blockingLayers;
+		this.map = map;
+		this.blockingLayers = blockingLayers;
 	}
 	
 	public int getWidth() {
