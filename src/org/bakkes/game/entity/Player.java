@@ -52,7 +52,7 @@ public class Player extends Entity {
 			_animation[Direction.SOUTH] = new Animation(_spriteSheet, 0, 1, 2, 1, true, 200, true);
 			_animation[Direction.WEST]  = new Animation(_spriteSheet, 0, 2, 2, 2, true, 200, true);
 			
-			for(int i = 0; i <= 3; i++) {
+			for(int i = 0; i <= _animation.length; i++) {
 				_animation[i].setPingPong(true);
 				_animation[i].setAutoUpdate(false);
 			}

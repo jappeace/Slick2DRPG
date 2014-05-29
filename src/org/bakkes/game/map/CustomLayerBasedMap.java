@@ -34,11 +34,11 @@ public class CustomLayerBasedMap implements CustomTileBasedMap {
 	}
 	
     private boolean isBlocked(Vector2 position, int layer) {
-    	return map.getTileId((int)position.getX(), (int)position.getY(), layer) != 0;/*|| 
+    	return map.getTileId((int)position.getX(), (int)position.getY(), layer) != 0 || 
     			map.getTileId((int)position.getX(), (int)position.getY() + 1, layer) != 0 || 
         		map.getTileId((int)position.getX() + 1, (int)position.getY(), layer) != 0 || 
         		map.getTileId((int)position.getX() + 1, (int)position.getY() + 1, layer) != 0;//fix 2nd & 3rd statement, cheap fix because player is 32 px
-*/
+
     }
 
 }

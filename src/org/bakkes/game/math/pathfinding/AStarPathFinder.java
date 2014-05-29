@@ -44,14 +44,15 @@ public class AStarPathFinder implements IPathFinder {
 		
 		while(open.size() > 0) {
 			Node current = open.remove();
-			System.out.println("current: " + current.getPosition());
-			if(current.getPosition().getXI() == endPosition.getXI() && current.getPosition().getYI() == endPosition.getYI())
+			
+			if(current.getPosition().getXI() == endPosition.getXI() && current.getPosition().getYI() == endPosition.getYI()) //reached the final position
 				break;
+			
 			closed.add(current);
 			considered.add(current);
 			Node[] neighbors = getNeighbors(current);
 			for(Node neighbor : neighbors) {
-				if(neighbor == null)
+				if(neighbor == null) //node doesn't exist
 					continue;
 				
 				float newCost = current.cost + 1f; //movement for every step is 1f, maybe later change to movement cost (map.getCost())?
@@ -70,6 +71,7 @@ public class AStarPathFinder implements IPathFinder {
 				}
 			}
 		}
+		//generate path by starting at endpoint and adding the parent until the startposition is reached.
 		Path p = new Path();
 		Node target = nodes[endPosition.getXI()][endPosition.getYI()];
 		while(target != nodes[startPosition.getXI()][startPosition.getYI()]) {
