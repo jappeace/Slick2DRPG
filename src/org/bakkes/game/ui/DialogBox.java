@@ -3,6 +3,7 @@ package org.bakkes.game.ui;
 import java.awt.Font;
 
 import org.bakkes.game.Game;
+import org.bakkes.game.PlayingGameState;
 import org.bakkes.game.events.GameKeyListener;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -14,14 +15,14 @@ public class DialogBox implements DrawableGameComponent, GameKeyListener {
 	private static UnicodeFont font;
 	
 	private String text;
-	private Game container;
-	public DialogBox(Game game) {
+	private PlayingGameState container;
+	public DialogBox(PlayingGameState game) {
 		this(game, "");
 	}
 	
-	public DialogBox(Game g, String text) {
+	public DialogBox(PlayingGameState playingGameState, String text) {
 		this.text = text;
-		container = g;
+		container = playingGameState;
 	}
 	
 	public String getText() {

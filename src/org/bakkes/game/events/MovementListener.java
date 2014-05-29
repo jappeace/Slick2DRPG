@@ -1,15 +1,16 @@
 package org.bakkes.game.events;
 
 import org.bakkes.game.Game;
+import org.bakkes.game.PlayingGameState;
 import org.bakkes.game.math.Vector2;
 
 //Class to use WASD for movement
 public class MovementListener implements GameKeyListener {
 
-	private Game game;
+	private PlayingGameState game;
 	
-	public MovementListener(Game game) {
-		this.game = game;
+	public MovementListener(PlayingGameState playingGameState) {
+		this.game = playingGameState;
 	}
 	
 	public void KeyDown(int key, char c) {

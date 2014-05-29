@@ -1,14 +1,15 @@
 package org.bakkes.game.events;
 
 import org.bakkes.game.Game;
+import org.bakkes.game.PlayingGameState;
 import org.bakkes.game.scripting.ScriptManager;
 
 public class TalkToNPCListener implements GameKeyListener {
-	private Game game;
+	private PlayingGameState game;
 	
 	
-	public TalkToNPCListener(Game game) {
-		this.game = game;
+	public TalkToNPCListener(PlayingGameState playingGameState) {
+		this.game = playingGameState;
 	}
 	
 	public void KeyDown(int key, char c) {

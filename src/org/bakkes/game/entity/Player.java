@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.bakkes.game.Constants;
 import org.bakkes.game.Game;
+import org.bakkes.game.PlayingGameState;
 import org.bakkes.game.World;
 import org.bakkes.game.math.GridGraphicTranslator;
 import org.bakkes.game.math.Vector2;
@@ -16,6 +17,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.Path;
 import org.newdawn.slick.util.pathfinding.Path.Step;
@@ -32,13 +34,13 @@ public class Player extends Entity {
 	private float addedX, addedY;
 	private int facing = Direction.NORTH;
 	private Inventory inventory;
-	private Game game;
+	private PlayingGameState game;
 	
 	public ArrayList<Node> considered; 
 	public ArrayList<Node> usedPath;
 	
-	public Player(Game g) {
-		game = g;
+	public Player(PlayingGameState playingGameState) {
+		game = playingGameState;
 	}
 	
 	@Override
@@ -52,7 +54,7 @@ public class Player extends Entity {
 			_animation[Direction.SOUTH] = new Animation(_spriteSheet, 0, 1, 2, 1, true, 200, true);
 			_animation[Direction.WEST]  = new Animation(_spriteSheet, 0, 2, 2, 2, true, 200, true);
 			
-			for(int i = 0; i <= _animation.length; i++) {
+			for(int i = 0; i <= _animation.length - 1; i++) {
 				_animation[i].setPingPong(true);
 				_animation[i].setAutoUpdate(false);
 			}

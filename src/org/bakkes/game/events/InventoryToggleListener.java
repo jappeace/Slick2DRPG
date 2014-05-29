@@ -1,16 +1,17 @@
 package org.bakkes.game.events;
 
 import org.bakkes.game.Game;
+import org.bakkes.game.PlayingGameState;
 import org.bakkes.game.scripting.ScriptManager;
 import org.bakkes.game.ui.InventoryGameComponent;
 
 public class InventoryToggleListener implements GameKeyListener {
-	private Game game;
+	private PlayingGameState game;
 	private InventoryGameComponent inventoryComponent;
 	private boolean enabled = false;
 	
-	public InventoryToggleListener(Game game, InventoryGameComponent inventoryComponent) {
-		this.game = game;
+	public InventoryToggleListener(PlayingGameState playingGameState, InventoryGameComponent inventoryComponent) {
+		this.game = playingGameState;
 		this.inventoryComponent = inventoryComponent;
 	}
 	
