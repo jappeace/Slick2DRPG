@@ -10,7 +10,7 @@ public abstract class BaseGameEntity {
 	private int id;
 	private boolean flag;
 	
-	protected Vector2 position;
+	public Vector2 position;
 	protected Vector2 scale;
 	protected double boundingRadius;
 	

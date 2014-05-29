@@ -3,11 +3,11 @@ package org.bakkes.game.state.minigames.bird.entity;
 import org.bakkes.game.math.Vector2;
 
 public abstract class MovingEntity extends BaseGameEntity {
-	protected Vector2 velocity;
+	public Vector2 velocity;
 	protected Vector2 heading;
 	protected Vector2 side;
 	protected float mass;
-	protected float maxSpeed;
+	public float maxSpeed;
 	protected float maxForce;
 	protected float maxTurnRate;
 	

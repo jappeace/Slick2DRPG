@@ -40,6 +40,7 @@ public class BirdMinigame extends Minigame {
 							5f
 							)
 					);
+			
 		}
 	}
 	

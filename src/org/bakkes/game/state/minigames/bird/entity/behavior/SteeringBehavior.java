@@ -21,11 +21,13 @@ public class SteeringBehavior  {
 	}
 	
 	public Vector2 calculate() {
+		if(behaviors.size() == 0)
+			return new Vector2(0f, 0f);
 		steeringForce = new Vector2(0f, 0f);
 		for(IBehavior b : behaviors) {
-			steeringForce.add(b.calculate());
+			steeringForce.add(b.calculate(new Vector2(400f, 300f))); 
 		}
 		steeringForce = steeringForce.divideBy(behaviors.size()); //weighted average
-		return new Vector2(0.0001f, 0.0001f);
+		return steeringForce;
 	}
 }
