@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.bakkes.game.Constants;
 import org.bakkes.game.Game;
 import org.bakkes.game.World;
+import org.bakkes.game.entity.follower.FollowingPokemon;
 import org.bakkes.game.math.GridGraphicTranslator;
 import org.bakkes.game.math.Vector2;
 import org.bakkes.game.math.pathfinding.IPathFinder;
@@ -23,8 +24,6 @@ import org.newdawn.slick.util.pathfinding.Path;
 import org.newdawn.slick.util.pathfinding.Path.Step;
 
 public class Player extends Entity {
-
-	private Vector2 _pixelPosition;
 	private SpriteSheet _spriteSheet;
 	private Animation[] _animation;
 	
@@ -32,7 +31,7 @@ public class Player extends Entity {
 	private Path currentPath;
 	private int currentStep;
 	private float addedX, addedY;
-	private int facing = Direction.NORTH;
+	private int facing = Direction.SOUTH;
 	private Inventory inventory;
 	private PlayingGameState game;
 	
@@ -59,8 +58,11 @@ public class Player extends Entity {
 				_animation[i].setAutoUpdate(false);
 			}
 			
-			_pixelPosition = GridGraphicTranslator.GridToPixels(new Vector2(8, 8));
+			position = GridGraphicTranslator.GridToPixels(new Vector2(8, 8));
 			inventory = new Inventory(this);
+			FollowingPokemon p = new FollowingPokemon(this);
+			p.init(gc);
+			this.follower = p;
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,10 +78,10 @@ public class Player extends Entity {
 			float dX = delta / 10f;
 			float dY = delta / 10f;
 
-			if(destinationPixelPoint.getX() < _pixelPosition.getX())
+			if(destinationPixelPoint.getX() < position.getX())
 				dX = -dX;
 			
-			if(destinationPixelPoint.getY() < _pixelPosition.getY())
+			if(destinationPixelPoint.getY() < position.getY())
 				dY = -dY;
 			
 			
@@ -94,11 +96,11 @@ public class Player extends Entity {
 			addedX += dX;
 			addedY += dY;
 			
-			_pixelPosition.add(new Vector2(dX, dY));
+			position.add(new Vector2(dX, dY));
 			
 			
-			if(GridGraphicTranslator.PixelsInTile(_pixelPosition, destinationPoint)) {
-				_pixelPosition = GridGraphicTranslator.PixelsToGridPixels(_pixelPosition);
+			if(GridGraphicTranslator.PixelsInTile(position, destinationPoint)) {
+				position = GridGraphicTranslator.PixelsToGridPixels(position);
 				currentStep++;
 				addedX = 0;
 				addedY = 0;
@@ -122,14 +124,18 @@ public class Player extends Entity {
 						facing = Direction.NORTH;
 					
 					_animation[facing].setAutoUpdate(true);
+					if(follower != null)
+						follower.face(facing);
 				}
 			}
 		}
+		if(follower != null)
+			follower.moved();
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) {
-		_animation[facing].draw(_pixelPosition.getX(), _pixelPosition.getY());
+		_animation[facing].draw(position.getX(), position.getY());
 		if(considered != null && isCurrentlyMoving) {
 			g.setColor(new Color(0, 255, 255, 64));
 			for(Node node : considered) {
@@ -142,14 +148,16 @@ public class Player extends Entity {
 				g.fillRect(pos.getX() * 16, pos.getY() * 16, Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
 			}
 		}
+		if(follower != null)
+			follower.render(gc, g);
 	}
 	
 	public Vector2 getGridPosition() {
-		return GridGraphicTranslator.PixelsToGrid(_pixelPosition);
+		return GridGraphicTranslator.PixelsToGrid(position);
 	}
 	
 	public Vector2 getPixelPosition() {
-		return _pixelPosition;
+		return position;
 	}
 	
 	public Inventory getInventory() {
@@ -158,6 +166,10 @@ public class Player extends Entity {
 	
 	public void showDialog(String text) {
 		game.showDialog(text);
+	}
+	
+	public boolean isCurrentlyMoving() {
+		return isCurrentlyMoving;
 	}
 	
 	public void moveTo(Vector2 toTile) {
