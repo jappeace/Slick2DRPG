@@ -71,6 +71,12 @@ public class Vector2 {
 		return cp;
 	}
 	
+	public static float Vec2DistanceSq(Vector2 one, Vector2 two) {
+		float ySep = two.y - one.y;
+		float xSep = two.x - one.x;
+		return ySep * ySep + xSep * xSep;
+	}
+	
 	public float length() {
 		return (float) Math.sqrt(x * x + y * y);
 	}

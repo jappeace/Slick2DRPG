@@ -1,8 +1,14 @@
 package org.bakkes.game.state.minigames.bird.entity;
 
+import java.util.ArrayList;
+
 import org.bakkes.game.math.Vector2;
+import org.bakkes.game.state.minigames.bird.BirdMinigame;
 import org.bakkes.game.state.minigames.bird.entity.behavior.IBehavior;
 import org.bakkes.game.state.minigames.bird.entity.behavior.SteeringBehavior;
+import org.bakkes.game.state.minigames.bird.entity.behavior.advanced.Explore;
+import org.bakkes.game.state.minigames.bird.entity.behavior.advanced.HideBehavior;
+import org.bakkes.game.state.minigames.bird.entity.behavior.advanced.Separation;
 import org.bakkes.game.state.minigames.bird.entity.behavior.simple.ArriveBehavior;
 import org.bakkes.game.state.minigames.bird.entity.behavior.simple.FleeBehavior;
 import org.bakkes.game.state.minigames.bird.entity.behavior.simple.SeekBehavior;
@@ -12,18 +18,26 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 public class Bird extends MovingEntity {
-	private static final float MOVEMENT_PER_MS = 0.1f; //move max 0.1f per MS
+	private static final float MOVEMENT_PER_MS = 0.01f; //move max 0.1f per MS
 	
 	private SteeringBehavior behavior;
 	
 	public Bird(Vector2 position, float radius, Vector2 velocity,
 			float maxSpeed, Vector2 heading, float mass, Vector2 scale,
-			float turnRate, float maxForce) {
+			float turnRate, float maxForce, BirdMinigame minigame) {
+		
 		super(position, radius, velocity, maxSpeed, heading, mass, scale, turnRate,
 				maxForce);
+		
 		behavior = new SteeringBehavior(this);
-		behavior.addBehavior(new WanderBehavior(this));
+		//behavior.addBehavior(new HideBehavior(this, minigame.obstacles));
+		behavior.addBehavior(new Explore(this));
 	}
+	
+	public SteeringBehavior getBehavior() {
+		return behavior;
+	}
+	
 
 	@Override
 	public void update(GameContainer gc, int delta) {

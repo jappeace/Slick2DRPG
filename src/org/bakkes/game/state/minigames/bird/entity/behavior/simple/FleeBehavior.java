@@ -14,7 +14,7 @@ public class FleeBehavior implements IBehavior {
 	public Vector2 calculate(Vector2 target) {
 		Vector2 desiredVelocity = entity.position.minusOperator(target);
 		desiredVelocity.normalize();
-		desiredVelocity.multiply(entity.maxSpeed);
+		desiredVelocity = desiredVelocity.multiply(entity.maxSpeed);
 		return desiredVelocity.minusOperator(entity.velocity);
 	}
 

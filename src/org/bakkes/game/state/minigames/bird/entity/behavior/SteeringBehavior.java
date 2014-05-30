@@ -9,6 +9,7 @@ public class SteeringBehavior  {
 	private MovingEntity entity;
 	private Vector2 steeringForce;
 	private ArrayList<IBehavior> behaviors;
+	public Vector2 target = new Vector2(400f, 300f);
 	
 	public SteeringBehavior(MovingEntity entity) {
 		this.entity = entity;
@@ -25,9 +26,9 @@ public class SteeringBehavior  {
 			return new Vector2(0f, 0f);
 		steeringForce = new Vector2(0f, 0f);
 		for(IBehavior b : behaviors) {
-			steeringForce.add(b.calculate(new Vector2(400f, 300f))); 
+			steeringForce.add(b.calculate(target)); 
 		}
-		steeringForce = steeringForce.divideBy(behaviors.size()); //weighted average
+		steeringForce = steeringForce.divideBy(behaviors.size()); //average
 		return steeringForce;
 	}
 }

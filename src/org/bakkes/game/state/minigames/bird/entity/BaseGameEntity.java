@@ -12,7 +12,7 @@ public abstract class BaseGameEntity {
 	
 	public Vector2 position;
 	protected Vector2 scale;
-	protected double boundingRadius;
+	public float boundingRadius;
 	
 	public abstract void update(GameContainer gc, int delta);
 	public abstract void render(GameContainer gc, Graphics g);
