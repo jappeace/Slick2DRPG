@@ -4,6 +4,7 @@ import org.bakkes.game.entity.Direction;
 import org.bakkes.game.entity.Entity;
 import org.bakkes.game.entity.NPC;
 import org.bakkes.game.entity.Player;
+import org.bakkes.game.entity.follower.state.StateMachine;
 import org.bakkes.game.math.GridGraphicTranslator;
 import org.bakkes.game.math.Vector2;
 import org.newdawn.slick.Animation;
@@ -14,10 +15,17 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 public class FollowingPokemon extends NPC implements IFollower {
+	/*
+	 * Public properties used for states
+	 */
+	public float hunger = 0;
+	public float scaredness = 0;
+	
 	private Player parent;
 	private static SpriteSheet _spriteSheet;
 	private Animation[] _animation;
 	private int facing;
+	private StateMachine stateMachine;
 	
 	public FollowingPokemon(Player parent) {
 		this.parent = parent;
@@ -25,7 +33,7 @@ public class FollowingPokemon extends NPC implements IFollower {
 							.PixelsToGrid(parent.getPosition()).minusOperator(
 							new Vector2(0f, 2f)));
 		this.facing = Direction.SOUTH;
-		
+		stateMachine = new StateMachine(this);
 	}
 	
 	@Override
@@ -39,10 +47,10 @@ public class FollowingPokemon extends NPC implements IFollower {
 			}
 		}
 		_animation = new Animation[4];
-		_animation[Direction.NORTH] = new Animation(_spriteSheet, 4, 0, 7, 0, true, 100, true);
-		_animation[Direction.EAST]  = new Animation(_spriteSheet, 4, 3, 5, 3, true, 100, true);
-		_animation[Direction.SOUTH] = new Animation(_spriteSheet, 4, 1, 7, 1, true, 100, true);
-		_animation[Direction.WEST]  = new Animation(_spriteSheet, 4, 2, 7, 2, true, 100, true);
+		_animation[Direction.NORTH] = new Animation(_spriteSheet, 4, 0, 7, 0, true, 150, true);
+		_animation[Direction.EAST]  = new Animation(_spriteSheet, 4, 3, 5, 3, true, 150, true);
+		_animation[Direction.SOUTH] = new Animation(_spriteSheet, 4, 1, 7, 1, true, 150, true);
+		_animation[Direction.WEST]  = new Animation(_spriteSheet, 4, 2, 7, 2, true, 150, true);
 		
 		for(int i = 0; i <= _animation.length - 1; i++) {
 			_animation[i].setPingPong(true);
@@ -73,5 +81,9 @@ public class FollowingPokemon extends NPC implements IFollower {
 		} else {
 			_animation[facing].setCurrentFrame(0);
 		}
+	}
+	
+	public StateMachine getStateMachine() {
+		return stateMachine;
 	}
 }

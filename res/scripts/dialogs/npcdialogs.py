@@ -2,6 +2,9 @@ from org.bakkes.game.math import Vector2
 
 def talkto_1(game):
 	game.showDialog("You just talked to NPC 1!\nWelcome to this game.\nInstantly updated?")
+	for i in range(0, 5, 1):
+		game.getPlayer().getInventory().addItem(3) #give player 5 apples
+	game.showDialog("I gave you some apples")
 	
 def talkto_2(game):
 	game.showDialog("Have a pokeball and some eggs")

@@ -10,6 +10,7 @@ public class ItemCache {
 		itemCache.put(0, new Item(0, "PokeBall"));
 		itemCache.put(1, new Item(1, "Greater Ball"));
 		itemCache.put(2, new Item(2, "Pokemon Egg"));
+		itemCache.put(3, new Item(3, "Apple"));
 	}
 	
 	public static Item getItemById(int id) {
