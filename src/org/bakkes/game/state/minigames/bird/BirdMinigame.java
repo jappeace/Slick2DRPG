@@ -10,8 +10,12 @@ import org.bakkes.game.state.minigames.bird.entity.Bird;
 import org.bakkes.game.state.minigames.bird.entity.ControlledBird;
 import org.bakkes.game.state.minigames.bird.entity.Obstacle;
 import org.bakkes.game.state.minigames.bird.entity.behavior.advanced.Explore;
+import org.bakkes.game.state.minigames.bird.entity.behavior.advanced.HideBehavior;
 import org.bakkes.game.state.minigames.bird.entity.behavior.advanced.Separation;
+import org.bakkes.game.state.minigames.bird.entity.behavior.simple.ArriveBehavior;
+import org.bakkes.game.state.minigames.bird.entity.behavior.simple.SeekBehavior;
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -136,6 +140,7 @@ public class BirdMinigame extends Minigame {
 		}
 		controlledBird.render(gc,  g);
 		
+		g.setColor(Color.black);
 		g.drawString("Behaviors : (" + birds.get(0).getBehavior().size() + ")", 5, 40);
 		String[] names = birds.get(0).getBehavior().getBehaviorNames();
 		for(int i = 0; i < names.length; i++) {
@@ -161,7 +166,7 @@ public class BirdMinigame extends Minigame {
 				@Override
 				public void onClose() {
 					for(Bird b : birds) {
-						b.getBehavior().addBehavior(new HideBehavior(b));
+						b.getBehavior().addBehavior(new HideBehavior(b, obstacles));
 					}
 					canProgress = true;
 				}
@@ -177,14 +182,29 @@ public class BirdMinigame extends Minigame {
 				public void onClose() {
 					for(Bird b : birds) {
 						b.getBehavior().clear();
-						b.getBehavior().addBehavior(new Separation(getOuter(), b));
+						//b.getBehavior().addBehavior(new SeekBehavior(b));
+						b.getBehavior().addBehavior(new ArriveBehavior(b));
 					}
 					canProgress = true;
 				}
 			});
 			checkDialogs();
 			break;
-			
+		case 2:
+			this.showDialog("Test", new DialogClosed() {
+
+				@Override
+				public void onClose() {
+					for(Bird b : birds) {
+						b.getBehavior().clear();
+						//b.getBehavior().addBehavior(new SeekBehavior(b));
+						b.getBehavior().addBehavior(new Explore(b));
+					}
+					canProgress = true;
+				}
+			});
+			checkDialogs();
+			break;
 		
 		}
 		
