@@ -8,6 +8,7 @@ public class Node {
 	public Node parent;
 	public float h;
 	public float cost;
+	public float f;
 	
 	public Node(Vector2 position) {
 		super();

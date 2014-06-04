@@ -5,12 +5,10 @@ import java.util.Comparator;
 public class NodeComparator implements Comparator<Node> {
 
 	public int compare(Node arg0, Node arg1) {
-		float diff0 = arg0.h + arg0.cost;
-		float diff1 = arg1.h + arg1.cost;
 		
-		if(diff0 > diff1)
+		if(arg0.f > arg1.f)
 			return 1;
-		else if(diff0 < diff1)
+		else if(arg0.f < arg1.f)
 			return -1;
 		return 0;
 	}

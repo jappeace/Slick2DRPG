@@ -54,20 +54,20 @@ public class AStarPathFinder implements IPathFinder {
 			for(Node neighbor : neighbors) {
 				if(neighbor == null) //node doesn't exist
 					continue;
+				if(closed.contains(neighbor))
+					continue;
 				
 				float newCost = current.cost + 1f; //movement for every step is 1f
-				
-				if(closed.contains(neighbor) && newCost < neighbor.cost) {
-					neighbor.cost = newCost;
+				if(!open.contains(neighbor)) {
 					neighbor.parent = current;
-				} else if(open.contains(neighbor) && newCost < neighbor.cost) {
-					neighbor.cost = newCost;
-					neighbor.parent = current;
-				} else if(!closed.contains(neighbor) && !open.contains(neighbor)) {
 					neighbor.cost = newCost;
 					neighbor.h = distanceCalculator.getDistance(neighbor.getPosition(), endPosition);
-					neighbor.parent = current;
+					neighbor.f = neighbor.h + neighbor.cost;
 					open.add(neighbor);
+				} else if(newCost < neighbor.cost) {
+					neighbor.parent = current;
+					neighbor.cost = newCost;
+					neighbor.f = neighbor.h + neighbor.cost;
 				}
 			}
 		}
