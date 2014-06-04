@@ -40,7 +40,7 @@ public class Bird extends MovingEntity {
 		behavior = new SteeringBehavior(this);
 		//behavior.addBehavior(new HideBehavior(this, minigame.obstacles));
 		//behavior.addBehavior(new Explore(this));
-		behavior.addBehavior(new HideBehavior(this, minigame.obstacles));
+		//behavior.addBehavior(new HideBehavior(this, minigame.obstacles));
 		
 		
 		try {

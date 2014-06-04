@@ -15,6 +15,9 @@ public class AStarPathFinder implements IPathFinder {
 	private IHeuristicCalculator distanceCalculator;
 	private Node[][] nodes;
 	
+	/*
+	 * Used for showing which path it took and which nodes were considered
+	 */
 	public ArrayList<Node> considered = new ArrayList<Node>();
 	public ArrayList<Node> thePath = new ArrayList<Node>();
 	

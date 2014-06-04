@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import org.bakkes.game.GameInfo;
+import org.bakkes.game.events.DialogClosed;
 import org.bakkes.game.events.GameKeyListener;
 import org.bakkes.game.math.GridGraphicTranslator;
 import org.bakkes.game.math.Vector2;
@@ -25,7 +26,7 @@ public abstract class CommonGameState extends BasicGameState {
 	protected Queue<DialogBox> dialogQueue = new LinkedList<DialogBox>();
 	protected ArrayList<DrawableGameComponent> drawables;
 	protected ArrayList<GameKeyListener> keyListeners;
-	
+	protected DialogClosed dialogCallback;
 
 	
 	public void init(GameContainer gc, StateBasedGame arg1)
@@ -76,6 +77,9 @@ public abstract class CommonGameState extends BasicGameState {
 		} else {
 			inputEnabled = true;
 			currentDialogBox = null;
+			if(dialogCallback != null) {
+				dialogCallback.onClose();
+			}
 		}
 	}
 	
@@ -111,6 +115,12 @@ public abstract class CommonGameState extends BasicGameState {
 	public void showDialog(String text) {
 		DialogBox d = new DialogBox(this, text);
 		d.show();
+	}
+	
+	//give a callback which should be called when the dialog is closed
+	public void showDialog(String text, DialogClosed callback) {
+		showDialog(text);
+		dialogCallback = callback;
 	}
 	
 	public void activateDialogs() {
