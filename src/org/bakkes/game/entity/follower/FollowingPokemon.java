@@ -18,8 +18,8 @@ public class FollowingPokemon extends NPC implements IFollower {
 	/*
 	 * Public properties used for states
 	 */
-	public float hunger = 0;
-	public float scaredness = 0;
+	public int stepsTaken = 0;
+	public boolean isHealthy = true;
 	
 	private Player parent;
 	private static SpriteSheet _spriteSheet;
@@ -62,9 +62,10 @@ public class FollowingPokemon extends NPC implements IFollower {
 	@Override
 	public void render(GameContainer gc, Graphics g) {
 		// TODO Auto-generated method stub
-		g.setColor(Color.white);
-		g.drawString("Rendering " + facing + " - " + position.getX() + ", " + position.getY(), 10, 60);
-		_animation[facing].draw(position.getX(), position.getY());
+		if(isHealthy) {
+			//g.drawString("Rendering " + facing + " - " + position.getX() + ", " + position.getY(), 10, 60);
+			_animation[facing].draw(position.getX(), position.getY());
+		}
 	}
 
 	public void face(int direction) {
@@ -73,7 +74,8 @@ public class FollowingPokemon extends NPC implements IFollower {
 	
 	private static final float DISTANCE = 32f;
 	
-	public void moved() {
+	public void update(int delta) {
+		stateMachine.update();
 		if(parent.isCurrentlyMoving()) {
 			float xDiff = facing == Direction.WEST ? -DISTANCE : facing == Direction.EAST ? DISTANCE : 0;
 			float yDiff = facing == Direction.NORTH ? -DISTANCE : facing == Direction.SOUTH ? DISTANCE : 0;
@@ -85,5 +87,9 @@ public class FollowingPokemon extends NPC implements IFollower {
 	
 	public StateMachine getStateMachine() {
 		return stateMachine;
+	}
+	
+	public Player getParent() {
+		return parent;
 	}
 }

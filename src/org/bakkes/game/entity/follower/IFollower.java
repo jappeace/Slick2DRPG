@@ -4,7 +4,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 public interface IFollower {
-	void moved();
+	void update(int delta);
 	void face(int direction);
 	void render(GameContainer gc, Graphics g);
 }

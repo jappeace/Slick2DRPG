@@ -27,6 +27,7 @@ public class Player extends Entity {
 	private SpriteSheet _spriteSheet;
 	private Animation[] _animation;
 	
+	protected FollowingPokemon follower;
 	private boolean isCurrentlyMoving = false;
 	private Path currentPath;
 	private int currentStep;
@@ -100,6 +101,7 @@ public class Player extends Entity {
 			
 			
 			if(GridGraphicTranslator.PixelsInTile(position, destinationPoint)) {
+				follower.stepsTaken++;
 				position = GridGraphicTranslator.PixelsToGridPixels(position);
 				currentStep++;
 				addedX = 0;
@@ -130,7 +132,7 @@ public class Player extends Entity {
 			}
 		}
 		if(follower != null)
-			follower.moved();
+			follower.update(delta);
 	}
 
 	@Override
@@ -165,7 +167,9 @@ public class Player extends Entity {
 	}
 	
 	public void showDialog(String text) {
+		System.out.println("Attempting to show dialog: " + text);
 		game.showDialog(text);
+		game.activateDialogs();
 	}
 	
 	public boolean isCurrentlyMoving() {
@@ -181,6 +185,10 @@ public class Player extends Entity {
 			Move(path);
 	}
 
+	public FollowingPokemon getFollower() {
+		return follower;
+	}
+	
 	public void Move(Path p) {
 		isCurrentlyMoving = true;
 		currentPath = p;

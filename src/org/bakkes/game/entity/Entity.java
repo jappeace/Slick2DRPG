@@ -7,7 +7,6 @@ import org.newdawn.slick.Graphics;
 
 public abstract class Entity {
 	protected Vector2 position;
-	protected IFollower follower;
 	
 	public void init(GameContainer gc) {}
 	public abstract void update(GameContainer gc, int delta);

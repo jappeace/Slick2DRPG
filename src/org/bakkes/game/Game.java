@@ -1,5 +1,6 @@
 package org.bakkes.game;
 
+import org.bakkes.game.scripting.ScriptManager;
 import org.bakkes.game.state.BattleState;
 import org.bakkes.game.state.PlayingGameState;
 import org.bakkes.game.state.minigames.bird.BirdMinigame;

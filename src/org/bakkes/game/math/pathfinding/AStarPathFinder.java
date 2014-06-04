@@ -55,7 +55,7 @@ public class AStarPathFinder implements IPathFinder {
 				if(neighbor == null) //node doesn't exist
 					continue;
 				
-				float newCost = current.cost + 1f; //movement for every step is 1f, maybe later change to movement cost (map.getCost())?
+				float newCost = current.cost + 1f; //movement for every step is 1f
 				
 				if(closed.contains(neighbor) && newCost < neighbor.cost) {
 					neighbor.cost = newCost;

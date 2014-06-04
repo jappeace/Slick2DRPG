@@ -9,6 +9,7 @@ import org.bakkes.game.Camera;
 import org.bakkes.game.Constants;
 import org.bakkes.game.World;
 import org.bakkes.game.entity.Player;
+import org.bakkes.game.entity.follower.state.StateMachine;
 import org.bakkes.game.events.ChangeToBirdListener;
 import org.bakkes.game.events.GameKeyListener;
 import org.bakkes.game.events.InventoryToggleListener;
@@ -31,7 +32,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class PlayingGameState extends CommonGameState {
 	public static final int PLAYING_STATE_ID = 0;
-
+	public static boolean SHOW_DEBUG_INFO = true;
+	
 	private Player player;
 	private Camera camera;
 	private Vector2 destinationTile;
@@ -48,7 +50,7 @@ public class PlayingGameState extends CommonGameState {
 	public void init(GameContainer gc, StateBasedGame arg1)
 			throws SlickException {
 		super.init(gc, arg1);
-		
+		ScriptManager.loadScripts();
 		player = new Player(this);
 		player.init(gc);
 		camera = new Camera(gc, World.getWorld().getMap());
@@ -58,7 +60,6 @@ public class PlayingGameState extends CommonGameState {
 		addKeyListener(new MovementListener(this));
 		addKeyListener(new InventoryToggleListener(this, new InventoryGameComponent(player)));
 		addKeyListener(new ChangeToBirdListener(arg1));
-		ScriptManager.loadScripts();
 	}
 
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
@@ -102,6 +103,13 @@ public class PlayingGameState extends CommonGameState {
 		
 		g.setColor(Color.black);
 		g.drawRect(paintPos.getX(), paintPos.getY(), Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
+		if(SHOW_DEBUG_INFO) {
+			StateMachine stateMachine = player.getFollower().getStateMachine();
+			if(stateMachine.getState() != null) {
+				g.setColor(Color.white);
+				g.drawString("Pokemon state: " + stateMachine.getState().getName(), 10, 50);
+			}
+		}
 		super.render(gc, arg1, g);
 	}
 

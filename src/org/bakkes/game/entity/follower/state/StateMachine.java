@@ -2,29 +2,39 @@ package org.bakkes.game.entity.follower.state;
 
 import org.bakkes.game.entity.follower.FollowingPokemon;
 import org.bakkes.game.scripting.ScriptManager;
+import org.python.core.PyObject;
+import org.python.util.PythonInterpreter;
 
 public class StateMachine {
 
 	private FollowingPokemon follower;
-	private IState oldState;
+	private IState currentState;
+	
 	public StateMachine(FollowingPokemon follower) {
 		this.follower = follower;
-		ScriptManager.executeFunction("load_state", follower);
+		changeState(LoadDefaultState());
 	}
 	
 	public void update() {
-		oldState.execute(follower);
+		currentState.execute(follower);
 	}
 	
 	public void changeState(IState newState) {
-		if(oldState != null)
-			oldState.exit(follower);
+		if(currentState != null)
+			currentState.exit(follower);
 		newState.enter(follower);
 		
-		oldState = newState;
+		currentState = newState;
 	}
 	
-	public static void LoadDefaultState() {
-		
+	public IState getState() {
+		return currentState;
+	}
+	
+	public static IState LoadDefaultState() {
+		PythonInterpreter intp = ScriptManager.getInterpreter();
+		PyObject followerState = intp.get("FollowerState");
+		PyObject stateInstance = followerState.__call__();
+		return (IState)stateInstance.__tojava__(IState.class);
 	}
 }

@@ -112,4 +112,9 @@ public abstract class CommonGameState extends BasicGameState {
 		DialogBox d = new DialogBox(this, text);
 		d.show();
 	}
+	
+	public void activateDialogs() {
+		if(currentDialogBox == null && dialogQueue.size() > 0)
+			checkDialogs();
+	}
 }
