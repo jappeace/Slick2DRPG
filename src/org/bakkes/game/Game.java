@@ -1,5 +1,6 @@
 package org.bakkes.game;
 
+import org.bakkes.game.state.BattleState;
 import org.bakkes.game.state.PlayingGameState;
 import org.bakkes.game.state.minigames.bird.BirdMinigame;
 import org.newdawn.slick.GameContainer;
@@ -16,6 +17,7 @@ public class Game extends StateBasedGame implements KeyListener {
 	public void initStatesList(GameContainer gc) throws SlickException {
 		this.addState(new PlayingGameState());
 		this.addState(new BirdMinigame());
+		this.addState(new BattleState());
 	}
 
 

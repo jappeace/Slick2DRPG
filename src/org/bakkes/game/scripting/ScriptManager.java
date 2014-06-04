@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import org.bakkes.game.scripting.interfaces.IPokemon;
 import org.python.core.Py;
 import org.python.core.PyException;
 import org.python.core.PyFunction;
@@ -13,12 +14,18 @@ import org.python.util.PythonInterpreter;
 public class ScriptManager {
 	private static PythonInterpreter interpreter = new PythonInterpreter();
 	
+	public static PythonInterpreter getInterpreter() {
+		return interpreter;
+	}
+	
 	public static <T> T getVariable(String variableName) {
+		System.out.println("Retrieved python variable " + variableName);
 		return (T)interpreter.get(variableName);
 	}
 	
 	public static <T> T executeFunction(Class<T> type, String name, Object... binds) {
 		try {
+			System.out.println("Executing function " + name + "(" + binds.toString() + ")");
 			PyObject obj = interpreter.get(name);
 			if(obj != null && obj instanceof PyFunction) {
 				PyFunction function = (PyFunction)obj;
@@ -34,6 +41,7 @@ public class ScriptManager {
 	
 	public static boolean executeFunction(String name, Object... binds) {
 		try {
+			System.out.println("Executing function " + name + "(" + binds.toString() + ")");
 			PyObject obj = interpreter.get(name);
 			if(obj != null && obj instanceof PyFunction) {
 				PyFunction function = (PyFunction)obj;

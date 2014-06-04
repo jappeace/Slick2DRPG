@@ -10,6 +10,7 @@ import org.bakkes.game.state.minigames.bird.entity.Obstacle;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -17,6 +18,8 @@ public class BirdMinigame extends Minigame {
 	public static final int BIRD_MINIGAME_STATE_ID = 1;
 	private static final Random random = new Random(42); //same seed for debugging purposes
 	
+	
+	private Image backgroundImage;
 	public ArrayList<Bird> birds = new ArrayList<Bird>();
 	public ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 	
@@ -25,10 +28,10 @@ public class BirdMinigame extends Minigame {
 			throws SlickException {
 		super.init(gc, arg1);
 		
-		/*this.showDialog("A long long time ago");
+		this.showDialog("A long long time ago");
 		this.showDialog("The only pokemon that existed, were birds");
 		this.showDialog("And this is how it all started...");
-		checkDialogs();*/
+		checkDialogs();
 		for(int i = 0; i < 10; i++) {
 			obstacles.add(new Obstacle(
 					new Vector2(random.nextInt(780), random.nextInt(580)),
@@ -54,6 +57,7 @@ public class BirdMinigame extends Minigame {
 			
 			
 		}
+		backgroundImage = new Image("res/sprites/birdminigame/bg.png");
 	}
 	
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
@@ -70,6 +74,7 @@ public class BirdMinigame extends Minigame {
 	@Override
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics g) 
 			throws SlickException {
+		backgroundImage.draw(0, 0);
 		for(Bird bird : birds) {
 			bird.render(gc, g);
 		}

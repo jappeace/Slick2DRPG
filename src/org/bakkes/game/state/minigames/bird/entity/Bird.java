@@ -13,12 +13,20 @@ import org.bakkes.game.state.minigames.bird.entity.behavior.simple.ArriveBehavio
 import org.bakkes.game.state.minigames.bird.entity.behavior.simple.FleeBehavior;
 import org.bakkes.game.state.minigames.bird.entity.behavior.simple.SeekBehavior;
 import org.bakkes.game.state.minigames.bird.entity.behavior.simple.WanderBehavior;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 
 public class Bird extends MovingEntity {
 	private static final float MOVEMENT_PER_MS = 0.01f; //move max 0.1f per MS
+	
+	private SpriteSheet birdSheet;
+	private Animation currentAnimation;
+	private Animation birdLeft;
+	private Animation birdRight;
 	
 	private SteeringBehavior behavior;
 	
@@ -31,7 +39,21 @@ public class Bird extends MovingEntity {
 		
 		behavior = new SteeringBehavior(this);
 		//behavior.addBehavior(new HideBehavior(this, minigame.obstacles));
-		behavior.addBehavior(new Explore(this));
+		//behavior.addBehavior(new Explore(this));
+		behavior.addBehavior(new HideBehavior(this, minigame.obstacles));
+		
+		
+		try {
+			birdSheet = new SpriteSheet("res/sprites/birdminigame/bird.png", 40, 40);
+			birdLeft = new Animation(birdSheet, 0, 0, 2, 0, true, 150, true);
+			birdRight = new Animation(birdSheet, 0, 1, 2, 1, true, 150, true);
+			birdLeft.setPingPong(true);
+			birdRight.setPingPong(true);
+			currentAnimation = birdRight;
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public SteeringBehavior getBehavior() {
@@ -50,12 +72,18 @@ public class Bird extends MovingEntity {
 		position.add(velocity.multiply(delta * MOVEMENT_PER_MS));
 		this.heading = velocity.normalizeCopy();
 		this.side = this.heading.perp();
+		if(velocity.getX() > 0) {
+			currentAnimation = birdRight;
+		} else {
+			currentAnimation = birdLeft;
+		}
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) {
 		g.setColor(Color.white);
-		g.drawRect(position.getX(), position.getY(), 5, 5);
+		//g.drawRect(position.getX(), position.getY(), 5, 5);
+		g.drawAnimation(currentAnimation, position.getX(), position.getY());
 	}
 
 }

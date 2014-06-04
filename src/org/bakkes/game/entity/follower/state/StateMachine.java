@@ -6,7 +6,7 @@ import org.bakkes.game.scripting.ScriptManager;
 public class StateMachine {
 
 	private FollowingPokemon follower;
-	private State oldState;
+	private IState oldState;
 	public StateMachine(FollowingPokemon follower) {
 		this.follower = follower;
 		ScriptManager.executeFunction("load_state", follower);
@@ -16,11 +16,15 @@ public class StateMachine {
 		oldState.execute(follower);
 	}
 	
-	public void changeState(State newState) {
+	public void changeState(IState newState) {
 		if(oldState != null)
 			oldState.exit(follower);
 		newState.enter(follower);
 		
 		oldState = newState;
+	}
+	
+	public static void LoadDefaultState() {
+		
 	}
 }
