@@ -21,6 +21,22 @@ public class SteeringBehavior  {
 		this.behaviors.add(behavior);
 	}
 	
+	public void clear() {
+		this.behaviors.clear();
+	}
+	
+	public String[] getBehaviorNames() {
+		String[] names = new String[behaviors.size()];
+		for(int i = 0; i < behaviors.size(); i++) {
+			names[i] = behaviors.get(i).getName();
+		}
+		return names;
+	}
+	
+	public int size() {
+		return this.behaviors.size();
+	}
+	
 	public Vector2 calculate() {
 		if(behaviors.size() == 0)
 			return new Vector2(0f, 0f);

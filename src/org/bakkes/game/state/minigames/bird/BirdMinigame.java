@@ -10,11 +10,13 @@ import org.bakkes.game.state.minigames.bird.entity.Bird;
 import org.bakkes.game.state.minigames.bird.entity.ControlledBird;
 import org.bakkes.game.state.minigames.bird.entity.Obstacle;
 import org.bakkes.game.state.minigames.bird.entity.behavior.advanced.Explore;
+import org.bakkes.game.state.minigames.bird.entity.behavior.advanced.Separation;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.KeyListener;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -22,6 +24,7 @@ public class BirdMinigame extends Minigame {
 	public static final int BIRD_MINIGAME_STATE_ID = 1;
 	private static final Random random = new Random(42); //same seed for debugging purposes
 	
+	private boolean canProgress = true;
 	private int minigameStage = 0;
 	
 	private ControlledBird controlledBird;
@@ -62,22 +65,57 @@ public class BirdMinigame extends Minigame {
 				new Vector2(0f, 0f), 2f, new Vector2(1f, 1f), 2f, 5f, this);
 		backgroundImage = new Image("res/sprites/birdminigame/bg.png");
 		progress();
+		
+		gc.getInput().addKeyListener(new KeyListener() {
+
+			@Override
+			public void inputEnded() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void inputStarted() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public boolean isAcceptingInput() {
+				// TODO Auto-generated method stub
+				return true;
+			}
+
+			@Override
+			public void setInput(Input arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyPressed(int arg0, char arg1) {
+				if(arg0 == 28) { //enter
+					if(canProgress) {
+						minigameStage++;
+						progress();
+					}
+				}
+			}
+
+			@Override
+			public void keyReleased(int arg0, char arg1) {
+
+			}
+			
+		});
+		
+		
 	}
 	
-	private Input prevInput;
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
 		super.update(gc, arg1, delta);
 		
-		Input curInput = gc.getInput();
-		
-		if(prevInput != null) {
-			if(curInput.isKeyDown(Input.KEY_SPACE) && prevInput.isKeyDown(Input.KEY_SPACE)) {
-				minigameStage++;
-				progress();
-			}
-		}
-		prevInput = curInput;
 		
 		controlledBird.update(gc, delta);
 		for(Bird bird : birds) {
@@ -97,7 +135,12 @@ public class BirdMinigame extends Minigame {
 			o.render(gc, g);
 		}
 		controlledBird.render(gc,  g);
-		//g.drawString(Mouse.getX() + ", " + Mouse.getY(), 10, 50);
+		
+		g.drawString("Behaviors : (" + birds.get(0).getBehavior().size() + ")", 5, 40);
+		String[] names = birds.get(0).getBehavior().getBehaviorNames();
+		for(int i = 0; i < names.length; i++) {
+			g.drawString("- " + names[i], 10, 40 + (i + 1) * 20);
+		}
 		super.render(gc, arg1, g);
 	}
 
@@ -107,18 +150,20 @@ public class BirdMinigame extends Minigame {
 	}
 	
 	public void progress() {
+		System.out.println("progress");
 		switch(minigameStage) {
 		case 0:
 			this.showDialog("A long long time ago.\nThe only pokemon that existed were birds.");
 			this.showDialog("But there was one bird, who was different.");
-			this.showDialog("At first, all the other birds were afraid of him.\n(Hide behaviour)");
-			this.showDialog("Use WASD to move, press space to progress in each stage.", new DialogClosed() {
+			this.showDialog("And all the pokemon acted strange around him.");
+			this.showDialog("Use WASD to move, press enter to go to the next stage.", new DialogClosed() {
 
 				@Override
 				public void onClose() {
 					for(Bird b : birds) {
-						b.getBehavior().addBehavior(new Explore(b));
+						b.getBehavior().addBehavior(new HideBehavior(b));
 					}
+					canProgress = true;
 				}
 				
 			});
@@ -126,8 +171,28 @@ public class BirdMinigame extends Minigame {
 			break;
 			
 		case 1:
+			this.showDialog("Separate", new DialogClosed() {
+
+				@Override
+				public void onClose() {
+					for(Bird b : birds) {
+						b.getBehavior().clear();
+						b.getBehavior().addBehavior(new Separation(getOuter(), b));
+					}
+					canProgress = true;
+				}
+			});
+			checkDialogs();
 			break;
+			
+		
 		}
+		
+		
 	}
 
+	
+	public BirdMinigame getOuter() {
+		return this;
+	}
 }

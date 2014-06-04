@@ -58,4 +58,9 @@ public class HideBehavior implements IBehavior {
 		return result;
 	}
 
+	@Override
+	public String getName() {
+		return "Hide";
+	}
+	
 }

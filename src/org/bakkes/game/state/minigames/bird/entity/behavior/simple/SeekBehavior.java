@@ -19,4 +19,9 @@ public class SeekBehavior implements IBehavior {
 		return desiredVelocity.minusOperator(entity.velocity);
 	}
 
+	@Override
+	public String getName() {
+		return "Seek";
+	}
+	
 }

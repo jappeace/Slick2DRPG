@@ -23,5 +23,10 @@ public class ArriveBehavior implements IBehavior {
 		}
 		return new Vector2(0, 0);
 	}
+	
+	@Override
+	public String getName() {
+		return "Arrive";
+	}
 
 }

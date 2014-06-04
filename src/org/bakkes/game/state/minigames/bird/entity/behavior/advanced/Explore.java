@@ -42,5 +42,10 @@ public class Explore implements IBehavior {
 		
 		return velocity;
 	}
+	
+	@Override
+	public String getName() {
+		return "Explore";
+	}
 
 }

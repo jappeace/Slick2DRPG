@@ -28,4 +28,9 @@ public class Separation implements IBehavior {
 		return steeringForce;
 	}
 
+	@Override
+	public String getName() {
+		return "Separation";
+	}
+
 }

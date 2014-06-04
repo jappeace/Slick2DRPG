@@ -37,4 +37,9 @@ public class WanderBehavior implements IBehavior {
 		return target.minusOperator(entity.position);
 	}
 	
+	@Override
+	public String getName() {
+		return "Wander";
+	}
+	
 }

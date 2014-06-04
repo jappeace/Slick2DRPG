@@ -18,4 +18,9 @@ public class FleeBehavior implements IBehavior {
 		return desiredVelocity.minusOperator(entity.velocity);
 	}
 
+	@Override
+	public String getName() {
+		return "Flee";
+	}
+	
 }
