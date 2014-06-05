@@ -111,7 +111,7 @@ public class BattleState extends CommonGameState {
 		g.setLineWidth(5f);
 		
 		if(battle.isOver() && battle.hasPlayerWon()) { //player won, don't show enemy stuff
-			g.drawString("You were victorious! Press enter to leave", leftOffset, 150f);
+			g.drawString("You are victorious! Press enter to leave", leftOffset, 150f);
 		} else {
 			g.drawImage(enemyImage, leftOffset + 260f, 10f);
 			g.drawString("Enemy moves:", leftOffset + 260f, 85f);
