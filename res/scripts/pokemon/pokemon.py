@@ -40,6 +40,18 @@ class Pokemon(IPokemon):
 	def get_moves(self):
 		return self.moves
 	
+	def get_earth_strength(self):
+		return self.earth_strength
+	
+	def get_water_strength(self):
+		return self.water_strength
+	
+	def get_fire_strength(self):
+		return self.fire_strength
+	
+	def get_health(self):
+		return self.health
+	
 	def get_desirability(self):
 		raise "Desirability not implemented"
 	

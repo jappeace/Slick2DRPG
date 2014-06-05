@@ -8,6 +8,10 @@ public interface IPokemon {
 	String get_image();
 	void initialize_fuzzy();
 	int get_desirability();
+	int get_fire_strength();
+	int get_earth_strength();
+	int get_water_strength();
+	int get_health();
 	IMove[] get_moves();
 	/*
 	 * Default initializer for properties
