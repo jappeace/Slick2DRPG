@@ -11,15 +11,15 @@ class Pokemon(IPokemon):
 		self.id = -1
 		self.name = "undefined"
 		
-	def __default(self):
+	def initialize(self):
 		self.level = 1 #NPC starting level
 		self.type = PokemonType.NOT_SET
 		self.health = 100 #every pokemon has 100 health by default
 		self.water_strength = 0
 		self.earth_strength = 0
 		self.fire_strength = 0
-		self.air_strength = 0
-	
+		self.moves = []
+		
 	def get_id(self):
 		return self.id
 		
@@ -27,7 +27,7 @@ class Pokemon(IPokemon):
 		return self.name
 	
 	def get_image(self):
-		return self.id + ".png"
+		return str(self.id) + ".png"
 	
 	def get_level(self):
 		return level
@@ -37,6 +37,9 @@ class Pokemon(IPokemon):
 			raise "Pokemon type is not set"
 		return self.type
 	
+	def get_moves(self):
+		return self.moves
+	
 	def get_desirability(self):
 		raise "Desirability not implemented"
 	
@@ -45,19 +48,30 @@ class Pokemon(IPokemon):
 	
 class pokemon_0(Pokemon):
     def info(self):
-        self.id = 0
-        self.name = "Bulbasaur"
+		self.id = 1
+		self.name = "Bulbasaur"
+		self.earth_strength = 70
+		self.water_strength = 30
+		self.fire_strength = 10
+		self.moves = [WaterMove(), EarthMove()]
         
-    def __custom_init(self):
-    	self.earth_strength = 70
-    	self.water_strength = 30
-    	
-    def get_desirability(self):
-    	return 0
-    
-    def initialize_fuzzy(self):
-    	return 0
+class pokemon_1(Pokemon):
+    def info(self):
+		self.id = 2
+		self.name = "Charmander"
+		self.earth_strength = 30
+		self.water_strength = 10
+		self.fire_strength = 70
+		self.moves = [FireMove(), EarthMove()]
+		
+class pokemon_2(Pokemon):
+    def info(self):
+		self.id = 3
+		self.name = "Squirtle"
+		self.earth_strength = 10
+		self.water_strength = 70
+		self.fire_strength = 30
+		self.moves = [WaterMove(), EarthMove()]
         
-	
 	
 		

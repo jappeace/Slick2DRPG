@@ -11,6 +11,7 @@ import org.bakkes.game.math.Vector2;
 import org.bakkes.game.math.pathfinding.IPathFinder;
 import org.bakkes.game.math.pathfinding.AStarPathFinder;
 import org.bakkes.game.math.pathfinding.Node;
+import org.bakkes.game.scripting.PokemonFactory;
 import org.bakkes.game.scripting.interfaces.IPokemon;
 import org.bakkes.game.state.PlayingGameState;
 import org.newdawn.slick.Animation;
@@ -28,7 +29,7 @@ public class Player extends Entity {
 	private SpriteSheet _spriteSheet;
 	private Animation[] _animation;
 	
-	protected IPokemon[] pokemon = new IPokemon[5];
+	protected IPokemon pokemon;
 	protected FollowingPokemon follower;
 	private boolean isCurrentlyMoving = false;
 	private Path currentPath;
@@ -66,7 +67,7 @@ public class Player extends Entity {
 			FollowingPokemon p = new FollowingPokemon(this);
 			p.init(gc);
 			this.follower = p;
-			pokemon[0] = PokemonManager.getPokemonById(0);
+			pokemon = PokemonManager.getPokemonById(0);
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -163,6 +164,10 @@ public class Player extends Entity {
 	
 	public Vector2 getPixelPosition() {
 		return position;
+	}
+	
+	public IPokemon getPokemon() {
+		return pokemon;
 	}
 	
 	public Inventory getInventory() {

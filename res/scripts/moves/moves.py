@@ -19,14 +19,14 @@ class WaterMove(Move):
     def init_fuzzy(self):
         self.fuzzy = FuzzyModule()
         waterstrength = self.fuzzy.createFLV("waterstrength")
-        water_weak = waterstrength.addLeftShoulderSet("move_weak", 0, 20, 33)
+        water_weak = waterstrength.addLeftShoulderSet("move_weak", -100, 20, 33)
         water_ok = waterstrength.addTriangularSet("move_ok", 33, 50, 66)
         water_great = waterstrength.addRightShoulderSet("move_great", 66, 75, 100)
         
         desirability = self.fuzzy.createFLV("desirability")
-        undesirable = waterstrength.addRightShoulderSet("undesirable", 66, 75, 100)
-        desirable = waterstrength.addTriangularSet("desirable", 33, 50, 66)
-        very_desirable = waterstrength.addLeftShoulderSet("very_desirable", 0, 20, 33)
+        undesirable = desirability.addRightShoulderSet("undesirable", 66, 75, 100)
+        desirable = desirability.addTriangularSet("desirable", 33, 50, 66)
+        very_desirable = desirability.addLeftShoulderSet("very_desirable", 0, 20, 33)
         
         self.fuzzy.addRule(water_weak, undesirable)
         self.fuzzy.addRule(water_ok, desirable)
@@ -34,3 +34,64 @@ class WaterMove(Move):
         
     def get_name(self):
         return "Water move"
+    
+class EarthMove(Move):
+    
+    def get_damage(self, entity, enemy):
+        return 0
+    
+    def get_desirability(self, entity, enemy):
+        self.fuzzy.fuzzify("earthstrength", entity.earth_strength - enemy.earth_strength)
+        self.last_desirability = self.fuzzy.deFuzzify("desirability", DefuzzifyType.MAX_AV)
+        return self.last_desirability
+    
+    def init_fuzzy(self):
+        self.fuzzy = FuzzyModule()
+        earthstrength = self.fuzzy.createFLV("earthstrength")
+        earth_weak = earthstrength.addLeftShoulderSet("move_weak", -100, 20, 33)
+        earth_ok = earthstrength.addTriangularSet("move_ok", 33, 50, 66)
+        earth_great = earthstrength.addRightShoulderSet("move_great", 66, 75, 100)
+        
+        desirability = self.fuzzy.createFLV("desirability")
+        undesirable = desirability.addRightShoulderSet("undesirable", 66, 75, 100)
+        desirable = desirability.addTriangularSet("desirable", 33, 50, 66)
+        very_desirable = desirability.addLeftShoulderSet("very_desirable", 0, 20, 33)
+        
+        self.fuzzy.addRule(earth_weak, undesirable)
+        self.fuzzy.addRule(earth_ok, desirable)
+        self.fuzzy.addRule(earth_great, very_desirable)
+        
+    def get_name(self):
+        return "Earth move"
+    
+class FireMove(Move):
+    
+    def get_damage(self, entity, enemy):
+        return 0
+    
+    def get_desirability(self, entity, enemy):
+        print entity.fire_strength
+        print enemy.fire_strength
+        self.fuzzy.fuzzify("firestrength", entity.fire_strength - enemy.fire_strength)
+        self.last_desirability = self.fuzzy.deFuzzify("desirability", DefuzzifyType.MAX_AV)
+        print "des " + str (self.last_desirability)
+        return self.last_desirability
+    
+    def init_fuzzy(self):
+        self.fuzzy = FuzzyModule()
+        firestrength = self.fuzzy.createFLV("firestrength")
+        fire_weak = firestrength.addLeftShoulderSet("move_weak", -100, 20, 33)
+        fire_ok = firestrength.addTriangularSet("move_ok", 33, 50, 66)
+        fire_great = firestrength.addRightShoulderSet("move_great", 66, 75, 100)
+        
+        desirability = self.fuzzy.createFLV("desirability")
+        undesirable = desirability.addRightShoulderSet("undesirable", 66, 75, 100)
+        desirable = desirability.addTriangularSet("desirable", 33, 50, 66)
+        very_desirable = desirability.addLeftShoulderSet("very_desirable", 0, 20, 33)
+        
+        self.fuzzy.addRule(fire_weak, undesirable)
+        self.fuzzy.addRule(fire_ok, desirable)
+        self.fuzzy.addRule(fire_great, very_desirable)
+        
+    def get_name(self):
+        return "Fire move"
