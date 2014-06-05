@@ -21,7 +21,7 @@ public class BattleState extends CommonGameState {
 	private Image playerImage;
 	private Image enemyImage;
 	private int selectedMove = 0;
-	
+	private boolean firstRun = true;
 	@Override
 	public int getID() {
 		return BATTLE_STATE_ID;
@@ -36,6 +36,7 @@ public class BattleState extends CommonGameState {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		firstRun = true;
 	}
 	
 	private void selectMove(int selected) {
@@ -54,12 +55,16 @@ public class BattleState extends CommonGameState {
 	public void init(GameContainer gc, StateBasedGame arg1)
 			throws SlickException {
 		super.init(gc, arg1);
-		
+		System.out.println("Got init");
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
+		if(firstRun) {
+			gc.getInput().isKeyPressed(Input.KEY_ENTER);//reset ENTER key state
+			firstRun = false;
+		}
 		if(battle.isOver()) {
 			if(gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
 				selectedMove = -1;

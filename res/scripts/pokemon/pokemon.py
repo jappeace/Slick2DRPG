@@ -84,7 +84,7 @@ class pokemon_0(Pokemon):
 		self.earth_strength = 70
 		self.water_strength = 40
 		self.fire_strength = 20
-		self.moves = [WaterMove(), EarthMove(), Weaken()]
+		self.moves = [WaterMove(), EarthMove(), FireWeaken(), WaterWeaken()]
         
 class pokemon_1(Pokemon):
     def info(self):
@@ -93,7 +93,7 @@ class pokemon_1(Pokemon):
 		self.earth_strength = 30
 		self.water_strength = 10
 		self.fire_strength = 70
-		self.moves = [FireMove(), EarthMove(), Weaken()]
+		self.moves = [FireMove(), EarthMove(), FireWeaken(), WaterWeaken()]
 		
 class pokemon_2(Pokemon):
     def info(self):
@@ -102,7 +102,7 @@ class pokemon_2(Pokemon):
 		self.earth_strength = 10
 		self.water_strength = 70
 		self.fire_strength = 30
-		self.moves = [WaterMove(), EarthMove(), Weaken()]
+		self.moves = [WaterMove(), EarthMove(), FireWeaken(), WaterWeaken()]
         
 	
 		
