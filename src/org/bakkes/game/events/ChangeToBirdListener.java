@@ -17,11 +17,13 @@ public class ChangeToBirdListener implements GameKeyListener {
 	}
 	
 	public void KeyDown(int key, char c) {
-		if(key == 2) //"1"
+		if(key == 2) { //"1"
 			game.enterState(BirdMinigame.BIRD_MINIGAME_STATE_ID, new FadeOutTransition(), new FadeInTransition());
-		else if(key == 3) //"2"
+		} else if(key == 3) { //"2"
 			((BattleState)game.getState(BattleState.BATTLE_STATE_ID)).setBattle(new Battle(PokemonManager.getPokemonById(1)));
 			game.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
+		}
+		
 	}
 
 	public void KeyUp(int key, char c) {

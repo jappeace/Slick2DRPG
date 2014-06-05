@@ -49,6 +49,7 @@ class Pokemon(IPokemon):
 	def get_fire_strength(self):
 		return self.fire_strength
 	
+	
 	def get_health(self):
 		return self.health
 	
@@ -58,14 +59,32 @@ class Pokemon(IPokemon):
 	def initialize_fuzzy(self):
 		raise "Fuzzymodule not initialized"
 	
+	def set_earth_strength(self, newVal):
+		if(newVal > 0):
+			self.earth_strength = newVal
+		else:
+			self.earth_strength = 0
+		
+	def set_water_strength(self, newVal):
+		if(newVal > 0):
+			self.water_strength = newVal
+		else:
+			self.water_strength = 0
+		
+	def set_fire_strength(self, newVal):
+		if(newVal > 0):
+			self.fire_strength = newVal
+		else:
+			self.fire_strength = 0
+	
 class pokemon_0(Pokemon):
     def info(self):
 		self.id = 1
 		self.name = "Bulbasaur"
 		self.earth_strength = 70
-		self.water_strength = 30
-		self.fire_strength = 10
-		self.moves = [WaterMove(), EarthMove()]
+		self.water_strength = 40
+		self.fire_strength = 20
+		self.moves = [WaterMove(), EarthMove(), Weaken()]
         
 class pokemon_1(Pokemon):
     def info(self):
@@ -74,7 +93,7 @@ class pokemon_1(Pokemon):
 		self.earth_strength = 30
 		self.water_strength = 10
 		self.fire_strength = 70
-		self.moves = [FireMove(), EarthMove()]
+		self.moves = [FireMove(), EarthMove(), Weaken()]
 		
 class pokemon_2(Pokemon):
     def info(self):
@@ -83,7 +102,7 @@ class pokemon_2(Pokemon):
 		self.earth_strength = 10
 		self.water_strength = 70
 		self.fire_strength = 30
-		self.moves = [WaterMove(), EarthMove()]
+		self.moves = [WaterMove(), EarthMove(), Weaken()]
         
 	
 		
