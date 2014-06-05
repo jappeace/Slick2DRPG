@@ -29,14 +29,14 @@ class WaterMove(Move):
     def init_fuzzy(self):
         self.fuzzy = FuzzyModule()
         waterstrength = self.fuzzy.createFLV("waterstrength")
-        water_weak = waterstrength.addLeftShoulderSet("move_weak", -100, 20, 33)
-        water_ok = waterstrength.addTriangularSet("move_ok", 33, 50, 66)
-        water_great = waterstrength.addRightShoulderSet("move_great", 66, 75, 100)
+        water_weak = waterstrength.addLeftShoulderSet("move_weak", -100, 20, 40)
+        water_ok = waterstrength.addTriangularSet("move_ok", 20, 40, 75)
+        water_great = waterstrength.addRightShoulderSet("move_great", 40, 75, 100)
         
         desirability = self.fuzzy.createFLV("desirability")
-        very_desirable = desirability.addRightShoulderSet("very_desirable", 66, 75, 100)
-        desirable = desirability.addTriangularSet("desirable", 33, 50, 66)
-        undesirable = desirability.addLeftShoulderSet("undesirable", 0, 20, 33)
+        very_desirable = desirability.addRightShoulderSet("very_desirable", 50, 75, 100)
+        desirable = desirability.addTriangularSet("desirable", 25, 50, 75)
+        undesirable = desirability.addLeftShoulderSet("undesirable", 0, 25, 50)
         
         self.fuzzy.addRule(water_weak, undesirable)
         self.fuzzy.addRule(water_ok, desirable)
@@ -64,14 +64,14 @@ class EarthMove(Move):
     def init_fuzzy(self):
         self.fuzzy = FuzzyModule()
         earthstrength = self.fuzzy.createFLV("earthstrength")
-        earth_weak = earthstrength.addLeftShoulderSet("move_weak", -100, 20, 33)
-        earth_ok = earthstrength.addTriangularSet("move_ok", 33, 50, 66)
-        earth_great = earthstrength.addRightShoulderSet("move_great", 66, 75, 100)
+        earth_weak = earthstrength.addLeftShoulderSet("move_weak", -100, 20, 40)
+        earth_ok = earthstrength.addTriangularSet("move_ok", 20, 40, 75)
+        earth_great = earthstrength.addRightShoulderSet("move_great", 40, 75, 100)
         
         desirability = self.fuzzy.createFLV("desirability")
-        very_desirable = desirability.addRightShoulderSet("very_desirable", 66, 75, 100)
-        desirable = desirability.addTriangularSet("desirable", 33, 50, 66)
-        undesirable = desirability.addLeftShoulderSet("undesirable", 0, 20, 33)
+        very_desirable = desirability.addRightShoulderSet("very_desirable", 50, 75, 100)
+        desirable = desirability.addTriangularSet("desirable", 25, 50, 75)
+        undesirable = desirability.addLeftShoulderSet("undesirable", 0, 25, 50)
         
         self.fuzzy.addRule(earth_weak, undesirable)
         self.fuzzy.addRule(earth_ok, desirable)
@@ -99,14 +99,14 @@ class FireMove(Move):
     def init_fuzzy(self):
         self.fuzzy = FuzzyModule()
         firestrength = self.fuzzy.createFLV("firestrength")
-        fire_weak = firestrength.addLeftShoulderSet("move_weak", -100, 20, 33)
-        fire_ok = firestrength.addTriangularSet("move_ok", 33, 50, 66)
-        fire_great = firestrength.addRightShoulderSet("move_great", 66, 75, 100)
+        fire_weak = firestrength.addLeftShoulderSet("move_weak", -100, 20, 40)
+        fire_ok = firestrength.addTriangularSet("move_ok", 20, 40, 75)
+        fire_great = firestrength.addRightShoulderSet("move_great", 40, 75, 100)
         
         desirability = self.fuzzy.createFLV("desirability")
-        very_desirable = desirability.addRightShoulderSet("very_desirable", 66, 75, 100)
-        desirable = desirability.addTriangularSet("desirable", 33, 50, 66)
-        undesirable = desirability.addLeftShoulderSet("undesirable", 0, 20, 33)
+        very_desirable = desirability.addRightShoulderSet("very_desirable", 50, 75, 100)
+        desirable = desirability.addTriangularSet("desirable", 25, 50, 75)
+        undesirable = desirability.addLeftShoulderSet("undesirable", 0, 25, 50)
         
         self.fuzzy.addRule(fire_weak, undesirable)
         self.fuzzy.addRule(fire_ok, desirable)
@@ -130,14 +130,14 @@ class FireWeaken(Move):
         self.fuzzy = FuzzyModule()
         
         weakenfirestrength = self.fuzzy.createFLV("fireresistance")
-        weaken_fire_poor = weakenfirestrength.addLeftShoulderSet("move_fire_poor", 0, 20, 33)
-        weaken_fire_ok = weakenfirestrength.addTriangularSet("move_fire_ok", 33, 50, 66)
-        weaken_fire_great = weakenfirestrength.addRightShoulderSet("move_fire_great", 66, 75, 100)
+        weaken_fire_poor = weakenfirestrength.addLeftShoulderSet("move_fire_poor", 0, 22, 44)
+        weaken_fire_ok = weakenfirestrength.addTriangularSet("move_fire_ok", 22, 44, 77)
+        weaken_fire_great = weakenfirestrength.addRightShoulderSet("move_fire_great", 44, 77, 100)
         
         enemyhealth = self.fuzzy.createFLV("enemyhealth")
         health_poor = enemyhealth.addLeftShoulderSet("health_poor", 0, 40, 50)
-        health_ok = enemyhealth.addTriangularSet("health_ok", 50, 60, 75)
-        health_great = enemyhealth.addRightShoulderSet("health_ok", 75, 85, 100)
+        health_ok = enemyhealth.addTriangularSet("health_ok", 40, 50, 75)
+        health_great = enemyhealth.addRightShoulderSet("health_ok", 50, 75, 100)
         
         desirability = self.fuzzy.createFLV("desirability")
         very_desirable = desirability.addRightShoulderSet("very_desirable", 50, 75, 100)
@@ -175,14 +175,14 @@ class WaterWeaken(Move):
         self.fuzzy = FuzzyModule()
         
         weakenwaterstrength = self.fuzzy.createFLV("waterresistance")
-        weaken_water_poor = weakenwaterstrength.addLeftShoulderSet("move_water_poor", 0, 20, 33)
-        weaken_water_ok = weakenwaterstrength.addTriangularSet("move_water_ok", 33, 50, 66)
-        weaken_water_great = weakenwaterstrength.addRightShoulderSet("move_water_great", 66, 75, 100)
+        weaken_water_poor = weakenwaterstrength.addLeftShoulderSet("move_water_poor", 0, 22, 44)
+        weaken_water_ok = weakenwaterstrength.addTriangularSet("move_water_ok", 22, 44, 77)
+        weaken_water_great = weakenwaterstrength.addRightShoulderSet("move_water_great", 44, 77, 100)
         
         enemyhealth = self.fuzzy.createFLV("enemyhealth")
         health_poor = enemyhealth.addLeftShoulderSet("health_poor", 0, 40, 50)
-        health_ok = enemyhealth.addTriangularSet("health_ok", 50, 60, 75)
-        health_great = enemyhealth.addRightShoulderSet("health_ok", 75, 85, 100)
+        health_ok = enemyhealth.addTriangularSet("health_ok", 40, 50, 75)
+        health_great = enemyhealth.addRightShoulderSet("health_ok", 50, 75, 100)
         
         desirability = self.fuzzy.createFLV("desirability")
         very_desirable = desirability.addRightShoulderSet("very_desirable", 50, 75, 100)
