@@ -42,7 +42,7 @@ public class HideBehavior implements IBehavior {
 				closest = curObj;
 			}
 		}
-		if(distToClosest == Double.MAX_VALUE)
+		if(distToClosest == Double.MAX_VALUE) //no obstacles
 			return flee.calculate(target);
 		
 		return arrive.calculate(bestHidingSpot);
