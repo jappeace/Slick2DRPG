@@ -124,6 +124,11 @@ public class BattleState extends CommonGameState {
 		
 		if(battle.isOver() && !battle.hasPlayerWon()) { //player lost, dont show player
 			g.drawString("You lost! Press enter to leave", leftOffset, 450f);
+			if(battle.getPlayer().getInventory().hasItem(4)) {
+				g.drawString("You should use the protein you have in your inventory!", leftOffset, 465f);
+			} else {
+				g.drawString("To heal your pokemon, visit the old lady at the beginning!", leftOffset, 465f);
+			}
 		} else {
 			g.drawImage(playerImage, leftOffset + 260f, 400f);
 			g.drawString("Your moves:", leftOffset + 260f, 475f);

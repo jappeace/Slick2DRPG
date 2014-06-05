@@ -1,6 +1,7 @@
 package org.bakkes.game;
 
 import org.bakkes.game.entity.Player;
+import org.newdawn.slick.state.StateBasedGame;
 
 /*
  * Is a singleton which holds the latest game info
@@ -17,6 +18,7 @@ public class GameInfo {
 		return instance;
 	}
 	
+	public StateBasedGame stateGame;
 	public Player player;
 	public int delta;
 	

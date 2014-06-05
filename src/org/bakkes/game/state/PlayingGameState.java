@@ -55,6 +55,7 @@ public class PlayingGameState extends CommonGameState {
 		player = new Player(this);
 		player.init(gc);
 		GameInfo.getInstance().player = player;
+		GameInfo.getInstance().stateGame = arg1;
 		camera = new Camera(gc, World.getWorld().getMap());
 		
 		addKeyListener(new TalkToNPCListener(this));

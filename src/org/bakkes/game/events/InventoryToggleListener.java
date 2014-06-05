@@ -30,7 +30,6 @@ public class InventoryToggleListener implements GameKeyListener {
 				inventoryComponent.down();
 			} else if(key == 28) { //enter
 				int selectedSlot = inventoryComponent.getCurrentlySelected();
-				
 				ScriptManager.executeFunction("inventorySelected", selectedSlot, game.getPlayer().getInventory().getItem(selectedSlot), game);
 			}
 		}

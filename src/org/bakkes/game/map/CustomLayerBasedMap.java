@@ -7,10 +7,11 @@ public class CustomLayerBasedMap implements CustomTileBasedMap {
 	
 	private TiledMap map;
 	private int[] blockingLayers;
-	
+	private int grassLayer;
 	public CustomLayerBasedMap(TiledMap map, int... blockingLayers) {
 		this.map = map;
 		this.blockingLayers = blockingLayers;
+		this.grassLayer = map.getLayerIndex("grass");
 	}
 	
 	public int getWidth() {
@@ -23,6 +24,10 @@ public class CustomLayerBasedMap implements CustomTileBasedMap {
 
 	public float getCost(Vector2 location) {
 		return 1.0f;
+	}
+	
+	public boolean isGrass(Vector2 location) {
+		return map.getTileId(location.getXI(), location.getYI(), grassLayer) != 0;
 	}
 
 	public boolean isBlocked(Vector2 location) {

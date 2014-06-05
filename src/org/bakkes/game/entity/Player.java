@@ -1,10 +1,13 @@
 package org.bakkes.game.entity;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.bakkes.game.Constants;
 import org.bakkes.game.Game;
+import org.bakkes.game.GameInfo;
 import org.bakkes.game.World;
+import org.bakkes.game.battle.Battle;
 import org.bakkes.game.entity.follower.FollowingPokemon;
 import org.bakkes.game.math.GridGraphicTranslator;
 import org.bakkes.game.math.Vector2;
@@ -13,6 +16,7 @@ import org.bakkes.game.math.pathfinding.AStarPathFinder;
 import org.bakkes.game.math.pathfinding.Node;
 import org.bakkes.game.scripting.PokemonFactory;
 import org.bakkes.game.scripting.interfaces.IPokemon;
+import org.bakkes.game.state.BattleState;
 import org.bakkes.game.state.PlayingGameState;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -26,6 +30,8 @@ import org.newdawn.slick.util.pathfinding.Path;
 import org.newdawn.slick.util.pathfinding.Path.Step;
 
 public class Player extends Entity {
+	private static Random random = new Random();
+	
 	private SpriteSheet _spriteSheet;
 	private Animation[] _animation;
 	
@@ -91,11 +97,11 @@ public class Player extends Entity {
 			
 			
 			if(Math.abs(addedX + dX) >= Constants.TILE_WIDTH) {
-				dX = dX >= 0 ? Constants.TILE_WIDTH - addedX : -Constants.TILE_WIDTH - addedX;
+				dX = dX >= 0 ? Constants.TILE_WIDTH + 0.01f- addedX : -Constants.TILE_WIDTH - 0.01f - addedX;
 			}
 			
 			if(Math.abs(addedY + dY) >= Constants.TILE_HEIGHT) {
-				dY = dY >= 0 ? Constants.TILE_HEIGHT - addedY : -Constants.TILE_HEIGHT - addedY;
+				dY = dY >= 0 ? Constants.TILE_HEIGHT + 0.01f - addedY : -Constants.TILE_HEIGHT - 0.01f - addedY;
 			}
 
 			addedX += dX;
@@ -118,6 +124,15 @@ public class Player extends Entity {
 					_animation[facing].setCurrentFrame(0);
 				} else {
 					Step nextStep = currentPath.getStep(currentStep);
+					if(World.getWorld().getLayerMap().isGrass(new Vector2(nextStep.getX(), nextStep.getY())) && pokemon.get_health() > 0) {
+						if(random.nextInt(20) == 1) { //1 in 20 chance to encounter pokemon
+							BattleState state = (BattleState)GameInfo.getInstance().stateGame.getState(BattleState.BATTLE_STATE_ID);
+							IPokemon encounter = PokemonManager.getPokemonById(random.nextInt(3));
+							state.setBattle(new Battle(encounter));
+							GameInfo.getInstance().stateGame.enterState(BattleState.BATTLE_STATE_ID);
+							
+						}
+					}
 					Vector2 p = new Vector2(nextStep.getX(), nextStep.getY()).minusOperator(getGridPosition());
 					if(p.getX() == 1)
 						facing = Direction.EAST;

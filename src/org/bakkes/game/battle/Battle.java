@@ -24,8 +24,8 @@ public class Battle {
 		this.enemy.set_earth_strength(this.enemy.get_earth_strength() - random.nextInt(30));
 		this.enemy.set_fire_strength(this.enemy.get_fire_strength() - random.nextInt(30));
 		this.enemy.set_water_strength(this.enemy.get_water_strength() - random.nextInt(30));
-		this.getPlayer().getPokemon().initialize();
-		this.getPlayer().getPokemon().info(); //reset stats
+		//this.getPlayer().getPokemon().initialize();
+		//this.getPlayer().getPokemon().info(); //Disable this, player should heal its pokemon with protein
 		this.battleLog = new ArrayList<String>();
 	}
 	
