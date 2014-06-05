@@ -1,5 +1,7 @@
 package org.bakkes.game;
 
+import org.bakkes.game.entity.Player;
+
 /*
  * Is a singleton which holds the latest game info
  */
@@ -15,6 +17,7 @@ public class GameInfo {
 		return instance;
 	}
 	
+	public Player player;
 	public int delta;
 	
 	public GameInfo() {

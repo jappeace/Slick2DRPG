@@ -15,6 +15,10 @@ class Pokemon(IPokemon):
 		self.level = 1 #NPC starting level
 		self.type = PokemonType.NOT_SET
 		self.health = 100 #every pokemon has 100 health by default
+		self.water_strength = 0
+		self.earth_strength = 0
+		self.fire_strength = 0
+		self.air_strength = 0
 	
 	def get_id(self):
 		return self.id
@@ -45,7 +49,8 @@ class pokemon_0(Pokemon):
         self.name = "Bulbasaur"
         
     def __custom_init(self):
-    	print "wurks here"
+    	self.earth_strength = 70
+    	self.water_strength = 30
     	
     def get_desirability(self):
     	return 0

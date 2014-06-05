@@ -21,12 +21,8 @@ public class BattleState extends CommonGameState {
 	public void init(GameContainer gc, StateBasedGame arg1)
 			throws SlickException {
 		super.init(gc, arg1);
-		IPokemon pokemon = PokemonManager.getPokemonById(0);
-		System.out.println(pokemon.get_name());
-		System.out.println(pokemon.get_id());
+		
 	}
-
-
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)

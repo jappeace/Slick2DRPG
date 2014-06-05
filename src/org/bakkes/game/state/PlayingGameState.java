@@ -7,6 +7,7 @@ import java.util.Queue;
 
 import org.bakkes.game.Camera;
 import org.bakkes.game.Constants;
+import org.bakkes.game.GameInfo;
 import org.bakkes.game.World;
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.entity.follower.state.StateMachine;
@@ -53,6 +54,7 @@ public class PlayingGameState extends CommonGameState {
 		ScriptManager.loadScripts();
 		player = new Player(this);
 		player.init(gc);
+		GameInfo.getInstance().player = player;
 		camera = new Camera(gc, World.getWorld().getMap());
 		
 		addKeyListener(new TalkToNPCListener(this));
