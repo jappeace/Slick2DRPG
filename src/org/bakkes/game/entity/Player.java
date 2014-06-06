@@ -132,7 +132,6 @@ public class Player extends Entity {
 							IPokemon encounter = PokemonManager.getPokemonById(random.nextInt(3));
 							state.setBattle(new Battle(encounter));
 							GameInfo.getInstance().stateGame.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
-							
 						}
 					}
 					Vector2 p = new Vector2(nextStep.getX(), nextStep.getY()).minusOperator(getGridPosition());
@@ -159,16 +158,18 @@ public class Player extends Entity {
 	@Override
 	public void render(GameContainer gc, Graphics g) {
 		_animation[facing].draw(position.getX(), position.getY());
-		if(considered != null && isCurrentlyMoving) {
-			g.setColor(new Color(0, 255, 255, 64));
-			for(Node node : considered) {
-				Vector2 pos = node.getPosition();
-				g.fillRect(pos.getX() * 16, pos.getY() * 16, Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
-			}
-			g.setColor(new Color(255, 255, 255, 64));
-			for(Node node : usedPath) {
-				Vector2 pos = node.getPosition();
-				g.fillRect(pos.getX() * 16, pos.getY() * 16, Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
+		if(GameInfo.SHOW_DEBUG_INFO) {
+			if(considered != null && isCurrentlyMoving) {
+				g.setColor(new Color(0, 255, 255, 64));
+				for(Node node : considered) {
+					Vector2 pos = node.getPosition();
+					g.fillRect(pos.getX() * 16, pos.getY() * 16, Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
+				}
+				g.setColor(new Color(255, 255, 255, 64));
+				for(Node node : usedPath) {
+					Vector2 pos = node.getPosition();
+					g.fillRect(pos.getX() * 16, pos.getY() * 16, Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
+				}
 			}
 		}
 		if(follower != null)

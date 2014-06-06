@@ -167,8 +167,8 @@ public class BirdMinigame extends Minigame {
 			} else {
 				g.setColor(Color.red);
 			}
-			g.drawString(available.get(i).getName(), 120 + (80 * i), 20);
-			g.drawString("Key: " + (i + 1), 120 + (80 * i), 35);
+			g.drawString(available.get(i).getName(), 190 + (80 * i), 20);
+			g.drawString("Key: " + (i + 1), 190 + (80 * i), 35);
 		}
 		g.setColor(Color.black);
 		

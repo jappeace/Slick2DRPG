@@ -2,6 +2,7 @@ package org.bakkes.game.state;
 
 import java.util.ArrayList;
 
+import org.bakkes.game.GameInfo;
 import org.bakkes.game.battle.Battle;
 import org.bakkes.game.battle.IMove;
 import org.bakkes.game.entity.PokemonManager;
@@ -117,7 +118,7 @@ public class BattleState extends CommonGameState {
 			g.drawString("Enemy moves:", leftOffset + 260f, 85f);
 			IMove[] moves = battle.getEnemy().get_moves();
 			for(int i = 0; i < moves.length; i++) {
-				g.drawString(moves[i].get_name() + " (" + moves[i].get_desirability(battle.getEnemy(), battle.getPlayer().getPokemon()) + ")", leftOffset + 260f, 100f + (i * 15));
+				g.drawString(moves[i].get_name() + (GameInfo.SHOW_DEBUG_INFO ? " (" + moves[i].get_desirability(battle.getEnemy(), battle.getPlayer().getPokemon()) + ")" : ""), leftOffset + 260f, 100f + (i * 15));
 			}
 			g.drawRect(leftOffset - 5f, 82f, 200f, 85f);
 			g.drawString("Enemy stats: ", leftOffset, 85f);
@@ -143,7 +144,7 @@ public class BattleState extends CommonGameState {
 					g.setColor(new Color(255, 255, 255, 255));
 				else
 					g.setColor(new Color(255, 255, 255, 128));
-				g.drawString(myMoves[i].get_name() + " (" + myMoves[i].get_desirability(battle.getPlayer().getPokemon(), battle.getEnemy()) + ")", leftOffset + 260f, 490f + (i * 15));
+				g.drawString(myMoves[i].get_name() + (GameInfo.SHOW_DEBUG_INFO ? " (" + myMoves[i].get_desirability(battle.getPlayer().getPokemon(), battle.getEnemy()) + ")" : ""), leftOffset + 260f, 490f + (i * 15));
 			}
 			g.setColor(new Color(255, 255, 255, 255));
 			g.drawRect(leftOffset - 5f, 472f, 200f, 85f);
@@ -152,6 +153,8 @@ public class BattleState extends CommonGameState {
 			g.drawString("Water strength: " + battle.getPlayer().getPokemon().get_water_strength(), leftOffset, 505f);
 			g.drawString("Earth strength: " + battle.getPlayer().getPokemon().get_earth_strength(), leftOffset, 520f);
 			g.drawString("Fire strength: " + battle.getPlayer().getPokemon().get_fire_strength(), leftOffset, 535f);
+			
+			g.drawRect(490f, 15f, 300, 500);
 			
 			g.drawString("Battle log:", 500f, 20f);
 			ArrayList<String> log = battle.getBattleLog();

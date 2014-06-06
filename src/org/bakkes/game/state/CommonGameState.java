@@ -48,6 +48,7 @@ public abstract class CommonGameState extends BasicGameState {
 		for(DrawableGameComponent drawable : drawables) {
 			drawable.Render(gc, g);
 		}
+		g.drawString("Debug info: " + (GameInfo.SHOW_DEBUG_INFO ? "ON" : "OFF"), 10, 25);
 		if(currentDialogBox != null)
 			currentDialogBox.Render(gc, g);
 	}
