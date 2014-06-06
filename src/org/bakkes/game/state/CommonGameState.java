@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import org.bakkes.game.GameInfo;
+import org.bakkes.game.events.DebugToggleListener;
 import org.bakkes.game.events.DialogClosed;
 import org.bakkes.game.events.GameKeyListener;
 import org.bakkes.game.math.GridGraphicTranslator;
@@ -33,6 +34,7 @@ public abstract class CommonGameState extends BasicGameState {
 			throws SlickException {
 		drawables = new ArrayList<DrawableGameComponent>();
 		keyListeners = new ArrayList<GameKeyListener>();
+		this.keyListeners.add(new DebugToggleListener());
 	}
 	
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)

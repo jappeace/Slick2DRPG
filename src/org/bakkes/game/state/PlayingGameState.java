@@ -33,7 +33,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class PlayingGameState extends CommonGameState {
 	public static final int PLAYING_STATE_ID = 0;
-	public static boolean SHOW_DEBUG_INFO = true;
 	
 	private Player player;
 	private Camera camera;
@@ -106,7 +105,7 @@ public class PlayingGameState extends CommonGameState {
 		
 		g.setColor(Color.black);
 		g.drawRect(paintPos.getX(), paintPos.getY(), Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
-		if(SHOW_DEBUG_INFO) {
+		if(GameInfo.SHOW_DEBUG_INFO) {
 			StateMachine stateMachine = player.getFollower().getStateMachine();
 			if(stateMachine.getState() != null) {
 				g.setColor(Color.white);

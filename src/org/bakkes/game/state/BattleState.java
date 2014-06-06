@@ -117,7 +117,7 @@ public class BattleState extends CommonGameState {
 			g.drawString("Enemy moves:", leftOffset + 260f, 85f);
 			IMove[] moves = battle.getEnemy().get_moves();
 			for(int i = 0; i < moves.length; i++) {
-				g.drawString(moves[i].get_name() + ": " + moves[i].get_desirability(battle.getEnemy(), battle.getPlayer().getPokemon()), leftOffset + 260f, 100f + (i * 15));
+				g.drawString(moves[i].get_name() + " (" + moves[i].get_desirability(battle.getEnemy(), battle.getPlayer().getPokemon()) + ")", leftOffset + 260f, 100f + (i * 15));
 			}
 			g.drawRect(leftOffset - 5f, 82f, 200f, 85f);
 			g.drawString("Enemy stats: ", leftOffset, 85f);
@@ -143,7 +143,7 @@ public class BattleState extends CommonGameState {
 					g.setColor(new Color(255, 255, 255, 255));
 				else
 					g.setColor(new Color(255, 255, 255, 128));
-				g.drawString(myMoves[i].get_name() + ": " + myMoves[i].get_desirability(battle.getPlayer().getPokemon(), battle.getEnemy()), leftOffset + 260f, 490f + (i * 15));
+				g.drawString(myMoves[i].get_name() + " (" + myMoves[i].get_desirability(battle.getPlayer().getPokemon(), battle.getEnemy()) + ")", leftOffset + 260f, 490f + (i * 15));
 			}
 			g.setColor(new Color(255, 255, 255, 255));
 			g.drawRect(leftOffset - 5f, 472f, 200f, 85f);

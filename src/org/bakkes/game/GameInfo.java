@@ -9,6 +9,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameInfo {
 	public static final int SCREEN_WIDTH = 800;
 	public static final int SCREEN_HEIGHT = 600;
+	public static boolean SHOW_DEBUG_INFO = true;
 	
 	private static GameInfo instance;
 	
