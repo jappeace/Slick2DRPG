@@ -1,15 +1,18 @@
 package org.bakkes.game.state.minigames.bird;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
+import org.bakkes.game.GameInfo;
 import org.bakkes.game.events.DialogClosed;
 import org.bakkes.game.math.Vector2;
 import org.bakkes.game.state.minigames.Minigame;
 import org.bakkes.game.state.minigames.bird.entity.Bird;
 import org.bakkes.game.state.minigames.bird.entity.ControlledBird;
 import org.bakkes.game.state.minigames.bird.entity.Obstacle;
-import org.bakkes.game.state.minigames.bird.entity.behavior.advanced.Explore;
+import org.bakkes.game.state.minigames.bird.entity.behavior.IBehavior;
+import org.bakkes.game.state.minigames.bird.entity.behavior.advanced.ExploreBehavior;
 import org.bakkes.game.state.minigames.bird.entity.behavior.advanced.HideBehavior;
 import org.bakkes.game.state.minigames.bird.entity.behavior.advanced.Separation;
 import org.bakkes.game.state.minigames.bird.entity.behavior.simple.ArriveBehavior;
@@ -36,10 +39,21 @@ public class BirdMinigame extends Minigame {
 	public ArrayList<Bird> birds = new ArrayList<Bird>();
 	public ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 	
+	
 	@Override
 	public void init(GameContainer gc, StateBasedGame arg1)
 			throws SlickException {
 		super.init(gc, arg1);
+		
+		this.showDialog("Welcome to the birdsimulator 2.0!\nAt the top you will see the available behaviors and the keys to toggle them, "
+				+ "\nplease use them wisely because we recently had some reports of animal abuse...");
+		this.showDialog("No seriously, we love those little birds.");
+		this.showDialog("Maybe if we really loved them, we shouldn't have implanted chips in their brains.\n"
+				+ "Oh well, go ahead!\n"
+				+ "Before I forget, you can control the dragonite with WASD. \nYou can't use the arrow keys, because someone spilled their drink over it and now\n"
+				+ "they're stuck.");
+		this.showDialog("One last thing, press ESC when you're finished.");
+		this.checkDialogs();
 		
 		for(int i = 0; i < 10; i++) {
 			obstacles.add(new Obstacle(
@@ -68,7 +82,7 @@ public class BirdMinigame extends Minigame {
 		controlledBird = new ControlledBird(new Vector2(400, 300), 5f, new Vector2(0f, 0f),	5f,
 				new Vector2(0f, 0f), 2f, new Vector2(1f, 1f), 2f, 5f, this);
 		backgroundImage = new Image("res/sprites/birdminigame/bg.png");
-		progress();
+		
 		
 		gc.getInput().addKeyListener(new KeyListener() {
 
@@ -87,7 +101,7 @@ public class BirdMinigame extends Minigame {
 			@Override
 			public boolean isAcceptingInput() {
 				// TODO Auto-generated method stub
-				return true;
+				return GameInfo.getInstance().stateGame.getCurrentStateID() == getID();
 			}
 
 			@Override
@@ -98,10 +112,10 @@ public class BirdMinigame extends Minigame {
 
 			@Override
 			public void keyPressed(int arg0, char arg1) {
-				if(arg0 == 28) { //enter
-					if(canProgress) {
-						minigameStage++;
-						progress();
+				System.out.println("Key " + arg0);
+				if(arg0 >= 2 && arg0 <= 6) { //key between 1 and 5
+					for(Bird b : birds) {
+						b.toggle(arg0 - 2);
 					}
 				}
 			}
@@ -113,9 +127,9 @@ public class BirdMinigame extends Minigame {
 			
 		});
 		
-		
 	}
 	
+
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
 		super.update(gc, arg1, delta);
@@ -140,75 +154,26 @@ public class BirdMinigame extends Minigame {
 		}
 		controlledBird.render(gc,  g);
 		
-		g.setColor(Color.black);
-		g.drawString("Behaviors : (" + birds.get(0).getBehavior().size() + ")", 5, 40);
-		String[] names = birds.get(0).getBehavior().getBehaviorNames();
-		for(int i = 0; i < names.length; i++) {
-			g.drawString("- " + names[i], 10, 40 + (i + 1) * 20);
+		
+		HashMap<Integer, Boolean> enabled = birds.get(0).getEnabledBehaviors();
+		HashMap<Integer, IBehavior> available = birds.get(0).getAvailableBehaviors();
+		for(int i = 0; i < enabled.size(); i++) {
+			if(enabled.get(i)) {
+				g.setColor(Color.green);
+			} else {
+				g.setColor(Color.red);
+			}
+			g.drawString(available.get(i).getName(), 120 + (80 * i), 20);
+			g.drawString("Key: " + (i + 1), 120 + (80 * i), 35);
 		}
+		g.setColor(Color.black);
+		
 		super.render(gc, arg1, g);
 	}
 
 	@Override
 	public int getID() {
 		return BIRD_MINIGAME_STATE_ID;
-	}
-	
-	public void progress() {
-		System.out.println("progress");
-		switch(minigameStage) {
-		case 0:
-			this.showDialog("A long long time ago.\nThe only pokemon that existed were birds.");
-			this.showDialog("But there was one bird, who was different.");
-			this.showDialog("And all the pokemon acted strange around him.");
-			this.showDialog("Use WASD to move, press enter to go to the next stage.", new DialogClosed() {
-
-				@Override
-				public void onClose() {
-					for(Bird b : birds) {
-						b.getBehavior().addBehavior(new HideBehavior(b, obstacles));
-					}
-					canProgress = true;
-				}
-				
-			});
-			checkDialogs();
-			break;
-			
-		case 1:
-			this.showDialog("Separate", new DialogClosed() {
-
-				@Override
-				public void onClose() {
-					for(Bird b : birds) {
-						b.getBehavior().clear();
-						//b.getBehavior().addBehavior(new SeekBehavior(b));
-						b.getBehavior().addBehavior(new ArriveBehavior(b));
-					}
-					canProgress = true;
-				}
-			});
-			checkDialogs();
-			break;
-		case 2:
-			this.showDialog("Test", new DialogClosed() {
-
-				@Override
-				public void onClose() {
-					for(Bird b : birds) {
-						b.getBehavior().clear();
-						//b.getBehavior().addBehavior(new SeekBehavior(b));
-						b.getBehavior().addBehavior(new Explore(b));
-					}
-					canProgress = true;
-				}
-			});
-			checkDialogs();
-			break;
-		
-		}
-		
-		
 	}
 
 	

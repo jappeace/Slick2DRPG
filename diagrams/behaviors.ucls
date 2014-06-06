@@ -107,10 +107,10 @@
     <position height="304" width="713" x="1018" y="1080"/>    
     <display autosize="false" stereotype="true" accessors="true"/>  
   </package>  
-  <class id="14" language="java" name="org.bakkes.game.state.minigames.bird.entity.behavior.advanced.Explore" 
+  <class id="14" language="java" name="org.bakkes.game.state.minigames.bird.entity.behavior.advanced.ExploreBehavior" 
     project="Slick2DRPG" 
-    file="/Slick2DRPG/src/org/bakkes/game/state/minigames/bird/entity/behavior/advanced/Explore.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+    file="/Slick2DRPG/src/org/bakkes/game/state/minigames/bird/entity/behavior/advanced/ExploreBehavior.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1201" y="1248"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      

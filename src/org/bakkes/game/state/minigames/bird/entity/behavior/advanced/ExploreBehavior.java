@@ -10,14 +10,14 @@ import org.bakkes.game.state.minigames.bird.entity.MovingEntity;
 import org.bakkes.game.state.minigames.bird.entity.behavior.IBehavior;
 import org.bakkes.game.state.minigames.bird.entity.behavior.simple.SeekBehavior;
 
-public class Explore implements IBehavior {
+public class ExploreBehavior implements IBehavior {
 	private static final float HUNTING_DISTANCE = 30f; //hunt when within 30 pixels
 	private static final Random random = new Random(42);
 	private MovingEntity entity;
 	private SeekBehavior seek;
 	private Vector2 velocity;
 	
-	public Explore(MovingEntity entity) {
+	public ExploreBehavior(MovingEntity entity) {
 		this.entity = entity;
 		this.seek = new SeekBehavior(entity);
 		this.velocity = new Vector2(0f, 0f);
