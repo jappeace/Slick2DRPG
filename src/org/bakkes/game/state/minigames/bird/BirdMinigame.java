@@ -7,6 +7,7 @@ import java.util.Random;
 import org.bakkes.game.GameInfo;
 import org.bakkes.game.events.DialogClosed;
 import org.bakkes.game.math.Vector2;
+import org.bakkes.game.state.PlayingGameState;
 import org.bakkes.game.state.minigames.Minigame;
 import org.bakkes.game.state.minigames.bird.entity.Bird;
 import org.bakkes.game.state.minigames.bird.entity.ControlledBird;
@@ -41,7 +42,7 @@ public class BirdMinigame extends Minigame {
 	
 	
 	@Override
-	public void init(GameContainer gc, StateBasedGame arg1)
+	public void init(GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
 		super.init(gc, arg1);
 		
@@ -111,12 +112,15 @@ public class BirdMinigame extends Minigame {
 			}
 
 			@Override
-			public void keyPressed(int arg0, char arg1) {
+			public void keyPressed(int arg0, char chr) {
 				System.out.println("Key " + arg0);
 				if(arg0 >= 2 && arg0 <= 6) { //key between 1 and 5
 					for(Bird b : birds) {
 						b.toggle(arg0 - 2);
 					}
+				}
+				if(arg0 == Input.KEY_ESCAPE) {
+					arg1.enterState(PlayingGameState.PLAYING_STATE_ID);
 				}
 			}
 

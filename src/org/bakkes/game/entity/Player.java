@@ -25,6 +25,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.Path;
 import org.newdawn.slick.util.pathfinding.Path.Step;
@@ -129,7 +131,7 @@ public class Player extends Entity {
 							BattleState state = (BattleState)GameInfo.getInstance().stateGame.getState(BattleState.BATTLE_STATE_ID);
 							IPokemon encounter = PokemonManager.getPokemonById(random.nextInt(3));
 							state.setBattle(new Battle(encounter));
-							GameInfo.getInstance().stateGame.enterState(BattleState.BATTLE_STATE_ID);
+							GameInfo.getInstance().stateGame.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
 							
 						}
 					}

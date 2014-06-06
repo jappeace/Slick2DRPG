@@ -14,7 +14,7 @@ class WaterMove(Move):
     
     def execute(self, entity, enemy):
         damage = (entity.water_strength - enemy.water_strength) / 4
-        if(damage < 0): #if damage is very weak, pick random damage
+        if(damage <= 0): #if damage is very weak, pick random damage
             damage = randrange(1, 10)
         else:
             damage = randrange(1, damage) #take random from damage
@@ -49,7 +49,7 @@ class EarthMove(Move):
     
     def execute(self, entity, enemy):
         damage = (entity.earth_strength - enemy.earth_strength) / 4
-        if(damage < 0): #if damage is very weak, pick random damage
+        if(damage <= 0): #if damage is very weak, pick random damage
             damage = randrange(1, 10)
         else:
             damage = randrange(1, damage) #take random from damage
@@ -84,7 +84,7 @@ class FireMove(Move):
     
     def execute(self, entity, enemy):
         damage = (entity.fire_strength - enemy.fire_strength) / 4
-        if(damage < 0): #if damage is very weak, pick random damage
+        if(damage <= 0): #if damage is very weak, pick random damage
             damage = randrange(1, 10)
         else:
             damage = randrange(1, damage) #take random from damage
