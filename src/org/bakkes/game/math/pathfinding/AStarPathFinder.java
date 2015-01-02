@@ -42,7 +42,7 @@ public class AStarPathFinder implements IPathFinder {
 		if(map.isBlocked(endPosition))
 			return null;
 		
-		PriorityQueue<Node> open = new PriorityQueue<Node>(new NodeComparator());
+		PriorityQueue<Node> open = new PriorityQueue<Node>();
 		ArrayList<Node> closed = new ArrayList<Node>();
 		open.add(new Node(startPosition));
 		
