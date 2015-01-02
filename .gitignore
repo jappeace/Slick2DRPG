@@ -49,3 +49,4 @@ local.properties
 .SyncIgnore
 /bin
 res/sprites
+src/org/bakkes/fuzzy
