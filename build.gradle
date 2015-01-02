@@ -1,0 +1,32 @@
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.7
+version = '1'
+jar {
+    manifest {
+		attributes 'Implementation-Title': 'Pokeomon rip',
+	   'Implementation-Version':version
+   }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile 'org.slick2d:slick2d-core:1.0.1'
+	compile 'org.python:jython:2.5.3'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+        resources {
+            srcDir 'res'
+        }
+    }
+}
