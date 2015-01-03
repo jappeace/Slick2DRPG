@@ -30,3 +30,23 @@ sourceSets {
         }
     }
 }
+task natives(type:Sync){
+    def paths = new LinkedList<>();
+    configurations.compile.each { file ->
+        if (!file.name.contains("natives")) {
+			return
+        }
+		zipTree(file).matching {
+			exclude {
+				it.path.contains('META-INF')
+			}
+		}.each {
+			paths.add(it)
+		}
+    }
+	from paths into "$buildDir/libs"
+}
+tasks.withType(Test) {
+	dependsOn natives
+	systemProperty "java.library.path", "$buildDir/libs"
+}
