@@ -31,7 +31,7 @@ sourceSets {
     }
 }
 task natives(type:Sync){
-    def paths = new LinkedList<>();
+	def paths = new LinkedList()
     configurations.compile.each { file ->
         if (!file.name.contains("natives")) {
 			return
