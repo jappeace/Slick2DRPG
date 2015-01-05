@@ -17,7 +17,7 @@ repositories {
 
 dependencies {
 	compile 'org.slick2d:slick2d-core:1.0.1'
-	compile 'org.python:jython:2.5.3'
+	compile 'org.python:jython-standalone:2.5.3'
 }
 
 sourceSets {
