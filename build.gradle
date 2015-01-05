@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-	compile 'org.slick2d:slick2d-core:1.0.1'
+	compile 'org.slick2d:slick2d-core:1.0.0'
 	compile 'org.python:jython-standalone:2.5.3'
 }
 
@@ -30,6 +30,8 @@ sourceSets {
         }
     }
 }
+
+def nativeDir = "$buildDir/natives"
 task natives(type:Sync){
 	def paths = new LinkedList()
     configurations.compile.each { file ->
@@ -44,9 +46,18 @@ task natives(type:Sync){
 			paths.add(it)
 		}
     }
-	from paths into "$buildDir/libs"
+	from paths into nativeDir
 }
 tasks.withType(Test) {
 	dependsOn natives
 	systemProperty "java.library.path", "$buildDir/libs"
+}
+eclipse.classpath.file {
+    whenMerged { classpath ->
+		def entry = classpath.entries.find{
+			it.path.contains("lwjgl")
+		}
+		entry.nativeLibraryLocation=nativeDir
+		println entry
+	}
 }
