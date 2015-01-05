@@ -1,7 +1,6 @@
 package org.bakkes.game.entity.follower;
 
 import org.bakkes.game.entity.Direction;
-import org.bakkes.game.entity.Entity;
 import org.bakkes.game.entity.NPC;
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.entity.follower.state.StateMachine;
@@ -20,14 +19,14 @@ public class FollowingPokemon extends NPC implements IFollower {
 	 */
 	public int stepsTaken = 0;
 	public boolean isHealthy = true;
-	
+
 	private Player parent;
 	private static SpriteSheet _spriteSheet;
 	private Animation[] _animation;
 	private int facing;
 	private StateMachine stateMachine;
-	
-	public FollowingPokemon(Player parent) {
+
+	public FollowingPokemon(final Player parent) {
 		this.parent = parent;
 		this.position = GridGraphicTranslator.GridToPixels(GridGraphicTranslator
 							.PixelsToGrid(parent.getPosition()).minusOperator(
@@ -35,13 +34,13 @@ public class FollowingPokemon extends NPC implements IFollower {
 		this.facing = Direction.SOUTH;
 		stateMachine = new StateMachine(this);
 	}
-	
+
 	@Override
-	public void init(GameContainer gc) {
+	public void init(final GameContainer gc) {
 		if(_spriteSheet == null) {
 			try {
 				_spriteSheet = new SpriteSheet("res/sprites/followers.png", 32, 32, new Color(160, 176, 128));
-			} catch (SlickException e) {
+			} catch (final SlickException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -51,7 +50,7 @@ public class FollowingPokemon extends NPC implements IFollower {
 		_animation[Direction.EAST]  = new Animation(_spriteSheet, 4, 3, 5, 3, true, 150, true);
 		_animation[Direction.SOUTH] = new Animation(_spriteSheet, 4, 1, 7, 1, true, 150, true);
 		_animation[Direction.WEST]  = new Animation(_spriteSheet, 4, 2, 7, 2, true, 150, true);
-		
+
 		for(int i = 0; i <= _animation.length - 1; i++) {
 			_animation[i].setPingPong(true);
 			_animation[i].setCurrentFrame(0);
@@ -60,7 +59,7 @@ public class FollowingPokemon extends NPC implements IFollower {
 	}
 
 	@Override
-	public void render(GameContainer gc, Graphics g) {
+	public void render(final GameContainer gc, final Graphics g) {
 		// TODO Auto-generated method stub
 		if(isHealthy) {
 			//g.drawString("Rendering " + facing + " - " + position.getX() + ", " + position.getY(), 10, 60);
@@ -68,27 +67,29 @@ public class FollowingPokemon extends NPC implements IFollower {
 		}
 	}
 
-	public void face(int direction) {
+	@Override
+	public void face(final int direction) {
 		this.facing = direction;
 	}
-	
+
 	private static final float DISTANCE = 32f;
-	
-	public void update(int delta) {
+
+	@Override
+	public void update(final int delta) {
 		stateMachine.update();
 		if(parent.isCurrentlyMoving()) {
-			float xDiff = facing == Direction.WEST ? -DISTANCE : facing == Direction.EAST ? DISTANCE : 0;
-			float yDiff = facing == Direction.NORTH ? -DISTANCE : facing == Direction.SOUTH ? DISTANCE : 0;
+			final float xDiff = facing == Direction.WEST ? -DISTANCE : facing == Direction.EAST ? DISTANCE : 0;
+			final float yDiff = facing == Direction.NORTH ? -DISTANCE : facing == Direction.SOUTH ? DISTANCE : 0;
 			this.position = parent.getPosition().minusOperator(new Vector2(xDiff, yDiff));
 		} else {
 			_animation[facing].setCurrentFrame(0);
 		}
 	}
-	
+
 	public StateMachine getStateMachine() {
 		return stateMachine;
 	}
-	
+
 	public Player getParent() {
 		return parent;
 	}
