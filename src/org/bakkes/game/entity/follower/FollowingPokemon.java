@@ -41,7 +41,6 @@ public class FollowingPokemon extends NPC implements IFollower {
 			try {
 				_spriteSheet = new SpriteSheet("res/sprites/followers.png", 32, 32, new Color(160, 176, 128));
 			} catch (final SlickException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
