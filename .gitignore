@@ -48,5 +48,4 @@ local.properties
 .SyncID
 .SyncIgnore
 /bin
-res/sprites
 build
