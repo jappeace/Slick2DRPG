@@ -1,19 +1,18 @@
 package org.bakkes.game.events;
 
-import org.bakkes.game.Game;
-import org.bakkes.game.math.Vector2;
 import org.bakkes.game.state.PlayingGameState;
 
 //Class to use WASD for movement
 public class MovementListener implements GameKeyListener {
 
 	private PlayingGameState game;
-	
-	public MovementListener(PlayingGameState playingGameState) {
+
+	public MovementListener(final PlayingGameState playingGameState) {
 		this.game = playingGameState;
 	}
-	
-	public void KeyDown(int key, char c) {
+
+	@Override
+	public void KeyDown(final int key, final char c) {
 		/*Vector2 diff = new Vector2(0, 0);
 		if(key == 17) { //W
 			diff.addY(-1);
@@ -29,9 +28,10 @@ public class MovementListener implements GameKeyListener {
 		game.getPlayer().moveTo(newPos);*/
 	}
 
-	public void KeyUp(int key, char c) {
+	@Override
+	public void KeyUp(final int key, final char c) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -5,13 +5,13 @@ import org.bakkes.game.entity.NPC;
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.entity.follower.state.StateMachine;
 import org.bakkes.game.math.GridGraphicTranslator;
-import org.bakkes.game.math.Vector2;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Vector2f;
 
 public class FollowingPokemon extends NPC implements IFollower {
 	/*
@@ -29,8 +29,8 @@ public class FollowingPokemon extends NPC implements IFollower {
 	public FollowingPokemon(final Player parent) {
 		this.parent = parent;
 		this.position = GridGraphicTranslator.GridToPixels(GridGraphicTranslator
-							.PixelsToGrid(parent.getPosition()).minusOperator(
-							new Vector2(0f, 2f)));
+							.PixelsToGrid(parent.getPosition()).sub(
+							new Vector2f(0f, 2f)));
 		this.facing = Direction.SOUTH;
 		stateMachine = new StateMachine(this);
 	}
@@ -79,7 +79,7 @@ public class FollowingPokemon extends NPC implements IFollower {
 		if(parent.isCurrentlyMoving()) {
 			final float xDiff = facing == Direction.WEST ? -DISTANCE : facing == Direction.EAST ? DISTANCE : 0;
 			final float yDiff = facing == Direction.NORTH ? -DISTANCE : facing == Direction.SOUTH ? DISTANCE : 0;
-			this.position = parent.getPosition().minusOperator(new Vector2(xDiff, yDiff));
+			this.position = parent.getPosition().sub(new Vector2f(xDiff, yDiff));
 		} else {
 			_animation[facing].setCurrentFrame(0);
 		}

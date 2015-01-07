@@ -1,6 +1,4 @@
-from org.bakkes.game.math import Vector2
 from org.bakkes.game import GameInfo
-from org.bakkes.game.state.minigames.bird import BirdMinigame
 from org.newdawn.slick.state.transition import FadeOutTransition, FadeInTransition
 def talkto_1(game):
 	game.showDialog("You just talked to NPC 1!\nWelcome to this game.")
@@ -9,7 +7,8 @@ def talkto_1(game):
 	game.showDialog("Here's some protein, your pokemon will love it!")
 	
 def talkto_2(game):
-	GameInfo.getInstance().stateGame.enterState(BirdMinigame.BIRD_MINIGAME_STATE_ID, FadeOutTransition(), FadeInTransition())
+	game.showDialog("I killed all the birds, I'm sorry. I was hungry"+
+                " and wanted to eat chips")
 		
 def talkto_3(game):
 	game.showDialog("What are you doing here?");
@@ -17,6 +16,6 @@ def talkto_3(game):
 def talkto_4(game):
 	game.showDialog("Sorry, I can't let you in here!")
 	game.showDialog("I'll just send you back.")
-	game.getPlayer().moveTo(Vector2(8, 8))
+	game.getPlayer().moveTo(8, 8)
 	game.showDialog("bye")
 	
