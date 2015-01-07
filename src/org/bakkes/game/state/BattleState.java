@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import org.bakkes.game.GameInfo;
 import org.bakkes.game.battle.Battle;
 import org.bakkes.game.battle.IMove;
-import org.bakkes.game.entity.PokemonManager;
-import org.bakkes.game.scripting.interfaces.IPokemon;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,10 +12,11 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.Log;
 
 public class BattleState extends CommonGameState {
 	public static final int BATTLE_STATE_ID = 2;
-	
+
 	private Battle battle;
 	private Image playerImage;
 	private Image enemyImage;
@@ -27,21 +26,24 @@ public class BattleState extends CommonGameState {
 	public int getID() {
 		return BATTLE_STATE_ID;
 	}
-	
-	public void setBattle(Battle b) {
+
+	public void setBattle(final Battle b) {
 		this.battle = b;
+		final String player = "/res/sprites/pokemon/" + b.getPlayer().getPokemon().get_image();
+		final String enemy = "/res/sprites/pokemon/" + b.getEnemy().get_image();
 		try {
-			playerImage = new Image("/res/sprites/pokemon/" + b.getPlayer().getPokemon().get_image());
-			enemyImage = new Image("/res/sprites/pokemon/" + b.getEnemy().get_image());
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
+
+			playerImage = new Image(player);
+			enemyImage = new Image(enemy);
+		} catch (final SlickException e) {
+			Log.error("could not find: \n " + player + " \n or  \n" + enemy);
 			e.printStackTrace();
 		}
 		firstRun = true;
 	}
-	
-	private void selectMove(int selected) {
-		IMove[] moves = battle.getPlayer().getPokemon().get_moves();
+
+	private void selectMove(final int selected) {
+		final IMove[] moves = battle.getPlayer().getPokemon().get_moves();
 		System.out.println(selectedMove + " - " + moves.length);
 		if(selected >= moves.length)
 			selectedMove = 0;
@@ -51,16 +53,16 @@ public class BattleState extends CommonGameState {
 			selectedMove = selected;
 		System.out.println(selectedMove + " - " + moves.length);
 	}
-	
+
 	@Override
-	public void init(GameContainer gc, StateBasedGame arg1)
+	public void init(final GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
 		super.init(gc, arg1);
 		System.out.println("Got init");
 	}
 
 	@Override
-	public void update(GameContainer gc, StateBasedGame arg1, int delta)
+	public void update(final GameContainer gc, final StateBasedGame arg1, final int delta)
 			throws SlickException {
 		if(firstRun) {
 			gc.getInput().isKeyPressed(Input.KEY_ENTER);//reset ENTER key state
@@ -73,7 +75,7 @@ public class BattleState extends CommonGameState {
 			}
 			return;
 		}
-		
+
 		if(gc.getInput().isKeyPressed(Input.KEY_DOWN)) {
 			System.out.println("hi " + selectedMove);
 			selectMove(selectedMove + 1);
@@ -83,16 +85,16 @@ public class BattleState extends CommonGameState {
 		}
 		if(gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
 			battle.executeMove(battle.getPlayer().getPokemon().get_moves()[selectedMove], true);
-			
+
 			if(battle.isOver())
 				return;
-			
+
 			//now execute opponents move
-			IMove[] enemyMoves = battle.getEnemy().get_moves();
+			final IMove[] enemyMoves = battle.getEnemy().get_moves();
 			IMove bestMove = null;
 			float bestDesirability = -Float.MAX_VALUE;
 			for(int i = 0; i < enemyMoves.length; i++) { //get the best move from the opponent
-				float desirability = enemyMoves[i].get_desirability(battle.getEnemy(), battle.getPlayer().getPokemon());
+				final float desirability = enemyMoves[i].get_desirability(battle.getEnemy(), battle.getPlayer().getPokemon());
 				if(desirability > bestDesirability) {
 					bestMove = enemyMoves[i];
 					bestDesirability = desirability;
@@ -100,23 +102,23 @@ public class BattleState extends CommonGameState {
 			}
 			battle.executeMove(bestMove, false);
 		}
-		
+
 		super.update(gc, arg1, delta);
 	}
 	private float leftOffset = 20f;
 	private int showCount = 30;
 	@Override
-	public void render(GameContainer gc, StateBasedGame arg1, Graphics g)
+	public void render(final GameContainer gc, final StateBasedGame arg1, final Graphics g)
 			throws SlickException {
 		g.setColor(new Color(255, 255, 255, 255));
 		g.setLineWidth(5f);
-		
+
 		if(battle.isOver() && battle.hasPlayerWon()) { //player won, don't show enemy stuff
 			g.drawString("You are victorious! Press enter to leave", leftOffset, 150f);
 		} else {
 			g.drawImage(enemyImage, leftOffset + 260f, 10f);
 			g.drawString("Enemy moves:", leftOffset + 260f, 85f);
-			IMove[] moves = battle.getEnemy().get_moves();
+			final IMove[] moves = battle.getEnemy().get_moves();
 			for(int i = 0; i < moves.length; i++) {
 				g.drawString(moves[i].get_name() + (GameInfo.SHOW_DEBUG_INFO ? " (" + moves[i].get_desirability(battle.getEnemy(), battle.getPlayer().getPokemon()) + ")" : ""), leftOffset + 260f, 100f + (i * 15));
 			}
@@ -127,7 +129,7 @@ public class BattleState extends CommonGameState {
 			g.drawString("Earth strength: " + battle.getEnemy().get_earth_strength(), leftOffset, 130f);
 			g.drawString("Fire strength: " + battle.getEnemy().get_fire_strength(), leftOffset, 145f);
 		}
-		
+
 		if(battle.isOver() && !battle.hasPlayerWon()) { //player lost, dont show player
 			g.drawString("You lost! Press enter to leave", leftOffset, 450f);
 			if(battle.getPlayer().getInventory().hasItem(4)) {
@@ -138,9 +140,9 @@ public class BattleState extends CommonGameState {
 		} else {
 			g.drawImage(playerImage, leftOffset + 260f, 400f);
 			g.drawString("Your moves:", leftOffset + 260f, 475f);
-			IMove[] myMoves = battle.getEnemy().get_moves();
+			final IMove[] myMoves = battle.getEnemy().get_moves();
 			for(int i = 0; i < myMoves.length; i++) {
-				if(i == selectedMove) 
+				if(i == selectedMove)
 					g.setColor(new Color(255, 255, 255, 255));
 				else
 					g.setColor(new Color(255, 255, 255, 128));
@@ -153,23 +155,23 @@ public class BattleState extends CommonGameState {
 			g.drawString("Water strength: " + battle.getPlayer().getPokemon().get_water_strength(), leftOffset, 505f);
 			g.drawString("Earth strength: " + battle.getPlayer().getPokemon().get_earth_strength(), leftOffset, 520f);
 			g.drawString("Fire strength: " + battle.getPlayer().getPokemon().get_fire_strength(), leftOffset, 535f);
-			
+
 			g.drawRect(490f, 15f, 300, 500);
-			
+
 			g.drawString("Battle log:", 500f, 20f);
-			ArrayList<String> log = battle.getBattleLog();
+			final ArrayList<String> log = battle.getBattleLog();
 			int startIndex = 0;
-			if(log.size() > showCount) 
+			if(log.size() > showCount)
 				startIndex = log.size() - showCount;
-			
+
 			for(int i = startIndex; i < startIndex + showCount && i < log.size(); i++) {
 				g.drawString(log.get(i), 500f, 35f + ((i - startIndex) * 15));
 			}
 		}
-		
+
 		super.render(gc, arg1, g);
 	}
 
-	
-	
+
+
 }
