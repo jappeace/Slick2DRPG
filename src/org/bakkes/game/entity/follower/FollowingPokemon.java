@@ -4,7 +4,7 @@ import org.bakkes.game.entity.Direction;
 import org.bakkes.game.entity.NPC;
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.entity.follower.state.StateMachine;
-import org.bakkes.game.math.GridGraphicTranslator;
+import org.bakkes.game.map.GridGraphicTranslator;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;

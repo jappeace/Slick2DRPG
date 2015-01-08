@@ -2,12 +2,12 @@ package org.bakkes.game.entity;
 
 import java.util.Random;
 
-import org.bakkes.game.Constants;
 import org.bakkes.game.GameInfo;
 import org.bakkes.game.World;
 import org.bakkes.game.battle.Battle;
 import org.bakkes.game.entity.follower.FollowingPokemon;
-import org.bakkes.game.math.GridGraphicTranslator;
+import org.bakkes.game.map.GridGraphicTranslator;
+import org.bakkes.game.map.Tile;
 import org.bakkes.game.scripting.interfaces.IPokemon;
 import org.bakkes.game.state.BattleState;
 import org.bakkes.game.state.PlayingGameState;
@@ -20,7 +20,7 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.tiled.TiledMap;
-import org.newdawn.slick.util.pathfinding.AStarPathFinder;
+import org.newdawn.slick.util.Log;
 import org.newdawn.slick.util.pathfinding.Path;
 import org.newdawn.slick.util.pathfinding.Path.Step;
 
@@ -88,12 +88,12 @@ public class Player extends Entity {
 				dY = -dY;
 
 
-			if(Math.abs(addedX + dX) >= Constants.TILE_WIDTH) {
-				dX = dX >= 0 ? Constants.TILE_WIDTH + 0.01f- addedX : -Constants.TILE_WIDTH - 0.01f - addedX;
+			if(Math.abs(addedX + dX) >= Tile.WIDTH) {
+				dX = dX >= 0 ? Tile.WIDTH + 0.01f- addedX : -Tile.WIDTH - 0.01f - addedX;
 			}
 
-			if(Math.abs(addedY + dY) >= Constants.TILE_HEIGHT) {
-				dY = dY >= 0 ? Constants.TILE_HEIGHT + 0.01f - addedY : -Constants.TILE_HEIGHT - 0.01f - addedY;
+			if(Math.abs(addedY + dY) >= Tile.HEIGHT) {
+				dY = dY >= 0 ? Tile.HEIGHT + 0.01f - addedY : -Tile.HEIGHT - 0.01f - addedY;
 			}
 
 			addedX += dX;
@@ -103,6 +103,7 @@ public class Player extends Entity {
 
 
 			if(GridGraphicTranslator.PixelsInTile(position, destinationPoint)) {
+                Log.debug(destinationPoint.toString());
 				follower.stepsTaken++;
 				position = GridGraphicTranslator.PixelsToGridPixels(position);
 				currentStep++;
@@ -179,8 +180,7 @@ public class Player extends Entity {
 	}
 
 	public void moveTo(final Vector2f toTile) {
-		final AStarPathFinder pathFinder = new AStarPathFinder(World.getWorld().getLayerMap(), 100, false);
-		final Path path = pathFinder.findPath(null,(int)getGridPosition().x,(int) getGridPosition().y,(int) toTile.x, (int)toTile.y);
+		final Path path = World.getPathFinder().findPath(null,(int)getGridPosition().x,(int) getGridPosition().y,(int) toTile.x, (int)toTile.y);
 		if(path != null)
 			Move(path);
 	}

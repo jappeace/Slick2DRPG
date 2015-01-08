@@ -1,7 +1,6 @@
 package org.bakkes.game.state;
 
 import org.bakkes.game.Camera;
-import org.bakkes.game.Constants;
 import org.bakkes.game.GameInfo;
 import org.bakkes.game.World;
 import org.bakkes.game.entity.Player;
@@ -10,7 +9,8 @@ import org.bakkes.game.events.InventoryToggleListener;
 import org.bakkes.game.events.MovementListener;
 import org.bakkes.game.events.ScriptReloadListener;
 import org.bakkes.game.events.TalkToNPCListener;
-import org.bakkes.game.math.GridGraphicTranslator;
+import org.bakkes.game.map.GridGraphicTranslator;
+import org.bakkes.game.map.Tile;
 import org.bakkes.game.scripting.ScriptManager;
 import org.bakkes.game.ui.InventoryGameComponent;
 import org.newdawn.slick.Color;
@@ -90,13 +90,13 @@ public class PlayingGameState extends CommonGameState {
 		camera.translateGraphics();
 		if(destinationTile != null && destinationTile != player.getGridPosition()) {
 			g.setColor(new Color(0, 0, 255, 64));
-			g.fillRect(destinationTile.getX() * 16, destinationTile.getY() * 16, Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
+			g.fillRect(destinationTile.getX() * 16, destinationTile.getY() * 16, Tile.WIDTH, Tile.HEIGHT);
 		}
 		player.render(gc, g);
 		camera.untranslateGraphics();
 
 		g.setColor(Color.black);
-		g.drawRect(paintPos.getX(), paintPos.getY(), Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
+		g.drawRect(paintPos.getX(), paintPos.getY(), Tile.WIDTH, Tile.HEIGHT);
 		if(GameInfo.SHOW_DEBUG_INFO) {
 			final StateMachine stateMachine = player.getFollower().getStateMachine();
 			if(stateMachine.getState() != null) {
