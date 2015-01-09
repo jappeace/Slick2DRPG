@@ -1,35 +1,41 @@
 
 package org.bakkes.game;
 
-import org.bakkes.game.map.GridGraphicTranslator;
+import org.bakkes.game.map.Tile;
 import org.junit.Assert;
 import org.junit.Test;
 import org.newdawn.slick.geom.Vector2f;
 
 public class GridGraphicTest{
 
+	private void testContains(final int left, final int top, final float x, final float y){
+		final Vector2f pixelCoordinate = new Vector2f(x,y);
+		final Tile tile = new Tile(left,top);
+		Assert.assertTrue(tile.contains(pixelCoordinate));
+	}
+	private void testNotContains(final int left, final int top, final float x, final float y){
+		final Vector2f pixelCoordinate = new Vector2f(x,y);
+		final Tile tile = new Tile(left,top);
+		Assert.assertFalse(tile.contains(pixelCoordinate));
+
+	}
 	@Test
 	public void testPixel(){
-		final Vector2f pixelCoordinate = new Vector2f(0.4f,0.5f);
-		final Vector2f expected = new Vector2f(0,0);
-		Assert.assertEquals(expected, GridGraphicTranslator.PixelsToGrid(pixelCoordinate));
+		testContains(0,0,0.4f,0.5f);
 	}
 	@Test
 	public void testPixelEdge(){
-		final Vector2f pixelCoordinate = new Vector2f(15.9f,15.99f);
-		final Vector2f expected = new Vector2f(0,0);
-		Assert.assertEquals(expected, GridGraphicTranslator.PixelsToGrid(pixelCoordinate));
+		testContains(0,0,15.9f,15.99f);
+		testContains(1,0,31.9f,15.99f);
 	}
 	@Test
 	public void testPixelOtherEdge(){
-		final Vector2f pixelCoordinate = new Vector2f(0.0f,0.0f);
-		final Vector2f expected = new Vector2f(0,0);
-		Assert.assertEquals(expected, GridGraphicTranslator.PixelsToGrid(pixelCoordinate));
+		testContains(0,0,0f,0f);
+		testContains(1,1,16f,16f);
 	}
 	@Test
-	public void testPixelEdgeCase(){
-		final Vector2f pixelCoordinate = new Vector2f(16f,16f);
-		final Vector2f expected = new Vector2f(0,0);
-		Assert.assertNotEquals(expected, GridGraphicTranslator.PixelsToGrid(pixelCoordinate));
+	public void testPixelOverEdge(){
+        testNotContains(0,0,16f,16f);
+        testNotContains(1,1,15.9f,15.9f);
 	}
 }

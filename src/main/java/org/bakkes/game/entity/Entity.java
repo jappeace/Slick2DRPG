@@ -1,5 +1,6 @@
 package org.bakkes.game.entity;
 
+import org.bakkes.game.map.Tile;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
@@ -13,5 +14,8 @@ public abstract class Entity {
 
 	public Vector2f getPosition() {
 		return position;
+	}
+	public Tile getTile() {
+		return Tile.createFromPixelsCoordinates(position);
 	}
 }

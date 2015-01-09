@@ -9,7 +9,6 @@ import org.bakkes.game.events.InventoryToggleListener;
 import org.bakkes.game.events.MovementListener;
 import org.bakkes.game.events.ScriptReloadListener;
 import org.bakkes.game.events.TalkToNPCListener;
-import org.bakkes.game.map.GridGraphicTranslator;
 import org.bakkes.game.map.Tile;
 import org.bakkes.game.scripting.ScriptManager;
 import org.bakkes.game.ui.InventoryGameComponent;
@@ -26,7 +25,7 @@ public class PlayingGameState extends CommonGameState {
 
 	private Player player;
 	private Camera camera;
-	private Vector2f destinationTile;
+	private Tile destinationTile;
 
 	public Player getPlayer() {
 		return player;
@@ -63,9 +62,9 @@ public class PlayingGameState extends CommonGameState {
 		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && inputEnabled) {
 			Vector2f mousePos = new Vector2f(input.getMouseX(), input.getMouseY());
 			mousePos = new Vector2f(mousePos.getX() + camera.cameraX, mousePos.getY() + camera.cameraY);
-			destinationTile = GridGraphicTranslator.PixelsToGrid(mousePos);
+			destinationTile = Tile.createFromPixelsCoordinates(mousePos);
 
-			if(!World.getWorld().getLayerMap().isBlocked(destinationTile)) {
+			if(!World.getWorld().getLayerMap().isBlocked(destinationTile.toVector())) {
 				player.moveTo(destinationTile);
 			} else {
 				destinationTile = null;
@@ -82,21 +81,22 @@ public class PlayingGameState extends CommonGameState {
 
 		final Input input = gc.getInput();
 		final Vector2f mousePos = new Vector2f(input.getMouseX(), input.getMouseY());
-		final Vector2f paintPos = GridGraphicTranslator.PixelsToGridPixels(mousePos);
 
-		camera.centerOn((int)player.getPixelPosition().getX(), (int)player.getPixelPosition().getY());
+		camera.centerOn((int)player.getPosition().getX(), (int)player.getPosition().getY());
 		camera.drawMap();
 
 		camera.translateGraphics();
-		if(destinationTile != null && destinationTile != player.getGridPosition()) {
+		if(destinationTile != null && !destinationTile.equals(player.getTile())) {
 			g.setColor(new Color(0, 0, 255, 64));
-			g.fillRect(destinationTile.getX() * 16, destinationTile.getY() * 16, Tile.WIDTH, Tile.HEIGHT);
+			final Vector2f tl = destinationTile.topLeftPixels();
+			g.fillRect(tl.x, tl.y, Tile.WIDTH, Tile.HEIGHT);
 		}
 		player.render(gc, g);
 		camera.untranslateGraphics();
 
+		final Vector2f mouseTile = Tile.PixelsToGridPixels(mousePos);
 		g.setColor(Color.black);
-		g.drawRect(paintPos.getX(), paintPos.getY(), Tile.WIDTH, Tile.HEIGHT);
+		g.drawRect(mouseTile.getX(), mouseTile.getY(), Tile.WIDTH, Tile.HEIGHT);
 		if(GameInfo.SHOW_DEBUG_INFO) {
 			final StateMachine stateMachine = player.getFollower().getStateMachine();
 			if(stateMachine.getState() != null) {

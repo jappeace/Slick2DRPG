@@ -7,7 +7,6 @@ import org.bakkes.game.R;
 import org.bakkes.game.World;
 import org.bakkes.game.battle.Battle;
 import org.bakkes.game.entity.follower.FollowingPokemon;
-import org.bakkes.game.map.GridGraphicTranslator;
 import org.bakkes.game.map.Tile;
 import org.bakkes.game.scripting.interfaces.IPokemon;
 import org.bakkes.game.state.BattleState;
@@ -62,7 +61,7 @@ public class Player extends Entity {
 				_animation[i].setAutoUpdate(false);
 			}
 
-			position = GridGraphicTranslator.GridToPixels(new Vector2f(8, 8));
+			position = new Tile(8, 8).topLeftPixels();
 			inventory = new Inventory(this);
 			final FollowingPokemon p = new FollowingPokemon(this);
 			p.init(gc);
@@ -85,13 +84,12 @@ public class Player extends Entity {
 	}
 	private void move(final Vector2f delta){
         final Step s = currentPath.getStep(currentStep);
-        final Vector2f destinationPoint = new Vector2f(s.getX(), s.getY());
-        final Vector2f destinationPixelPoint = GridGraphicTranslator.GridToPixels(destinationPoint);
+        final Tile destinationTile = new Tile(s.getX(), s.getY());
 
-        if(destinationPixelPoint.getX() < position.getX())
+        if(destinationTile.topLeftPixels().x < position.getX())
         	delta.x = -delta.x;
 
-        if(destinationPixelPoint.getY() < position.getY())
+        if(destinationTile.topLeftPixels().y < position.getY())
         	delta.y = -delta.y;
 
 
@@ -107,45 +105,48 @@ public class Player extends Entity {
         position.add(delta);
 
 
-        if(GridGraphicTranslator.PixelsInTile(position, destinationPoint)) {
-            Log.debug(destinationPoint.toString());
-            follower.stepsTaken++;
-            position = GridGraphicTranslator.PixelsToGridPixels(position);
-            currentStep++;
-            added.x = 0;
-            added.y = 0;
+        if(!destinationTile.contains(position)) {
+        	return;
+        }
 
-            if(currentStep >= currentPath.getLength()) {
-                isCurrentlyMoving = false;
-                currentStep = 0;
-                _animation[facing].setAutoUpdate(false);
-                _animation[facing].setCurrentFrame(0);
-            } else {
-                final Step nextStep = currentPath.getStep(currentStep);
-                if(World.getWorld().getLayerMap().isGrass(new Vector2f(nextStep.getX(), nextStep.getY())) && pokemon.get_health() > 0) {
-                    if(random.nextInt(20) == 1) { //1 in 20 chance to encounter pokemon
-                        final BattleState state = (BattleState)GameInfo.getInstance().stateGame.getState(BattleState.BATTLE_STATE_ID);
-                        final IPokemon encounter = PokemonManager.getPokemonById(random.nextInt(3));
-                        state.setBattle(new Battle(encounter));
-                        GameInfo.getInstance().stateGame.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
-                    }
-                }
-                final Vector2f p = new Vector2f(nextStep.getX(), nextStep.getY()).sub(getGridPosition());
-                if(p.getX() == 1)
-                    facing = Direction.EAST;
-                else if(p.getX() == -1)
-                    facing = Direction.WEST;
+        Log.debug(destinationTile.toString());
+        follower.stepsTaken++;
+        position = Tile.PixelsToGridPixels(position);
+        currentStep++;
+        added.x = 0;
+        added.y = 0;
 
-                if(p.getY() == 1)
-                    facing = Direction.SOUTH;
-                else if(p.getY() == -1)
-                    facing = Direction.NORTH;
+        if(currentStep >= currentPath.getLength()) {
+            isCurrentlyMoving = false;
+            currentStep = 0;
+            _animation[facing].setAutoUpdate(false);
+            _animation[facing].setCurrentFrame(0);
+            return;
+        }
 
-                _animation[facing].setAutoUpdate(true);
-                if(follower != null)
-                    follower.face(facing);
+        final Step nextStep = currentPath.getStep(currentStep);
+        if(World.getWorld().getLayerMap().isGrass(new Vector2f(nextStep.getX(), nextStep.getY())) && pokemon.get_health() > 0) {
+            if(random.nextInt(20) == 1) { //1 in 20 chance to encounter pokemon
+                final BattleState state = (BattleState)GameInfo.getInstance().stateGame.getState(BattleState.BATTLE_STATE_ID);
+                final IPokemon encounter = PokemonManager.getPokemonById(random.nextInt(3));
+                state.setBattle(new Battle(encounter));
+                GameInfo.getInstance().stateGame.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
             }
         }
+        final Vector2f p = new Vector2f(nextStep.getX(), nextStep.getY()).sub(getTile().toVector());
+        if(p.getX() == 1)
+            facing = Direction.EAST;
+        else if(p.getX() == -1)
+            facing = Direction.WEST;
+
+        if(p.getY() == 1)
+            facing = Direction.SOUTH;
+        else if(p.getY() == -1)
+            facing = Direction.NORTH;
+
+        _animation[facing].setAutoUpdate(true);
+        if(follower != null)
+            follower.face(facing);
 	}
 
 	@Override
@@ -155,13 +156,6 @@ public class Player extends Entity {
 			follower.render(gc, g);
 	}
 
-	public Vector2f getGridPosition() {
-		return GridGraphicTranslator.PixelsToGrid(position);
-	}
-
-	public Vector2f getPixelPosition() {
-		return position;
-	}
 
 	public IPokemon getPokemon() {
 		return pokemon;
@@ -181,8 +175,8 @@ public class Player extends Entity {
 		return isCurrentlyMoving;
 	}
 
-	public void moveTo(final Vector2f toTile) {
-		final Path path = World.getPathFinder().findPath(null,(int)getGridPosition().x,(int) getGridPosition().y,(int) toTile.x, (int)toTile.y);
+	public void moveTo(final Tile toTile) {
+		final Path path = World.getPathFinder().findPath(null,getTile().left,getTile().top,toTile.left, toTile.top);
 		if(path != null)
 			Move(path);
 	}
@@ -205,7 +199,7 @@ public class Player extends Entity {
 	public int getFacingNPC() {
 		final TiledMap map = World.getWorld().getMap();
 		final int layerIndex = map.getLayerIndex("npc");
-		final Vector2f diff = getGridPosition().copy();
+		final Vector2f diff = getTile().toVector();
 		switch(getDirection()) {
 		case Direction.NORTH:
 			diff.add(new Vector2f(0,-1));

@@ -5,7 +5,7 @@ import org.bakkes.game.entity.Direction;
 import org.bakkes.game.entity.NPC;
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.entity.follower.state.StateMachine;
-import org.bakkes.game.map.GridGraphicTranslator;
+import org.bakkes.game.map.Tile;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -29,9 +29,7 @@ public class FollowingPokemon extends NPC implements IFollower {
 
 	public FollowingPokemon(final Player parent) {
 		this.parent = parent;
-		this.position = GridGraphicTranslator.GridToPixels(GridGraphicTranslator
-							.PixelsToGrid(parent.getPosition()).sub(
-							new Vector2f(0f, 2f)));
+		this.position = parent.getTile().minus(new Tile(0,2)).toVector();
 		this.facing = Direction.SOUTH;
 		stateMachine = new StateMachine(this);
 	}
