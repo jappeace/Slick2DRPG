@@ -35,7 +35,7 @@ public class Player extends Entity {
 	private boolean isCurrentlyMoving = false;
 	private Path currentPath;
 	private int currentStep;
-	private Vector2f added;
+	private Vector2f added = new Vector2f();
 	private int facing = Direction.SOUTH;
 	private Inventory inventory;
 	private PlayingGameState game;
