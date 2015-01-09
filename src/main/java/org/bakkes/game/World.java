@@ -17,7 +17,7 @@ public class World {
     }
 	private World() {
 		try {
-			map = new TiledMap("res/map/map.tmx");
+			map = new TiledMap(R.map + "map.tmx");
 		} catch (final SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,5 +1,6 @@
 package org.bakkes.game.entity.follower;
 
+import org.bakkes.game.R;
 import org.bakkes.game.entity.Direction;
 import org.bakkes.game.entity.NPC;
 import org.bakkes.game.entity.Player;
@@ -39,7 +40,7 @@ public class FollowingPokemon extends NPC implements IFollower {
 	public void init(final GameContainer gc) {
 		if(_spriteSheet == null) {
 			try {
-				_spriteSheet = new SpriteSheet("res/sprites/followers.png", 32, 32, new Color(160, 176, 128));
+				_spriteSheet = new SpriteSheet(R.sprites+"followers.png", 32, 32, new Color(160, 176, 128));
 			} catch (final SlickException e) {
 				e.printStackTrace();
 			}

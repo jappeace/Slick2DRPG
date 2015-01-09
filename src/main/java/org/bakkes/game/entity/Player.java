@@ -3,6 +3,7 @@ package org.bakkes.game.entity;
 import java.util.Random;
 
 import org.bakkes.game.GameInfo;
+import org.bakkes.game.R;
 import org.bakkes.game.World;
 import org.bakkes.game.battle.Battle;
 import org.bakkes.game.entity.follower.FollowingPokemon;
@@ -48,7 +49,8 @@ public class Player extends Entity {
 	public void init(final GameContainer gc) {
 		try {
 
-			_spriteSheet = new SpriteSheet("res/sprites/player.png", 32, 32);
+			_spriteSheet = new SpriteSheet(R.sprites+"player.png", 32, 32);
+
 			_animation = new Animation[4];
 			_animation[Direction.NORTH] = new Animation(_spriteSheet, 0, 0, 2, 0, true, 200, true);
 			_animation[Direction.EAST]  = new Animation(_spriteSheet, 0, 3, 2, 3, true, 200, true);
