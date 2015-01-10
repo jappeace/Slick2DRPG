@@ -1,5 +1,6 @@
 package org.bakkes.game.map;
 
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.PathFindingContext;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
@@ -72,11 +73,13 @@ public class LayerdMap implements TileBasedMap {
 	public int getNPCidOn(final Tile tile){
 		return Integer.parseInt(
             map.getTileProperty(
-                    getTileId(tile, npcLayer), 
-                    "npcid", 
+                    getTileId(tile, npcLayer),
+                    "npcid",
                     "-1"
                 )
             );
 	}
-
+	public Vector2f getNPCLocation(final int npcID){
+		return new Vector2f(map.getObjectX(npcLayer, npcID), map.getObjectY(npcLayer, npcID));
+	}
 }

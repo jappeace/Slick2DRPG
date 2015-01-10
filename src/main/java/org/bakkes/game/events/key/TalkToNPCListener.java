@@ -1,11 +1,13 @@
 package org.bakkes.game.events.key;
 
 import org.bakkes.game.World;
+import org.bakkes.game.entity.Person;
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.map.Direction;
 import org.bakkes.game.map.LayerdMap;
 import org.bakkes.game.map.Tile;
 import org.bakkes.game.state.OverworldState;
+import org.bakkes.game.ui.DialogBox;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.util.Log;
 
@@ -22,8 +24,16 @@ public class TalkToNPCListener implements IKeyListener {
 		if(key == Keyboard.KEY_SPACE) {
 			final int facingNpc = findFacingNPC();
 			Log.info("Facing: " + facingNpc);
-			if(facingNpc != -1)
-				Log.warn("Load the interaction here");
+			if(facingNpc != -1){
+
+				for(final Person person : World.getWorld().getPeople()){
+					if(person.getId() == facingNpc){
+						person.setDialog(new DialogBox(game));
+						person.interact();
+						return;
+					}
+				}
+			}
 		}
 	}
 
