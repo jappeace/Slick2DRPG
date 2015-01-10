@@ -1,6 +1,8 @@
 package org.bakkes.game.events;
 
+import org.bakkes.game.map.Tile;
 import org.bakkes.game.state.PlayingGameState;
+import org.lwjgl.input.Keyboard;
 
 //Class to use WASD for movement
 public class MovementListener implements GameKeyListener {
@@ -13,19 +15,17 @@ public class MovementListener implements GameKeyListener {
 
 	@Override
 	public void KeyDown(final int key, final char c) {
-		/*Vector2 diff = new Vector2(0, 0);
-		if(key == 17) { //W
-			diff.addY(-1);
+		final Tile diff = new Tile(0, 0);
+		if(key == Keyboard.KEY_W) { //W
+			diff.top --;
 		} else if(key == 30) { //a
-			diff.addX(-1);
+			diff.left --;
 		} else if(key == 31) { //s
-			diff.addY(1);
+			diff.top ++;
 		} else if(key == 32) { //d
-			diff.addX(1);
+			diff.left++;
 		}
-		Vector2 newPos = game.getPlayer().getGridPosition().copy();
-		newPos.add(diff);
-		game.getPlayer().moveTo(newPos);*/
+		game.getPlayer().moveTo(game.getPlayer().getTile().plus(diff));
 	}
 
 	@Override
