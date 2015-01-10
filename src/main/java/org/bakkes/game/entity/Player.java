@@ -78,55 +78,53 @@ public class Player extends Entity {
 		if(!isMoving) {
 			return;
 		}
-		move(new Vector2f(delta/10f, delta/10f));
+		move(delta/10f);
 		if(follower != null)
 			follower.update(delta);
 	}
-	private void move(Vector2f delta){
+	private void move(final float tpf){
         final Tile destinationTile = new Tile(currentPath.getStep(currentStep));
 
-        delta = destinationTile.minus(getTile()).multiply(delta);
-        final Vector2f offset = new Vector2f();
-        // if we go left
-        if(destinationTile.topLeftPixels().x < position.getX()){
-        	/*
-        	 * the player is drawn from the top left, so its position wil be in
-        	 * the top left, so when moving to a adjecent tile it will be there
-        	 * directly, to compensate we move the destination one more to the right
-        	 */
-        	//destinationTile = destinationTile.plus(new Tile(-1,0));
-        	//delta.x = -delta.x;
-        	offset.add(new Vector2f(15.69f,0));
+        final Vector2f delta = destinationTile.minus(getTile()).multiply(new Vector2f(tpf, tpf));
+        if(delta.equals(new Vector2f(0,0))){
+            if(destinationTile.topLeftPixels().x < position.x){
+                delta.x = -tpf;
+            }
+            if(destinationTile.topLeftPixels().y < position.y){
+                delta.y = -tpf;
+            }
         }
 
-        // if we go up
-        if(destinationTile.topLeftPixels().y < position.getY()){
-        	//destinationTile = destinationTile.plus(new Tile(0,-1));
-        	//delta.y = -delta.y;
-        	offset.add(new Vector2f(0,15.69f));
-        }
-
-
+        boolean arrived = false;
         if(Math.abs(added.x + delta.x) >= Tile.WIDTH) {
-        	Log.debug("back you");
-        	final float smoothDistance = Tile.WIDTH - added.x +0.01f;
+        	final float smoothDistance = Tile.WIDTH - Math.abs(added.x) +0.01f;
             delta.x = delta.x >= 0 ?  smoothDistance: -smoothDistance;
+        	Log.debug("back you: " +delta);
+            arrived = true;
         }
 
         if(Math.abs(added.y + delta.y) >= Tile.HEIGHT) {
-        	final float smoothDistance = Tile.HEIGHT - added.y +0.01f;
+        	final float smoothDistance = Tile.HEIGHT - Math.abs(added.y) +0.01f;
             delta.y = delta.y >= 0 ? smoothDistance : -smoothDistance;
+        	Log.debug("back you: " +delta);
+            arrived = true;
         }
 
         added.add(delta);
         position.add(delta);
 
         Log.debug("moving to next tile: " + destinationTile + " with the following speed: " + delta);
+        if(delta.x < 0 || delta.y < 0){
+        	if(!arrived){
+        		return;
+        	}
+        }
         if(!destinationTile.contains(position)) {
 
         	return;
         }
 
+        Log.debug("has arrived: " + arrived);
         Log.debug(destinationTile.toString());
         Log.debug(position.toString());
         follower.stepsTaken++;
@@ -152,16 +150,20 @@ public class Player extends Entity {
                 GameInfo.getInstance().stateGame.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
             }
         }
-        final Tile p = nextTile.minus(getTile());
-        if(p.left == 1)
-            facing = Direction.EAST;
-        else if(p.left == -1)
-            facing = Direction.WEST;
-
-        if(p.top == 1)
-            facing = Direction.SOUTH;
-        else if(p.top == -1)
-            facing = Direction.NORTH;
+        if(delta.x != 0){
+            if(delta.x < 0){
+                facing = Direction.WEST;
+            }else {
+                facing = Direction.EAST;
+            }
+        }
+        if(delta.y != 0){
+        	if(delta.y < 0){
+        		facing = Direction.NORTH;
+        	}else{
+        		facing = Direction.SOUTH;
+        	}
+        }
 
         _animation[facing].setAutoUpdate(true);
         if(follower != null)
