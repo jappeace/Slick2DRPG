@@ -35,14 +35,6 @@ public class DialogBox implements DrawableGameComponent, IKeyListener {
 
 	public void show() {
 		container.queueDialogBox(new DialogBox(this));
-		//Functionality is now handled by Game
-		//container.addComponent(this);
-		//container.addKeyListener(this);
-	}
-
-	public void hide() {
-		//container.removeComponent(this);
-		//container.removeKeyListener(this);
 	}
 
 	@Override
@@ -54,20 +46,15 @@ public class DialogBox implements DrawableGameComponent, IKeyListener {
 		g.drawRect(1, 400, 797, 197);
 		g.setLineWidth(1f);
 		g.resetLineWidth();
-		//g.setFont(font);
 		g.drawString(text, 20, 420);
 	}
 
 	@Override
 	public void KeyDown(final int key, final char c) {
-		/*if(key == 57) {
-			hide();
-		}*/
 	}
 
 	@Override
 	public void KeyUp(final int key, final char c) {
-		// TODO Auto-generated method stub
 
 	}
 
