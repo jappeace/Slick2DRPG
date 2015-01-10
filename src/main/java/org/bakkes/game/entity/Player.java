@@ -99,21 +99,18 @@ public class Player extends Entity {
         if(Math.abs(added.x + delta.x) >= Tile.WIDTH) {
         	final float smoothDistance = Tile.WIDTH - Math.abs(added.x) +0.01f;
             delta.x = delta.x >= 0 ?  smoothDistance: -smoothDistance;
-        	Log.debug("back you: " +delta);
             arrived = true;
         }
 
         if(Math.abs(added.y + delta.y) >= Tile.HEIGHT) {
         	final float smoothDistance = Tile.HEIGHT - Math.abs(added.y) +0.01f;
             delta.y = delta.y >= 0 ? smoothDistance : -smoothDistance;
-        	Log.debug("back you: " +delta);
             arrived = true;
         }
 
         added.add(delta);
         position.add(delta);
 
-        Log.debug("moving to next tile: " + destinationTile + " with the following speed: " + delta);
         if(delta.x < 0 || delta.y < 0){
         	if(!arrived){
         		return;
@@ -150,19 +147,19 @@ public class Player extends Entity {
                 GameInfo.getInstance().stateGame.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
             }
         }
-        if(delta.x != 0){
-            if(delta.x < 0){
-                facing = Direction.WEST;
-            }else {
-                facing = Direction.EAST;
-            }
+
+        final Tile p = new Tile(currentPath.getStep(currentStep-1)).minus(nextTile);
+
+        if(p.left == -1){
+            facing = Direction.EAST;
+        }else if(p.left == 1){
+            facing = Direction.WEST;
         }
-        if(delta.y != 0){
-        	if(delta.y < 0){
-        		facing = Direction.NORTH;
-        	}else{
-        		facing = Direction.SOUTH;
-        	}
+
+        if(p.top == -1){
+            facing = Direction.SOUTH;
+        }else if(p.top == 1){
+            facing = Direction.NORTH;
         }
 
         _animation[facing].setAutoUpdate(true);
