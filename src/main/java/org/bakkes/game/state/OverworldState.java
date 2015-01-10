@@ -10,6 +10,7 @@ import org.bakkes.game.events.key.InventoryToggleListener;
 import org.bakkes.game.events.key.MovementListener;
 import org.bakkes.game.events.key.ScriptReloadListener;
 import org.bakkes.game.events.key.TalkToNPCListener;
+import org.bakkes.game.map.Direction;
 import org.bakkes.game.map.LayerdMap;
 import org.bakkes.game.map.Tile;
 import org.bakkes.game.ui.InventoryGameComponent;
@@ -20,6 +21,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.Log;
 
 public class OverworldState extends CommonGameState {
 	public static final int PLAYING_STATE_ID = 0;
@@ -86,11 +88,31 @@ public class OverworldState extends CommonGameState {
         final int npcID = map.getNPCidOn(clickedTile);
         final Person person = World.getWorld().findPersonById(npcID);
         if(person == null){
+        	Log.debug("person null");
         	return;
         }
-        person.interact();
         final int facing = person.getFacing();
         final Tile correction = new Tile();
+        switch(facing){
+        	case Direction.NORTH:
+        		correction.top-=2;
+        		break;
+        	case Direction.SOUTH:
+        		correction.top+=2;
+        		break;
+        	case Direction.EAST:
+        		correction.left+=2;
+        		break;
+        	case Direction.WEST:
+        		correction.left-=2;
+        		break;
+        }
+
+        final Tile desired = correction.plus(clickedTile);
+        Log.debug("I want to move to " + desired + " clicked was " + clickedTile);
+        player.moveTo(desired);
+        person.interact();
+
 
 	}
 

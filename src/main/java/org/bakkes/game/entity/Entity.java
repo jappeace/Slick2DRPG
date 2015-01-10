@@ -7,7 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
 public abstract class Entity {
-	protected Vector2f position;
+	private Vector2f position; // not encapsulated anyways
 	protected int facing = Direction.SOUTH;
 
 	public void init(final GameContainer gc) {}
@@ -17,10 +17,17 @@ public abstract class Entity {
 	public Vector2f getPosition() {
 		return position;
 	}
+
+	public void setPosition(final Vector2f to){
+		position = to;
+	}
 	public Tile getTile() {
 		return Tile.createFromPixelsCoordinates(position);
 	}
 	public int getFacing() {
 		return facing;
+	}
+	public void setFacing(final int direction){
+		facing = direction;
 	}
 }

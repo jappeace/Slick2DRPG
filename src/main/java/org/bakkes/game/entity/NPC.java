@@ -24,8 +24,5 @@ public class NPC extends Entity {
 		this.id = id;
 	}
 
-	public void setFacing(final int direction){
-		facing = direction;
-	}
 
 }

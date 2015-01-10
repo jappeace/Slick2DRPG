@@ -9,7 +9,7 @@ import org.newdawn.slick.util.Log;
 
 public class Person extends NPC{
 
-	private Closure onInteract;
+	private Closure onInteract = null;
 	private DialogBox dialog;
 	public void setInteract(final Closure callback){
 		onInteract = callback;
@@ -17,7 +17,10 @@ public class Person extends NPC{
 	}
 
 	public void interact(){
-		Log.info("talking to npc with id: " + id + " on location: " + position);
+		Log.info("talking to npc with id: " + id + " on location: " + getPosition());
+		if(onInteract == null){
+			return;
+		}
 		onInteract.call();
 	}
 

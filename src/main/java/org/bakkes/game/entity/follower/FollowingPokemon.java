@@ -29,7 +29,7 @@ public class FollowingPokemon extends NPC implements IFollower {
 
 	public FollowingPokemon(final Player parent) {
 		this.parent = parent;
-		this.position = parent.getTile().minus(new Tile(0,2)).toVector();
+		setPosition(parent.getTile().minus(new Tile(0,2)).toVector());
 		this.facing = Direction.SOUTH;
 		stateMachine = new StateMachine(this);
 	}
@@ -61,7 +61,7 @@ public class FollowingPokemon extends NPC implements IFollower {
 		// TODO Auto-generated method stub
 		if(isHealthy) {
 			//g.drawString("Rendering " + facing + " - " + position.getX() + ", " + position.getY(), 10, 60);
-			_animation[facing].draw(position.getX(), position.getY());
+			_animation[facing].draw(getPosition().x,getPosition().y);
 		}
 	}
 
@@ -75,10 +75,10 @@ public class FollowingPokemon extends NPC implements IFollower {
 	@Override
 	public void update(final int delta) {
 		stateMachine.update();
-		if(parent.isCurrentlyMoving()) {
+		if(parent.isDone()) {
 			final float xDiff = facing == Direction.WEST ? -DISTANCE : facing == Direction.EAST ? DISTANCE : 0;
 			final float yDiff = facing == Direction.NORTH ? -DISTANCE : facing == Direction.SOUTH ? DISTANCE : 0;
-			this.position = parent.getPosition().copy().sub(new Vector2f(xDiff, yDiff));
+			setPosition(parent.getPosition().copy().sub(new Vector2f(xDiff, yDiff)));
 		} else {
 			_animation[facing].setCurrentFrame(0);
 		}
