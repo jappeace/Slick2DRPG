@@ -5,7 +5,7 @@ import org.newdawn.slick.Graphics;
 
 public class NPC extends Entity {
 
-	private int id;
+	protected int id;
 
 
 	@Override

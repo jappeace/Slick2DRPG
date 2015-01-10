@@ -5,6 +5,7 @@ import groovy.lang.Closure;
 import org.bakkes.game.GameInfo;
 import org.bakkes.game.ui.DialogBox;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.util.Log;
 
 
 public class Person extends NPC{
@@ -20,6 +21,7 @@ public class Person extends NPC{
 	}
 
 	public void interact(){
+		Log.info("talking to npc with id: " + id + " on location: " + position);
 		onInteract.call();
 	}
 

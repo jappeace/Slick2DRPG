@@ -16,6 +16,10 @@ public class DialogBox implements DrawableGameComponent, IKeyListener {
 
 	private String text;
 	private CommonGameState container;
+	public DialogBox(final DialogBox source){
+		this.text = source.text;
+		this.container = container;
+	}
 	public DialogBox(final OverworldState game) {
 		this(game, "");
 	}
@@ -30,7 +34,7 @@ public class DialogBox implements DrawableGameComponent, IKeyListener {
 	}
 
 	public void show() {
-		container.queueDialogBox(this);
+		container.queueDialogBox(new DialogBox(this));
 		//Functionality is now handled by Game
 		//container.addComponent(this);
 		//container.addKeyListener(this);
