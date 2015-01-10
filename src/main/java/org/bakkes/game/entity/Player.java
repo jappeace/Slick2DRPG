@@ -10,7 +10,7 @@ import org.bakkes.game.entity.follower.FollowingPokemon;
 import org.bakkes.game.map.Tile;
 import org.bakkes.game.scripting.interfaces.IPokemon;
 import org.bakkes.game.state.BattleState;
-import org.bakkes.game.state.PlayingGameState;
+import org.bakkes.game.state.OverworldState;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -38,9 +38,9 @@ public class Player extends Entity {
 	private Vector2f added = new Vector2f();
 	private int facing = Direction.SOUTH;
 	private Inventory inventory;
-	private PlayingGameState game;
+	private OverworldState game;
 
-	public Player(final PlayingGameState playingGameState) {
+	public Player(final OverworldState playingGameState) {
 		game = playingGameState;
 	}
 

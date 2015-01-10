@@ -20,7 +20,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class PlayingGameState extends CommonGameState {
+public class OverworldState extends CommonGameState {
 	public static final int PLAYING_STATE_ID = 0;
 
 	private Player player;

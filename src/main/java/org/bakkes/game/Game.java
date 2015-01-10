@@ -1,7 +1,7 @@
 package org.bakkes.game;
 
 import org.bakkes.game.state.BattleState;
-import org.bakkes.game.state.PlayingGameState;
+import org.bakkes.game.state.OverworldState;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.KeyListener;
 import org.newdawn.slick.SlickException;
@@ -14,7 +14,7 @@ public class Game extends StateBasedGame implements KeyListener {
 
 	@Override
 	public void initStatesList(final GameContainer gc) throws SlickException {
-		this.addState(new PlayingGameState());
+		this.addState(new OverworldState());
 		this.addState(new BattleState());
 	}
 

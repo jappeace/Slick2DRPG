@@ -2,13 +2,13 @@ package org.bakkes.game.events;
 
 import org.bakkes.game.Game;
 import org.bakkes.game.scripting.ScriptManager;
-import org.bakkes.game.state.PlayingGameState;
+import org.bakkes.game.state.OverworldState;
 
 public class TalkToNPCListener implements GameKeyListener {
-	private PlayingGameState game;
+	private OverworldState game;
 	
 	
-	public TalkToNPCListener(PlayingGameState playingGameState) {
+	public TalkToNPCListener(OverworldState playingGameState) {
 		this.game = playingGameState;
 	}
 	

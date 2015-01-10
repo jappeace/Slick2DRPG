@@ -5,7 +5,7 @@ import java.awt.Font;
 import org.bakkes.game.Game;
 import org.bakkes.game.events.GameKeyListener;
 import org.bakkes.game.state.CommonGameState;
-import org.bakkes.game.state.PlayingGameState;
+import org.bakkes.game.state.OverworldState;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -17,7 +17,7 @@ public class DialogBox implements DrawableGameComponent, GameKeyListener {
 	
 	private String text;
 	private CommonGameState container;
-	public DialogBox(PlayingGameState game) {
+	public DialogBox(OverworldState game) {
 		this(game, "");
 	}
 	

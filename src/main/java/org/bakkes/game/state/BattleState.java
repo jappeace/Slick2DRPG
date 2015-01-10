@@ -71,7 +71,7 @@ public class BattleState extends CommonGameState {
 		if(battle.isOver()) {
 			if(gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
 				selectedMove = -1;
-				arg1.enterState(PlayingGameState.PLAYING_STATE_ID);
+				arg1.enterState(OverworldState.PLAYING_STATE_ID);
 			}
 			return;
 		}
