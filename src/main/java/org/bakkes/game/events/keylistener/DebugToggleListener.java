@@ -1,9 +1,9 @@
-package org.bakkes.game.events;
+package org.bakkes.game.events.keylistener;
 
 import org.bakkes.game.GameInfo;
 import org.newdawn.slick.Input;
 
-public class DebugToggleListener implements GameKeyListener {
+public class DebugToggleListener implements IKeyListener {
 
 	@Override
 	public void KeyDown(int key, char c) {

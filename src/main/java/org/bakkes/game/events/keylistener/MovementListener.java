@@ -1,11 +1,11 @@
-package org.bakkes.game.events;
+package org.bakkes.game.events.keylistener;
 
 import org.bakkes.game.map.Tile;
 import org.bakkes.game.state.OverworldState;
 import org.lwjgl.input.Keyboard;
 
 //Class to use WASD for movement
-public class MovementListener implements GameKeyListener {
+public class MovementListener implements IKeyListener {
 
 	private OverworldState game;
 

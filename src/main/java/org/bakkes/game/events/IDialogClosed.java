@@ -1,5 +1,5 @@
 package org.bakkes.game.events;
 
-public interface DialogClosed {
+public interface IDialogClosed {
 	public void onClose();
 }

@@ -1,10 +1,10 @@
-package org.bakkes.game.events;
+package org.bakkes.game.events.keylistener;
 
 import org.bakkes.game.scripting.ScriptManager;
 import org.bakkes.game.state.OverworldState;
 import org.bakkes.game.ui.InventoryGameComponent;
 
-public class InventoryToggleListener implements GameKeyListener {
+public class InventoryToggleListener implements IKeyListener {
 	private OverworldState game;
 	private InventoryGameComponent inventoryComponent;
 	private boolean enabled = false;

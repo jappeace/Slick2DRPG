@@ -1,10 +1,10 @@
-package org.bakkes.game.events;
+package org.bakkes.game.events.keylistener;
 
 import org.bakkes.game.Game;
 import org.bakkes.game.scripting.ScriptManager;
 import org.bakkes.game.state.OverworldState;
 
-public class TalkToNPCListener implements GameKeyListener {
+public class TalkToNPCListener implements IKeyListener {
 	private OverworldState game;
 	
 	

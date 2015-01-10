@@ -6,9 +6,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import org.bakkes.game.GameInfo;
-import org.bakkes.game.events.DebugToggleListener;
-import org.bakkes.game.events.DialogClosed;
-import org.bakkes.game.events.GameKeyListener;
+import org.bakkes.game.events.IDialogClosed;
+import org.bakkes.game.events.keylistener.DebugToggleListener;
+import org.bakkes.game.events.keylistener.IKeyListener;
 import org.bakkes.game.ui.DialogBox;
 import org.bakkes.game.ui.DrawableGameComponent;
 import org.newdawn.slick.GameContainer;
@@ -22,15 +22,15 @@ public abstract class CommonGameState extends BasicGameState {
 	protected DialogBox currentDialogBox = null;
 	protected Queue<DialogBox> dialogQueue = new LinkedList<DialogBox>();
 	protected ArrayList<DrawableGameComponent> drawables;
-	protected ArrayList<GameKeyListener> keyListeners;
-	protected DialogClosed dialogCallback;
+	protected ArrayList<IKeyListener> keyListeners;
+	protected IDialogClosed dialogCallback;
 
 
 	@Override
 	public void init(final GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
 		drawables = new ArrayList<DrawableGameComponent>();
-		keyListeners = new ArrayList<GameKeyListener>();
+		keyListeners = new ArrayList<IKeyListener>();
 		this.keyListeners.add(new DebugToggleListener());
 	}
 
@@ -59,7 +59,7 @@ public abstract class CommonGameState extends BasicGameState {
 		this.drawables.add(gameComponent);
 	}
 
-	public void addKeyListener(final GameKeyListener keylistener) {
+	public void addKeyListener(final IKeyListener keylistener) {
 		this.keyListeners.add(keylistener);
 	}
 
@@ -67,7 +67,7 @@ public abstract class CommonGameState extends BasicGameState {
 		this.drawables.remove(gameComponent);
 	}
 
-	public void removeKeyListener(final GameKeyListener keylistener) {
+	public void removeKeyListener(final IKeyListener keylistener) {
 		this.keyListeners.remove(keylistener);
 	}
 
@@ -92,11 +92,11 @@ public abstract class CommonGameState extends BasicGameState {
     public void keyPressed(final int key, final char c) {
 		if(!inputEnabled)
 			return;
-		final ArrayList<GameKeyListener> keyListenersCopy = new ArrayList<GameKeyListener>(keyListeners); //Create a copy because scripts can register keypress components.
+		final ArrayList<IKeyListener> keyListenersCopy = new ArrayList<IKeyListener>(keyListeners); //Create a copy because scripts can register keypress components.
 		System.out.println("Pressed key: " + key);
-		final Iterator<GameKeyListener> it = keyListenersCopy.iterator();
+		final Iterator<IKeyListener> it = keyListenersCopy.iterator();
 		while(it.hasNext()) {
-			final GameKeyListener next = it.next();
+			final IKeyListener next = it.next();
 			next.KeyDown(key, c);
 		}
     }
@@ -108,11 +108,11 @@ public abstract class CommonGameState extends BasicGameState {
 		}
 		if(!inputEnabled)
 			return;
-		final ArrayList<GameKeyListener> keyListenersCopy = new ArrayList<GameKeyListener>(keyListeners); //Create a copy because scripts can register keyrelease components.
+		final ArrayList<IKeyListener> keyListenersCopy = new ArrayList<IKeyListener>(keyListeners); //Create a copy because scripts can register keyrelease components.
 		System.out.println("Released key: " + key);
-		final Iterator<GameKeyListener> it = keyListenersCopy.iterator();
+		final Iterator<IKeyListener> it = keyListenersCopy.iterator();
 		while(it.hasNext()) {
-			final GameKeyListener next = it.next();
+			final IKeyListener next = it.next();
 			next.KeyUp(key, c);
 		}
     }
@@ -123,7 +123,7 @@ public abstract class CommonGameState extends BasicGameState {
 	}
 
 	//give a callback which should be called when the dialog is closed
-	public void showDialog(final String text, final DialogClosed callback) {
+	public void showDialog(final String text, final IDialogClosed callback) {
 		showDialog(text);
 		dialogCallback = callback;
 	}

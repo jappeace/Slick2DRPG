@@ -1,8 +1,8 @@
-package org.bakkes.game.events;
+package org.bakkes.game.events.keylistener;
 
 import org.bakkes.game.scripting.ScriptManager;
 
-public class ScriptReloadListener implements GameKeyListener {
+public class ScriptReloadListener implements IKeyListener {
 
 	public void KeyDown(int key, char c) {
 		if(key == 59) { //F1, should probably define somewhere?
