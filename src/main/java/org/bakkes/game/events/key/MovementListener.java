@@ -16,13 +16,13 @@ public class MovementListener implements IKeyListener {
 	@Override
 	public void KeyDown(final int key, final char c) {
 		final Tile diff = new Tile(0, 0);
-		if(key == Keyboard.KEY_W) { //W
+		if(key == Keyboard.KEY_W) {
 			diff.top --;
-		} else if(key == 30) { //a
+		} else if(key == Keyboard.KEY_A) {
 			diff.left --;
-		} else if(key == 31) { //s
+		} else if(key == Keyboard.KEY_S) {
 			diff.top ++;
-		} else if(key == 32) { //d
+		} else if(key == Keyboard.KEY_D) {
 			diff.left++;
 		}
 		game.getPlayer().moveTo(game.getPlayer().getTile().plus(diff));

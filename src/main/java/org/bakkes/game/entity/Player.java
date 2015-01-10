@@ -20,7 +20,6 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
-import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.Log;
 import org.newdawn.slick.util.pathfinding.Path;
 
@@ -220,29 +219,5 @@ public class Player extends Entity {
 	public int getDirection() {
 		// TODO Auto-generated method stub
 		return facing;
-	}
-
-	public int getFacingNPC() {
-		final TiledMap map = World.getWorld().getTiledMap();
-		final int layerIndex = map.getLayerIndex("npc");
-		final Vector2f diff = getTile().toVector();
-		switch(getDirection()) {
-		case Direction.NORTH:
-			diff.add(new Vector2f(0,-1));
-			break;
-		case Direction.EAST:
-			diff.add(new Vector2f(2,0));
-			break;
-		case Direction.SOUTH:
-			diff.add(new Vector2f(0,2));
-			break;
-		case Direction.WEST:
-			diff.add(new Vector2f(-2,1));
-			break;
-		}
-		final int tileId = map.getTileId((int)diff.getX(), (int)diff.getY(), layerIndex);
-		if(tileId == 0)
-			return -1;
-		return Integer.parseInt(map.getTileProperty(tileId, "npcid", "-1"));
 	}
 }

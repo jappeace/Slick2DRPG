@@ -94,7 +94,6 @@ public abstract class CommonGameState extends BasicGameState {
 		if(!inputEnabled)
 			return;
 		final ArrayList<IKeyListener> keyListenersCopy = new ArrayList<IKeyListener>(keyListeners); //Create a copy because scripts can register keypress components.
-		System.out.println("Pressed key: " + key);
 		final Iterator<IKeyListener> it = keyListenersCopy.iterator();
 		while(it.hasNext()) {
 			final IKeyListener next = it.next();
@@ -110,7 +109,6 @@ public abstract class CommonGameState extends BasicGameState {
 		if(!inputEnabled)
 			return;
 		final ArrayList<IKeyListener> keyListenersCopy = new ArrayList<IKeyListener>(keyListeners); //Create a copy because scripts can register keyrelease components.
-		System.out.println("Released key: " + key);
 		final Iterator<IKeyListener> it = keyListenersCopy.iterator();
 		while(it.hasNext()) {
 			final IKeyListener next = it.next();

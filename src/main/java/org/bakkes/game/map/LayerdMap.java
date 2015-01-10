@@ -6,25 +6,33 @@ import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
 public class LayerdMap implements TileBasedMap {
 
-	private TiledMap map;
-	private int[] blockingLayers;
-	private int grassLayer;
+	private final TiledMap map;
+	private final int[] blockingLayers;
+	private final int grassLayer;
+	private final int npcLayer;
+
 	public LayerdMap(final TiledMap map, final int... blockingLayers) {
 		this.map = map;
 		this.blockingLayers = blockingLayers;
-		this.grassLayer = map.getLayerIndex("grass");
+		grassLayer = map.getLayerIndex("grass");
+		npcLayer = map.getLayerIndex("npc");
 	}
 
 	public boolean isGrass(final Tile location) {
-		return map.getTileId(location.left, location.top, grassLayer) != 0;
+		return getTileId(location, grassLayer) != 0;
 	}
 
     private boolean isBlocked(final Tile tile, final int layer) {
-    	return map.getTileId(tile.left, tile.top, layer) != 0 ||
-    			map.getTileId(tile.left, tile.top + 1, layer) != 0 ||
-        		map.getTileId(tile.left + 1, tile.top, layer) != 0 ||
-        		map.getTileId(tile.left + 1, tile.top + 1, layer) != 0;//fix 2nd & 3rd statement, cheap fix because player is 32 px
+        //fix 2nd & 3rd statement, cheap fix because player is 32 px
+    	return
+            getTileId(tile.plus(new Tile(0,0)), layer) != 0 ||
+            getTileId(tile.plus(new Tile(0,1)), layer) != 0 ||
+            getTileId(tile.plus(new Tile(1,0)), layer) != 0 ||
+            getTileId(tile.plus(new Tile(1,1)), layer) != 0;
 
+    }
+    private int getTileId(final Tile tile, final int layer){
+    	return map.getTileId(tile.left, tile.top, layer);
     }
 
 	@Override
@@ -38,10 +46,7 @@ public class LayerdMap implements TileBasedMap {
 	}
 
 	@Override
-	public void pathFinderVisited(final int x, final int y) {
-		// TODO Auto-generated method stub
-
-	}
+	public void pathFinderVisited(final int x, final int y) {}
 	public boolean isBlocked(final Tile location){
 		for(final int blockingLayer : blockingLayers) {
 			if(isBlocked(location, blockingLayer))
@@ -63,6 +68,15 @@ public class LayerdMap implements TileBasedMap {
 	public void render(final int i, final int j, final int tileIndexX, final int tileIndexY, final int k,
 			final int l) {
 		map.render(i,j,tileIndexX,tileIndexY,k,l);
+	}
+	public int getNPCidOn(final Tile tile){
+		return Integer.parseInt(
+            map.getTileProperty(
+                    getTileId(tile, npcLayer), 
+                    "npcid", 
+                    "-1"
+                )
+            );
 	}
 
 }
