@@ -1,4 +1,4 @@
-package org.bakkes.game.entity;
+package org.bakkes.game.map;
 
 public class Direction {
 	public static final int NORTH = 0;

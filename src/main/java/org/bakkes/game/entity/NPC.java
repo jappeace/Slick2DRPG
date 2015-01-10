@@ -5,18 +5,23 @@ import org.newdawn.slick.Graphics;
 
 public class NPC extends Entity {
 
-	private int npcId;
-	
+	private int id;
+
+
 	@Override
-	public void update(GameContainer gc, int delta) {
-		// TODO Auto-generated method stub
-		
+	public void update(final GameContainer gc, final int delta) {
 	}
 
 	@Override
-	public void render(GameContainer gc, Graphics g) {
-		// TODO Auto-generated method stub
-		
+	public void render(final GameContainer gc, final Graphics g) {
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(final int id) {
+		this.id = id;
 	}
 
 }

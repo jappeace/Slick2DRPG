@@ -7,6 +7,7 @@ import org.bakkes.game.R;
 import org.bakkes.game.World;
 import org.bakkes.game.battle.Battle;
 import org.bakkes.game.entity.follower.FollowingPokemon;
+import org.bakkes.game.map.Direction;
 import org.bakkes.game.map.Tile;
 import org.bakkes.game.scripting.interfaces.IPokemon;
 import org.bakkes.game.state.BattleState;

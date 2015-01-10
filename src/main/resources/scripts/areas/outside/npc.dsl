@@ -1,6 +1,6 @@
 
 
-npc {
+person {
 	onInteract{
 		dialog "You just talked to NPC 1!\nWelcome to this game."
 		give 4,4

@@ -1,8 +1,8 @@
 package org.bakkes.game.events.key;
 
 import org.bakkes.game.World;
-import org.bakkes.game.entity.Direction;
 import org.bakkes.game.entity.Player;
+import org.bakkes.game.map.Direction;
 import org.bakkes.game.map.LayerdMap;
 import org.bakkes.game.map.Tile;
 import org.bakkes.game.state.OverworldState;
