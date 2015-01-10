@@ -1,35 +1,29 @@
 package org.bakkes.game;
+import org.bakkes.game.map.LayerdMap;
+import org.bakkes.game.map.Tile;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.tiled.TiledMap;
 
 //source: http://slick.ninjacave.com/forum/viewtopic.php?t=1906 (koopa)
 public class Camera {
 
-   /** the map used for our scene */
-   protected TiledMap map;
 
+	private LayerdMap map;
    /** the number of tiles in x-direction (width) */
-   protected int numTilesX;
+   private int numTilesX;
 
    /** the number of tiles in y-direction (height) */
-   protected int numTilesY;
+   private int numTilesY;
 
    /** the height of the map in pixel */
-   protected int mapHeight;
+   private int mapHeight;
 
    /** the width of the map in pixel */
-   protected int mapWidth;
-
-   /** the width of one tile of the map in pixel */
-   protected int tileWidth;
-
-   /** the height of one tile of the map in pixel */
-   protected int tileHeight;
+   private int mapWidth;
 
    /** the GameContainer, used for getting the size of the GameCanvas */
-   protected GameContainer gc;
+   private GameContainer gc;
 
    /** the x-position of our "camera" in pixel */
    public float cameraX;
@@ -43,17 +37,14 @@ public class Camera {
     * @param gc the GameContainer, used for getting the size of the GameCanvas
     * @param map the TiledMap used for the current scene
     */
-   public Camera(final GameContainer gc, final TiledMap map) {
-      this.map = map;
+   public Camera(final GameContainer gc) {
+	   map = World.getWorld().getLayerMap();
 
-      this.numTilesX = map.getWidth();
-      this.numTilesY = map.getHeight();
+      this.numTilesX = map.getWidthInTiles();
+      this.numTilesY = map.getHeightInTiles();
 
-      this.tileWidth = map.getTileWidth();
-      this.tileHeight = map.getTileHeight();
-
-      this.mapWidth = this.numTilesX * this.tileWidth;
-      this.mapHeight = this.numTilesY * this.tileHeight;
+      this.mapWidth = this.numTilesX * Tile.WIDTH;
+      this.mapHeight = this.numTilesY * Tile.HEIGHT;
 
       this.gc = gc;
    }
@@ -119,12 +110,12 @@ public class Camera {
 
    public void drawMap(final int offsetX, final int offsetY) {
        //calculate the offset to the next tile (needed by TiledMap.render())
-       final int tileOffsetX = (int) - (cameraX % tileWidth);
-       final int tileOffsetY = (int) - (cameraY % tileHeight);
+       final int tileOffsetX = (int) - (cameraX % Tile.WIDTH);
+       final int tileOffsetY = (int) - (cameraY % Tile.HEIGHT);
 
        //calculate the index of the leftmost tile that is being displayed
-       final int tileIndexX = (int) (cameraX / tileWidth);
-       final int tileIndexY = (int) (cameraY / tileHeight);
+       final int tileIndexX = (int) (cameraX / Tile.WIDTH);
+       final int tileIndexY = (int) (cameraY / Tile.HEIGHT);
 
        //finally draw the section of the map on the screen
        map.render(
@@ -132,8 +123,8 @@ public class Camera {
              tileOffsetY + offsetY,
              tileIndexX,
              tileIndexY,
-                (gc.getWidth()  - tileOffsetX) / tileWidth  + 1,
-                (gc.getHeight() - tileOffsetY) / tileHeight + 1);
+                (gc.getWidth()  - tileOffsetX) / Tile.WIDTH  + 1,
+                (gc.getHeight() - tileOffsetY) / Tile.HEIGHT + 1);
    }
 
    /**

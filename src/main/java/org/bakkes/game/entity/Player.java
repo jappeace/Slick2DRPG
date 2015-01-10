@@ -223,7 +223,7 @@ public class Player extends Entity {
 	}
 
 	public int getFacingNPC() {
-		final TiledMap map = World.getWorld().getMap();
+		final TiledMap map = World.getWorld().getTiledMap();
 		final int layerIndex = map.getLayerIndex("npc");
 		final Vector2f diff = getTile().toVector();
 		switch(getDirection()) {

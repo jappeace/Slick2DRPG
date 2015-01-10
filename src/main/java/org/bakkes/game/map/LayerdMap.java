@@ -4,12 +4,12 @@ import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.PathFindingContext;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
-public class CustomLayerBasedMap implements TileBasedMap {
+public class LayerdMap implements TileBasedMap {
 
 	private TiledMap map;
 	private int[] blockingLayers;
 	private int grassLayer;
-	public CustomLayerBasedMap(final TiledMap map, final int... blockingLayers) {
+	public LayerdMap(final TiledMap map, final int... blockingLayers) {
 		this.map = map;
 		this.blockingLayers = blockingLayers;
 		this.grassLayer = map.getLayerIndex("grass");
@@ -58,6 +58,11 @@ public class CustomLayerBasedMap implements TileBasedMap {
 	@Override
 	public float getCost(final PathFindingContext context, final int tx, final int ty) {
 		return 1.0f;
+	}
+
+	public void render(final int i, final int j, final int tileIndexX, final int tileIndexY, final int k,
+			final int l) {
+		map.render(i,j,tileIndexX,tileIndexY,k,l);
 	}
 
 }

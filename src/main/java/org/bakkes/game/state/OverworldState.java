@@ -45,7 +45,7 @@ public class OverworldState extends CommonGameState {
 		player.init(gc);
 		GameInfo.getInstance().player = player;
 		GameInfo.getInstance().stateGame = arg1;
-		camera = new Camera(gc, World.getWorld().getMap());
+		camera = new Camera(gc);
 
 		addKeyListener(new TalkToNPCListener(this));
 		addKeyListener(new ScriptReloadListener());
