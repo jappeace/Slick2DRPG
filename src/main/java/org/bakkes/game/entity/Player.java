@@ -78,7 +78,7 @@ public class Player extends Entity {
 		if(!isCurrentlyMoving) {
 			return;
 		}
-		move(new Vector2f(delta/10f, delta/10));
+		move(new Vector2f(delta/10f, delta/10f));
 		if(follower != null)
 			follower.update(delta);
 	}
@@ -103,6 +103,8 @@ public class Player extends Entity {
 
         added.add(delta);
         position.add(delta);
+        Log.debug(delta.toString());
+        Log.debug(position.toString());
 
 
         if(!destinationTile.contains(position)) {
@@ -112,6 +114,7 @@ public class Player extends Entity {
         Log.debug(destinationTile.toString());
         follower.stepsTaken++;
         position = Tile.PixelsToGridPixels(position);
+        Log.debug(position.toString());
         currentStep++;
         added.x = 0;
         added.y = 0;

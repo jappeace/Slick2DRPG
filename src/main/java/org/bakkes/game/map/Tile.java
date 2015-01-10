@@ -73,4 +73,8 @@ public class Tile {
 	public Tile minus(final Tile tile){
 		return new Tile(this.left - tile.left, this.top - tile.top);
 	}
+	@Override
+	public String toString(){
+		return "Tile(" + left + "," + top + ")";
+	}
 }

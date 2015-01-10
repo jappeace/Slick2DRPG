@@ -34,6 +34,9 @@ public abstract class CommonGameState extends BasicGameState {
 		this.keyListeners.add(new DebugToggleListener());
 	}
 
+	/**
+	 * @param delta = tpf time that has passed between frames
+	 */
 	@Override
 	public void update(final GameContainer gc, final StateBasedGame arg1, final int delta)
 			throws SlickException {

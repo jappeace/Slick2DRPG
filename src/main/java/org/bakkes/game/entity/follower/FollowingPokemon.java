@@ -78,7 +78,7 @@ public class FollowingPokemon extends NPC implements IFollower {
 		if(parent.isCurrentlyMoving()) {
 			final float xDiff = facing == Direction.WEST ? -DISTANCE : facing == Direction.EAST ? DISTANCE : 0;
 			final float yDiff = facing == Direction.NORTH ? -DISTANCE : facing == Direction.SOUTH ? DISTANCE : 0;
-			this.position = parent.getPosition().sub(new Vector2f(xDiff, yDiff));
+			this.position = parent.getPosition().copy().sub(new Vector2f(xDiff, yDiff));
 		} else {
 			_animation[facing].setCurrentFrame(0);
 		}
