@@ -5,6 +5,7 @@ import org.bakkes.game.GameInfo;
 import org.bakkes.game.World;
 import org.bakkes.game.entity.Person;
 import org.bakkes.game.entity.Player;
+import org.bakkes.game.entity.command.ICommand;
 import org.bakkes.game.entity.follower.state.StateMachine;
 import org.bakkes.game.events.key.InventoryToggleListener;
 import org.bakkes.game.events.key.MovementListener;
@@ -14,6 +15,7 @@ import org.bakkes.game.map.Direction;
 import org.bakkes.game.map.LayerdMap;
 import org.bakkes.game.map.Tile;
 import org.bakkes.game.ui.InventoryGameComponent;
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -108,9 +110,23 @@ public class OverworldState extends CommonGameState {
         		break;
         }
 
-        final Tile desired = correction.plus(clickedTile);
-        Log.debug("I want to move to " + desired + " clicked was " + clickedTile);
-        player.moveTo(desired);
+        final CommonGameState state = this;
+        player.moveTo(correction.plus(clickedTile));
+        player.moveTo(new Tile(correction.multiply(new Vector2f(0.5f,0.5f))).plus(clickedTile));
+        player.addCommand(new ICommand(){
+        	private boolean executed = false;
+			@Override
+			public void execute(final float tpf) {
+				executed = true;
+				state.keyPressed(Keyboard.KEY_SPACE, ' ');
+			}
+
+			@Override
+			public boolean isDone() {
+				return executed;
+			}
+
+        });
         person.interact();
 
 
