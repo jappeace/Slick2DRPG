@@ -7,4 +7,5 @@ person {
 		dialog "Here's some protein, your pokemon will love it!" 
 	}
 	id 1
+	facing 'south'
 }

@@ -5,4 +5,7 @@ package org.bakkes.game.scripting.dsl;
  */
 public abstract class ADsl {
 
+	public boolean isDone(){
+		return true;
+	}
 }

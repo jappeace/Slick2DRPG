@@ -4,7 +4,6 @@ import groovy.lang.Closure;
 
 import org.bakkes.game.GameInfo;
 import org.bakkes.game.ui.DialogBox;
-import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.Log;
 
 
@@ -15,9 +14,6 @@ public class Person extends NPC{
 	public void setInteract(final Closure callback){
 		onInteract = callback;
 		onInteract.setDelegate(this);
-	}
-	public void setLocation(final Vector2f location){
-		this.position = location;
 	}
 
 	public void interact(){

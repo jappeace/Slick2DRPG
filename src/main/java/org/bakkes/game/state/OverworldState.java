@@ -3,6 +3,7 @@ package org.bakkes.game.state;
 import org.bakkes.game.Camera;
 import org.bakkes.game.GameInfo;
 import org.bakkes.game.World;
+import org.bakkes.game.entity.Person;
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.entity.follower.state.StateMachine;
 import org.bakkes.game.events.key.InventoryToggleListener;
@@ -39,6 +40,7 @@ public class OverworldState extends CommonGameState {
 	@Override
 	public void init(final GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
+		World.construct(this);
 		super.init(gc, arg1);
 		player = new Player(this);
 		player.init(gc);
@@ -77,13 +79,19 @@ public class OverworldState extends CommonGameState {
             player.moveTo(clickedTile);
             return;
         }
-
-        final int npcID = map.getNPCidOn(clickedTile);
-        /*
-         * and here I found out the scripting world has no proper way of interacting
-         * with java, so I'll replace python a bit sooner than planned
-         */
+        moveToNPC(map); // if is an NPC
         clickedTile = null;
+	}
+	private void moveToNPC(final LayerdMap map){
+        final int npcID = map.getNPCidOn(clickedTile);
+        final Person person = World.getWorld().findPersonById(npcID);
+        if(person == null){
+        	return;
+        }
+        person.interact();
+        final int facing = person.getFacing();
+        final Tile correction = new Tile();
+
 	}
 
 

@@ -12,6 +12,7 @@ import org.bakkes.game.events.key.DebugToggleListener;
 import org.bakkes.game.events.key.IKeyListener;
 import org.bakkes.game.ui.DialogBox;
 import org.bakkes.game.ui.DrawableGameComponent;
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -42,6 +43,12 @@ public abstract class CommonGameState extends BasicGameState {
 	public void update(final GameContainer gc, final StateBasedGame arg1, final int delta)
 			throws SlickException {
 		GameInfo.getInstance().delta = delta;
+		if(dialogQueue.isEmpty()){
+			return;
+		}
+		if(currentDialogBox == null){
+			nextDialog();
+		}
 	}
 
 	@Override
@@ -76,17 +83,17 @@ public abstract class CommonGameState extends BasicGameState {
 		dialogQueue.add(dialogBox);
 	}
 
-	public void checkDialogs() {
+	public void nextDialog() {
 		if(dialogQueue.size() > 0) {
 			inputEnabled = false;
 			currentDialogBox = dialogQueue.remove();
-		} else {
-			inputEnabled = true;
-			currentDialogBox = null;
-			if(dialogCallback != null) {
-				dialogCallback.onClose();
-			}
+			return;
 		}
+        inputEnabled = true;
+        currentDialogBox = null;
+        if(dialogCallback != null) {
+            dialogCallback.onClose();
+        }
 	}
 
 	@Override
@@ -103,8 +110,8 @@ public abstract class CommonGameState extends BasicGameState {
 
     @Override
     public void keyReleased(final int key, final char c) {
-		if(key == 57) { //space
-			checkDialogs();
+		if(key == Keyboard.KEY_SPACE) { //space
+			nextDialog();
 		}
 		if(!inputEnabled)
 			return;
@@ -129,6 +136,6 @@ public abstract class CommonGameState extends BasicGameState {
 
 	public void activateDialogs() {
 		if(currentDialogBox == null && dialogQueue.size() > 0)
-			checkDialogs();
+			nextDialog();
 	}
 }

@@ -36,7 +36,6 @@ public class Player extends Entity {
 	private Path currentPath;
 	private int currentStep;
 	private Vector2f added = new Vector2f();
-	private int facing = Direction.SOUTH;
 	private Inventory inventory;
 	private OverworldState game;
 
@@ -61,7 +60,7 @@ public class Player extends Entity {
 				_animation[i].setAutoUpdate(false);
 			}
 
-			position = new Tile(30, 30).topLeftPixels();
+			position = new Tile(8,8).topLeftPixels();
 			inventory = new Inventory(this);
 			final FollowingPokemon p = new FollowingPokemon(this);
 			p.init(gc);
@@ -133,8 +132,8 @@ public class Player extends Entity {
         if(currentStep >= currentPath.getLength()) {
             isMoving = false;
             currentStep = 0;
-            _animation[facing].setAutoUpdate(false);
-            _animation[facing].setCurrentFrame(0);
+            _animation[getFacing()].setAutoUpdate(false);
+            _animation[getFacing()].setCurrentFrame(0);
             return;
         }
 
@@ -162,14 +161,14 @@ public class Player extends Entity {
             facing = Direction.NORTH;
         }
 
-        _animation[facing].setAutoUpdate(true);
+        _animation[getFacing()].setAutoUpdate(true);
         if(follower != null)
-            follower.face(facing);
+            follower.face(getFacing());
 	}
 
 	@Override
 	public void render(final GameContainer gc, final Graphics g) {
-		_animation[facing].draw(position.getX(), position.getY());
+		_animation[getFacing()].draw(position.getX(), position.getY());
 		if(follower != null)
 			follower.render(gc, g);
 		if(GameInfo.SHOW_DEBUG_INFO && isMoving){
@@ -219,6 +218,6 @@ public class Player extends Entity {
 
 	public int getDirection() {
 		// TODO Auto-generated method stub
-		return facing;
+		return getFacing();
 	}
 }

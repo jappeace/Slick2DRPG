@@ -5,6 +5,7 @@ import groovy.lang.Closure;
 import java.util.List;
 
 import org.bakkes.game.entity.Person;
+import org.newdawn.slick.util.Log;
 
 public class NpcDsl extends ADsl{
 	private List<Person> people;
@@ -19,5 +20,9 @@ public class NpcDsl extends ADsl{
 		factory.setTarget(person);
 		commands.setDelegate(factory);
 		commands.call();
+
+		if(!factory.isDone()){
+			Log.warn("a person was not complete, remember to set both id and facing fields");
+		}
 	}
 }
