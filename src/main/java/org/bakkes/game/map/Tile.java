@@ -1,6 +1,7 @@
 package org.bakkes.game.map;
 
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.util.pathfinding.Path.Step;
 
 
 public class Tile {
@@ -15,6 +16,9 @@ public class Tile {
 	}
 	public Tile(final Tile source){
 		this(source.left, source.top);
+	}
+	public Tile(final Step source){
+		this(source.getX(),source.getY());
 	}
 	public Tile(final Vector2f coordinates){
 		this((int)coordinates.x, (int)coordinates.y);

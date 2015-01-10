@@ -1,6 +1,5 @@
 package org.bakkes.game.map;
 
-import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.PathFindingContext;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
@@ -16,15 +15,15 @@ public class CustomLayerBasedMap implements TileBasedMap {
 		this.grassLayer = map.getLayerIndex("grass");
 	}
 
-	public boolean isGrass(final Vector2f location) {
-		return map.getTileId((int)location.getX(), (int)location.getY(), grassLayer) != 0;
+	public boolean isGrass(final Tile location) {
+		return map.getTileId(location.left, location.top, grassLayer) != 0;
 	}
 
-    private boolean isBlocked(final Vector2f position, final int layer) {
-    	return map.getTileId((int)position.getX(), (int)position.getY(), layer) != 0 ||
-    			map.getTileId((int)position.getX(), (int)position.getY() + 1, layer) != 0 ||
-        		map.getTileId((int)position.getX() + 1, (int)position.getY(), layer) != 0 ||
-        		map.getTileId((int)position.getX() + 1, (int)position.getY() + 1, layer) != 0;//fix 2nd & 3rd statement, cheap fix because player is 32 px
+    private boolean isBlocked(final Tile tile, final int layer) {
+    	return map.getTileId(tile.left, tile.top, layer) != 0 ||
+    			map.getTileId(tile.left, tile.top + 1, layer) != 0 ||
+        		map.getTileId(tile.left + 1, tile.top, layer) != 0 ||
+        		map.getTileId(tile.left + 1, tile.top + 1, layer) != 0;//fix 2nd & 3rd statement, cheap fix because player is 32 px
 
     }
 
@@ -43,7 +42,7 @@ public class CustomLayerBasedMap implements TileBasedMap {
 		// TODO Auto-generated method stub
 
 	}
-	public boolean isBlocked(final Vector2f location){
+	public boolean isBlocked(final Tile location){
 		for(final int blockingLayer : blockingLayers) {
 			if(isBlocked(location, blockingLayer))
 				return true;
@@ -53,7 +52,7 @@ public class CustomLayerBasedMap implements TileBasedMap {
 
 	@Override
 	public boolean blocked(final PathFindingContext context, final int tx, final int ty) {
-		return isBlocked(new Vector2f(tx,ty));
+		return isBlocked(new Tile(tx,ty));
 	}
 
 	@Override

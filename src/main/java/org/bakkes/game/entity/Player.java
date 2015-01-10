@@ -127,8 +127,8 @@ public class Player extends Entity {
             return;
         }
 
-        final Step nextStep = currentPath.getStep(currentStep);
-        if(World.getWorld().getLayerMap().isGrass(new Vector2f(nextStep.getX(), nextStep.getY())) && pokemon.get_health() > 0) {
+        final Tile nextTile = new Tile(currentPath.getStep(currentStep));
+        if(World.getWorld().getLayerMap().isGrass(nextTile) && pokemon.get_health() > 0) {
             if(random.nextInt(20) == 1) { //1 in 20 chance to encounter pokemon
                 final BattleState state = (BattleState)GameInfo.getInstance().stateGame.getState(BattleState.BATTLE_STATE_ID);
                 final IPokemon encounter = PokemonManager.getPokemonById(random.nextInt(3));
@@ -136,15 +136,15 @@ public class Player extends Entity {
                 GameInfo.getInstance().stateGame.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
             }
         }
-        final Vector2f p = new Vector2f(nextStep.getX(), nextStep.getY()).sub(getTile().toVector());
-        if(p.getX() == 1)
+        final Tile p = nextTile.minus(getTile());
+        if(p.left == 1)
             facing = Direction.EAST;
-        else if(p.getX() == -1)
+        else if(p.left == -1)
             facing = Direction.WEST;
 
-        if(p.getY() == 1)
+        if(p.top == 1)
             facing = Direction.SOUTH;
-        else if(p.getY() == -1)
+        else if(p.top == -1)
             facing = Direction.NORTH;
 
         _animation[facing].setAutoUpdate(true);

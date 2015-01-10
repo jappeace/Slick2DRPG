@@ -64,7 +64,7 @@ public class PlayingGameState extends CommonGameState {
 			mousePos = new Vector2f(mousePos.getX() + camera.cameraX, mousePos.getY() + camera.cameraY);
 			destinationTile = Tile.createFromPixelsCoordinates(mousePos);
 
-			if(!World.getWorld().getLayerMap().isBlocked(destinationTile.toVector())) {
+			if(!World.getWorld().getLayerMap().isBlocked(destinationTile)) {
 				player.moveTo(destinationTile);
 			} else {
 				destinationTile = null;
