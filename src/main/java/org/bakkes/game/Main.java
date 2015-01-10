@@ -23,6 +23,7 @@ public class Main {
 	}
 
 
+	// TODO: remove and use gradle instead (I actually created symlinks because I did not know this existed I was blaming lwjgl)
 	private static void initLWJGL() {
 		final String path = new File(new File(System.getProperty("user.dir"), "native"), LWJGLUtil.getPlatformName()).getAbsolutePath();
 	    System.setProperty("org.lwjgl.librarypath", path);

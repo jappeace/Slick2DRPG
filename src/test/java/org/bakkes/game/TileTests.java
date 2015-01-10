@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.newdawn.slick.geom.Vector2f;
 
-public class GridGraphicTest{
+public class TileTests{
 
 	private void testContains(final int left, final int top, final float x, final float y){
 		final Vector2f pixelCoordinate = new Vector2f(x,y);

@@ -1,10 +1,14 @@
 package org.bakkes.game.map;
 
+import nl.jappieklooster.groovy.math.IMinusOperator;
+import nl.jappieklooster.groovy.math.IMultiply;
+import nl.jappieklooster.groovy.math.IPlusOperator;
+
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.pathfinding.Path.Step;
 
 
-public class Tile {
+public class Tile implements IPlusOperator<Tile>, IMinusOperator<Tile>, IMultiply<Vector2f>{
 	public static final int WIDTH = 16;
 	public static final int HEIGHT = 16;
 
@@ -74,11 +78,20 @@ public class Tile {
             (p.getY() - (p.getY() % Tile.HEIGHT))
         );
 	}
+	@Override
 	public Tile minus(final Tile tile){
 		return new Tile(this.left - tile.left, this.top - tile.top);
 	}
 	@Override
+	public Tile plus(final Tile tile){
+		return new Tile(this.left + tile.left, this.top + tile.top);
+	}
+	@Override
 	public String toString(){
 		return "Tile(" + left + "," + top + ")";
+	}
+	@Override
+	public Vector2f multiply(final Vector2f righthandSide) {
+		return new Vector2f(left * righthandSide.x, top * righthandSide.y);
 	}
 }

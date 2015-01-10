@@ -12,6 +12,7 @@ import org.bakkes.game.scripting.interfaces.IPokemon;
 import org.bakkes.game.state.BattleState;
 import org.bakkes.game.state.PlayingGameState;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -22,7 +23,6 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.Log;
 import org.newdawn.slick.util.pathfinding.Path;
-import org.newdawn.slick.util.pathfinding.Path.Step;
 
 public class Player extends Entity {
 	private static Random random = new Random();
@@ -32,7 +32,7 @@ public class Player extends Entity {
 
 	protected IPokemon pokemon;
 	protected FollowingPokemon follower;
-	private boolean isCurrentlyMoving = false;
+	private boolean isMoving = false;
 	private Path currentPath;
 	private int currentStep;
 	private Vector2f added = new Vector2f();
@@ -61,7 +61,7 @@ public class Player extends Entity {
 				_animation[i].setAutoUpdate(false);
 			}
 
-			position = new Tile(8, 8).topLeftPixels();
+			position = new Tile(30, 30).topLeftPixels();
 			inventory = new Inventory(this);
 			final FollowingPokemon p = new FollowingPokemon(this);
 			p.init(gc);
@@ -75,52 +75,68 @@ public class Player extends Entity {
 
 	@Override
 	public void update(final GameContainer gc, final int delta) {
-		if(!isCurrentlyMoving) {
+		if(!isMoving) {
 			return;
 		}
 		move(new Vector2f(delta/10f, delta/10f));
 		if(follower != null)
 			follower.update(delta);
 	}
-	private void move(final Vector2f delta){
-        final Step s = currentPath.getStep(currentStep);
-        final Tile destinationTile = new Tile(s.getX(), s.getY());
+	private void move(Vector2f delta){
+        final Tile destinationTile = new Tile(currentPath.getStep(currentStep));
 
-        if(destinationTile.topLeftPixels().x < position.getX())
-        	delta.x = -delta.x;
+        delta = destinationTile.minus(getTile()).multiply(delta);
+        final Vector2f offset = new Vector2f();
+        // if we go left
+        if(destinationTile.topLeftPixels().x < position.getX()){
+        	/*
+        	 * the player is drawn from the top left, so its position wil be in
+        	 * the top left, so when moving to a adjecent tile it will be there
+        	 * directly, to compensate we move the destination one more to the right
+        	 */
+        	//destinationTile = destinationTile.plus(new Tile(-1,0));
+        	//delta.x = -delta.x;
+        	offset.add(new Vector2f(15.69f,0));
+        }
 
-        if(destinationTile.topLeftPixels().y < position.getY())
-        	delta.y = -delta.y;
+        // if we go up
+        if(destinationTile.topLeftPixels().y < position.getY()){
+        	//destinationTile = destinationTile.plus(new Tile(0,-1));
+        	//delta.y = -delta.y;
+        	offset.add(new Vector2f(0,15.69f));
+        }
 
 
         if(Math.abs(added.x + delta.x) >= Tile.WIDTH) {
-            delta.x = delta.x >= 0 ? Tile.WIDTH + 0.01f- added.x : -Tile.WIDTH - 0.01f - added.x;
+        	Log.debug("back you");
+        	final float smoothDistance = Tile.WIDTH - added.x +0.01f;
+            delta.x = delta.x >= 0 ?  smoothDistance: -smoothDistance;
         }
 
         if(Math.abs(added.y + delta.y) >= Tile.HEIGHT) {
-            delta.y = delta.y >= 0 ? Tile.HEIGHT + 0.01f - added.y : -Tile.HEIGHT - 0.01f - added.y;
+        	final float smoothDistance = Tile.HEIGHT - added.y +0.01f;
+            delta.y = delta.y >= 0 ? smoothDistance : -smoothDistance;
         }
 
         added.add(delta);
         position.add(delta);
-        Log.debug(delta.toString());
-        Log.debug(position.toString());
 
-
+        Log.debug("moving to next tile: " + destinationTile + " with the following speed: " + delta);
         if(!destinationTile.contains(position)) {
+
         	return;
         }
 
         Log.debug(destinationTile.toString());
+        Log.debug(position.toString());
         follower.stepsTaken++;
         position = Tile.PixelsToGridPixels(position);
-        Log.debug(position.toString());
         currentStep++;
         added.x = 0;
         added.y = 0;
 
         if(currentStep >= currentPath.getLength()) {
-            isCurrentlyMoving = false;
+            isMoving = false;
             currentStep = 0;
             _animation[facing].setAutoUpdate(false);
             _animation[facing].setCurrentFrame(0);
@@ -157,6 +173,14 @@ public class Player extends Entity {
 		_animation[facing].draw(position.getX(), position.getY());
 		if(follower != null)
 			follower.render(gc, g);
+		if(GameInfo.SHOW_DEBUG_INFO && isMoving){
+
+			g.setColor(new Color(255, 255, 255, 64));
+			for(int i = 0; i < currentPath.getLength(); i++){
+				final Tile tile = new Tile(currentPath.getStep(i));
+				g.fillRect(tile.topLeftPixels().x, tile.topLeftPixels().y, Tile.WIDTH, Tile.HEIGHT);
+			}
+		}
 	}
 
 
@@ -175,7 +199,7 @@ public class Player extends Entity {
 	}
 
 	public boolean isCurrentlyMoving() {
-		return isCurrentlyMoving;
+		return isMoving;
 	}
 
 	public void moveTo(final Tile toTile) {
@@ -189,7 +213,7 @@ public class Player extends Entity {
 	}
 
 	public void Move(final Path p) {
-		isCurrentlyMoving = true;
+		isMoving = true;
 		currentPath = p;
 		currentStep = 0;
 	}
