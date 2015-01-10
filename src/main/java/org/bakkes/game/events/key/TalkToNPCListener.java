@@ -5,7 +5,6 @@ import org.bakkes.game.entity.Direction;
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.map.LayerdMap;
 import org.bakkes.game.map.Tile;
-import org.bakkes.game.scripting.ScriptManager;
 import org.bakkes.game.state.OverworldState;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.util.Log;
@@ -24,7 +23,7 @@ public class TalkToNPCListener implements IKeyListener {
 			final int facingNpc = findFacingNPC();
 			Log.info("Facing: " + facingNpc);
 			if(facingNpc != -1)
-				ScriptManager.executeFunction("talkto_" + facingNpc, game);
+				Log.warn("Load the interaction here");
 		}
 	}
 

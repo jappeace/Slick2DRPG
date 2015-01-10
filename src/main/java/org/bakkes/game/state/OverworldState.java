@@ -11,7 +11,6 @@ import org.bakkes.game.events.key.ScriptReloadListener;
 import org.bakkes.game.events.key.TalkToNPCListener;
 import org.bakkes.game.map.LayerdMap;
 import org.bakkes.game.map.Tile;
-import org.bakkes.game.scripting.ScriptManager;
 import org.bakkes.game.ui.InventoryGameComponent;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -41,7 +40,6 @@ public class OverworldState extends CommonGameState {
 	public void init(final GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
 		super.init(gc, arg1);
-		ScriptManager.loadScripts();
 		player = new Player(this);
 		player.init(gc);
 		GameInfo.getInstance().player = player;

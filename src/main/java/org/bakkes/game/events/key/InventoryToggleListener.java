@@ -1,20 +1,22 @@
 package org.bakkes.game.events.key;
 
-import org.bakkes.game.scripting.ScriptManager;
 import org.bakkes.game.state.OverworldState;
 import org.bakkes.game.ui.InventoryGameComponent;
+import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.util.Log;
 
 public class InventoryToggleListener implements IKeyListener {
 	private OverworldState game;
 	private InventoryGameComponent inventoryComponent;
 	private boolean enabled = false;
-	
-	public InventoryToggleListener(OverworldState playingGameState, InventoryGameComponent inventoryComponent) {
+
+	public InventoryToggleListener(final OverworldState playingGameState, final InventoryGameComponent inventoryComponent) {
 		this.game = playingGameState;
 		this.inventoryComponent = inventoryComponent;
 	}
-	
-	public void KeyDown(int key, char c) {
+
+	@Override
+	public void KeyDown(final int key, final char c) {
 		if(key == 1) { //ESC
 			enabled = !enabled;
 			if(enabled) {
@@ -24,21 +26,22 @@ public class InventoryToggleListener implements IKeyListener {
 			}
 		}
 		if(enabled) {
-			if(key == 208) { //up
+			if(key == Keyboard.KEY_UP) {
 				inventoryComponent.up();
-			} else if(key == 200) { //down
+			} else if(key == Keyboard.KEY_DOWN) {
 				inventoryComponent.down();
-			} else if(key == 28) { //enter
-				int selectedSlot = inventoryComponent.getCurrentlySelected();
-				ScriptManager.executeFunction("inventorySelected", selectedSlot, game.getPlayer().getInventory().getItem(selectedSlot), game);
+			} else if(key == Keyboard.KEY_RETURN) {
+				final int selectedSlot = inventoryComponent.getCurrentlySelected();
+				Log.info("selected item: " + selectedSlot);
 			}
 		}
-		
+
 	}
 
-	public void KeyUp(int key, char c) {
+	@Override
+	public void KeyUp(final int key, final char c) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
