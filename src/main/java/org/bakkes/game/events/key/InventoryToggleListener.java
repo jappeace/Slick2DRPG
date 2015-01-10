@@ -1,4 +1,4 @@
-package org.bakkes.game.events.keylistener;
+package org.bakkes.game.events.key;
 
 import org.bakkes.game.scripting.ScriptManager;
 import org.bakkes.game.state.OverworldState;

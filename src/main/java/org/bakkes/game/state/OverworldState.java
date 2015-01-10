@@ -5,10 +5,10 @@ import org.bakkes.game.GameInfo;
 import org.bakkes.game.World;
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.entity.follower.state.StateMachine;
-import org.bakkes.game.events.keylistener.InventoryToggleListener;
-import org.bakkes.game.events.keylistener.MovementListener;
-import org.bakkes.game.events.keylistener.ScriptReloadListener;
-import org.bakkes.game.events.keylistener.TalkToNPCListener;
+import org.bakkes.game.events.key.InventoryToggleListener;
+import org.bakkes.game.events.key.MovementListener;
+import org.bakkes.game.events.key.ScriptReloadListener;
+import org.bakkes.game.events.key.TalkToNPCListener;
 import org.bakkes.game.map.Tile;
 import org.bakkes.game.scripting.ScriptManager;
 import org.bakkes.game.ui.InventoryGameComponent;
@@ -59,19 +59,25 @@ public class OverworldState extends CommonGameState {
 		super.update(gc, arg1, delta);
 		final Input input = gc.getInput();
 
-		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && inputEnabled) {
-			Vector2f mousePos = new Vector2f(input.getMouseX(), input.getMouseY());
-			mousePos = new Vector2f(mousePos.getX() + camera.cameraX, mousePos.getY() + camera.cameraY);
-			destinationTile = Tile.createFromPixelsCoordinates(mousePos);
-
-			if(!World.getWorld().getLayerMap().isBlocked(destinationTile)) {
-				player.moveTo(destinationTile);
-			} else {
-				destinationTile = null;
-			}
+		if(inputEnabled){
+			handleMouseInput(input);
 		}
 
 		player.update(gc, delta);
+	}
+	private void handleMouseInput(final Input input){
+		if(!input.isMousePressed(Input.MOUSE_LEFT_BUTTON)){
+			return;
+		}
+        Vector2f mousePos = new Vector2f(input.getMouseX(), input.getMouseY());
+        mousePos = new Vector2f(mousePos.getX() + camera.cameraX, mousePos.getY() + camera.cameraY);
+        destinationTile = Tile.createFromPixelsCoordinates(mousePos);
+
+        if(!World.getWorld().getLayerMap().isBlocked(destinationTile)) {
+            player.moveTo(destinationTile);
+            return;
+        }
+        destinationTile = null;
 	}
 
 

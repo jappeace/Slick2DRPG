@@ -3,12 +3,13 @@ package org.bakkes.game.state;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import org.bakkes.game.GameInfo;
 import org.bakkes.game.events.IDialogClosed;
-import org.bakkes.game.events.keylistener.DebugToggleListener;
-import org.bakkes.game.events.keylistener.IKeyListener;
+import org.bakkes.game.events.key.DebugToggleListener;
+import org.bakkes.game.events.key.IKeyListener;
 import org.bakkes.game.ui.DialogBox;
 import org.bakkes.game.ui.DrawableGameComponent;
 import org.newdawn.slick.GameContainer;
@@ -20,17 +21,17 @@ import org.newdawn.slick.state.StateBasedGame;
 public abstract class CommonGameState extends BasicGameState {
 	protected boolean inputEnabled = true;
 	protected DialogBox currentDialogBox = null;
-	protected Queue<DialogBox> dialogQueue = new LinkedList<DialogBox>();
-	protected ArrayList<DrawableGameComponent> drawables;
-	protected ArrayList<IKeyListener> keyListeners;
+	protected Queue<DialogBox> dialogQueue = new LinkedList<>();
+	private List<DrawableGameComponent> drawables;
+	private List<IKeyListener> keyListeners;
 	protected IDialogClosed dialogCallback;
 
 
 	@Override
 	public void init(final GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
-		drawables = new ArrayList<DrawableGameComponent>();
-		keyListeners = new ArrayList<IKeyListener>();
+		drawables = new ArrayList<>();
+		keyListeners = new ArrayList<>();
 		this.keyListeners.add(new DebugToggleListener());
 	}
 

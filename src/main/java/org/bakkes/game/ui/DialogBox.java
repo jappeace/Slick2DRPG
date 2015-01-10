@@ -3,7 +3,7 @@ package org.bakkes.game.ui;
 import java.awt.Font;
 
 import org.bakkes.game.Game;
-import org.bakkes.game.events.keylistener.IKeyListener;
+import org.bakkes.game.events.key.IKeyListener;
 import org.bakkes.game.state.CommonGameState;
 import org.bakkes.game.state.OverworldState;
 import org.newdawn.slick.Color;

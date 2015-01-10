@@ -1,4 +1,4 @@
-package org.bakkes.game.events.keylistener;
+package org.bakkes.game.events.key;
 
 public interface IKeyListener {
 	public void KeyDown(int key, char c);
