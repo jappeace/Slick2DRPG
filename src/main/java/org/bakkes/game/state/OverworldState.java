@@ -9,6 +9,7 @@ import org.bakkes.game.events.key.InventoryToggleListener;
 import org.bakkes.game.events.key.MovementListener;
 import org.bakkes.game.events.key.ScriptReloadListener;
 import org.bakkes.game.events.key.TalkToNPCListener;
+import org.bakkes.game.map.LayerdMap;
 import org.bakkes.game.map.Tile;
 import org.bakkes.game.scripting.ScriptManager;
 import org.bakkes.game.ui.InventoryGameComponent;
@@ -25,7 +26,7 @@ public class OverworldState extends CommonGameState {
 
 	private Player player;
 	private Camera camera;
-	private Tile destinationTile;
+	private Tile clickedTile;
 
 	public Player getPlayer() {
 		return player;
@@ -71,13 +72,20 @@ public class OverworldState extends CommonGameState {
 		}
         Vector2f mousePos = new Vector2f(input.getMouseX(), input.getMouseY());
         mousePos = new Vector2f(mousePos.getX() + camera.cameraX, mousePos.getY() + camera.cameraY);
-        destinationTile = Tile.createFromPixelsCoordinates(mousePos);
+        clickedTile = Tile.createFromPixelsCoordinates(mousePos);
 
-        if(!World.getWorld().getLayerMap().isBlocked(destinationTile)) {
-            player.moveTo(destinationTile);
+        final LayerdMap map = World.getWorld().getLayerMap();
+        if(!map.isBlocked(clickedTile)) {
+            player.moveTo(clickedTile);
             return;
         }
-        destinationTile = null;
+
+        final int npcID = map.getNPCidOn(clickedTile);
+        /*
+         * and here I found out the scripting world has no proper way of interacting
+         * with java, so I'll replace python a bit sooner than planned
+         */
+        clickedTile = null;
 	}
 
 
@@ -92,9 +100,9 @@ public class OverworldState extends CommonGameState {
 		camera.drawMap();
 
 		camera.translateGraphics();
-		if(destinationTile != null && !destinationTile.equals(player.getTile())) {
+		if(clickedTile != null && !clickedTile.equals(player.getTile())) {
 			g.setColor(new Color(0, 0, 255, 64));
-			final Vector2f tl = destinationTile.topLeftPixels();
+			final Vector2f tl = clickedTile.topLeftPixels();
 			g.fillRect(tl.x, tl.y, Tile.WIDTH, Tile.HEIGHT);
 		}
 		player.render(gc, g);
