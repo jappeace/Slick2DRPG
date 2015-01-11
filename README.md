@@ -18,3 +18,7 @@ as soon as possible.
 * Implement a proper MVC pattern, these kind of games are made for that, besides the current 'entities (which are models I supose)' can now draw anything they want
 * Replace python with groovy (better integration, while the scripting is very similiar)
 
+# DONE
+* -pathfinding was a real bitch-
+* -declaring pokemon and their moves-
+
