@@ -1,7 +1,8 @@
 package org.bakkes.game.entity;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
-import java.util.Stack;
 
 import org.bakkes.game.GameInfo;
 import org.bakkes.game.R;
@@ -22,7 +23,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
-import org.newdawn.slick.util.pathfinding.Path;
 
 public class Player extends Entity {
 	private static Random random = new Random();
@@ -34,14 +34,12 @@ public class Player extends Entity {
 	protected FollowingPokemon follower;
 	private Inventory inventory;
 	private OverworldState game;
-	private Stack<ICommand> commands = new Stack<>();
+	private LinkedList<ICommand> commands = new LinkedList<>();
 
 	public Player(final OverworldState playingGameState) {
 		game = playingGameState;
 	}
 
-	public void snapToGrid(){
-	}
 	@Override
 	public void init(final GameContainer gc) {
 		try {
@@ -72,20 +70,20 @@ public class Player extends Entity {
 	}
 
 	public void addCommand(final ICommand command){
-		commands.add(command);
+		commands.addLast(command);
 	}
 	@Override
 	public void update(final GameContainer gc, final int delta) {
 		if(isDone()) {
 			return;
 		}
-		if(commands.peek().isDone()){
-			commands.pop();
+		if(commands.getFirst().isDone()){
+			commands.removeFirst();
 		}
 		if(isDone()) {
 			return;
 		}
-		commands.peek().execute(delta/10f);
+		commands.getFirst().execute(delta/10f);
 
 		if(follower != null)
 			follower.update(delta);
@@ -116,20 +114,22 @@ public class Player extends Entity {
 	}
 
 	public void moveTo(final Tile toTile) {
-		final Path path = World.getPathFinder().findPath(null,getTile().left,getTile().top,toTile.left, toTile.top);
-		if(path != null){
-			commands.add(new WalkPath(this, path));
-		}
+        commands.add(new WalkPath(this, toTile));
 	}
 
+	public void clearCommands(){
+		if(!isDone()){
+			final ICommand first = commands.getFirst();
+			first.onInterupt();
+			final List<ICommand> retain = new LinkedList<ICommand>();
+			retain.add(first);
+            commands.retainAll(retain);
+		}
+	}
 	public FollowingPokemon getFollower() {
 		return follower;
 	}
 
-	public int getDirection() {
-		// TODO Auto-generated method stub
-		return getFacing();
-	}
 	public void onEnterNewTile(){
         if(World.getWorld().getLayerMap().isGrass(getTile()) && pokemon.get_health() > 0) {
             if(random.nextInt(20) == 1) { //1 in 20 chance to encounter pokemon

@@ -30,4 +30,27 @@ public abstract class Entity {
 	public void setFacing(final int direction){
 		facing = direction;
 	}
+	/**
+	 * used a lot, anoying to do
+	 * @return
+	 */
+	public Tile getFacingTile(){
+        final int facing = getFacing();
+        final Tile result = new Tile();
+        switch(facing){
+        	case Direction.NORTH:
+        		result.top-=1;
+        		break;
+        	case Direction.SOUTH:
+        		result.top+=1;
+        		break;
+        	case Direction.EAST:
+        		result.left+=1;
+        		break;
+        	case Direction.WEST:
+        		result.left-=1;
+        		break;
+        }
+        return result;
+	}
 }

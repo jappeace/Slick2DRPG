@@ -11,7 +11,6 @@ import org.bakkes.game.events.key.InventoryToggleListener;
 import org.bakkes.game.events.key.MovementListener;
 import org.bakkes.game.events.key.ScriptReloadListener;
 import org.bakkes.game.events.key.TalkToNPCListener;
-import org.bakkes.game.map.Direction;
 import org.bakkes.game.map.LayerdMap;
 import org.bakkes.game.map.Tile;
 import org.bakkes.game.ui.InventoryGameComponent;
@@ -71,10 +70,18 @@ public class OverworldState extends CommonGameState {
 		player.update(gc, delta);
 	}
 	private void handleMouseInput(final Input input){
-		if(!input.isMousePressed(Input.MOUSE_LEFT_BUTTON)){
-			return;
+        final Vector2f mousePos = new Vector2f(input.getMouseX(), input.getMouseY());
+		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)){
+			onLeftMouseButton(mousePos);
 		}
-        Vector2f mousePos = new Vector2f(input.getMouseX(), input.getMouseY());
+		if(input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)){
+			onRightMouseButton(mousePos);
+		}
+	}
+	private void onRightMouseButton(final Vector2f mousePos){
+		player.clearCommands();
+	}
+	private void onLeftMouseButton(Vector2f mousePos){
         mousePos = new Vector2f(mousePos.getX() + camera.cameraX, mousePos.getY() + camera.cameraY);
         clickedTile = Tile.createFromPixelsCoordinates(mousePos);
 
@@ -93,26 +100,10 @@ public class OverworldState extends CommonGameState {
         	Log.debug("person null");
         	return;
         }
-        final int facing = person.getFacing();
-        final Tile correction = new Tile();
-        switch(facing){
-        	case Direction.NORTH:
-        		correction.top-=2;
-        		break;
-        	case Direction.SOUTH:
-        		correction.top+=2;
-        		break;
-        	case Direction.EAST:
-        		correction.left+=2;
-        		break;
-        	case Direction.WEST:
-        		correction.left-=2;
-        		break;
-        }
-
+        final Tile facingTile = person.getFacingTile();
         final CommonGameState state = this;
-        player.moveTo(correction.plus(clickedTile));
-        player.moveTo(new Tile(correction.multiply(new Vector2f(0.5f,0.5f))).plus(clickedTile));
+        player.moveTo(new Tile(facingTile.multiply(new Vector2f(2,2))).plus(clickedTile));
+        player.moveTo(facingTile.plus(clickedTile));
         player.addCommand(new ICommand(){
         	private boolean executed = false;
 			@Override
@@ -124,6 +115,11 @@ public class OverworldState extends CommonGameState {
 			@Override
 			public boolean isDone() {
 				return executed;
+			}
+
+			@Override
+			public void onInterupt() {
+				executed = true;
 			}
 
         });

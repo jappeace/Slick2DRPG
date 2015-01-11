@@ -1,5 +1,6 @@
 package org.bakkes.game.entity.command;
 
+import org.bakkes.game.World;
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.map.Direction;
 import org.bakkes.game.map.Tile;
@@ -10,15 +11,31 @@ public class WalkPath implements ICommand{
 
 	private Path path;
 	private int currentStep = 0;
-	private Vector2f added = new Vector2f();
 	private boolean isDone = false;
-	Player player;
-	public WalkPath(final Player player, final Path path){
-		this.path = path;
+	private boolean firstTime = true;
+	private final Tile destination;
+	private final Player player;
+	private final Vector2f added = new Vector2f();
+	private boolean interupted = false;
+	public WalkPath(final Player player, final Tile tile){
 		this.player = player;
+		destination = tile;
 	}
 	@Override
 	public void execute(final float tpf) {
+		if(firstTime){
+			firstTime = false;
+            path = World.getPathFinder().findPath(null,
+                player.getTile().left,
+                player.getTile().top,
+                destination.left,
+                destination.top
+            );
+            if(path == null){
+            	isDone = true;
+            	return;
+            }
+		}
         final Tile destinationTile = new Tile(path.getStep(currentStep));
 
         final Vector2f delta = destinationTile.minus(player.getTile()).multiply(new Vector2f(tpf, tpf));
@@ -58,13 +75,12 @@ public class WalkPath implements ICommand{
         	return;
         }
 
-        player.snapToGrid();
         player.setPosition(Tile.PixelsToGridPixels(position));
         currentStep++;
         added.x = 0;
         added.y = 0;
 
-        if(currentStep >= path.getLength()) {
+        if(currentStep >= path.getLength() || interupted) {
             isDone = true;
             currentStep = 0;
             player.onFinishedWalking();
@@ -94,6 +110,10 @@ public class WalkPath implements ICommand{
 	public boolean isDone() {
 		// TODO Auto-generated method stub
 		return isDone;
+	}
+	@Override
+	public void onInterupt() {
+		interupted = true;
 	}
 
 }

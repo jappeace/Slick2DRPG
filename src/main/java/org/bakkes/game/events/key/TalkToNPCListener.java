@@ -40,7 +40,7 @@ public class TalkToNPCListener implements IKeyListener {
 	private int findFacingNPC(){
 		final Player player = game.getPlayer();
 		Tile facingTile = player.getTile();
-		switch(player.getDirection()) {
+		switch(player.getFacing()) {
 		case Direction.NORTH:
 			facingTile = facingTile.plus(new Tile(0,-1));
 			break;
