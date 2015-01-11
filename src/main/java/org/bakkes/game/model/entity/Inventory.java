@@ -1,7 +1,7 @@
-package org.bakkes.game.entity;
+package org.bakkes.game.model.entity;
 
-import org.bakkes.game.items.Item;
-import org.bakkes.game.items.ItemCache;
+import org.bakkes.game.model.items.Item;
+import org.bakkes.game.model.items.ItemCache;
 
 public class Inventory {
 

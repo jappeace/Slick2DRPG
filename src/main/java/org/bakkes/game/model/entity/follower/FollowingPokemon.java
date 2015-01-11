@@ -1,11 +1,11 @@
-package org.bakkes.game.entity.follower;
+package org.bakkes.game.model.entity.follower;
 
 import org.bakkes.game.R;
-import org.bakkes.game.entity.NPC;
-import org.bakkes.game.entity.Player;
-import org.bakkes.game.entity.follower.state.StateMachine;
-import org.bakkes.game.map.Direction;
-import org.bakkes.game.map.Tile;
+import org.bakkes.game.model.entity.NPC;
+import org.bakkes.game.model.entity.Player;
+import org.bakkes.game.model.entity.follower.state.StateMachine;
+import org.bakkes.game.model.map.Direction;
+import org.bakkes.game.model.map.Tile;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;

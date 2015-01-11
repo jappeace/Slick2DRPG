@@ -1,7 +1,7 @@
 
 package org.bakkes.game;
 
-import org.bakkes.game.map.Tile;
+import org.bakkes.game.model.map.Tile;
 import org.junit.Assert;
 import org.junit.Test;
 import org.newdawn.slick.geom.Vector2f;

@@ -1,4 +1,4 @@
-package org.bakkes.game.entity.command;
+package org.bakkes.game.model.entity.command;
 
 public interface ICommand {
 

@@ -1,4 +1,4 @@
-package org.bakkes.game.map;
+package org.bakkes.game.model.map;
 
 import nl.jappieklooster.groovy.math.IMinusOperator;
 import nl.jappieklooster.groovy.math.IMultiply;

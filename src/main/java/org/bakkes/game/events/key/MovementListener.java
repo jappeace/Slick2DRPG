@@ -1,6 +1,6 @@
 package org.bakkes.game.events.key;
 
-import org.bakkes.game.map.Tile;
+import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.state.OverworldState;
 import org.lwjgl.input.Keyboard;
 

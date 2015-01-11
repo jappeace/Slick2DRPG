@@ -1,7 +1,7 @@
-package org.bakkes.game.entity;
+package org.bakkes.game.model.entity;
 
-import org.bakkes.game.map.Direction;
-import org.bakkes.game.map.Tile;
+import org.bakkes.game.model.map.Direction;
+import org.bakkes.game.model.map.Tile;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;

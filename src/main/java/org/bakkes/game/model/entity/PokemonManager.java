@@ -1,4 +1,4 @@
-package org.bakkes.game.entity;
+package org.bakkes.game.model.entity;
 
 import org.bakkes.game.scripting.PokemonFactory;
 import org.bakkes.game.scripting.interfaces.IPokemon;

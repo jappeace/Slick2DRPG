@@ -1,6 +1,6 @@
 package org.bakkes.game;
-import org.bakkes.game.map.LayerdMap;
-import org.bakkes.game.map.Tile;
+import org.bakkes.game.model.map.LayerdMap;
+import org.bakkes.game.model.map.Tile;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;

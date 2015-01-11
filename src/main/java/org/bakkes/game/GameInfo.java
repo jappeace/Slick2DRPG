@@ -1,6 +1,6 @@
 package org.bakkes.game;
 
-import org.bakkes.game.entity.Player;
+import org.bakkes.game.model.entity.Player;
 import org.newdawn.slick.state.StateBasedGame;
 
 /*

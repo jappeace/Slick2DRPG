@@ -1,11 +1,11 @@
 package org.bakkes.game.events.key;
 
 import org.bakkes.game.World;
-import org.bakkes.game.entity.Person;
-import org.bakkes.game.entity.Player;
-import org.bakkes.game.map.Direction;
-import org.bakkes.game.map.LayerdMap;
-import org.bakkes.game.map.Tile;
+import org.bakkes.game.model.entity.Person;
+import org.bakkes.game.model.entity.Player;
+import org.bakkes.game.model.map.Direction;
+import org.bakkes.game.model.map.LayerdMap;
+import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.state.OverworldState;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.util.Log;

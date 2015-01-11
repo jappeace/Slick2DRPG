@@ -1,6 +1,6 @@
-package org.bakkes.game.entity.follower.state;
+package org.bakkes.game.model.entity.follower.state;
 
-import org.bakkes.game.entity.follower.FollowingPokemon;
+import org.bakkes.game.model.entity.follower.FollowingPokemon;
 
 public class StateMachine {
 

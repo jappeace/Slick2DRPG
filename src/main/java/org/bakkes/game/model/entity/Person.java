@@ -1,4 +1,4 @@
-package org.bakkes.game.entity;
+package org.bakkes.game.model.entity;
 
 import groovy.lang.Closure;
 

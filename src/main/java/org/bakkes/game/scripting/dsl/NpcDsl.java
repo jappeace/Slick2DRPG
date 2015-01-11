@@ -4,7 +4,7 @@ import groovy.lang.Closure;
 
 import java.util.List;
 
-import org.bakkes.game.entity.Person;
+import org.bakkes.game.model.entity.Person;
 import org.newdawn.slick.util.Log;
 
 public class NpcDsl extends ADsl{

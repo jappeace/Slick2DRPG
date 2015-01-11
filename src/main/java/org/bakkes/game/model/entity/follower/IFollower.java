@@ -1,4 +1,4 @@
-package org.bakkes.game.entity.follower;
+package org.bakkes.game.model.entity.follower;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

@@ -1,4 +1,4 @@
-package org.bakkes.game.items;
+package org.bakkes.game.model.items;
 
 import java.util.HashMap;
 

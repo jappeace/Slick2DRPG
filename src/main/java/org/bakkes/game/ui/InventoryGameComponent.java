@@ -1,8 +1,8 @@
 package org.bakkes.game.ui;
 
-import org.bakkes.game.entity.Inventory;
-import org.bakkes.game.entity.Player;
-import org.bakkes.game.items.Item;
+import org.bakkes.game.model.entity.Inventory;
+import org.bakkes.game.model.entity.Player;
+import org.bakkes.game.model.items.Item;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

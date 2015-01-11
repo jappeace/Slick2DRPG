@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import org.bakkes.game.GameInfo;
-import org.bakkes.game.entity.Player;
+import org.bakkes.game.model.entity.Player;
 import org.bakkes.game.scripting.interfaces.IPokemon;
 import org.bakkes.game.state.BattleState;
 import org.bakkes.game.state.CommonGameState;

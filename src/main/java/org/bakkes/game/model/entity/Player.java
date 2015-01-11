@@ -1,4 +1,4 @@
-package org.bakkes.game.entity;
+package org.bakkes.game.model.entity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -8,11 +8,11 @@ import org.bakkes.game.GameInfo;
 import org.bakkes.game.R;
 import org.bakkes.game.World;
 import org.bakkes.game.battle.Battle;
-import org.bakkes.game.entity.command.ICommand;
-import org.bakkes.game.entity.command.WalkPath;
-import org.bakkes.game.entity.follower.FollowingPokemon;
-import org.bakkes.game.map.Direction;
-import org.bakkes.game.map.Tile;
+import org.bakkes.game.model.entity.command.ICommand;
+import org.bakkes.game.model.entity.command.WalkPath;
+import org.bakkes.game.model.entity.follower.FollowingPokemon;
+import org.bakkes.game.model.map.Direction;
+import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.scripting.interfaces.IPokemon;
 import org.bakkes.game.state.BattleState;
 import org.bakkes.game.state.OverworldState;

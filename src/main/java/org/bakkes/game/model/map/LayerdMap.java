@@ -1,4 +1,4 @@
-package org.bakkes.game.map;
+package org.bakkes.game.model.map;
 
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.PathFindingContext;

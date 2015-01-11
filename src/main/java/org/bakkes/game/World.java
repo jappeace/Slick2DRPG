@@ -3,8 +3,8 @@ package org.bakkes.game;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.bakkes.game.entity.Person;
-import org.bakkes.game.map.LayerdMap;
+import org.bakkes.game.model.entity.Person;
+import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.scripting.ScriptLoader;
 import org.bakkes.game.scripting.dsl.ADsl;
 import org.bakkes.game.scripting.dsl.NpcDsl;
