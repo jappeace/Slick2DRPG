@@ -31,7 +31,6 @@ public class Player extends Entity {
 	private Animation[] _animation;
 
 	protected IPokemon pokemon;
-	protected FollowingPokemon follower;
 	private Inventory inventory;
 	private OverworldState game;
 	private LinkedList<ICommand> commands = new LinkedList<>();
@@ -61,7 +60,6 @@ public class Player extends Entity {
 			inventory = new Inventory(this);
 			final FollowingPokemon p = new FollowingPokemon(this);
 			p.init(gc);
-			this.follower = p;
 			pokemon = PokemonManager.getPokemonById(0);
 		} catch (final SlickException e) {
 			// TODO Auto-generated catch block
@@ -85,8 +83,6 @@ public class Player extends Entity {
 		}
 		commands.getFirst().execute(delta/10f);
 
-		if(follower != null)
-			follower.update(delta);
 
 
 	}
@@ -94,8 +90,6 @@ public class Player extends Entity {
 	@Override
 	public void render(final GameContainer gc, final Graphics g) {
 		_animation[getFacing()].draw(getPosition().getX(), getPosition().getY());
-		if(follower != null)
-			follower.render(gc, g);
 	}
 
 
@@ -125,9 +119,6 @@ public class Player extends Entity {
 			retain.add(first);
             commands.retainAll(retain);
 		}
-	}
-	public FollowingPokemon getFollower() {
-		return follower;
 	}
 
 	public void onEnterNewTile(){

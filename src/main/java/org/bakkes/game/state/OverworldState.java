@@ -6,7 +6,6 @@ import org.bakkes.game.World;
 import org.bakkes.game.entity.Person;
 import org.bakkes.game.entity.Player;
 import org.bakkes.game.entity.command.ICommand;
-import org.bakkes.game.entity.follower.state.StateMachine;
 import org.bakkes.game.events.key.InventoryToggleListener;
 import org.bakkes.game.events.key.MovementListener;
 import org.bakkes.game.events.key.ScriptReloadListener;
@@ -151,13 +150,6 @@ public class OverworldState extends CommonGameState {
 		final Vector2f mouseTile = Tile.PixelsToGridPixels(mousePos);
 		g.setColor(Color.black);
 		g.drawRect(mouseTile.getX(), mouseTile.getY(), Tile.WIDTH, Tile.HEIGHT);
-		if(GameInfo.SHOW_DEBUG_INFO) {
-			final StateMachine stateMachine = player.getFollower().getStateMachine();
-			if(stateMachine.getState() != null) {
-				g.setColor(Color.white);
-				g.drawString("Pokemon state: " + stateMachine.getState().getName(), 10, 50);
-			}
-		}
 		super.render(gc, arg1, g);
 	}
 
