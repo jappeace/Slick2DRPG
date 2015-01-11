@@ -17,7 +17,7 @@ public class Pokemon{
 	public Pokemon(final int level, final IPokemonSpecies species){
 		normalStats = species.getBase();
 		this.species = species;
-		experiance = calculateXpFor(level);
+		setExperiance(calculateXpFor(level));
 		for(int i = 0; i < level; i++){
 			levelUp();
 		}
@@ -54,11 +54,11 @@ public class Pokemon{
 		if(exp < 0){
 			Log.warn("adding negative experiance?");
 		}
-		experiance += exp;
+		setExperiance(getExperiance() + exp);
 		final int nextLevel = calculateXpFor(level + 1);
-		Log.info("current xp = " + experiance);
+		Log.info("current xp = " + getExperiance());
 		Log.info("next level xp = " + nextLevel);
-		if(experiance > nextLevel){
+		if(getExperiance() > nextLevel){
 			Log.info("level up!!");
             final PokemonStatistics current = new PokemonStatistics(normalStats);
 			levelUp();
@@ -66,10 +66,11 @@ public class Pokemon{
 		}
 		return null; // no leveling
 	}
-	private int calculateXpFor(final int lvl){
+	public int calculateXpFor(final int lvl){
 		return (int)(4 * Math.pow(lvl, 3)/(4 + species.getTrainingSpeed()));
 
 	}
+
 	public final IPokemonStatistics getNormalStats() {
 		return normalStats;
 	}
@@ -83,5 +84,13 @@ public class Pokemon{
 
 	public int getLevel() {
 		return level;
+	}
+
+	public int getExperiance() {
+		return experiance;
+	}
+
+	private void setExperiance(final int experiance) {
+		this.experiance = experiance;
 	}
 }

@@ -42,25 +42,41 @@ public class PokeView extends AView{
             }
         }
 
-        g.drawRect(topLeft.x - 5f, topLeft.y + 72, 200f, 95f);
-        out.setLocation(new Vector2f(topLeft.x, topLeft.y + 75));
+        g.drawRect(topLeft.x - 5f, topLeft.y + 37, 200f, 130f);
+        out.setLocation(new Vector2f(topLeft.x, topLeft.y + 40));
         out.write("Level: " + pokemon.getLevel());
         out.write("Stats:");
         final IPokemonStatistics stat = pokemon.getCurrentStats();
         out.write("HP: " + stat.getHealth() + " SP: " + stat.getSpeed());
         out.write("DF: " + stat.getDefence() + " AT: " + stat.getAttack());
         out.write("Health: ");
+        out.write("");
+        out.write("XP: ");
         out.render(gc, g);
 
         final IPokemonStatistics normalStat = pokemon.getNormalStats();
-
-        final float width = 187f * ((float)stat.getHealth() / (float) normalStat.getHealth());
-        final float hightOffset = 160;
+        drawBar(g, 125, (float)stat.getHealth() / (float) normalStat.getHealth(), new Color(200,0,56));
+        drawBar(g, 155, (float)pokemon.getExperiance()/(float)pokemon.calculateXpFor(pokemon.getLevel()+1), new Color(9,214,84));
+	}
+	/**
+	 *
+	 * @param g
+	 * @param fraction how much of the bar needs to be vissible between 0 .. 1
+	 * @param color
+	 */
+	private void drawBar(final Graphics g, final float yOffset, final float fraction, final Color color){
+		if(fraction > 1){
+			return;
+		}
+		if(fraction < 0){
+			return;
+		}
+        final float width = 187f * fraction;
         final Color old = g.getColor();
         final float lineSize = g.getLineWidth();
-        g.setColor(new Color(200,0,56));
+        g.setColor(color);
         g.setLineWidth(12f);
-        g.drawLine(topLeft.x + 4, topLeft.y + hightOffset, topLeft.x + width, topLeft.y + hightOffset);
+        g.drawLine(topLeft.x + 4, topLeft.y + yOffset, topLeft.x + width, topLeft.y + yOffset);
         g.setColor(old);
         g.setLineWidth(lineSize);
 	}
