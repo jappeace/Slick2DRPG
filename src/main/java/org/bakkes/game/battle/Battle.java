@@ -26,16 +26,17 @@ public class Battle {
 		final Pokemon moveExecutor = getCorrectPokemon(fromPlayer);
 		final Pokemon executedOn = getCorrectPokemon(!fromPlayer);
 
-		final int oldHp = executedOn.getHealth();
+		final int oldHp = executedOn.getCurrentStats().getHealth();
 
 		final String moveExecutorName = fromPlayer ? "Player" : "Enemy";
 		final String executedOnName = fromPlayer ? "Enemy" : "Player";
 		battleLog.add(moveExecutorName + " used " + m.getName());
 
-		executedOn.setHealth(executedOn.getHealth() - m.getDamage()); // so creative
-		battleLog.add(executedOnName + " HP: " + oldHp + " -> " + executedOn.getHealth());
+		executedOn.setHealth(executedOn.getCurrentStats().getHealth() - m.getDamage()); // so creative
+		battleLog.add(executedOnName + " HP: " + oldHp + " -> " + executedOn.getCurrentStats().getHealth());
 		battleLog.add("________");
-		if(executedOn.getHealth() <= 0) { //someone won
+		if(!executedOn.isAlive()) { //someone won
+			moveExecutor.addExperiance((int)(executedOn.getLevel() * 10 / executedOn.getSpecies().getTrainingSpeed()));
 			playerWon = fromPlayer;
 			battleLog.add(executedOnName + " died!");
 			battleLog.add(moveExecutorName + " has won this battle");

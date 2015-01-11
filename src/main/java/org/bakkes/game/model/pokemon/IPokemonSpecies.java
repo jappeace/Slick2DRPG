@@ -1,6 +1,7 @@
 package org.bakkes.game.model.pokemon;
 
-import java.util.Collection;
+import java.util.List;
+
 
 
 /**
@@ -20,25 +21,31 @@ public interface IPokemonSpecies {
 	 */
 	int getEvolutionLevel();
 	/**
-	 * at level 0, what is your health
+	 * at level 0, what is are your statistics like health
 	 * @return
 	 */
-	int getBaseHealth();
-	int getBaseAttack();
-	int getBaseDefence();
-	int getBaseSpeed();
+	IPokemonStatistics getBase();
 	/**
-	 * how much you're health can increase per level
+	 * how much possibility do your stats have of increasing per level
 	 * @return
 	 */
-	int getIncreaseHealth();
-	int getIncreaseAttack();
-	int getIncreaseDefence();
-	int getIncreaseSpeed();
+	IPokemonStatistics getIncrease();
+
 	Type getType();
 	/**
 	 * the 'natural' moves of a pokemon
 	 * @return
 	 */
-	Collection<String> getMoves();
+	List<IMove> getMoves();
+
+	/**
+	 * tougher or rarer pokemon should be harder to train, ie dragonite should be a bitch to train
+	 * compared to ratata
+	 *
+	 * punishes players who like to have the best things, They now have to work hard for it
+	 *
+	 * a higher number means that a pokemon is easier to level up
+	 * @return
+	 */
+	float getTrainingSpeed();
 }

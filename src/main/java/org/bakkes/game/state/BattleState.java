@@ -114,7 +114,7 @@ public class BattleState extends CommonGameState {
 			}
 			g.drawRect(leftOffset - 5f, 82f, 200f, 85f);
 			g.drawString("Enemy stats: ", leftOffset, 85f);
-			g.drawString("HP: "  + battle.getEnemy().getHealth(), leftOffset, 100f);
+			g.drawString("HP: "  + battle.getEnemy().getCurrentStats().getHealth(), leftOffset, 100f);
 		}
 
 		if(battle.isOver() && !battle.hasPlayerWon()) { //player lost, dont show player
@@ -134,7 +134,7 @@ public class BattleState extends CommonGameState {
 			g.setColor(new Color(255, 255, 255, 255));
 			g.drawRect(leftOffset - 5f, 472f, 200f, 85f);
 			g.drawString("Your stats: ", leftOffset, 475f);
-			g.drawString("HP: "  + battle.getPlayerPokemon().getHealth(), leftOffset, 490f);
+			g.drawString("HP: "  + battle.getPlayerPokemon().getCurrentStats().getHealth(), leftOffset, 490f);
 
 			g.drawRect(490f, 15f, 300, 500);
 

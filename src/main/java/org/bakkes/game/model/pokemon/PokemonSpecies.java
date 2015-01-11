@@ -1,8 +1,13 @@
 package org.bakkes.game.model.pokemon;
 
-import java.util.Arrays;
-import java.util.Collection;
+import groovy.lang.Closure;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.bakkes.game.R;
+import org.bakkes.game.scripting.ScriptLoader;
 import org.newdawn.slick.util.Log;
 
 public class PokemonSpecies implements IPokemonSpecies{
@@ -10,16 +15,13 @@ public class PokemonSpecies implements IPokemonSpecies{
 	String evolution;
 	String name;
 	int evolutionLevel;
-	int baseHealth = 10;
-	int baseAttack = 1;
-	int baseDefence = 1;
-	int baseSpeed = 1;
-	int increaseHealth = 5;
-	int increaseAttack = 1;
-	int increaseDefence = 1;
-	int increaseSpeed = 1;
+	PokemonStatistics base = new PokemonStatistics();
+	PokemonStatistics increase = new PokemonStatistics();
+	private float trainingSpeed = 1;
+
+    final ScriptLoader loader = new ScriptLoader();
 	Type type;
-	Collection<String> moves = Arrays.asList(new String[]{"tackle"});
+	List<IMove> moves = new LinkedList<>();
 	@Override
 	public final String getSpriteName() {
 		return spriteName;
@@ -37,44 +39,16 @@ public class PokemonSpecies implements IPokemonSpecies{
 		return evolutionLevel;
 	}
 	@Override
-	public final int getBaseHealth() {
-		return baseHealth;
-	}
-	@Override
-	public final int getBaseAttack() {
-		return baseAttack;
-	}
-	@Override
-	public final int getBaseDefence() {
-		return baseDefence;
-	}
-	@Override
-	public final int getBaseSpeed() {
-		return baseSpeed;
-	}
-	@Override
-	public final int getIncreaseHealth() {
-		return increaseHealth;
-	}
-	@Override
-	public final int getIncreaseAttack() {
-		return increaseAttack;
-	}
-	@Override
-	public final int getIncreaseDefence() {
-		return increaseDefence;
-	}
-	@Override
-	public final int getIncreaseSpeed() {
-		return increaseSpeed;
-	}
-	@Override
 	public final Type getType() {
 		return type;
 	}
 	@Override
-	public final Collection<String> getMoves() {
+	public final List<IMove> getMoves() {
 		return moves;
+	}
+	@Override
+	public float getTrainingSpeed() {
+		return trainingSpeed;
 	}
 	public final void setSpriteName(final String spriteName) {
 		this.spriteName = spriteName;
@@ -88,29 +62,13 @@ public class PokemonSpecies implements IPokemonSpecies{
 	public final void setEvolutionLevel(final int evolutionLevel) {
 		this.evolutionLevel = evolutionLevel;
 	}
-	public final void setBaseHealth(final int baseHealth) {
-		this.baseHealth = baseHealth;
+	public void base(final Closure commands){
+		commands.setDelegate(base);
+		commands.call();
 	}
-	public final void setBaseAttack(final int baseAttack) {
-		this.baseAttack = baseAttack;
-	}
-	public final void setBaseDefence(final int baseDefence) {
-		this.baseDefence = baseDefence;
-	}
-	public final void setBaseSpeed(final int baseSpeed) {
-		this.baseSpeed = baseSpeed;
-	}
-	public final void setIncreaseHealth(final int increaseHealth) {
-		this.increaseHealth = increaseHealth;
-	}
-	public final void setIncreaseAttack(final int increaseAttack) {
-		this.increaseAttack = increaseAttack;
-	}
-	public final void setIncreaseDefence(final int increaseDefence) {
-		this.increaseDefence = increaseDefence;
-	}
-	public final void setIncreaseSpeed(final int increaseSpeed) {
-		this.increaseSpeed = increaseSpeed;
+	public void onLevelIncrease(final Closure commands){
+		commands.setDelegate(increase);
+		commands.call();
 	}
 	public final void setType(final String type) {
 		if(type.equals(Type.unkown.name())){
@@ -126,9 +84,23 @@ public class PokemonSpecies implements IPokemonSpecies{
 		this.type = Type.unkown;
 	}
 	public final void setMoves(final Collection<String> moves) {
-		for(final String move : moves){
-			Log.info("reading " + move);
+		for(final String moveName : moves){
+			Log.info("reading " + moveName);
+			final Move move = new Move();
+			loader.load(R.moveScripts + moveName + ".dsl", move);
+			move.setName(moveName); // avoid confusion user can't override name
+			this.moves.add(move);
 		}
-		this.moves = moves;
+	}
+	public void setTrainingSpeed(final float trainingSpeed) {
+		this.trainingSpeed = trainingSpeed;
+	}
+	@Override
+	public IPokemonStatistics getBase() {
+		return base;
+	}
+	@Override
+	public IPokemonStatistics getIncrease() {
+		return increase;
 	}
 }

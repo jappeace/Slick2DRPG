@@ -1,69 +1,42 @@
 package org.bakkes.game.model.pokemon;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 import org.bakkes.game.R;
-import org.bakkes.game.scripting.ScriptLoader;
+import org.newdawn.slick.util.Log;
 
 public class Pokemon{
 
 	private IPokemonSpecies species;
-	private int health;
-	private int attack;
-	private int defence;
-	private int speed;
+	private IPokemonStatistics normalStats;
+	private PokemonStatistics currentStats;
 	private int level = 0;
-	private List<IMove> moves = new LinkedList<>();
 	private static Random random = new Random();
+	private int experiance;
 	public Pokemon(final int level, final IPokemonSpecies species){
-		health = species.getBaseHealth();
-		defence = species.getBaseDefence();
-		attack = species.getBaseAttack();
-		speed = species.getBaseSpeed();
+		normalStats = species.getBase();
 		this.species = species;
+		experiance = calculateXpFor(level);
 		for(int i = 0; i < level; i++){
 			levelUp();
 		}
-		final ScriptLoader loader = new ScriptLoader();
-		for(final String moveName : species.getMoves()){
-			final Move move = new Move();
-			loader.load(R.moveScripts + moveName + ".dsl", move);
-			move.setName(moveName); // avoid confusion user can't override name
-			moves.add(move);
-		}
+		heal();
 	}
 
-	public void levelUp(){
-		level++;
-        health += random.nextInt(species.getIncreaseHealth());
-        defence += random.nextInt(species.getIncreaseDefence());
-        attack += random.nextInt(species.getIncreaseAttack());
-        speed += random.nextInt(species.getIncreaseSpeed());
+	private void levelUp(){
+		level = getLevel() + 1;
+		normalStats = normalStats.plus(species.getIncrease().createFrom(random));
 	}
 	public final IPokemonSpecies getSpecies() {
 		return species;
 	}
-
-	public final int getHealth() {
-		return health;
-	}
-
-	public final int getAttack() {
-		return attack;
-	}
-
-	public final int getDefence() {
-		return defence;
-	}
-
-	public final int getSpeed() {
-		return speed;
+	public void heal(){
+		currentStats = new PokemonStatistics(normalStats);
 	}
 
 	public final void setHealth(final int health) {
-		this.health = health;
+		currentStats.setHealth(health);
 	}
 
 	public String getSpritePath(){
@@ -71,6 +44,43 @@ public class Pokemon{
 	}
 
 	public List<IMove> getMoves() {
-		return moves;
+		return species.getMoves();
+	}
+	/**
+	 * @param exp
+	 * @return if levelup show difference
+	 */
+	public IPokemonStatistics addExperiance(final int exp){
+		if(exp < 0){
+			Log.warn("adding negative experiance?");
+		}
+		experiance += exp;
+		final int nextLevel = calculateXpFor(level + 1);
+		Log.info("current xp = " + experiance);
+		Log.info("next level xp = " + nextLevel);
+		if(experiance > nextLevel){
+            final PokemonStatistics current = new PokemonStatistics(normalStats);
+			levelUp();
+			return normalStats.minus(current);
+		}
+		return null; // no leveling
+	}
+	private int calculateXpFor(final int lvl){
+		return (int)(4 * Math.pow(lvl, 3)/(4 + species.getTrainingSpeed()));
+
+	}
+	public final IPokemonStatistics getNormalStats() {
+		return normalStats;
+	}
+
+	public final IPokemonStatistics getCurrentStats() {
+		return currentStats;
+	}
+	public boolean isAlive(){
+		return currentStats.getHealth() > 0;
+	}
+
+	public int getLevel() {
+		return level;
 	}
 }
