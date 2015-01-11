@@ -1,9 +1,8 @@
 package org.bakkes.game.battle;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 
-import org.bakkes.game.GameInfo;
 import org.bakkes.game.model.pokemon.IMove;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.state.CommonGameState;
@@ -12,14 +11,16 @@ public class Battle {
 	private Random random = new Random();
 
 	private Pokemon enemy;
-	private ArrayList<String> battleLog;
+	private LinkedList<String> battleLog;
 	private CommonGameState parentState;
 	private boolean isOver = false;
 	private boolean playerWon = false;
+	private Pokemon player;
 
-	public Battle(final Pokemon enemy) {
+	public Battle(final Pokemon player, final Pokemon enemy) {
 		this.enemy = enemy;
-		this.battleLog = new ArrayList<String>();
+		this.player = player;
+		this.battleLog = new LinkedList<>();
 	}
 
 	public void executeMove(final IMove m, final boolean fromPlayer) {
@@ -32,7 +33,8 @@ public class Battle {
 		final String executedOnName = fromPlayer ? "Enemy" : "Player";
 		battleLog.add(moveExecutorName + " used " + m.getName());
 
-		executedOn.setHealth(executedOn.getCurrentStats().getHealth() - m.getDamage()); // so creative
+
+		executedOn.damage(m.getDamage()); // so creative
 		battleLog.add(executedOnName + " HP: " + oldHp + " -> " + executedOn.getCurrentStats().getHealth());
 		battleLog.add("________");
 		if(!executedOn.isAlive()) { //someone won
@@ -45,7 +47,7 @@ public class Battle {
 		}
 	}
 
-	public ArrayList<String> getBattleLog() {
+	public LinkedList<String> getBattleLog() {
 		return battleLog;
 	}
 
@@ -54,7 +56,7 @@ public class Battle {
 	}
 
 	public Pokemon getPlayerPokemon() {
-		return GameInfo.getInstance().player.getPokemon();
+		return player;
 	}
 
 	public Pokemon getCorrectPokemon(final boolean isPlayer) {

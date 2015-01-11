@@ -97,7 +97,7 @@ public class OverworldState extends CommonGameState {
         }
         final BattleState state = (BattleState)GameInfo.getInstance().stateGame.getState(BattleState.BATTLE_STATE_ID);
         final Pokemon encounter = PokemonManager.getInstance().createPokemonByName("caterpie", 10); // I wonder which one it will be
-        state.setBattle(new Battle(encounter));
+        state.setBattle(new Battle(player.getPokemon(),encounter));
         GameInfo.getInstance().stateGame.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
 	}
 	private void handleMouseInput(final Input input){

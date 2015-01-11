@@ -35,8 +35,8 @@ public class Pokemon{
 		currentStats = new PokemonStatistics(normalStats);
 	}
 
-	public final void setHealth(final int health) {
-		currentStats.setHealth(health);
+	public final void damage(final int dmg) {
+		currentStats.setHealth(currentStats.getHealth() - dmg);
 	}
 
 	public String getSpritePath(){
