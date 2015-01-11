@@ -4,28 +4,24 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import org.bakkes.game.GameInfo;
-import org.bakkes.game.World;
-import org.bakkes.game.battle.Battle;
 import org.bakkes.game.model.entity.command.ICommand;
 import org.bakkes.game.model.entity.command.WalkPath;
 import org.bakkes.game.model.entity.follower.FollowingPokemon;
 import org.bakkes.game.model.map.Tile;
-import org.bakkes.game.scripting.interfaces.IPokemon;
-import org.bakkes.game.state.BattleState;
+import org.bakkes.game.model.pokemon.Pokemon;
+import org.bakkes.game.scripting.PokemonManager;
 import org.bakkes.game.state.OverworldState;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class Player extends Entity {
 	private static Random random = new Random();
 
-	protected IPokemon pokemon;
+	protected Pokemon pokemon;
 	private Inventory inventory;
 	private OverworldState game;
 	private LinkedList<ICommand> commands = new LinkedList<>();
 
+	private boolean hasEnteredNewTile = false;
 	public Player(final OverworldState playingGameState) {
 		game = playingGameState;
 	}
@@ -36,7 +32,7 @@ public class Player extends Entity {
         inventory = new Inventory(this);
         final FollowingPokemon p = new FollowingPokemon(this);
         p.init(gc);
-        pokemon = PokemonManager.getPokemonById(0);
+        pokemon = PokemonManager.getInstance().createPokemonByName("charmender", 30);
 	}
 
 	public void addCommand(final ICommand command){
@@ -59,7 +55,7 @@ public class Player extends Entity {
 
 	}
 
-	public IPokemon getPokemon() {
+	public Pokemon getPokemon() {
 		return pokemon;
 	}
 
@@ -89,15 +85,13 @@ public class Player extends Entity {
 
 	@Override
 	public void onEnterNewTile(){
-        if(World.getWorld().getLayerMap().isGrass(getTile()) && pokemon.get_health() > 0) {
-            if(random.nextInt(20) == 1) { //1 in 20 chance to encounter pokemon
-                final BattleState state = (BattleState)GameInfo.getInstance().stateGame.getState(BattleState.BATTLE_STATE_ID);
-                final IPokemon encounter = PokemonManager.getPokemonById(random.nextInt(3));
-                state.setBattle(new Battle(encounter));
-                GameInfo.getInstance().stateGame.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
-            }
-        }
+		hasEnteredNewTile = true;
         super.onEnterNewTile();
+	}
+	public boolean hasEnteredNewTile(){
+		final boolean result = hasEnteredNewTile;
+		hasEnteredNewTile = false;
+		return result;
 	}
 	public boolean isDone(){
 		return commands.isEmpty();

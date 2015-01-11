@@ -1,10 +1,11 @@
 package org.bakkes.game.state;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-import org.bakkes.game.GameInfo;
 import org.bakkes.game.battle.Battle;
-import org.bakkes.game.battle.IMove;
+import org.bakkes.game.model.pokemon.IMove;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -22,6 +23,7 @@ public class BattleState extends CommonGameState {
 	private Image enemyImage;
 	private int selectedMove = 0;
 	private boolean firstRun = true;
+	Random random = new Random();
 	@Override
 	public int getID() {
 		return BATTLE_STATE_ID;
@@ -29,8 +31,8 @@ public class BattleState extends CommonGameState {
 
 	public void setBattle(final Battle b) {
 		this.battle = b;
-		final String player = "/res/sprites/pokemon/" + b.getPlayer().getPokemon().get_image();
-		final String enemy = "/res/sprites/pokemon/" + b.getEnemy().get_image();
+		final String player = b.getPlayerPokemon().getSpritePath();
+		final String enemy = b.getEnemy().getSpritePath();
 		try {
 
 			playerImage = new Image(player);
@@ -43,15 +45,13 @@ public class BattleState extends CommonGameState {
 	}
 
 	private void selectMove(final int selected) {
-		final IMove[] moves = battle.getPlayer().getPokemon().get_moves();
-		System.out.println(selectedMove + " - " + moves.length);
-		if(selected >= moves.length)
+		final List<IMove> moves = battle.getPlayerPokemon().getMoves();
+		if(selected >= moves.size())
 			selectedMove = 0;
 		else if(selected < 0)
-			selectedMove = moves.length - 1;
+			selectedMove = moves.size() - 1;
 		else
 			selectedMove = selected;
-		System.out.println(selectedMove + " - " + moves.length);
 	}
 
 	@Override
@@ -83,25 +83,18 @@ public class BattleState extends CommonGameState {
 			System.out.println("ha " + selectedMove);
 			selectMove(selectedMove - 1);
 		}
-		if(gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
-			battle.executeMove(battle.getPlayer().getPokemon().get_moves()[selectedMove], true);
-
-			if(battle.isOver())
-				return;
-
-			//now execute opponents move
-			final IMove[] enemyMoves = battle.getEnemy().get_moves();
-			IMove bestMove = null;
-			float bestDesirability = -Float.MAX_VALUE;
-			for(int i = 0; i < enemyMoves.length; i++) { //get the best move from the opponent
-				final float desirability = enemyMoves[i].get_desirability(battle.getEnemy(), battle.getPlayer().getPokemon());
-				if(desirability > bestDesirability) {
-					bestMove = enemyMoves[i];
-					bestDesirability = desirability;
-				}
-			}
-			battle.executeMove(bestMove, false);
+		if(!gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
+			return;
 		}
+        battle.executeMove(battle.getPlayerPokemon().getMoves().get(selectedMove), true);
+
+        if(battle.isOver()){
+            return;
+        }
+
+        //now execute opponents move
+        final List<IMove> enemyMoves = battle.getEnemy().getMoves();
+        battle.executeMove(enemyMoves.get(random.nextInt(enemyMoves.size()-1)), false);
 
 		super.update(gc, arg1, delta);
 	}
@@ -118,43 +111,33 @@ public class BattleState extends CommonGameState {
 		} else {
 			g.drawImage(enemyImage, leftOffset + 260f, 10f);
 			g.drawString("Enemy moves:", leftOffset + 260f, 85f);
-			final IMove[] moves = battle.getEnemy().get_moves();
-			for(int i = 0; i < moves.length; i++) {
-				g.drawString(moves[i].get_name() + (GameInfo.SHOW_DEBUG_INFO ? " (" + moves[i].get_desirability(battle.getEnemy(), battle.getPlayer().getPokemon()) + ")" : ""), leftOffset + 260f, 100f + (i * 15));
+			final List<IMove> moves = battle.getEnemy().getMoves();
+			for(int i = 0; i < moves.size(); i++) {
+				g.drawString(moves.get(i).getName(), leftOffset + 260f, 100f + (i * 15));
 			}
 			g.drawRect(leftOffset - 5f, 82f, 200f, 85f);
 			g.drawString("Enemy stats: ", leftOffset, 85f);
-			g.drawString("HP: "  + battle.getEnemy().get_health(), leftOffset, 100f);
-			g.drawString("Water strength: " + battle.getEnemy().get_water_strength(), leftOffset, 115f);
-			g.drawString("Earth strength: " + battle.getEnemy().get_earth_strength(), leftOffset, 130f);
-			g.drawString("Fire strength: " + battle.getEnemy().get_fire_strength(), leftOffset, 145f);
+			g.drawString("HP: "  + battle.getEnemy().getHealth(), leftOffset, 100f);
 		}
 
 		if(battle.isOver() && !battle.hasPlayerWon()) { //player lost, dont show player
 			g.drawString("You lost! Press enter to leave", leftOffset, 450f);
-			if(battle.getPlayer().getInventory().hasItem(4)) {
-				g.drawString("You should use the protein you have in your inventory!", leftOffset, 465f);
-			} else {
-				g.drawString("To heal your pokemon, visit the old lady at the beginning!", leftOffset, 465f);
-			}
+            g.drawString("To heal your pokemon, visit the old lady at the beginning!", leftOffset, 465f);
 		} else {
 			g.drawImage(playerImage, leftOffset + 260f, 400f);
 			g.drawString("Your moves:", leftOffset + 260f, 475f);
-			final IMove[] myMoves = battle.getEnemy().get_moves();
-			for(int i = 0; i < myMoves.length; i++) {
+			final List<IMove> myMoves = battle.getEnemy().getMoves();
+			for(int i = 0; i < myMoves.size(); i++) {
 				if(i == selectedMove)
 					g.setColor(new Color(255, 255, 255, 255));
 				else
 					g.setColor(new Color(255, 255, 255, 128));
-				g.drawString(myMoves[i].get_name() + (GameInfo.SHOW_DEBUG_INFO ? " (" + myMoves[i].get_desirability(battle.getPlayer().getPokemon(), battle.getEnemy()) + ")" : ""), leftOffset + 260f, 490f + (i * 15));
+				g.drawString(myMoves.get(i).getName() , leftOffset + 260f, 490f + (i * 15));
 			}
 			g.setColor(new Color(255, 255, 255, 255));
 			g.drawRect(leftOffset - 5f, 472f, 200f, 85f);
 			g.drawString("Your stats: ", leftOffset, 475f);
-			g.drawString("HP: "  + battle.getPlayer().getPokemon().get_health(), leftOffset, 490f);
-			g.drawString("Water strength: " + battle.getPlayer().getPokemon().get_water_strength(), leftOffset, 505f);
-			g.drawString("Earth strength: " + battle.getPlayer().getPokemon().get_earth_strength(), leftOffset, 520f);
-			g.drawString("Fire strength: " + battle.getPlayer().getPokemon().get_fire_strength(), leftOffset, 535f);
+			g.drawString("HP: "  + battle.getPlayerPokemon().getHealth(), leftOffset, 490f);
 
 			g.drawRect(490f, 15f, 300, 500);
 

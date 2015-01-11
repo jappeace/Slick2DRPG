@@ -95,3 +95,4 @@ public class Tile implements IPlusOperator<Tile>, IMinusOperator<Tile>, IMultipl
 		return new Vector2f(left * righthandSide.x, top * righthandSide.y);
 	}
 }
+

@@ -17,7 +17,7 @@ public class Person extends NPC{
 	}
 
 	public void interact(){
-		Log.info("talking to npc with id: " + id + " on location: " + getPosition());
+		Log.info("talking to npc with id: " + getId() + " on location: " + getPosition());
 		if(onInteract == null){
 			return;
 		}

@@ -1,8 +1,13 @@
 package org.bakkes.game.state;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
 import org.bakkes.game.Camera;
 import org.bakkes.game.GameInfo;
 import org.bakkes.game.World;
+import org.bakkes.game.battle.Battle;
 import org.bakkes.game.events.key.InventoryToggleListener;
 import org.bakkes.game.events.key.MovementListener;
 import org.bakkes.game.events.key.ScriptReloadListener;
@@ -12,6 +17,9 @@ import org.bakkes.game.model.entity.Player;
 import org.bakkes.game.model.entity.command.ICommand;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
+import org.bakkes.game.model.pokemon.Pokemon;
+import org.bakkes.game.scripting.PokemonManager;
+import org.bakkes.game.view.IRenderable;
 import org.bakkes.game.view.InventoryGameComponent;
 import org.bakkes.game.view.OverworldEntityView;
 import org.lwjgl.input.Keyboard;
@@ -22,6 +30,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.Log;
 
 public class OverworldState extends CommonGameState {
@@ -30,6 +40,10 @@ public class OverworldState extends CommonGameState {
 	private Player player;
 	private Camera camera;
 	private Tile clickedTile;
+	private World world;
+	private Random random = new Random();
+	private List<IRenderable> translatedViews = new LinkedList<>();
+	private static final int WILD_POKE_CHANCE = 20; // chance of encountering wild pokemone (1 in chance)
 
 	public Player getPlayer() {
 		return player;
@@ -43,7 +57,7 @@ public class OverworldState extends CommonGameState {
 	@Override
 	public void init(final GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
-		World.construct(this);
+		world = World.construct(this);
 		super.init(gc, arg1);
 		player = new Player(this);
 		player.init(gc);
@@ -51,7 +65,7 @@ public class OverworldState extends CommonGameState {
 		GameInfo.getInstance().stateGame = arg1;
 		camera = new Camera(gc);
 
-		super.addComponent(new OverworldEntityView(player));
+		translatedViews.add(new OverworldEntityView(player));
 		addKeyListener(new TalkToNPCListener(this));
 		addKeyListener(new ScriptReloadListener());
 		addKeyListener(new MovementListener(this));
@@ -67,8 +81,24 @@ public class OverworldState extends CommonGameState {
 		if(inputEnabled){
 			handleMouseInput(input);
 		}
-
 		player.update(gc, delta);
+		checkForWildPokeBattle();
+	}
+	private void checkForWildPokeBattle(){
+		if(!player.hasEnteredNewTile()){
+			return;
+		}
+        if(!world.getLayerMap().isGrass(player.getTile())) {
+        	return;
+        }
+
+        if(random.nextInt(WILD_POKE_CHANCE) != 1) {
+        	return;
+        }
+        final BattleState state = (BattleState)GameInfo.getInstance().stateGame.getState(BattleState.BATTLE_STATE_ID);
+        final Pokemon encounter = PokemonManager.getInstance().createPokemonByName("caterpie", 10); // I wonder which one it will be
+        state.setBattle(new Battle(encounter));
+        GameInfo.getInstance().stateGame.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
 	}
 	private void handleMouseInput(final Input input){
         final Vector2f mousePos = new Vector2f(input.getMouseX(), input.getMouseY());
@@ -142,6 +172,9 @@ public class OverworldState extends CommonGameState {
 			g.setColor(new Color(0, 0, 255, 64));
 			final Vector2f tl = clickedTile.topLeftPixels();
 			g.fillRect(tl.x, tl.y, Tile.WIDTH, Tile.HEIGHT);
+		}
+		for(final IRenderable renderable : translatedViews){
+			renderable.render(gc, g);
 		}
 		camera.untranslateGraphics();
 
