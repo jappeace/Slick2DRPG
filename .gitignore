@@ -49,3 +49,4 @@ local.properties
 .SyncIgnore
 /bin
 build
+src/main/resources/map/map.tmx
