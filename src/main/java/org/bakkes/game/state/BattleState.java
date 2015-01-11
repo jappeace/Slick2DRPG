@@ -58,7 +58,6 @@ public class BattleState extends CommonGameState {
 	public void init(final GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
 		super.init(gc, arg1);
-		System.out.println("Got init");
 	}
 
 	@Override
@@ -77,10 +76,8 @@ public class BattleState extends CommonGameState {
 		}
 
 		if(gc.getInput().isKeyPressed(Input.KEY_DOWN)) {
-			System.out.println("hi " + selectedMove);
 			selectMove(selectedMove + 1);
 		} else if(gc.getInput().isKeyPressed(Input.KEY_UP)) {
-			System.out.println("ha " + selectedMove);
 			selectMove(selectedMove - 1);
 		}
 		if(!gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
@@ -94,7 +91,7 @@ public class BattleState extends CommonGameState {
 
         //now execute opponents move
         final List<IMove> enemyMoves = battle.getEnemy().getMoves();
-        battle.executeMove(enemyMoves.get(random.nextInt(enemyMoves.size()-1)), false);
+        battle.executeMove(enemyMoves.get(random.nextInt(enemyMoves.size())), false);
 
 		super.update(gc, arg1, delta);
 	}
@@ -126,7 +123,7 @@ public class BattleState extends CommonGameState {
 		} else {
 			g.drawImage(playerImage, leftOffset + 260f, 400f);
 			g.drawString("Your moves:", leftOffset + 260f, 475f);
-			final List<IMove> myMoves = battle.getEnemy().getMoves();
+			final List<IMove> myMoves = battle.getPlayerPokemon().getMoves();
 			for(int i = 0; i < myMoves.size(); i++) {
 				if(i == selectedMove)
 					g.setColor(new Color(255, 255, 255, 255));

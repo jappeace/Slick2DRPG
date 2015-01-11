@@ -126,6 +126,9 @@ public class PokemonSpecies implements IPokemonSpecies{
 		this.type = Type.unkown;
 	}
 	public final void setMoves(final Collection<String> moves) {
+		for(final String move : moves){
+			Log.info("reading " + move);
+		}
 		this.moves = moves;
 	}
 }

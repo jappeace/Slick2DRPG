@@ -43,7 +43,7 @@ public class OverworldState extends CommonGameState {
 	private World world;
 	private Random random = new Random();
 	private List<IRenderable> translatedViews = new LinkedList<>();
-	private static final int WILD_POKE_CHANCE = 20; // chance of encountering wild pokemone (1 in chance)
+	private static final int WILD_POKE_CHANCE = 5; // chance of encountering wild pokemone (1 in chance)
 
 	public Player getPlayer() {
 		return player;

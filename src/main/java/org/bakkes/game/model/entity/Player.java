@@ -28,7 +28,7 @@ public class Player extends Entity {
 
 	@Override
 	public void init(final GameContainer gc) {
-        setPosition(new Tile(8,8).topLeftPixels());
+        setPosition(new Tile(60,20).topLeftPixels());
         inventory = new Inventory(this);
         final FollowingPokemon p = new FollowingPokemon(this);
         p.init(gc);
