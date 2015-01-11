@@ -9,7 +9,7 @@ import org.bakkes.game.scripting.ScriptLoader;
 import org.bakkes.game.scripting.dsl.ADsl;
 import org.bakkes.game.scripting.dsl.NpcDsl;
 import org.bakkes.game.state.CommonGameState;
-import org.bakkes.game.ui.DialogBox;
+import org.bakkes.game.view.DialogBox;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.AStarPathFinder;

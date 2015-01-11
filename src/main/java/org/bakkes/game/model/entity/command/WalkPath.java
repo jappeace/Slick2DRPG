@@ -1,7 +1,7 @@
 package org.bakkes.game.model.entity.command;
 
 import org.bakkes.game.World;
-import org.bakkes.game.model.entity.Player;
+import org.bakkes.game.model.entity.Entity;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.Tile;
 import org.newdawn.slick.geom.Vector2f;
@@ -14,10 +14,10 @@ public class WalkPath implements ICommand{
 	private boolean isDone = false;
 	private boolean firstTime = true;
 	private final Tile destination;
-	private final Player player;
+	private final Entity player;
 	private final Vector2f added = new Vector2f();
 	private boolean interupted = false;
-	public WalkPath(final Player player, final Tile tile){
+	public WalkPath(final Entity player, final Tile tile){
 		this.player = player;
 		destination = tile;
 	}

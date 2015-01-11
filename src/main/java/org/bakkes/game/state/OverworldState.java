@@ -12,7 +12,8 @@ import org.bakkes.game.model.entity.Player;
 import org.bakkes.game.model.entity.command.ICommand;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
-import org.bakkes.game.ui.InventoryGameComponent;
+import org.bakkes.game.view.InventoryGameComponent;
+import org.bakkes.game.view.OverworldEntityView;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -50,6 +51,7 @@ public class OverworldState extends CommonGameState {
 		GameInfo.getInstance().stateGame = arg1;
 		camera = new Camera(gc);
 
+		super.addComponent(new OverworldEntityView(player));
 		addKeyListener(new TalkToNPCListener(this));
 		addKeyListener(new ScriptReloadListener());
 		addKeyListener(new MovementListener(this));
@@ -122,9 +124,6 @@ public class OverworldState extends CommonGameState {
 			}
 
         });
-        person.interact();
-
-
 	}
 
 
@@ -144,7 +143,6 @@ public class OverworldState extends CommonGameState {
 			final Vector2f tl = clickedTile.topLeftPixels();
 			g.fillRect(tl.x, tl.y, Tile.WIDTH, Tile.HEIGHT);
 		}
-		player.render(gc, g);
 		camera.untranslateGraphics();
 
 		final Vector2f mouseTile = Tile.PixelsToGridPixels(mousePos);

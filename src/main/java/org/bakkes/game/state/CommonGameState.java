@@ -10,8 +10,8 @@ import org.bakkes.game.GameInfo;
 import org.bakkes.game.events.IDialogClosed;
 import org.bakkes.game.events.key.DebugToggleListener;
 import org.bakkes.game.events.key.IKeyListener;
-import org.bakkes.game.ui.DialogBox;
-import org.bakkes.game.ui.DrawableGameComponent;
+import org.bakkes.game.view.DialogBox;
+import org.bakkes.game.view.IRenderable;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -23,7 +23,7 @@ public abstract class CommonGameState extends BasicGameState {
 	protected boolean inputEnabled = true;
 	protected DialogBox currentDialogBox = null;
 	protected Queue<DialogBox> dialogQueue = new LinkedList<>();
-	private List<DrawableGameComponent> drawables;
+	private List<IRenderable> drawables;
 	private List<IKeyListener> keyListeners;
 	protected IDialogClosed dialogCallback;
 
@@ -55,15 +55,15 @@ public abstract class CommonGameState extends BasicGameState {
 	public void render(final GameContainer gc, final StateBasedGame arg1, final Graphics g)
 			throws SlickException {
 
-		for(final DrawableGameComponent drawable : drawables) {
-			drawable.Render(gc, g);
+		for(final IRenderable drawable : drawables) {
+			drawable.render(gc, g);
 		}
 		g.drawString("Debug info: " + (GameInfo.SHOW_DEBUG_INFO ? "ON" : "OFF"), 10, 25);
 		if(currentDialogBox != null)
-			currentDialogBox.Render(gc, g);
+			currentDialogBox.render(gc, g);
 	}
 
-	public void addComponent(final DrawableGameComponent gameComponent) {
+	public void addComponent(final IRenderable gameComponent) {
 		this.drawables.add(gameComponent);
 	}
 
@@ -71,7 +71,7 @@ public abstract class CommonGameState extends BasicGameState {
 		this.keyListeners.add(keylistener);
 	}
 
-	public void removeComponent(final DrawableGameComponent gameComponent) {
+	public void removeComponent(final IRenderable gameComponent) {
 		this.drawables.remove(gameComponent);
 	}
 

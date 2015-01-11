@@ -3,7 +3,7 @@ package org.bakkes.game.model.entity;
 import groovy.lang.Closure;
 
 import org.bakkes.game.GameInfo;
-import org.bakkes.game.ui.DialogBox;
+import org.bakkes.game.view.DialogBox;
 import org.newdawn.slick.util.Log;
 
 

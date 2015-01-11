@@ -1,18 +1,16 @@
 package org.bakkes.game.model.entity;
 
+import org.bakkes.game.model.IUpdatable;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.Tile;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
-public abstract class Entity {
+public abstract class Entity implements IUpdatable{
 	private Vector2f position; // not encapsulated anyways
 	protected int facing = Direction.SOUTH;
 
 	public void init(final GameContainer gc) {}
-	public abstract void update(GameContainer gc, int delta);
-	public abstract void render(GameContainer gc, Graphics g);
 
 	public Vector2f getPosition() {
 		return position;
@@ -29,6 +27,17 @@ public abstract class Entity {
 	}
 	public void setFacing(final int direction){
 		facing = direction;
+	}
+
+	private boolean isWalking = false;
+	public void onEnterNewTile(){
+		isWalking = true;
+	}
+	public void onFinishedWalking(){
+		isWalking = false;
+	}
+	public boolean isWalking(){
+		return isWalking;
 	}
 	/**
 	 * used a lot, anoying to do

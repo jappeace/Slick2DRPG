@@ -1,20 +1,12 @@
 package org.bakkes.game.model.entity;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
+
 
 public class NPC extends Entity {
 
 	protected int id;
 
-
-	@Override
-	public void update(final GameContainer gc, final int delta) {
-	}
-
-	@Override
-	public void render(final GameContainer gc, final Graphics g) {
-	}
 
 	public int getId() {
 		return id;
@@ -24,5 +16,7 @@ public class NPC extends Entity {
 		this.id = id;
 	}
 
-
+	@Override
+	public void update(final GameContainer gc, final int delta) {
+	}
 }

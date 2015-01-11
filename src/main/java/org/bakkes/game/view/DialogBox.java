@@ -1,4 +1,4 @@
-package org.bakkes.game.ui;
+package org.bakkes.game.view;
 
 import java.awt.Font;
 
@@ -9,7 +9,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.UnicodeFont;
 
-public class DialogBox implements DrawableGameComponent, IKeyListener {
+public class DialogBox implements IRenderable, IKeyListener {
 
 	private static UnicodeFont font;
 
@@ -37,7 +37,7 @@ public class DialogBox implements DrawableGameComponent, IKeyListener {
 	}
 
 	@Override
-	public void Render(final GameContainer gc, final Graphics g) {
+	public void render(final GameContainer gc, final Graphics g) {
 		g.setColor(Color.white);
 		g.fillRect(1, 400, 800, 200);
 		g.setLineWidth(5f);

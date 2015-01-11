@@ -1,4 +1,4 @@
-package org.bakkes.game.ui;
+package org.bakkes.game.view;
 
 import org.bakkes.game.model.entity.Inventory;
 import org.bakkes.game.model.entity.Player;
@@ -8,7 +8,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
-public class InventoryGameComponent implements DrawableGameComponent {
+public class InventoryGameComponent implements IRenderable {
 	private static final Color ITEM_HIGHLIGHTED_COLOR = new Color(205, 201, 201, 128);
 	private static final Color INVENTORY_BACKGROUND_COLOR = new Color(0, 0, 0, 128);
 	private static final Color INVENTORY_OUTLINE_COLOR = new Color(255, 255, 255);
@@ -21,7 +21,7 @@ public class InventoryGameComponent implements DrawableGameComponent {
 	}
 
 	@Override
-	public void Render(final GameContainer gc, final Graphics g) {
+	public void render(final GameContainer gc, final Graphics g) {
 		g.setColor(INVENTORY_BACKGROUND_COLOR);
 		g.fillRect(600, 100, 180, 400);
 		g.setLineWidth(5f);
