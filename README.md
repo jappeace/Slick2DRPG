@@ -13,6 +13,9 @@ frustrations with the original game. For example:
 First I will try to emulate the orignal pokemongame. I'll create a working (stable) prototype
 as soon as possible.
 
+* own pokemon receives xp after batle
+* own pokemon levels up
+* catch pokemon
 * Make the overworld work (ie can go into buildings, talk easily to npcs)
 * Replace fuzzy logic with RNG, this makes it easier to add moves, besides the AI, in the orignial pokemon was also retarded
 * Implement a proper MVC pattern, these kind of games are made for that, besides the current 'entities (which are models I supose)' can now draw anything they want
