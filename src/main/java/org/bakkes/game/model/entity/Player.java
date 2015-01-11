@@ -32,7 +32,7 @@ public class Player extends Entity {
         inventory = new Inventory(this);
         final FollowingPokemon p = new FollowingPokemon(this);
         p.init(gc);
-        pokemon = PokemonManager.getInstance().createPokemonByName("charmender", 30);
+        pokemon = PokemonManager.getInstance().createPokemonByName("charmender", 5);
 	}
 
 	public void addCommand(final ICommand command){

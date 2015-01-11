@@ -38,7 +38,6 @@ public class Battle {
 		battleLog.add(executedOnName + " HP: " + oldHp + " -> " + executedOn.getCurrentStats().getHealth());
 		battleLog.add("________");
 		if(!executedOn.isAlive()) { //someone won
-			moveExecutor.addExperiance((int)(executedOn.getLevel() * 10 / executedOn.getSpecies().getTrainingSpeed()));
 			playerWon = fromPlayer;
 			battleLog.add(executedOnName + " died!");
 			battleLog.add(moveExecutorName + " has won this battle");
@@ -55,12 +54,12 @@ public class Battle {
 		return this.enemy;
 	}
 
-	public Pokemon getPlayerPokemon() {
+	public Pokemon getPlayer() {
 		return player;
 	}
 
 	public Pokemon getCorrectPokemon(final boolean isPlayer) {
-		return isPlayer ? getPlayerPokemon() : enemy;
+		return isPlayer ? getPlayer() : enemy;
 	}
 
 	public boolean isOver() {

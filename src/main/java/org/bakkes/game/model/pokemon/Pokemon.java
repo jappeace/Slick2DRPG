@@ -59,9 +59,10 @@ public class Pokemon{
 		Log.info("current xp = " + experiance);
 		Log.info("next level xp = " + nextLevel);
 		if(experiance > nextLevel){
+			Log.info("level up!!");
             final PokemonStatistics current = new PokemonStatistics(normalStats);
 			levelUp();
-			return normalStats.minus(current);
+			return normalStats.minus(current).plus(addExperiance(0)); // recursive to make sure lvl match xp (especialy usefull for low level battles
 		}
 		return null; // no leveling
 	}

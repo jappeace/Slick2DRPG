@@ -5,6 +5,7 @@ import java.util.List;
 import org.bakkes.game.model.pokemon.IMove;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -41,14 +42,27 @@ public class PokeView extends AView{
             }
         }
 
-        g.drawRect(topLeft.x - 5f, topLeft.y + 72, 200f, 85f);
+        g.drawRect(topLeft.x - 5f, topLeft.y + 72, 200f, 95f);
         out.setLocation(new Vector2f(topLeft.x, topLeft.y + 75));
+        out.write("Level: " + pokemon.getLevel());
         out.write("Stats:");
         final IPokemonStatistics stat = pokemon.getCurrentStats();
         out.write("HP: " + stat.getHealth() + " SP: " + stat.getSpeed());
         out.write("DF: " + stat.getDefence() + " AT: " + stat.getAttack());
+        out.write("Health: ");
         out.render(gc, g);
 
+        final IPokemonStatistics normalStat = pokemon.getNormalStats();
+
+        final float width = 187f * ((float)stat.getHealth() / (float) normalStat.getHealth());
+        final float hightOffset = 160;
+        final Color old = g.getColor();
+        final float lineSize = g.getLineWidth();
+        g.setColor(new Color(200,0,56));
+        g.setLineWidth(12f);
+        g.drawLine(topLeft.x + 4, topLeft.y + hightOffset, topLeft.x + width, topLeft.y + hightOffset);
+        g.setColor(old);
+        g.setLineWidth(lineSize);
 	}
 
 }

@@ -19,6 +19,13 @@ public class PokemonSpecies implements IPokemonSpecies{
 	PokemonStatistics increase = new PokemonStatistics();
 	private float trainingSpeed = 1;
 
+	public PokemonSpecies(){
+		increase.health = 10;
+		increase.attack = 3;
+		increase.defence = 3;
+		increase.speed = 3;
+	}
+
     final ScriptLoader loader = new ScriptLoader();
 	Type type;
 	List<IMove> moves = new LinkedList<>();

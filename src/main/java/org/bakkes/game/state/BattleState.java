@@ -6,6 +6,8 @@ import java.util.Random;
 
 import org.bakkes.game.battle.Battle;
 import org.bakkes.game.model.pokemon.IMove;
+import org.bakkes.game.model.pokemon.IPokemonStatistics;
+import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.LineWriterView;
 import org.bakkes.game.view.PokeView;
 import org.newdawn.slick.Color;
@@ -15,6 +17,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.Log;
 
 public class BattleState extends CommonGameState {
 	public static final int BATTLE_STATE_ID = 2;
@@ -24,6 +27,7 @@ public class BattleState extends CommonGameState {
 	private PokeView player;
 	private int selectedMove = 0;
 	private boolean firstRun = true;
+	private static final int XP_MODIFIER = 50;
 	Random random = new Random();
 	@Override
 	public int getID() {
@@ -33,13 +37,13 @@ public class BattleState extends CommonGameState {
 	public void setBattle(final Battle b) {
 		this.battle = b;
 		this.enemy = new PokeView(b.getEnemy(), new Vector2f(20f,10f));
-		this.player = new PokeView(b.getPlayerPokemon(), new Vector2f(20f, 400));
+		this.player = new PokeView(b.getPlayer(), new Vector2f(20f, 400));
 		this.player.renderMoves = false;
 		firstRun = true;
 	}
 
 	private void selectMove(final int selected) {
-		final List<IMove> moves = battle.getPlayerPokemon().getMoves();
+		final List<IMove> moves = battle.getPlayer().getMoves();
 		if(selected >= moves.size())
 			selectedMove = 0;
 		else if(selected < 0)
@@ -77,9 +81,17 @@ public class BattleState extends CommonGameState {
 		if(!gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
 			return;
 		}
-        battle.executeMove(battle.getPlayerPokemon().getMoves().get(selectedMove), true);
+		final Pokemon player = battle.getPlayer();
+		final Pokemon enemy = battle.getEnemy();
+        battle.executeMove(player.getMoves().get(selectedMove), true);
 
-        if(battle.isOver()){
+        if(battle.isOver()){ // we won?
+        	Log.info("we won!!");
+
+			final IPokemonStatistics stats = player.addExperiance((int)(enemy.getLevel() * XP_MODIFIER / enemy.getSpecies().getTrainingSpeed()));
+			if(stats != null){
+				Log.info("level up: " + stats);
+			}
             return;
         }
 
@@ -113,7 +125,7 @@ public class BattleState extends CommonGameState {
 			out.write("To heal your pokemon, visit the old lady at the beginning!");
 		} else {
 
-			final List<IMove> myMoves = battle.getPlayerPokemon().getMoves();
+			final List<IMove> myMoves = battle.getPlayer().getMoves();
 			for(int i = 0; i < myMoves.size(); i++) {
 				if(i == selectedMove)
 					g.setColor(new Color(255, 255, 255, 255));

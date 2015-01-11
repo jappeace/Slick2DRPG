@@ -63,6 +63,9 @@ public class PokemonStatistics implements IPokemonStatistics {
 	@Override
 	public IPokemonStatistics plus(final IPokemonStatistics rightHand) {
 		final PokemonStatistics result = new PokemonStatistics(this);
+		if(rightHand == null){
+			return result;
+		}
 		result.attack += rightHand.getAttack();
 		result.defence += rightHand.getDefence();
 		result.speed += rightHand.getSpeed();
@@ -72,19 +75,26 @@ public class PokemonStatistics implements IPokemonStatistics {
 	@Override
 	public IPokemonStatistics createFrom(final Random random) {
 		final PokemonStatistics result = new PokemonStatistics();
-        result.health += random.nextInt(this.health);
-        result.defence += random.nextInt(this.defence);
-        result.attack += random.nextInt(this.attack);
-        result.speed += random.nextInt(this.speed);
+        result.health = random.nextInt(this.health);
+        result.defence = random.nextInt(this.defence);
+        result.attack = random.nextInt(this.attack);
+        result.speed = random.nextInt(this.speed);
 		return result;
 	}
 	@Override
 	public IPokemonStatistics minus(final IPokemonStatistics rightHand) {
 		final PokemonStatistics result = new PokemonStatistics(this);
+		if(rightHand == null){
+			return result;
+		}
 		result.attack -= rightHand.getAttack();
 		result.defence -= rightHand.getDefence();
 		result.speed -= rightHand.getSpeed();
 		result.health -= rightHand.getHealth();
 		return result;
+	}
+	@Override
+	public String toString(){
+		return "Health: " + health + " speed: " + speed + " attack: " + attack + " defence: " + defence;
 	}
 }
