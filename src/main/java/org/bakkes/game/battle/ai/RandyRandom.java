@@ -10,4 +10,5 @@ public class RandyRandom extends AI{
 	IMove getMove() {
 		return ownPokemon.getMoves().get(GameInfo.RANDOM.nextInt(ownPokemon.getMoves().size()));
 	}
+
 }
