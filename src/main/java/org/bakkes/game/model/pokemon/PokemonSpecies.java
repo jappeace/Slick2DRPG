@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.bakkes.game.R;
+import org.bakkes.game.model.battle.move.IMove;
+import org.bakkes.game.model.battle.move.Move;
 import org.bakkes.game.scripting.ScriptLoader;
 import org.newdawn.slick.util.Log;
 

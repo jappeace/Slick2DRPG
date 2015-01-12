@@ -6,7 +6,6 @@ import java.util.List;
 import org.bakkes.game.Camera;
 import org.bakkes.game.GameInfo;
 import org.bakkes.game.World;
-import org.bakkes.game.battle.Battle;
 import org.bakkes.game.events.key.InventoryToggleListener;
 import org.bakkes.game.events.key.MovementListener;
 import org.bakkes.game.events.key.ScriptReloadListener;
@@ -95,7 +94,7 @@ public class OverworldState extends CommonGameState {
         }
         final BattleState state = (BattleState)GameInfo.getInstance().stateGame.getState(BattleState.BATTLE_STATE_ID);
         final Pokemon encounter = PokemonManager.getInstance().createPokemonByName("caterpie", 10); // I wonder which one it will be
-        state.setBattle(new Battle(player.getPokemon(),encounter));
+        state.startWild();
         GameInfo.getInstance().stateGame.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
 	}
 	private void handleMouseInput(final Input input){

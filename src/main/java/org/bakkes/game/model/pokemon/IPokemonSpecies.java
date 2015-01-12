@@ -2,6 +2,8 @@ package org.bakkes.game.model.pokemon;
 
 import java.util.List;
 
+import org.bakkes.game.model.battle.move.IMove;
+
 
 
 /**

@@ -2,7 +2,7 @@ package org.bakkes.game.view;
 
 import java.util.List;
 
-import org.bakkes.game.model.pokemon.IMove;
+import org.bakkes.game.model.battle.move.IMove;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.newdawn.slick.Color;

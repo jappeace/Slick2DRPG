@@ -4,8 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.bakkes.game.GameInfo;
-import org.bakkes.game.battle.Battle;
-import org.bakkes.game.model.pokemon.IMove;
+import org.bakkes.game.battle.BattleMaster;
+import org.bakkes.game.model.battle.move.IMove;
+import org.bakkes.game.model.entity.Player;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.LineWriterView;
@@ -22,9 +23,9 @@ import org.newdawn.slick.util.Log;
 public class BattleState extends CommonGameState {
 	public static final int BATTLE_STATE_ID = 2;
 
-	private Battle battle;
-	private PokeView enemy;
-	private PokeView player;
+	private BattleMaster battle = new BattleMaster();
+	private PokeView enemyView;
+	private PokeView playerView;
 	private int selectedMove = 0;
 	private boolean firstRun = true;
 	private static final int XP_MODIFIER = 50;
@@ -33,16 +34,18 @@ public class BattleState extends CommonGameState {
 		return BATTLE_STATE_ID;
 	}
 
-	public void setBattle(final Battle b) {
-		this.battle = b;
-		this.enemy = new PokeView(b.getEnemy(), new Vector2f(20f,10f));
-		this.player = new PokeView(b.getPlayer(), new Vector2f(20f, 400));
-		this.player.renderMoves = false;
+	public void startWild() {
+		final Player player = GameInfo.getInstance().player;
+		//battle.setContestent(0, );
+
+		this.enemyView = new PokeView(enemy, new Vector2f(20f,10f));
+		this.playerView = new PokeView(player.getPokemon(), new Vector2f(20f, 400));
+		this.playerView.renderMoves = false;
 		firstRun = true;
 	}
 
 	private void selectMove(final int selected) {
-		final List<IMove> moves = battle.getPlayer().getMoves();
+		//final List<IMove> moves = battle.getPlayer().getMoves();
 		if(selected >= moves.size())
 			selectedMove = 0;
 		else if(selected < 0)
@@ -115,7 +118,7 @@ public class BattleState extends CommonGameState {
 		if(battle.isOver() && battle.hasPlayerWon()) { //player won, don't show enemy stuff
 			out.write("You are victorious! Press enter to leave");
 		} else {
-			enemy.render(gc, g);
+			enemyView.render(gc, g);
 		}
 
 		if(battle.isOver() && !battle.hasPlayerWon()) { //player lost, dont show player
@@ -133,7 +136,7 @@ public class BattleState extends CommonGameState {
 				g.drawString(myMoves.get(i).getName() , leftOffset + 260f, 490f + (i * 15));
 			}
             g.setColor(new Color(255, 255, 255, 255));
-			player.render(gc,g);
+			playerView.render(gc,g);
 
 			g.drawRect(490f, 15f, 300, 500);
 

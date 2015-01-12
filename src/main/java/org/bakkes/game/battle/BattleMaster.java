@@ -1,6 +1,10 @@
 package org.bakkes.game.battle;
 
-import org.bakkes.game.model.pokemon.IMove;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.bakkes.game.model.battle.Turn;
+import org.bakkes.game.model.battle.move.IMove;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
 
@@ -8,10 +12,11 @@ import org.bakkes.game.model.pokemon.Pokemon;
  * decides turns and wat not
  */
 public class BattleMaster implements Runnable{
-	IContestent[] contestents = new IContestent[2];
+	private IContestent[] contestents = new IContestent[2];
 
-	int currentTurn;
-	int speed;
+	private int contIndex;
+	private int speed;
+	private List<Turn> battleLog = new LinkedList<>();
 
 	public void setContestent(final int index, final IContestent contestent){
 		contestents[index] = contestent;
@@ -19,26 +24,29 @@ public class BattleMaster implements Runnable{
 	@Override
 	public void run() {
 		speed = 0;
-		currentTurn = 0;
+		contIndex = 0;
+		battleLog.clear();
 		if(getStats(0).getSpeed() < getStats(1).getSpeed()){
-			currentTurn = 1;
+			contIndex = 1;
 		}
 		while(!isOver()){
-			if(!contestents[currentTurn].isReady()){
+			if(!contestents[contIndex].isReady()){
 				continue;
 			}
-			final Turn turn = contestents[currentTurn].getTurn();
-			execute(turn.getMove(), turn.getAgressor(), turn.getTarget());
+			final Turn turn = contestents[contIndex].getTurn();
+			turn.setPlayer(contIndex);
+			battleLog.add(turn);
+			executeMove(turn.getMove(), turn.getAgressor(), turn.getTarget());
 
 			speed -= getStats(otherGuy()).getSpeed();
 			if(speed < 0){
 				speed = -speed;
-				currentTurn = otherGuy();
+				contIndex = otherGuy();
 			}
 		}
 	}
 	private int otherGuy(){
-		return (currentTurn + 1) % 2;
+		return (contIndex + 1) % 2;
 	}
 
 	public boolean isOver(){
@@ -53,7 +61,7 @@ public class BattleMaster implements Runnable{
 	private IPokemonStatistics getStats(final int who){
 		return contestents[who].getPokemon().getCurrentStats();
 	}
-	private void execute(final IMove move, final Pokemon argressor, final Pokemon target){
-        move.getMoveExecutor().executeMove(move, argressor, target);
+	private void executeMove(final IMove move, final Pokemon argressor, final Pokemon target){
+		argressor.damage(move.getDamage());
 	}
 }

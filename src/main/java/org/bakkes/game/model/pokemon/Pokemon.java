@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bakkes.game.GameInfo;
 import org.bakkes.game.R;
+import org.bakkes.game.model.battle.move.IMove;
 import org.newdawn.slick.util.Log;
 
 public class Pokemon{

@@ -1,12 +1,13 @@
-package org.bakkes.game.battle;
+package org.bakkes.game.model.battle;
 
-import org.bakkes.game.model.pokemon.IMove;
+import org.bakkes.game.model.battle.move.IMove;
 import org.bakkes.game.model.pokemon.Pokemon;
 
 public class Turn {
 	IMove move;
 	Pokemon target;
 	Pokemon agressor;
+	private int player;
 	public final IMove getMove() {
 		return move;
 	}
@@ -24,5 +25,11 @@ public class Turn {
 	}
 	public final void setAgressor(final Pokemon agressor) {
 		this.agressor = agressor;
+	}
+	public int getPlayer() {
+		return player;
+	}
+	public void setPlayer(final int player) {
+		this.player = player;
 	}
 }
