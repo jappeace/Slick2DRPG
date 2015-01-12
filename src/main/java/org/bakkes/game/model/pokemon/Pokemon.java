@@ -1,8 +1,8 @@
 package org.bakkes.game.model.pokemon;
 
 import java.util.List;
-import java.util.Random;
 
+import org.bakkes.game.GameInfo;
 import org.bakkes.game.R;
 import org.newdawn.slick.util.Log;
 
@@ -12,8 +12,8 @@ public class Pokemon{
 	private IPokemonStatistics normalStats;
 	private PokemonStatistics currentStats;
 	private int level = 0;
-	private static Random random = new Random();
 	private int experiance;
+	private String name = "";
 	public Pokemon(final int level, final IPokemonSpecies species){
 		normalStats = species.getBase();
 		this.species = species;
@@ -26,7 +26,7 @@ public class Pokemon{
 
 	private void levelUp(){
 		level = getLevel() + 1;
-		normalStats = normalStats.plus(species.getIncrease().createFrom(random));
+		normalStats = normalStats.plus(species.getIncrease().createFrom(GameInfo.RANDOM));
 	}
 	public final IPokemonSpecies getSpecies() {
 		return species;
@@ -92,5 +92,16 @@ public class Pokemon{
 
 	private void setExperiance(final int experiance) {
 		this.experiance = experiance;
+	}
+
+	public String getName() {
+		if(name.isEmpty()){
+			name = species.getName();
+		}
+		return name;
+	}
+
+	public void setName(final String name) {
+		this.name = name;
 	}
 }

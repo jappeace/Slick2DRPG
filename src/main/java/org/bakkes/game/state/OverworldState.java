@@ -2,7 +2,6 @@ package org.bakkes.game.state;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 import org.bakkes.game.Camera;
 import org.bakkes.game.GameInfo;
@@ -41,7 +40,6 @@ public class OverworldState extends CommonGameState {
 	private Camera camera;
 	private Tile clickedTile;
 	private World world;
-	private Random random = new Random();
 	private List<IRenderable> translatedViews = new LinkedList<>();
 	private static final int WILD_POKE_CHANCE = 5; // chance of encountering wild pokemone (1 in chance)
 
@@ -92,7 +90,7 @@ public class OverworldState extends CommonGameState {
         	return;
         }
 
-        if(random.nextInt(WILD_POKE_CHANCE) != 1) {
+        if(GameInfo.RANDOM.nextInt(WILD_POKE_CHANCE) != 1) {
         	return;
         }
         final BattleState state = (BattleState)GameInfo.getInstance().stateGame.getState(BattleState.BATTLE_STATE_ID);

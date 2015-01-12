@@ -2,7 +2,6 @@ package org.bakkes.game.model.entity;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 import org.bakkes.game.model.entity.command.ICommand;
 import org.bakkes.game.model.entity.command.WalkPath;
@@ -14,8 +13,6 @@ import org.bakkes.game.state.OverworldState;
 import org.newdawn.slick.GameContainer;
 
 public class Player extends Entity {
-	private static Random random = new Random();
-
 	protected Pokemon pokemon;
 	private Inventory inventory;
 	private OverworldState game;

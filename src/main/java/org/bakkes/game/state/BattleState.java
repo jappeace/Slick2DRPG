@@ -2,8 +2,8 @@ package org.bakkes.game.state;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
+import org.bakkes.game.GameInfo;
 import org.bakkes.game.battle.Battle;
 import org.bakkes.game.model.pokemon.IMove;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
@@ -28,7 +28,6 @@ public class BattleState extends CommonGameState {
 	private int selectedMove = 0;
 	private boolean firstRun = true;
 	private static final int XP_MODIFIER = 50;
-	Random random = new Random();
 	@Override
 	public int getID() {
 		return BATTLE_STATE_ID;
@@ -97,7 +96,7 @@ public class BattleState extends CommonGameState {
 
         //now execute opponents move
         final List<IMove> enemyMoves = battle.getEnemy().getMoves();
-        battle.executeMove(enemyMoves.get(random.nextInt(enemyMoves.size())), false);
+        battle.executeMove(enemyMoves.get(GameInfo.RANDOM.nextInt(enemyMoves.size())), false);
 
 		super.update(gc, arg1, delta);
 	}
