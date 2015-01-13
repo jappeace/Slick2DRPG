@@ -8,6 +8,10 @@ public class PlayerContestent extends AContestent {
 	public synchronized void setMove(final IMove move){
 		currentMove = move;
 	}
+
+	public synchronized void selectMove(final int which){
+		setMove(this.ownPokemon.getMoves().get(which));
+	}
 	@Override
 	public synchronized boolean isReady() {
 		return currentMove == null;
@@ -15,7 +19,9 @@ public class PlayerContestent extends AContestent {
 
 	@Override
 	protected synchronized IMove getMove() {
-		return currentMove;
+		final IMove result = currentMove;
+		currentMove = null;
+		return result;
 	}
 
 }

@@ -1,13 +1,15 @@
 package org.bakkes.game.model.battle;
 
 import org.bakkes.game.model.battle.move.IMove;
+import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
+import org.bakkes.game.model.pokemon.PokemonStatistics;
 
 public class Turn {
 	IMove move;
 	Pokemon target;
 	Pokemon agressor;
-	private int player;
+	private IPokemonStatistics change;
 	public final IMove getMove() {
 		return move;
 	}
@@ -26,10 +28,13 @@ public class Turn {
 	public final void setAgressor(final Pokemon agressor) {
 		this.agressor = agressor;
 	}
-	public int getPlayer() {
-		return player;
+	public void execute(){
+		change = new PokemonStatistics(target.getCurrentStats());
+		final int damage = move.getDamage();
+		target.damage(damage);
+		change = target.getCurrentStats().minus(change);
 	}
-	public void setPlayer(final int player) {
-		this.player = player;
+	public IPokemonStatistics getChange(){
+		return change;
 	}
 }

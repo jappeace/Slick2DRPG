@@ -12,6 +12,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
+import com.google.inject.Inject;
+
 public class PokeView extends AView{
 
 	private final LineWriterView out;
@@ -20,6 +22,7 @@ public class PokeView extends AView{
 	private final Vector2f topLeft;
 	public boolean renderMoves = true;
 
+	@Inject
 	public PokeView(final Pokemon pokemon, final Vector2f topLeft){
 		this.pokemon = pokemon;
 		this.topLeft = topLeft;

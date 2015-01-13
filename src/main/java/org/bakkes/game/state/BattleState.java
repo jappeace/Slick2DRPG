@@ -1,16 +1,21 @@
 package org.bakkes.game.state;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.bakkes.game.GameInfo;
 import org.bakkes.game.battle.BattleMaster;
+import org.bakkes.game.battle.BattleMasterModule;
+import org.bakkes.game.battle.contestent.ContestentModule;
+import org.bakkes.game.battle.contestent.PlayerContestent;
+import org.bakkes.game.model.battle.Turn;
 import org.bakkes.game.model.battle.move.IMove;
 import org.bakkes.game.model.entity.Player;
-import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
+import org.bakkes.game.scripting.PokemonModule;
+import org.bakkes.game.scripting.SpeciesModule;
 import org.bakkes.game.view.LineWriterView;
 import org.bakkes.game.view.PokeView;
+import org.bakkes.game.view.PositionModule;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -18,38 +23,69 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.Log;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 public class BattleState extends CommonGameState {
 	public static final int BATTLE_STATE_ID = 2;
 
-	private BattleMaster battle = new BattleMaster();
+	private BattleMaster battle;
+	private PlayerContestent player;
 	private PokeView enemyView;
 	private PokeView playerView;
 	private int selectedMove = 0;
 	private boolean firstRun = true;
-	private static final int XP_MODIFIER = 50;
 	@Override
 	public int getID() {
 		return BATTLE_STATE_ID;
 	}
 
+	/*
+	 * TODO: clear and use a module instead
+	 */
 	public void startWild() {
-		final Player player = GameInfo.getInstance().player;
-		//battle.setContestent(0, );
+		Injector injector = Guice.createInjector(new SpeciesModule(10, GameInfo.WILD[GameInfo.RANDOM.nextInt(GameInfo.WILD.length)]));
 
-		this.enemyView = new PokeView(enemy, new Vector2f(20f,10f));
-		this.playerView = new PokeView(player.getPokemon(), new Vector2f(20f, 400));
+		final Pokemon enemy = injector.getInstance(Pokemon.class);
+		final PokemonModule pokeModule = new PokemonModule(enemy);
+		final PositionModule positionModule = new PositionModule(new Vector2f(20,10));
+
+		injector = Guice.createInjector(positionModule, pokeModule);
+
+		this.enemyView = injector.getInstance(PokeView.class);
+
+		final Pokemon player = injector.getInstance(Player.class).getPokemon();
+		pokeModule.setPokemon(player);
+		positionModule.setPosition(new Vector2f(20f, 400));
+		this.playerView = injector.getInstance(PokeView.class);
+
+		final ContestentModule contestent = new ContestentModule(player, enemy);
+		injector = Guice.createInjector(contestent);
+
+		this.player = injector.getInstance(PlayerContestent.class);
+		injector = injector.createChildInjector(new BattleMasterModule(this.player));
+		this.battle = injector.getInstance(BattleMaster.class);
+
 		this.playerView.renderMoves = false;
 		firstRun = true;
 	}
+	/*
+	 * TODO: delete and fix with proper dependecies
+	 */
+	private List<IMove> getPlayerMoves(){
+		return GameInfo.getInstance().player.getPokemon().getMoves();
+	}
 
+	/*
+	 * TODO: make a menu view or something, this is retarded
+	 */
 	private void selectMove(final int selected) {
-		//final List<IMove> moves = battle.getPlayer().getMoves();
-		if(selected >= moves.size())
+		final int moveSize = getPlayerMoves().size();
+		if(selected >= moveSize)
 			selectedMove = 0;
 		else if(selected < 0)
-			selectedMove = moves.size() - 1;
+			selectedMove = moveSize - 1;
 		else
 			selectedMove = selected;
 	}
@@ -83,23 +119,7 @@ public class BattleState extends CommonGameState {
 		if(!gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
 			return;
 		}
-		final Pokemon player = battle.getPlayer();
-		final Pokemon enemy = battle.getEnemy();
-        battle.executeMove(player.getMoves().get(selectedMove), true);
-
-        if(battle.isOver()){ // we won?
-        	Log.info("we won!!");
-
-			final IPokemonStatistics stats = player.addExperiance((int)(enemy.getLevel() * XP_MODIFIER / enemy.getSpecies().getTrainingSpeed()));
-			if(stats != null){
-				Log.info("level up: " + stats);
-			}
-            return;
-        }
-
-        //now execute opponents move
-        final List<IMove> enemyMoves = battle.getEnemy().getMoves();
-        battle.executeMove(enemyMoves.get(GameInfo.RANDOM.nextInt(enemyMoves.size())), false);
+		player.selectMove(selectedMove);
 
 		super.update(gc, arg1, delta);
 	}
@@ -115,19 +135,19 @@ public class BattleState extends CommonGameState {
 		out.clear();
 		out.setLocation(new Vector2f(20f, 150f));
 
-		if(battle.isOver() && battle.hasPlayerWon()) { //player won, don't show enemy stuff
+		if(battle.isOver() && player.hasWon()) { //player won, don't show enemy stuff
 			out.write("You are victorious! Press enter to leave");
 		} else {
 			enemyView.render(gc, g);
 		}
 
-		if(battle.isOver() && !battle.hasPlayerWon()) { //player lost, dont show player
+		if(battle.isOver() && !player.hasWon()) { //player lost, dont show player
 			out.getLocation().y += 300;
 			out.write("You lost! Press enter to leave");
 			out.write("To heal your pokemon, visit the old lady at the beginning!");
 		} else {
 
-			final List<IMove> myMoves = battle.getPlayer().getMoves();
+			final List<IMove> myMoves = getPlayerMoves();
 			for(int i = 0; i < myMoves.size(); i++) {
 				if(i == selectedMove)
 					g.setColor(new Color(255, 255, 255, 255));
@@ -142,13 +162,13 @@ public class BattleState extends CommonGameState {
 
 			out.setLocation(new Vector2f(500,20f));
 			out.write("Battle log:");
-			final LinkedList<String> log = battle.getBattleLog();
+			final List<Turn> log = battle.getBattleLog();
 			final int startIndex = 0;
 			if(log.size() > showCount){
-				log.removeFirst();
+				log.remove(0);
 			}
-			for(final String str : log){
-				out.write(str);
+			for(final Turn str : log){
+				out.write(str.getChange().toString());
 			}
 		}
 		out.render(gc, g);

@@ -1,31 +1,28 @@
 package org.bakkes.game.battle;
 
-import java.util.LinkedList;
 import java.util.List;
 
+import org.bakkes.game.battle.contestent.IContestent;
 import org.bakkes.game.model.battle.Turn;
-import org.bakkes.game.model.battle.move.IMove;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
-import org.bakkes.game.model.pokemon.Pokemon;
+
+import com.google.inject.Inject;
 
 /**
  * decides turns and wat not
  */
 public class BattleMaster implements Runnable{
-	private IContestent[] contestents = new IContestent[2];
+	@Inject private IContestent[] contestents;
 
 	private int contIndex;
 	private int speed;
-	private List<Turn> battleLog = new LinkedList<>();
+	@Inject private List<Turn> battleLog;
 
-	public void setContestent(final int index, final IContestent contestent){
-		contestents[index] = contestent;
-	}
 	@Override
 	public void run() {
 		speed = 0;
 		contIndex = 0;
-		battleLog.clear();
+		getBattleLog().clear();
 		if(getStats(0).getSpeed() < getStats(1).getSpeed()){
 			contIndex = 1;
 		}
@@ -34,9 +31,8 @@ public class BattleMaster implements Runnable{
 				continue;
 			}
 			final Turn turn = contestents[contIndex].getTurn();
-			turn.setPlayer(contIndex);
-			battleLog.add(turn);
-			executeMove(turn.getMove(), turn.getAgressor(), turn.getTarget());
+			getBattleLog().add(turn);
+			turn.execute();
 
 			speed -= getStats(otherGuy()).getSpeed();
 			if(speed < 0){
@@ -61,7 +57,7 @@ public class BattleMaster implements Runnable{
 	private IPokemonStatistics getStats(final int who){
 		return contestents[who].getPokemon().getCurrentStats();
 	}
-	private void executeMove(final IMove move, final Pokemon argressor, final Pokemon target){
-		argressor.damage(move.getDamage());
+	public synchronized List<Turn> getBattleLog() {
+		return battleLog;
 	}
 }

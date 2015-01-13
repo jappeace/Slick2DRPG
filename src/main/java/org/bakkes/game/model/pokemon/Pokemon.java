@@ -7,6 +7,9 @@ import org.bakkes.game.R;
 import org.bakkes.game.model.battle.move.IMove;
 import org.newdawn.slick.util.Log;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
 public class Pokemon{
 
 	private IPokemonSpecies species;
@@ -15,7 +18,8 @@ public class Pokemon{
 	private int level = 0;
 	private int experiance;
 	private String name = "";
-	public Pokemon(final int level, final IPokemonSpecies species){
+	@Inject
+	public Pokemon(@Named("pokelevel") final int level, final IPokemonSpecies species){
 		normalStats = species.getBase();
 		this.species = species;
 		setExperiance(calculateXpFor(level));
