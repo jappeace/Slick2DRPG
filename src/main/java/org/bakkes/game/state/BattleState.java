@@ -9,7 +9,6 @@ import org.bakkes.game.battle.contestent.ContestentModule;
 import org.bakkes.game.battle.contestent.PlayerContestent;
 import org.bakkes.game.model.battle.Turn;
 import org.bakkes.game.model.battle.move.IMove;
-import org.bakkes.game.model.entity.Player;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.scripting.PokemonModule;
 import org.bakkes.game.scripting.SpeciesModule;
@@ -55,7 +54,7 @@ public class BattleState extends CommonGameState {
 
 		this.enemyView = injector.getInstance(PokeView.class);
 
-		final Pokemon player = injector.getInstance(Player.class).getPokemon();
+		final Pokemon player = GameInfo.getInstance().player.getPokemon();
 		pokeModule.setPokemon(player);
 		positionModule.setPosition(new Vector2f(20f, 400));
 		this.playerView = injector.getInstance(PokeView.class);
@@ -67,6 +66,7 @@ public class BattleState extends CommonGameState {
 		injector = injector.createChildInjector(new BattleMasterModule(this.player));
 		this.battle = injector.getInstance(BattleMaster.class);
 
+		new Thread(this.battle).start();
 		this.playerView.renderMoves = false;
 		firstRun = true;
 	}

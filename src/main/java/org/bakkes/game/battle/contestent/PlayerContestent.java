@@ -14,7 +14,7 @@ public class PlayerContestent extends AContestent {
 	}
 	@Override
 	public synchronized boolean isReady() {
-		return currentMove == null;
+		return currentMove != null;
 	}
 
 	@Override
