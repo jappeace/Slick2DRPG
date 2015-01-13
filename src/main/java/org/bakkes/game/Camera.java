@@ -5,25 +5,16 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
+import com.google.inject.Inject;
+
 //source: http://slick.ninjacave.com/forum/viewtopic.php?t=1906 (koopa)
 public class Camera {
 
 
-	private LayerdMap map;
-   /** the number of tiles in x-direction (width) */
-   private int numTilesX;
-
-   /** the number of tiles in y-direction (height) */
-   private int numTilesY;
-
-   /** the height of the map in pixel */
-   private int mapHeight;
-
-   /** the width of the map in pixel */
-   private int mapWidth;
+	@Inject private LayerdMap map;
 
    /** the GameContainer, used for getting the size of the GameCanvas */
-   private GameContainer gc;
+   @Inject private GameContainer gc;
 
    /** the x-position of our "camera" in pixel */
    public float cameraX;
@@ -32,30 +23,18 @@ public class Camera {
    public float cameraY;
 
    /**
-    * Create a new camera
-    *
-    * @param gc the GameContainer, used for getting the size of the GameCanvas
-    * @param map the TiledMap used for the current scene
-    */
-   public Camera(final GameContainer gc) {
-	   map = World.getWorld().getLayerMap();
-
-      this.numTilesX = map.getWidthInTiles();
-      this.numTilesY = map.getHeightInTiles();
-
-      this.mapWidth = this.numTilesX * Tile.WIDTH;
-      this.mapHeight = this.numTilesY * Tile.HEIGHT;
-
-      this.gc = gc;
-   }
-
-   /**
     * "locks" the camera on the given coordinates. The camera tries to keep the location in it's center.
     *
     * @param x the real x-coordinate (in pixel) which should be centered on the screen
     * @param y the real y-coordinate (in pixel) which should be centered on the screen
     */
    public void centerOn(final float x, final float y) {
+
+       /** the height of the map in pixel */
+       final int mapHeight =  map.getWidthInTiles() * Tile.WIDTH;
+
+       /** the width of the map in pixel */
+       final int mapWidth = map.getHeightInTiles() * Tile.HEIGHT;
       //try to set the given position as center of the camera by default
       cameraX = x - gc.getWidth()  / 2;
       cameraY = y - gc.getHeight() / 2;
