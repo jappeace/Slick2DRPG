@@ -4,7 +4,6 @@ import org.bakkes.game.R;
 import org.bakkes.game.model.entity.Entity;
 import org.bakkes.game.model.map.Direction;
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -36,7 +35,7 @@ public class OverworldEntityView extends AView{
         }
 	}
 	@Override
-	public void render(final GameContainer gc, final Graphics g) {
+	public void renderView(final Graphics g) {
 		final Animation animation = _animation[entity.getFacing()];
 		if(entity.isWalking()){
 			animation.setAutoUpdate(true);

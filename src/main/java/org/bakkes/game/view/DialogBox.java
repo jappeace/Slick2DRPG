@@ -5,13 +5,12 @@ import java.awt.Font;
 import org.bakkes.game.controller.events.key.IKeyListener;
 import org.bakkes.game.controller.state.CommonGameState;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.UnicodeFont;
 
 import com.google.inject.Inject;
 
-public class DialogBox implements IRenderable, IKeyListener {
+public class DialogBox extends AView implements IKeyListener {
 
 	private static UnicodeFont font;
 
@@ -40,18 +39,6 @@ public class DialogBox implements IRenderable, IKeyListener {
 	}
 
 	@Override
-	public void render(final GameContainer gc, final Graphics g) {
-		g.setColor(Color.white);
-		g.fillRect(1, 400, 800, 200);
-		g.setLineWidth(5f);
-		g.setColor(Color.black);
-		g.drawRect(1, 400, 797, 197);
-		g.setLineWidth(1f);
-		g.resetLineWidth();
-		g.drawString(text, 20, 420);
-	}
-
-	@Override
 	public void KeyDown(final int key, final char c) {
 	}
 
@@ -63,5 +50,18 @@ public class DialogBox implements IRenderable, IKeyListener {
 	static {
 		final Font tempFont = new Font("Verdana", Font.BOLD, 20);
 		font = new UnicodeFont(tempFont, tempFont.getSize(), tempFont.isBold(), tempFont.isItalic());
+	}
+
+	@Override
+	protected void renderView(final Graphics g) {
+		g.setColor(Color.white);
+		g.fillRect(1, 400, 800, 200);
+		g.setLineWidth(5f);
+		g.setColor(Color.black);
+		g.drawRect(1, 400, 797, 197);
+		g.setLineWidth(1f);
+		g.resetLineWidth();
+		g.drawString(text, 20, 420);
+
 	}
 }

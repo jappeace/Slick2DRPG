@@ -6,7 +6,6 @@ import org.bakkes.game.model.battle.move.IMove;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -34,7 +33,7 @@ public class PokeView extends AView{
 		out = new LineWriterView();
 	}
 	@Override
-	public void render(final GameContainer gc, final Graphics g) {
+	public void renderView(final Graphics g) {
 		out.clear();
         g.drawImage(avatar, topLeft.x + 260, topLeft.y);
         if(renderMoves){
@@ -56,7 +55,7 @@ public class PokeView extends AView{
         out.write("Health: ");
         out.write("");
         out.write("XP: ");
-        out.render(gc, g);
+        out.render(g);
 
         final IPokemonStatistics normalStat = pokemon.getNormalStats();
         drawBar(g, 125, (float)stat.getHealth() / (float) normalStat.getHealth(), new Color(200,0,56));

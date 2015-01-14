@@ -54,11 +54,11 @@ public abstract class CommonGameState extends BasicGameState {
 			throws SlickException {
 
 		for(final IRenderable drawable : drawables) {
-			drawable.render(gc, g);
+			drawable.render(g);
 		}
 		g.drawString("Debug info: " + (GameInfo.SHOW_DEBUG_INFO ? "ON" : "OFF"), 10, 25);
 		if(currentDialogBox != null)
-			currentDialogBox.render(gc, g);
+			currentDialogBox.render(g);
 	}
 
 	public void addComponent(final IRenderable gameComponent) {

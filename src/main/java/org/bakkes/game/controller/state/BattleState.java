@@ -140,7 +140,7 @@ public class BattleState extends CommonGameState {
 		if(battle.isOver() && playerContestent.hasWon()) { //player won, don't show enemy stuff
 			out.write("You are victorious! Press enter to leave");
 		} else {
-			enemyView.render(gc, g);
+			enemyView.render(g);
 		}
 
 		if(battle.isOver() && !playerContestent.hasWon()) { //player lost, dont show player
@@ -158,7 +158,7 @@ public class BattleState extends CommonGameState {
 				g.drawString(myMoves.get(i).getName() , leftOffset + 260f, 490f + (i * 15));
 			}
             g.setColor(new Color(255, 255, 255, 255));
-			playerView.render(gc,g);
+			playerView.render(g);
 
 			g.drawRect(490f, 15f, 300, 500);
 
@@ -173,7 +173,7 @@ public class BattleState extends CommonGameState {
 				out.write(str.getChange().toString());
 			}
 		}
-		out.render(gc, g);
+		out.render(g);
 
 		super.render(gc, arg1, g);
 	}

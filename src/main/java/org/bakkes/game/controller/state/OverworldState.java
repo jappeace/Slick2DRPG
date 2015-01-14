@@ -159,7 +159,7 @@ public class OverworldState extends CommonGameState {
 			g.fillRect(tl.x, tl.y, Tile.WIDTH, Tile.HEIGHT);
 		}
 		for(final IRenderable renderable : translatedViews){
-			renderable.render(gc, g);
+			renderable.render(g);
 		}
 		camera.untranslateGraphics(g);
 

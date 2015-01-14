@@ -3,7 +3,6 @@ package org.bakkes.game.view;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -14,9 +13,9 @@ public class LineWriterView extends AView{
 	public float lineIncrease = 15f;
 
 	@Override
-	public void render(final GameContainer gc, final Graphics g) {
+	public void renderView(final Graphics g) {
 		for(final Line l : lines){
-			l.render(gc, g);
+			l.render(g);
 		}
 	}
 
@@ -36,7 +35,7 @@ public class LineWriterView extends AView{
 	public Vector2f getLocation() {
 		return location;
 	}
-	private static class Line implements IRenderable{
+	private static class Line extends AView{
 		public Vector2f position;
 		String string;
 		public Line(final Vector2f location, final String str){
@@ -44,7 +43,7 @@ public class LineWriterView extends AView{
 			string = str;
 		}
 		@Override
-		public void render(final GameContainer gc, final Graphics g) {
+		public void renderView(final Graphics g) {
 			g.drawString(string, position.x, position.y);
 		}
 	}
