@@ -1,6 +1,8 @@
 package org.bakkes.game;
 import java.io.File;
 
+import org.bakkes.game.controller.init.GameContainerModule;
+import org.bakkes.game.controller.init.GameModule;
 import org.bakkes.game.model.map.WorldModule;
 import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;

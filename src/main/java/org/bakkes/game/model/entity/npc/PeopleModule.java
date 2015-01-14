@@ -3,7 +3,7 @@ package org.bakkes.game.model.entity.npc;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.bakkes.game.scripting.dsl.NpcDsl;
+import org.bakkes.game.controller.scripting.dsl.NpcDsl;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;

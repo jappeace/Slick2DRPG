@@ -2,8 +2,8 @@ package org.bakkes.game.view;
 
 import java.awt.Font;
 
-import org.bakkes.game.events.key.IKeyListener;
-import org.bakkes.game.state.CommonGameState;
+import org.bakkes.game.controller.events.key.IKeyListener;
+import org.bakkes.game.controller.state.CommonGameState;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
