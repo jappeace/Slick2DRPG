@@ -9,6 +9,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.UnicodeFont;
 
+import com.google.inject.Inject;
+
 public class DialogBox implements IRenderable, IKeyListener {
 
 	private static UnicodeFont font;
@@ -19,6 +21,7 @@ public class DialogBox implements IRenderable, IKeyListener {
 		this.text = source.text;
 		this.container = container;
 	}
+	@Inject
 	public DialogBox(final CommonGameState game) {
 		this(game, "");
 	}

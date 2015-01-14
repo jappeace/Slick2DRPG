@@ -54,7 +54,6 @@ public class OverworldState extends CommonGameState {
 	public void init(final GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
 		super.init(gc, arg1);
-		player.init(gc);
 		translatedViews.add(new OverworldEntityView(player));
 		keyListeners.add(new InventoryToggleListener(this, new InventoryGameComponent(player)));
 	}

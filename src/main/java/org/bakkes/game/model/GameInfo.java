@@ -15,6 +15,4 @@ public class GameInfo {
 	public static final String[] WILD = new String[]{"caterpie", "charmender"};
 	public static final int WILD_POKE_LEVEL = 3;
 
-	// TODO: load player starting start from script
-	public static final int PLAYER_POKE_LEVEL = 10;
 }

@@ -1,5 +1,8 @@
 package org.bakkes.game;
 
+/**
+ * contains the location of various paths, I did not steal the naming from android
+ */
 public class R {
 
 	public static final String sprites = "sprites/";

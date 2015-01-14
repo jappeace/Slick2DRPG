@@ -3,6 +3,9 @@ import java.io.File;
 
 import org.bakkes.game.controller.init.GameContainerModule;
 import org.bakkes.game.controller.init.GameModule;
+import org.bakkes.game.controller.init.PlayerModule;
+import org.bakkes.game.controller.state.StateModule;
+import org.bakkes.game.model.entity.npc.PeopleModule;
 import org.bakkes.game.model.map.WorldModule;
 import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;
@@ -12,12 +15,19 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 
-public class Main {
+public class Starter_JappieMon {
 
 	public static void main(final String[] args) throws SlickException {
 		initLWJGL();
 
-		final Injector injector = Guice.createInjector(new GameModule(), new GameContainerModule(), new WorldModule());
+		final Injector injector = Guice.createInjector(
+				new GameModule(),
+				new GameContainerModule(),
+				new WorldModule(),
+				new PlayerModule(),
+				new StateModule(),
+				new PeopleModule()
+            );
         injector.getInstance(AppGameContainer.class).start();
 	}
 

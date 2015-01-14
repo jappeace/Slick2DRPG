@@ -22,10 +22,6 @@ public class Player extends Entity {
 
 	private boolean hasEnteredNewTile = false;
 
-	public void init(final GameContainer gc) {
-        setPosition(new Tile(60,20).topLeftPixels());
-	}
-
 	public void addCommand(final ICommand command){
 		commands.addLast(command);
 	}

@@ -18,6 +18,9 @@ public class PositionModule extends AbstractModule {
 		return position.copy();
 	}
 
+	public PositionModule(){
+		this(null);
+	}
 	public PositionModule(final Vector2f pos){
 		position = pos;
 	}
