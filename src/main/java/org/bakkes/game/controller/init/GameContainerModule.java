@@ -4,11 +4,13 @@ import org.bakkes.game.model.GameInfo;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.gui.GUIContext;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 
 public class GameContainerModule extends AbstractModule{
 
@@ -32,5 +34,7 @@ public class GameContainerModule extends AbstractModule{
 		return null; // crash
 	}
 
-
+	public @Provides @Named("canvas size") Vector2f provideCanvasSize(final GUIContext g){
+        return new Vector2f(GameInfo.SCREEN_WIDTH, GameInfo.SCREEN_HEIGHT);
+	}
 }

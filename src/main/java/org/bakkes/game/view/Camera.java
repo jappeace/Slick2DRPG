@@ -2,11 +2,12 @@ package org.bakkes.game.view;
 
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
-import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 //source: http://slick.ninjacave.com/forum/viewtopic.php?t=1906 (koopa)
 public class Camera {
@@ -14,9 +15,9 @@ public class Camera {
 	@Inject
 	private LayerdMap map;
 
-	/** the GameContainer, used for getting the size of the GameCanvas */
 	@Inject
-	private GameContainer gc;
+	@Named("canvas size")
+	private Vector2f canvasSize;
 
 	/** the x-position of our "camera" in pixel */
 	public float cameraX;
@@ -43,22 +44,22 @@ public class Camera {
 		/** the width of the map in pixel */
 		final int mapWidth = map.getHeightInTiles() * Tile.HEIGHT;
 		// try to set the given position as center of the camera by default
-		cameraX = x - gc.getWidth() / 2;
-		cameraY = y - gc.getHeight() / 2;
+		cameraX = x - canvasSize.x / 2;
+		cameraY = y - canvasSize.y / 2;
 
 		// if the camera is at the right or left edge lock it to prevent a black
 		// bar
 		if (cameraX < 0)
 			cameraX = 0;
-		if (cameraX + gc.getWidth() > mapWidth)
-			cameraX = mapWidth - gc.getWidth();
+		if (cameraX + canvasSize.x > mapWidth)
+			cameraX = mapWidth - canvasSize.x;
 
 		// if the camera is at the top or bottom edge lock it to prevent a black
 		// bar
 		if (cameraY < 0)
 			cameraY = 0;
-		if (cameraY + gc.getHeight() > mapHeight)
-			cameraY = mapHeight - gc.getHeight();
+		if (cameraY + canvasSize.y > mapHeight)
+			cameraY = mapHeight - canvasSize.y;
 	}
 
 	/**
@@ -129,25 +130,30 @@ public class Camera {
 		final int tileIndexY = (int) (cameraY / Tile.HEIGHT);
 
 		// finally draw the section of the map on the screen
-		map.render(tileOffsetX + offsetX, tileOffsetY + offsetY, tileIndexX,
-				tileIndexY, (gc.getWidth() - tileOffsetX) / Tile.WIDTH + 1,
-				(gc.getHeight() - tileOffsetY) / Tile.HEIGHT + 1);
+		map.render(
+            tileOffsetX + offsetX,
+            tileOffsetY + offsetY,
+            tileIndexX,
+            tileIndexY,
+            (int)(canvasSize.x - tileOffsetX) / Tile.WIDTH + 1,
+            (int)(canvasSize.y - tileOffsetY) / Tile.HEIGHT + 1
+        );
 	}
 
 	/**
 	 * Translates the Graphics-context to the coordinates of the map - now
 	 * everything can be drawn with it's NATURAL coordinates.
 	 */
-	public void translateGraphics() {
-		gc.getGraphics().translate(-cameraX, -cameraY);
+	public void translateGraphics(final Graphics g) {
+		g.translate(-cameraX, -cameraY);
 	}
 
 	/**
 	 * Reverses the Graphics-translation of Camera.translatesGraphics(). Call
 	 * this before drawing HUD-elements or the like
 	 */
-	public void untranslateGraphics() {
-		gc.getGraphics().translate(cameraX, cameraY);
+	public void untranslateGraphics(final Graphics g) {
+		g.translate(cameraX, cameraY);
 	}
 
 }

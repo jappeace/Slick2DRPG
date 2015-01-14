@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import org.bakkes.game.R;
 import org.bakkes.game.controller.events.key.IKeyListener;
 import org.bakkes.game.controller.events.key.InventoryToggleListener;
 import org.bakkes.game.model.entity.Player;
@@ -35,13 +36,13 @@ public class OverworldState extends CommonGameState {
 
 	private @Inject Player player;
 	private @Inject Random random;
-	private @Inject Camera camera;
 	private @Inject LayerdMap map;
 	private @Inject PersonTracker tracker;
 
 
 	private @Inject List<IKeyListener> keyListeners;
 	private Tile clickedTile;
+	private @Inject Camera camera;
 	private List<IRenderable> translatedViews = new LinkedList<>();
 	private static final int WILD_POKE_CHANCE = 2; // chance of encountering wild pokemone (1 in chance)
 
@@ -54,6 +55,7 @@ public class OverworldState extends CommonGameState {
 	public void init(final GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
 		super.init(gc, arg1);
+		map.load(R.map+ "map.tmx");
 		translatedViews.add(new OverworldEntityView(player));
 		keyListeners.add(new InventoryToggleListener(this, new InventoryGameComponent(player)));
 	}
@@ -150,7 +152,7 @@ public class OverworldState extends CommonGameState {
 		camera.centerOn((int)player.getPosition().getX(), (int)player.getPosition().getY());
 		camera.drawMap();
 
-		camera.translateGraphics();
+		camera.translateGraphics(g);
 		if(clickedTile != null && !clickedTile.equals(player.getTile())) {
 			g.setColor(new Color(0, 0, 255, 64));
 			final Vector2f tl = clickedTile.topLeftPixels();
@@ -159,7 +161,7 @@ public class OverworldState extends CommonGameState {
 		for(final IRenderable renderable : translatedViews){
 			renderable.render(gc, g);
 		}
-		camera.untranslateGraphics();
+		camera.untranslateGraphics(g);
 
 		final Vector2f mouseTile = Tile.PixelsToGridPixels(mousePos);
 		g.setColor(Color.black);

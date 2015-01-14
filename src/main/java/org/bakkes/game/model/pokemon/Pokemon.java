@@ -18,9 +18,10 @@ public class Pokemon{
 	private int level = 0;
 	private int experiance;
 	private String name = "";
-	@Inject private Random random;
+	private Random random;
 	@Inject
-	public Pokemon(@Named("pokelevel") final int level, final IPokemonSpecies species){
+	public Pokemon(@Named("pokelevel") final int level, final IPokemonSpecies species, final Random random){
+		this.random = random;
 		normalStats = species.getBase();
 		this.species = species;
 		setExperiance(calculateXpFor(level));

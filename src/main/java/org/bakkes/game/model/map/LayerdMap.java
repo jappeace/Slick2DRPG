@@ -1,25 +1,32 @@
 package org.bakkes.game.model.map;
 
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.PathFindingContext;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.google.inject.name.Named;
 
 @Singleton
 public class LayerdMap implements TileBasedMap {
 
-	private final TiledMap map;
-	private final int[] blockingLayers;
-	private final int grassLayer;
-	private final int npcLayer;
+	private TiledMap map;
+	private int[] blockingLayers;
+	private int grassLayer;
+	private int npcLayer;
 
-	@Inject
-	public LayerdMap(final TiledMap map, @Named("blocking-layers") final int... blockingLayers) {
-		this.map = map;
-		this.blockingLayers = blockingLayers;
+	/**
+	 * load a new map, can't be done by injection because the opengl context needs to be created first
+	 * @param url
+	 */
+	public void load(final String url){
+		try {
+			this.map = new TiledMap(url);
+		} catch (final SlickException e) {
+			e.printStackTrace();
+            return;
+		}
+		this.blockingLayers = new int[]{map.getLayerIndex("objects"), map.getLayerIndex("npc")};
 		grassLayer = map.getLayerIndex("grass");
 		npcLayer = map.getLayerIndex("npc");
 	}
