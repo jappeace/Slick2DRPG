@@ -10,10 +10,10 @@ import org.bakkes.game.model.battle.Turn;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 
-public class BattleMasterModule extends AbstractModule{
+public class BattleModule extends AbstractModule{
 
 	private PlayerContestent player;
-	public BattleMasterModule(final PlayerContestent player){
+	public BattleModule(final PlayerContestent player){
 		this.player = player;
 	}
 	@Override

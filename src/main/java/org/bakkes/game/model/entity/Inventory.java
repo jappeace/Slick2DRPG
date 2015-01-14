@@ -5,21 +5,16 @@ import org.bakkes.game.model.items.ItemCache;
 
 public class Inventory {
 
-	private Player owner;
 	private Item[] items = new Item[10];
 
-	public Inventory(final Player p) {
-		owner = p;
-	}
-
-	public void addItem(final Item item) {
+	public boolean addItem(final Item item) {
 		for(int i = 0; i < items.length; i++) {
 			if(items[i] == null) {
 				items[i] = item;
-				return;
+				return true;
 			}
 		}
-		owner.showDialog("Cannot accept " + item.getName() + ", inventory is full!");
+		return false;
 	}
 
 	public void addItem(final int itemID) {

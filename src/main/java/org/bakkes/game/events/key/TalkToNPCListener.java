@@ -1,29 +1,27 @@
 package org.bakkes.game.events.key;
 
-import org.bakkes.game.World;
-import org.bakkes.game.model.entity.Person;
 import org.bakkes.game.model.entity.Player;
+import org.bakkes.game.model.entity.npc.Person;
+import org.bakkes.game.model.entity.npc.PersonTracker;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
-import org.bakkes.game.state.OverworldState;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.util.Log;
 
+import com.google.inject.Inject;
+
 public class TalkToNPCListener implements IKeyListener {
-	private OverworldState game;
-
-
-	public TalkToNPCListener(final OverworldState playingGameState) {
-		this.game = playingGameState;
-	}
+	private @Inject Player player;
+	private @Inject PersonTracker peopleTracker;
+	private @Inject LayerdMap map;
 
 	@Override
 	public void KeyDown(final int key, final char c) {
 		if(key == Keyboard.KEY_SPACE) {
 			final int facingNpc = findFacingNPC();
 			Log.info("Facing: " + facingNpc);
-			final Person person = World.getWorld().findPersonById(facingNpc);
+			final Person person = peopleTracker.findPersonById(facingNpc);
 			if(person == null){
 				return;
 			}
@@ -38,7 +36,6 @@ public class TalkToNPCListener implements IKeyListener {
 	}
 
 	private int findFacingNPC(){
-		final Player player = game.getPlayer();
 		Tile facingTile = player.getTile();
 		switch(player.getFacing()) {
 		case Direction.NORTH:
@@ -54,7 +51,6 @@ public class TalkToNPCListener implements IKeyListener {
 			facingTile = facingTile.plus(new Tile(-2,1));
 			break;
 		}
-		final LayerdMap map = World.getWorld().getLayerMap();
 		return map.getNPCidOn(facingTile);
 	}
 

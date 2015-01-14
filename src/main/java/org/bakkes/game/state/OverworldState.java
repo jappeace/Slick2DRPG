@@ -2,21 +2,17 @@ package org.bakkes.game.state;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import org.bakkes.game.Camera;
-import org.bakkes.game.GameInfo;
-import org.bakkes.game.World;
+import org.bakkes.game.events.key.IKeyListener;
 import org.bakkes.game.events.key.InventoryToggleListener;
-import org.bakkes.game.events.key.MovementListener;
-import org.bakkes.game.events.key.ScriptReloadListener;
-import org.bakkes.game.events.key.TalkToNPCListener;
-import org.bakkes.game.model.entity.Person;
 import org.bakkes.game.model.entity.Player;
 import org.bakkes.game.model.entity.command.ICommand;
+import org.bakkes.game.model.entity.npc.Person;
+import org.bakkes.game.model.entity.npc.PersonTracker;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
-import org.bakkes.game.model.pokemon.Pokemon;
-import org.bakkes.game.scripting.PokemonManager;
 import org.bakkes.game.view.IRenderable;
 import org.bakkes.game.view.InventoryGameComponent;
 import org.bakkes.game.view.OverworldEntityView;
@@ -32,19 +28,22 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.Log;
 
+import com.google.inject.Inject;
+
 public class OverworldState extends CommonGameState {
 	public static final int PLAYING_STATE_ID = 0;
 
-	private Player player;
-	private Camera camera;
+	private @Inject Player player;
+	private @Inject Random random;
+	private @Inject Camera camera;
+	private @Inject LayerdMap map;
+	private @Inject PersonTracker tracker;
+
+
+	private @Inject List<IKeyListener> keyListeners;
 	private Tile clickedTile;
-	private World world;
 	private List<IRenderable> translatedViews = new LinkedList<>();
 	private static final int WILD_POKE_CHANCE = 2; // chance of encountering wild pokemone (1 in chance)
-
-	public Player getPlayer() {
-		return player;
-	}
 
 	@Override
 	public int getID() {
@@ -54,19 +53,10 @@ public class OverworldState extends CommonGameState {
 	@Override
 	public void init(final GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
-		world = World.construct(this);
 		super.init(gc, arg1);
-		player = new Player(this);
 		player.init(gc);
-		GameInfo.getInstance().player = player;
-		GameInfo.getInstance().stateGame = arg1;
-		camera = new Camera(gc);
-
 		translatedViews.add(new OverworldEntityView(player));
-		addKeyListener(new TalkToNPCListener(this));
-		addKeyListener(new ScriptReloadListener());
-		addKeyListener(new MovementListener(this));
-		addKeyListener(new InventoryToggleListener(this, new InventoryGameComponent(player)));
+		keyListeners.add(new InventoryToggleListener(this, new InventoryGameComponent(player)));
 	}
 
 	@Override
@@ -79,23 +69,21 @@ public class OverworldState extends CommonGameState {
 			handleMouseInput(input);
 		}
 		player.update(gc, delta);
-		checkForWildPokeBattle();
+		checkForWildPokeBattle(arg1);
 	}
-	private void checkForWildPokeBattle(){
+	private void checkForWildPokeBattle(final StateBasedGame game){
 		if(!player.hasEnteredNewTile()){
 			return;
 		}
-        if(!world.getLayerMap().isGrass(player.getTile())) {
+        if(!map.isGrass(player.getTile())) {
         	return;
         }
 
-        if(GameInfo.RANDOM.nextInt(WILD_POKE_CHANCE) != 1) {
+        if(random.nextInt(WILD_POKE_CHANCE) != 1) {
         	return;
         }
-        final BattleState state = (BattleState)GameInfo.getInstance().stateGame.getState(BattleState.BATTLE_STATE_ID);
-        final Pokemon encounter = PokemonManager.getInstance().createPokemonByName("caterpie", 10); // I wonder which one it will be
-        state.startWild();
-        GameInfo.getInstance().stateGame.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
+        ((BattleState)game.getState(BattleState.BATTLE_STATE_ID)).startWild();
+        game.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
 	}
 	private void handleMouseInput(final Input input){
         final Vector2f mousePos = new Vector2f(input.getMouseX(), input.getMouseY());
@@ -113,17 +101,16 @@ public class OverworldState extends CommonGameState {
         mousePos = new Vector2f(mousePos.getX() + camera.cameraX, mousePos.getY() + camera.cameraY);
         clickedTile = Tile.createFromPixelsCoordinates(mousePos);
 
-        final LayerdMap map = World.getWorld().getLayerMap();
         if(!map.isBlocked(clickedTile)) {
             player.moveTo(clickedTile);
             return;
         }
-        moveToNPC(map); // if is an NPC
+        moveToNPC(); // if is an NPC
         clickedTile = null;
 	}
-	private void moveToNPC(final LayerdMap map){
+	private void moveToNPC(){
         final int npcID = map.getNPCidOn(clickedTile);
-        final Person person = World.getWorld().findPersonById(npcID);
+        final Person person = tracker.findPersonById(npcID);
         if(person == null){
         	Log.debug("person null");
         	return;
@@ -179,6 +166,11 @@ public class OverworldState extends CommonGameState {
 		g.setColor(Color.black);
 		g.drawRect(mouseTile.getX(), mouseTile.getY(), Tile.WIDTH, Tile.HEIGHT);
 		super.render(gc, arg1, g);
+	}
+
+	@Override
+	public List<IKeyListener> getKeyListeners() {
+		return keyListeners;
 	}
 
 }

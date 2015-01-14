@@ -4,6 +4,11 @@ import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.PathFindingContext;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
+
+@Singleton
 public class LayerdMap implements TileBasedMap {
 
 	private final TiledMap map;
@@ -11,7 +16,8 @@ public class LayerdMap implements TileBasedMap {
 	private final int grassLayer;
 	private final int npcLayer;
 
-	public LayerdMap(final TiledMap map, final int... blockingLayers) {
+	@Inject
+	public LayerdMap(final TiledMap map, @Named("blocking-layers") final int... blockingLayers) {
 		this.map = map;
 		this.blockingLayers = blockingLayers;
 		grassLayer = map.getLayerIndex("grass");

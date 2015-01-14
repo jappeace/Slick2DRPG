@@ -4,19 +4,24 @@ import groovy.lang.Closure;
 
 import java.util.List;
 
-import org.bakkes.game.model.entity.Person;
+import org.bakkes.game.model.entity.npc.Person;
 import org.newdawn.slick.util.Log;
+
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class NpcDsl extends ADsl{
 	private List<Person> people;
-	public NpcDsl(final List<Person> people) {
+	private @Inject Provider<Person> personProvider;
+	private @Inject Provider<PersonDsl> dslProvider;
+	public void setPeople(final List<Person> people){
 		this.people = people;
 	}
 	public void person(final Closure commands){
 
-		final Person person = new Person();
+		final Person person = personProvider.get();
 		people.add(person);
-		final PersonDsl factory = new PersonDsl();
+		final PersonDsl factory = dslProvider.get();
 		factory.setTarget(person);
 		commands.setDelegate(factory);
 		commands.call();

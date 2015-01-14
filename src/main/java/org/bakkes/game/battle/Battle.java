@@ -12,7 +12,7 @@ import com.google.inject.Inject;
 /**
  * decides turns and wat not
  */
-public class BattleMaster implements Runnable{
+public class Battle implements Runnable{
 	@Inject private IContestent[] contestents;
 
 	private int contIndex;

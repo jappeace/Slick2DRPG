@@ -5,7 +5,7 @@ import groovy.lang.Closure;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bakkes.game.model.entity.Person;
+import org.bakkes.game.model.entity.npc.Person;
 import org.bakkes.game.model.map.Direction;
 
 public class PersonDsl extends ADsl{

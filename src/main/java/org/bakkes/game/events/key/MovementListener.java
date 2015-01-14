@@ -1,21 +1,21 @@
 package org.bakkes.game.events.key;
 
+import org.bakkes.game.model.entity.Player;
 import org.bakkes.game.model.map.Tile;
-import org.bakkes.game.state.OverworldState;
 import org.lwjgl.input.Keyboard;
+
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 //Class to use WASD for movement
 public class MovementListener implements IKeyListener {
 
-	private OverworldState game;
-
-	public MovementListener(final OverworldState playingGameState) {
-		this.game = playingGameState;
-	}
+	private @Inject Player player;
+	private @Inject Provider<Tile> tileProvider;
 
 	@Override
 	public void KeyDown(final int key, final char c) {
-		final Tile diff = new Tile(0, 0);
+		final Tile diff = tileProvider.get();
 		if(key == Keyboard.KEY_W) {
 			diff.top --;
 		} else if(key == Keyboard.KEY_A) {
@@ -25,7 +25,7 @@ public class MovementListener implements IKeyListener {
 		} else if(key == Keyboard.KEY_D) {
 			diff.left++;
 		}
-		game.getPlayer().moveTo(game.getPlayer().getTile().plus(diff));
+		player.moveTo(player.getTile().plus(diff));
 	}
 
 	@Override

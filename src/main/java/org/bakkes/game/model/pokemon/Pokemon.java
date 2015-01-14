@@ -1,8 +1,8 @@
 package org.bakkes.game.model.pokemon;
 
 import java.util.List;
+import java.util.Random;
 
-import org.bakkes.game.GameInfo;
 import org.bakkes.game.R;
 import org.bakkes.game.model.battle.move.IMove;
 import org.newdawn.slick.util.Log;
@@ -18,6 +18,7 @@ public class Pokemon{
 	private int level = 0;
 	private int experiance;
 	private String name = "";
+	@Inject private Random random;
 	@Inject
 	public Pokemon(@Named("pokelevel") final int level, final IPokemonSpecies species){
 		normalStats = species.getBase();
@@ -31,7 +32,7 @@ public class Pokemon{
 
 	private void levelUp(){
 		level = getLevel() + 1;
-		normalStats = normalStats.plus(species.getIncrease().createFrom(GameInfo.RANDOM));
+		normalStats = normalStats.plus(species.getIncrease().createFrom(random));
 	}
 	public final IPokemonSpecies getSpecies() {
 		return species;

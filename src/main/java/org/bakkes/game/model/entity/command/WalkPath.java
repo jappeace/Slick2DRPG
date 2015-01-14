@@ -1,11 +1,13 @@
 package org.bakkes.game.model.entity.command;
 
-import org.bakkes.game.World;
 import org.bakkes.game.model.entity.Entity;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.Tile;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.pathfinding.Path;
+import org.newdawn.slick.util.pathfinding.PathFinder;
+
+import com.google.inject.Inject;
 
 public class WalkPath implements ICommand{
 
@@ -13,23 +15,21 @@ public class WalkPath implements ICommand{
 	private int currentStep = 0;
 	private boolean isDone = false;
 	private boolean firstTime = true;
-	private final Tile destination;
-	private final Entity player;
+	private Tile destination;
+	private @Inject Entity entity;
+	private @Inject PathFinder pathFinder;
 	private final Vector2f added = new Vector2f();
 	private boolean interupted = false;
-	public WalkPath(final Entity player, final Tile tile){
-		this.player = player;
-		destination = tile;
-	}
+
 	@Override
 	public void execute(final float tpf) {
 		if(firstTime){
 			firstTime = false;
-            path = World.getPathFinder().findPath(null,
-                player.getTile().left,
-                player.getTile().top,
-                destination.left,
-                destination.top
+            path = pathFinder.findPath(null,
+                entity.getTile().left,
+                entity.getTile().top,
+                getDestination().left,
+                getDestination().top
             );
             if(path == null){
             	isDone = true;
@@ -38,8 +38,8 @@ public class WalkPath implements ICommand{
 		}
         final Tile destinationTile = new Tile(path.getStep(currentStep));
 
-        final Vector2f delta = destinationTile.minus(player.getTile()).multiply(new Vector2f(tpf, tpf));
-        final Vector2f position = player.getPosition();
+        final Vector2f delta = destinationTile.minus(entity.getTile()).multiply(new Vector2f(tpf, tpf));
+        final Vector2f position = entity.getPosition();
         if(delta.equals(new Vector2f(0,0))){
             if(destinationTile.topLeftPixels().x < position.x){
                 delta.x = -tpf;
@@ -75,7 +75,7 @@ public class WalkPath implements ICommand{
         	return;
         }
 
-        player.setPosition(Tile.PixelsToGridPixels(position));
+        entity.setPosition(Tile.PixelsToGridPixels(position));
         currentStep++;
         added.x = 0;
         added.y = 0;
@@ -83,25 +83,25 @@ public class WalkPath implements ICommand{
         if(currentStep >= path.getLength() || interupted) {
             isDone = true;
             currentStep = 0;
-            player.onFinishedWalking();
+            entity.onFinishedWalking();
             return;
         }
 
         final Tile nextTile = new Tile(path.getStep(currentStep));
-        player.onEnterNewTile();
+        entity.onEnterNewTile();
 
         final Tile p = new Tile(path.getStep(currentStep-1)).minus(nextTile);
 
         if(p.left == -1){
-            player.setFacing(Direction.EAST);
+            entity.setFacing(Direction.EAST);
         }else if(p.left == 1){
-            player.setFacing(Direction.WEST);
+            entity.setFacing(Direction.WEST);
         }
 
         if(p.top == -1){
-            player.setFacing(Direction.SOUTH);
+            entity.setFacing(Direction.SOUTH);
         }else if(p.top == 1){
-            player.setFacing(Direction.NORTH);
+            entity.setFacing(Direction.NORTH);
         }
 
 	}
@@ -114,6 +114,14 @@ public class WalkPath implements ICommand{
 	@Override
 	public void onInterupt() {
 		interupted = true;
+	}
+
+	private Tile getDestination() {
+		return destination;
+	}
+
+	public void setDestination(final Tile destination) {
+		this.destination = destination;
 	}
 
 }

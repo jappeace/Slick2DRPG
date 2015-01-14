@@ -1,16 +1,20 @@
-package org.bakkes.game.model.entity;
+package org.bakkes.game.model.entity.npc;
 
 import groovy.lang.Closure;
 
-import org.bakkes.game.GameInfo;
+import org.bakkes.game.model.entity.Entity;
+import org.bakkes.game.model.entity.Player;
 import org.bakkes.game.view.DialogBox;
 import org.newdawn.slick.util.Log;
 
+import com.google.inject.Inject;
 
-public class Person extends NPC{
+
+public class Person extends Entity{
 
 	private Closure onInteract = null;
-	private DialogBox dialog;
+	@Inject private DialogBox dialog;
+	@Inject private Player player;
 	public void setInteract(final Closure callback){
 		onInteract = callback;
 		onInteract.setDelegate(this);
@@ -31,10 +35,7 @@ public class Person extends NPC{
 
 	public void give(final int ... items){
 		for(final int item : items){
-            GameInfo.getInstance().player.getInventory().addItem(item);
+            player.getInventory().addItem(item);
 		}
-	}
-	public void setDialog(final DialogBox dialog) {
-		this.dialog = dialog;
 	}
 }

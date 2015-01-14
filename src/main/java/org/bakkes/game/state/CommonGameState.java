@@ -24,7 +24,6 @@ public abstract class CommonGameState extends BasicGameState {
 	protected DialogBox currentDialogBox = null;
 	protected Queue<DialogBox> dialogQueue = new LinkedList<>();
 	private List<IRenderable> drawables;
-	private List<IKeyListener> keyListeners;
 	protected IDialogClosed dialogCallback;
 
 
@@ -32,17 +31,16 @@ public abstract class CommonGameState extends BasicGameState {
 	public void init(final GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
 		drawables = new ArrayList<>();
-		keyListeners = new ArrayList<>();
-		this.keyListeners.add(new DebugToggleListener());
+		this.getKeyListeners().add(new DebugToggleListener());
 	}
 
+	public abstract List<IKeyListener> getKeyListeners();
 	/**
 	 * @param delta = tpf time that has passed between frames
 	 */
 	@Override
 	public void update(final GameContainer gc, final StateBasedGame arg1, final int delta)
 			throws SlickException {
-		GameInfo.getInstance().delta = delta;
 		if(dialogQueue.isEmpty()){
 			return;
 		}
@@ -67,16 +65,8 @@ public abstract class CommonGameState extends BasicGameState {
 		this.drawables.add(gameComponent);
 	}
 
-	public void addKeyListener(final IKeyListener keylistener) {
-		this.keyListeners.add(keylistener);
-	}
-
 	public void removeComponent(final IRenderable gameComponent) {
 		this.drawables.remove(gameComponent);
-	}
-
-	public void removeKeyListener(final IKeyListener keylistener) {
-		this.keyListeners.remove(keylistener);
 	}
 
 	public void queueDialogBox(final DialogBox dialogBox) {
@@ -100,7 +90,7 @@ public abstract class CommonGameState extends BasicGameState {
     public void keyPressed(final int key, final char c) {
 		if(!inputEnabled)
 			return;
-		final ArrayList<IKeyListener> keyListenersCopy = new ArrayList<IKeyListener>(keyListeners); //Create a copy because scripts can register keypress components.
+		final ArrayList<IKeyListener> keyListenersCopy = new ArrayList<IKeyListener>(getKeyListeners()); //Create a copy because scripts can register keypress components.
 		final Iterator<IKeyListener> it = keyListenersCopy.iterator();
 		while(it.hasNext()) {
 			final IKeyListener next = it.next();
@@ -115,7 +105,7 @@ public abstract class CommonGameState extends BasicGameState {
 		}
 		if(!inputEnabled)
 			return;
-		final ArrayList<IKeyListener> keyListenersCopy = new ArrayList<IKeyListener>(keyListeners); //Create a copy because scripts can register keyrelease components.
+		final ArrayList<IKeyListener> keyListenersCopy = new ArrayList<IKeyListener>(getKeyListeners()); //Create a copy because scripts can register keyrelease components.
 		final Iterator<IKeyListener> it = keyListenersCopy.iterator();
 		while(it.hasNext()) {
 			final IKeyListener next = it.next();
@@ -138,4 +128,5 @@ public abstract class CommonGameState extends BasicGameState {
 		if(currentDialogBox == null && dialogQueue.size() > 0)
 			nextDialog();
 	}
+
 }

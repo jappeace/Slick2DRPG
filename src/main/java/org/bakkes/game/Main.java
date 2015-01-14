@@ -1,25 +1,22 @@
 package org.bakkes.game;
 import java.io.File;
 
+import org.bakkes.game.model.map.WorldModule;
 import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 
 public class Main {
 
-	public static void main(final String[] args) {
+	public static void main(final String[] args) throws SlickException {
 		initLWJGL();
 
-		try {
-			final AppGameContainer game = new AppGameContainer(new Game("Pokemons"));
-			game.setDisplayMode(800, 600, false);
-			game.setMaximumLogicUpdateInterval(5);
-			game.setTargetFrameRate(200);
-			game.start();
-		} catch (final SlickException e) {
-			e.printStackTrace();
-		}
+		final Injector injector = Guice.createInjector(new GameModule(), new GameContainerModule(), new WorldModule());
+        injector.getInstance(AppGameContainer.class).start();
 	}
 
 

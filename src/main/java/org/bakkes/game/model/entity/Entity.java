@@ -1,17 +1,17 @@
 package org.bakkes.game.model.entity;
 
 import org.bakkes.game.model.AModel;
-import org.bakkes.game.model.IUpdatable;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.Tile;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Vector2f;
 
-public abstract class Entity extends AModel implements IUpdatable{
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
-	private Vector2f position; // not encapsulated anyways
+public abstract class Entity extends AModel{
+
+	private @Named("position") @Inject Vector2f position; // not encapsulated anyways
 	protected int facing = Direction.SOUTH;
-	public void init(final GameContainer gc) {}
 
 	public Vector2f getPosition() {
 		return position;

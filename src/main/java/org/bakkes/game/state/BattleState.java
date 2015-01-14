@@ -1,14 +1,18 @@
 package org.bakkes.game.state;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import org.bakkes.game.GameInfo;
-import org.bakkes.game.battle.BattleMaster;
-import org.bakkes.game.battle.BattleMasterModule;
+import org.bakkes.game.battle.Battle;
+import org.bakkes.game.battle.BattleModule;
 import org.bakkes.game.battle.contestent.ContestentModule;
 import org.bakkes.game.battle.contestent.PlayerContestent;
+import org.bakkes.game.events.key.IKeyListener;
 import org.bakkes.game.model.battle.Turn;
 import org.bakkes.game.model.battle.move.IMove;
+import org.bakkes.game.model.entity.Player;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.scripting.PokemonModule;
 import org.bakkes.game.scripting.SpeciesModule;
@@ -24,17 +28,20 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 public class BattleState extends CommonGameState {
 	public static final int BATTLE_STATE_ID = 2;
 
-	private BattleMaster battle;
-	private PlayerContestent player;
+	private Battle battle;
+	private PlayerContestent playerContestent;
 	private PokeView enemyView;
 	private PokeView playerView;
 	private int selectedMove = 0;
 	private boolean firstRun = true;
+	private @Inject Random random;
+	private @Inject Player player;
 	@Override
 	public int getID() {
 		return BATTLE_STATE_ID;
@@ -44,9 +51,10 @@ public class BattleState extends CommonGameState {
 	 * TODO: clear and use a module instead
 	 */
 	public void startWild() {
-		Injector injector = Guice.createInjector(new SpeciesModule(10, GameInfo.WILD[GameInfo.RANDOM.nextInt(GameInfo.WILD.length)]));
+		Injector injector = Guice.createInjector(new SpeciesModule(GameInfo.WILD_POKE_LEVEL, GameInfo.WILD[random.nextInt(GameInfo.WILD.length)]));
 
 		final Pokemon enemy = injector.getInstance(Pokemon.class);
+
 		final PokemonModule pokeModule = new PokemonModule(enemy);
 		final PositionModule positionModule = new PositionModule(new Vector2f(20,10));
 
@@ -54,7 +62,7 @@ public class BattleState extends CommonGameState {
 
 		this.enemyView = injector.getInstance(PokeView.class);
 
-		final Pokemon player = GameInfo.getInstance().player.getPokemon();
+		final Pokemon player = this.player.getPokemon();
 		pokeModule.setPokemon(player);
 		positionModule.setPosition(new Vector2f(20f, 400));
 		this.playerView = injector.getInstance(PokeView.class);
@@ -62,26 +70,20 @@ public class BattleState extends CommonGameState {
 		final ContestentModule contestent = new ContestentModule(player, enemy);
 		injector = Guice.createInjector(contestent);
 
-		this.player = injector.getInstance(PlayerContestent.class);
-		injector = injector.createChildInjector(new BattleMasterModule(this.player));
-		this.battle = injector.getInstance(BattleMaster.class);
+		this.playerContestent = injector.getInstance(PlayerContestent.class);
+		contestent.flip();
+		injector = injector.createChildInjector(new BattleModule(this.playerContestent));
+		this.battle = injector.getInstance(Battle.class);
 
 		new Thread(this.battle).start();
 		this.playerView.renderMoves = false;
 		firstRun = true;
 	}
 	/*
-	 * TODO: delete and fix with proper dependecies
-	 */
-	private List<IMove> getPlayerMoves(){
-		return GameInfo.getInstance().player.getPokemon().getMoves();
-	}
-
-	/*
 	 * TODO: make a menu view or something, this is retarded
 	 */
 	private void selectMove(final int selected) {
-		final int moveSize = getPlayerMoves().size();
+		final int moveSize = player.getPokemon().getMoves().size();
 		if(selected >= moveSize)
 			selectedMove = 0;
 		else if(selected < 0)
@@ -119,7 +121,7 @@ public class BattleState extends CommonGameState {
 		if(!gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
 			return;
 		}
-		player.selectMove(selectedMove);
+		playerContestent.selectMove(selectedMove);
 
 		super.update(gc, arg1, delta);
 	}
@@ -135,19 +137,19 @@ public class BattleState extends CommonGameState {
 		out.clear();
 		out.setLocation(new Vector2f(20f, 150f));
 
-		if(battle.isOver() && player.hasWon()) { //player won, don't show enemy stuff
+		if(battle.isOver() && playerContestent.hasWon()) { //player won, don't show enemy stuff
 			out.write("You are victorious! Press enter to leave");
 		} else {
 			enemyView.render(gc, g);
 		}
 
-		if(battle.isOver() && !player.hasWon()) { //player lost, dont show player
+		if(battle.isOver() && !playerContestent.hasWon()) { //player lost, dont show player
 			out.getLocation().y += 300;
 			out.write("You lost! Press enter to leave");
 			out.write("To heal your pokemon, visit the old lady at the beginning!");
 		} else {
 
-			final List<IMove> myMoves = getPlayerMoves();
+			final List<IMove> myMoves = player.getPokemon().getMoves();
 			for(int i = 0; i < myMoves.size(); i++) {
 				if(i == selectedMove)
 					g.setColor(new Color(255, 255, 255, 255));
@@ -174,6 +176,11 @@ public class BattleState extends CommonGameState {
 		out.render(gc, g);
 
 		super.render(gc, arg1, g);
+	}
+
+	@Override
+	public List<IKeyListener> getKeyListeners() {
+		return new LinkedList<>();
 	}
 
 
