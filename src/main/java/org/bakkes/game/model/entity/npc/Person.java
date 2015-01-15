@@ -15,17 +15,19 @@ public class Person extends Entity{
 	private Closure onInteract = null;
 	@Inject private DialogBox dialog;
 	@Inject private Player player;
-	public void setInteract(final Closure callback){
-		onInteract = callback;
-		onInteract.setDelegate(this);
-	}
 
 	public void interact(){
 		Log.info("talking to " + getName() + " on location: " + getPosition());
 		if(onInteract == null){
+			Log.info("no interaction present");
 			return;
 		}
 		onInteract.call();
+	}
+
+	public void setInteract(final Closure callback){
+		onInteract = callback;
+		onInteract.setDelegate(this);
 	}
 
 	public void dialog( final String text){

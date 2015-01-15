@@ -7,21 +7,21 @@ person {
 		dialog "Here's some protein, your pokemon will love it!" 
 	}
 	facing 'south'
-	name = 'nice old lady'
+	name 'nice old lady'
 	location 12,7
 }
 person {
 	facing 'east'
-	name = 'friend'
+	name 'friend'
 	location 20,5
 }
 person {
 	facing 'west'
-	name = 'bully'
+	name 'bencent'
 	location 8,14
 }
 person {
 	facing 'north'
-	name = 'bully'
+	name 'bully'
 	location 20,30
 }

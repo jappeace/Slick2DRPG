@@ -8,6 +8,7 @@ import java.util.Map;
 import org.bakkes.game.model.entity.npc.Person;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.Tile;
+import org.newdawn.slick.util.Log;
 
 public class PersonDsl extends ADsl{
 	boolean isFacingSet = false;
@@ -48,5 +49,10 @@ public class PersonDsl extends ADsl{
 	public void location(final Integer left, final Integer top){
 		isPositionSet = true;
 		target.setPosition(new Tile(left, top).topLeftPixels());
+	}
+
+	public void name(final String name){
+		Log.info("setting name to " + name);
+		target.setName(name);
 	}
 }

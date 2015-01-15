@@ -5,6 +5,7 @@ import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.view.AView;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 
@@ -31,6 +32,7 @@ public class DialogBox extends AView implements IKeyListener {
 	}
 
 	public void show() {
+		Log.info("showing dialogbox with: " + text);
 		container.queueDialogBox(new DialogBox(this));
 	}
 

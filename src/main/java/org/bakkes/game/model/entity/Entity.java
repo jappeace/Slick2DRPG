@@ -44,7 +44,7 @@ public abstract class Entity extends AModel{
 	 * used a lot, anoying to do
 	 * @return
 	 */
-	public Tile getFacingTile(){
+	public Tile getDirectionTile(){
         final int facing = getFacing();
         final Tile result = new Tile();
         switch(facing){

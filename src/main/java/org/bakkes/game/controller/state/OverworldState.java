@@ -115,7 +115,7 @@ public class OverworldState extends CommonGameState {
         if(person == null){
         	return;
         }
-        final Tile facingTile = person.getFacingTile();
+        final Tile facingTile = person.getDirectionTile();
         final CommonGameState state = this;
         player.moveTo(new Tile(facingTile.multiply(new Vector2f(2,2))).plus(clickedTile));
         player.moveTo(facingTile.plus(clickedTile));
@@ -144,6 +144,7 @@ public class OverworldState extends CommonGameState {
 	@Override
 	public void render(final GameContainer gc, final StateBasedGame arg1, final Graphics g)
 			throws SlickException {
+
 
 		final Input input = gc.getInput();
 		final Vector2f mousePos = new Vector2f(input.getMouseX(), input.getMouseY());
