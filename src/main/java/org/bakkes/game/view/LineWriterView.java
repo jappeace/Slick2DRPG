@@ -6,6 +6,8 @@ import java.util.List;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
+import com.sun.xml.internal.ws.util.StringUtils;
+
 /**
  * don't extends a view otherwise stackoverflow
  *
@@ -53,7 +55,7 @@ public class LineWriterView implements IRenderable{
 		}
 		@Override
 		public void render(final Graphics g) {
-			g.drawString(string, position.x, position.y);
+			g.drawString(StringUtils.capitalize(string), position.x, position.y);
 		}
 	}
 }

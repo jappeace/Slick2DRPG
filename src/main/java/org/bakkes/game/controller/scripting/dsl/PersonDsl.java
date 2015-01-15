@@ -10,6 +10,9 @@ import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.Tile;
 import org.newdawn.slick.util.Log;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+
 public class PersonDsl extends ADsl{
 	boolean isFacingSet = false;
 	boolean isPositionSet = false;
@@ -23,12 +26,16 @@ public class PersonDsl extends ADsl{
 	}
 
 	private Person target;
+	private @Inject Provider<InteractDsl> dslProvider;
 
 	public void setTarget(final Person target) {
 		this.target = target;
 	}
 
 	public void onInteract(final Closure callback){
+		final InteractDsl dsl = dslProvider.get();
+		dsl.target = target;
+		callback.setDelegate(dsl);
 		target.setInteract(callback);
 	}
 
