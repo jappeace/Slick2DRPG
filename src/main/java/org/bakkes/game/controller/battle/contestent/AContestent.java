@@ -7,30 +7,27 @@ import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.newdawn.slick.util.Log;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
-
 public abstract class AContestent implements IContestent{
 
-	@Inject @Named("own") protected Pokemon ownPokemon;
-	@Inject @Named("target") private Pokemon targetPokemon;
 
 	private boolean hasWon = false;
 
 	@Override
 	public Turn getTurn() {
 		final Turn result = new Turn();
-		result.setTarget(targetPokemon);
-		result.setAgressor(ownPokemon);
+		result.setTarget(getTarget());
+		result.setAgressor(getOwn());
 		result.setMove(getMove());
 		return result;
 	}
 
 	protected abstract IMove getMove();
+	protected abstract Pokemon getOwn();
+	protected abstract Pokemon getTarget();
 
 	@Override
 	public Pokemon getPokemon() {
-		return ownPokemon;
+		return getOwn();
 	}
 	/**
 	 * so any pokemon will get xp, if a player is stupid and keeps killing himself against another trainer,
@@ -38,14 +35,14 @@ public abstract class AContestent implements IContestent{
 	 */
 	@Override
 	public synchronized void onWin() {
-		float xp = (ownPokemon.getLevel() * GameInfo.XP_MODIFIER / ownPokemon.getSpecies().getTrainingSpeed());
+		float xp = (getOwn().getLevel() * GameInfo.XP_MODIFIER / getOwn().getSpecies().getTrainingSpeed());
         // even the losers win,
         // IRL you probably learn more by losing
         // however we want to promote winning, so divide by 2
-        targetPokemon.addExperiance((int)xp/2);
+        getTarget().addExperiance((int)xp/2);
 
-		xp = (targetPokemon.getLevel() * GameInfo.XP_MODIFIER / targetPokemon.getSpecies().getTrainingSpeed());
-        final IPokemonStatistics stats = ownPokemon.addExperiance((int) xp);
+		xp = (getTarget().getLevel() * GameInfo.XP_MODIFIER / getTarget().getSpecies().getTrainingSpeed());
+        final IPokemonStatistics stats = getOwn().addExperiance((int) xp);
         if(stats != null){
             Log.info("level up: " + stats);
         }

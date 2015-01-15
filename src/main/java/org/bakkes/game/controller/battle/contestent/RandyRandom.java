@@ -12,7 +12,7 @@ public class RandyRandom extends AI{
 	@Inject Random random;
 	@Override
 	protected IMove getMove() {
-		return ownPokemon.getMoves().get(random.nextInt(ownPokemon.getMoves().size()));
+		return getOwn().getMoves().get(random.nextInt(getOwn().getMoves().size()));
 	}
 
 }

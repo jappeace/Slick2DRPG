@@ -1,18 +1,13 @@
 package org.bakkes.game.view;
 
-import java.awt.Font;
-
 import org.bakkes.game.controller.events.key.IKeyListener;
 import org.bakkes.game.controller.state.CommonGameState;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.UnicodeFont;
 
 import com.google.inject.Inject;
 
 public class DialogBox extends AView implements IKeyListener {
-
-	private static UnicodeFont font;
 
 	private String text;
 	private CommonGameState container;
@@ -45,11 +40,6 @@ public class DialogBox extends AView implements IKeyListener {
 	@Override
 	public void KeyUp(final int key, final char c) {
 
-	}
-
-	static {
-		final Font tempFont = new Font("Verdana", Font.BOLD, 20);
-		font = new UnicodeFont(tempFont, tempFont.getSize(), tempFont.isBold(), tempFont.isItalic());
 	}
 
 	@Override

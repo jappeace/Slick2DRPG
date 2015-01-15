@@ -1,4 +1,4 @@
-package org.bakkes.game.model.entity;
+package org.bakkes.game.model.entity.player;
 
 import org.bakkes.game.model.items.Item;
 import org.bakkes.game.model.items.ItemCache;

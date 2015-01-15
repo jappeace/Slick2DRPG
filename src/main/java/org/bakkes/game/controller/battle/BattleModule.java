@@ -1,6 +1,6 @@
 package org.bakkes.game.controller.battle;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bakkes.game.controller.battle.contestent.IContestent;
@@ -9,6 +9,7 @@ import org.bakkes.game.model.battle.Turn;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.Singleton;
 
 public class BattleModule extends AbstractModule{
 
@@ -25,8 +26,8 @@ public class BattleModule extends AbstractModule{
 		result[1] = player;
 		return result;
 	}
-	public @Provides List<Turn> provideLog(){
-		return new LinkedList<>();
+	public @Singleton @Provides List<Turn> provideLog(){
+		return new ArrayList<>();
 	}
 
 

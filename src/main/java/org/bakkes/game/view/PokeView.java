@@ -16,7 +16,6 @@ import com.google.inject.name.Named;
 
 public class PokeView extends AView{
 
-	private final LineWriterView out;
 	private Image avatar;
 	private final Pokemon pokemon;
 	private final Vector2f topLeft;
@@ -34,7 +33,6 @@ public class PokeView extends AView{
 	}
 	@Override
 	public void renderView(final Graphics g) {
-		out.clear();
         g.drawImage(avatar, topLeft.x + 260, topLeft.y);
         if(renderMoves){
             out.setLocation(new Vector2f(topLeft.x + 260, topLeft.y + 75));
@@ -55,7 +53,6 @@ public class PokeView extends AView{
         out.write("Health: ");
         out.write("");
         out.write("XP: ");
-        out.render(g);
 
         final IPokemonStatistics normalStat = pokemon.getNormalStats();
         drawBar(g, 125, (float)stat.getHealth() / (float) normalStat.getHealth(), new Color(200,0,56));

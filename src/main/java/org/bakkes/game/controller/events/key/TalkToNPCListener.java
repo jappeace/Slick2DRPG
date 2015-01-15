@@ -1,8 +1,8 @@
 package org.bakkes.game.controller.events.key;
 
-import org.bakkes.game.model.entity.Player;
 import org.bakkes.game.model.entity.npc.Person;
 import org.bakkes.game.model.entity.npc.PersonTracker;
+import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;

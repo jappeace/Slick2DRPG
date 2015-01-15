@@ -12,10 +12,10 @@ import org.bakkes.game.controller.events.key.IKeyListener;
 import org.bakkes.game.controller.scripting.PokemonModule;
 import org.bakkes.game.controller.scripting.SpeciesModule;
 import org.bakkes.game.model.GameInfo;
-import org.bakkes.game.model.battle.Turn;
 import org.bakkes.game.model.battle.move.IMove;
-import org.bakkes.game.model.entity.Player;
+import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.pokemon.Pokemon;
+import org.bakkes.game.view.BattleLogView;
 import org.bakkes.game.view.LineWriterView;
 import org.bakkes.game.view.PokeView;
 import org.bakkes.game.view.PositionModule;
@@ -38,6 +38,7 @@ public class BattleState extends CommonGameState {
 	private PlayerContestent playerContestent;
 	private PokeView enemyView;
 	private PokeView playerView;
+	private BattleLogView battleLog;
 	private int selectedMove = 0;
 	private boolean firstRun = true;
 	private @Inject Random random;
@@ -71,10 +72,9 @@ public class BattleState extends CommonGameState {
 		injector = Guice.createInjector(contestent);
 
 		this.playerContestent = injector.getInstance(PlayerContestent.class);
-		contestent.flip();
 		injector = injector.createChildInjector(new BattleModule(this.playerContestent));
 		this.battle = injector.getInstance(Battle.class);
-
+		this.battleLog = injector.getInstance(BattleLogView.class);
 		new Thread(this.battle).start();
 		this.playerView.renderMoves = false;
 		firstRun = true;
@@ -159,19 +159,8 @@ public class BattleState extends CommonGameState {
 			}
             g.setColor(new Color(255, 255, 255, 255));
 			playerView.render(g);
+			battleLog.render(g);
 
-			g.drawRect(490f, 15f, 300, 500);
-
-			out.setLocation(new Vector2f(500,20f));
-			out.write("Battle log:");
-			final List<Turn> log = battle.getBattleLog();
-			final int startIndex = 0;
-			if(log.size() > showCount){
-				log.remove(0);
-			}
-			for(final Turn str : log){
-				out.write(str.getChange().toString());
-			}
 		}
 		out.render(g);
 

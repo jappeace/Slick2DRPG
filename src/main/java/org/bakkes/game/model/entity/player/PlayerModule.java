@@ -1,8 +1,7 @@
-package org.bakkes.game.controller.init;
+package org.bakkes.game.model.entity.player;
 
 import org.bakkes.game.controller.scripting.SpeciesModule;
 import org.bakkes.game.model.entity.Entity;
-import org.bakkes.game.model.entity.Player;
 import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.model.pokemon.IPokemonSpecies;
 import org.bakkes.game.view.PositionModule;
@@ -12,7 +11,7 @@ import com.google.inject.name.Named;
 
 public class PlayerModule extends PositionModule{
 	// TODO: load player starting start from script
-	private static final int PLAYER_POKE_LEVEL = 10;
+	private static final int PLAYER_POKE_LEVEL = 20;
 	private static final String PLAYER_POKEMON = "charmender";
 	private static final Tile STARTING_TILE = new Tile(60,20);
 

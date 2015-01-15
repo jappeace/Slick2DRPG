@@ -1,8 +1,9 @@
-package org.bakkes.game.model.entity;
+package org.bakkes.game.model.entity.player;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bakkes.game.model.entity.Entity;
 import org.bakkes.game.model.entity.command.ICommand;
 import org.bakkes.game.model.entity.command.WalkPath;
 import org.bakkes.game.model.map.Tile;

@@ -1,6 +1,6 @@
 package org.bakkes.game.controller.events.key;
 
-import org.bakkes.game.model.entity.Player;
+import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.map.Tile;
 import org.lwjgl.input.Keyboard;
 

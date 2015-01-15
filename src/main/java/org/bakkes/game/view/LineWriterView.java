@@ -6,22 +6,31 @@ import java.util.List;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
-public class LineWriterView extends AView{
+/**
+ * don't extends a view otherwise stackoverflow
+ *
+ * a simple utility to emulate the cout << "" kind of stuff on screen
+ */
+public class LineWriterView implements IRenderable{
 
 	private Vector2f location = new Vector2f();
+	private Vector2f start = new Vector2f();
 	private List<Line> lines = new LinkedList<>();
 	public float lineIncrease = 15f;
 
 	@Override
-	public void renderView(final Graphics g) {
+	public void render(final Graphics g) {
 		for(final Line l : lines){
 			l.render(g);
 		}
 	}
 
-
 	public void setLocation(final Vector2f location) {
-		this.location = location;
+		this.start = location.copy(); // to calculate the current hight
+		this.location = location.copy(); // mutable location
+	}
+	public float getHeight(){
+		return location.y - start.y;
 	}
 
 	public void write(final String str){
@@ -35,7 +44,7 @@ public class LineWriterView extends AView{
 	public Vector2f getLocation() {
 		return location;
 	}
-	private static class Line extends AView{
+	private static class Line implements IRenderable{
 		public Vector2f position;
 		String string;
 		public Line(final Vector2f location, final String str){
@@ -43,7 +52,7 @@ public class LineWriterView extends AView{
 			string = str;
 		}
 		@Override
-		public void renderView(final Graphics g) {
+		public void render(final Graphics g) {
 			g.drawString(string, position.x, position.y);
 		}
 	}

@@ -28,12 +28,4 @@ public class ContestentModule extends AbstractModule{
 		 */
 		bind(IContestent.class).to(RandyRandom.class);
 	}
-
-	public void flip(){
-		final Pokemon temp = own;
-		own = target;
-		target = temp;
-	}
-
-
 }

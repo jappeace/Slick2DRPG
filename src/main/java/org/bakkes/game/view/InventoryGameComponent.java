@@ -1,7 +1,7 @@
 package org.bakkes.game.view;
 
-import org.bakkes.game.model.entity.Inventory;
-import org.bakkes.game.model.entity.Player;
+import org.bakkes.game.model.entity.player.Inventory;
+import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.items.Item;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
