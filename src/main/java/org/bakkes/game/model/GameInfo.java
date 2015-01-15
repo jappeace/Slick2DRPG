@@ -1,5 +1,7 @@
 package org.bakkes.game.model;
 
+import org.bakkes.game.R;
+
 
 /**
  * holds a bunch of static data I didn't know where to put or I realy should write a class for
@@ -14,5 +16,7 @@ public class GameInfo {
 	// TODO: make a system for this, for example per area load a script with pokemon in it ranging form level to level
 	public static final String[] WILD = new String[]{"caterpie", "charmender"};
 	public static final int WILD_POKE_LEVEL = 10;
+
+	public static final String ANIMATION_SCRIPT_FOLDER = R.scripts + "/animations/";
 
 }
