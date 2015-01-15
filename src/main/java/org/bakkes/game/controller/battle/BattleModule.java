@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.bakkes.game.controller.battle.contestent.IContestent;
 import org.bakkes.game.controller.battle.contestent.PlayerContestent;
-import org.bakkes.game.model.battle.Turn;
+import org.bakkes.game.model.battle.BattleLogEvent;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -26,7 +26,7 @@ public class BattleModule extends AbstractModule{
 		result[1] = player;
 		return result;
 	}
-	public @Singleton @Provides List<Turn> provideLog(){
+	public @Singleton @Provides List<BattleLogEvent> provideLog(){
 		return new ArrayList<>();
 	}
 

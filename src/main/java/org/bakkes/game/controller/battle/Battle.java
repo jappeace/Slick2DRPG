@@ -3,11 +3,13 @@ package org.bakkes.game.controller.battle;
 import java.util.List;
 
 import org.bakkes.game.controller.battle.contestent.IContestent;
+import org.bakkes.game.model.battle.BattleLogEvent;
 import org.bakkes.game.model.battle.Turn;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /**
  * decides turns and wat not
@@ -17,13 +19,14 @@ public class Battle implements Runnable{
 
 	private int contIndex;
 	private int speed;
-	@Inject private List<Turn> battleLog;
+	private @Inject List<BattleLogEvent> battleLog;
+	private @Inject Provider<BattleLogEvent> logProvider;
 
 	@Override
 	public void run() {
 		speed = 0;
 		contIndex = 0;
-		getBattleLog().clear();
+		battleLog.clear();
 		if(getStats(0).getSpeed() < getStats(1).getSpeed()){
 			contIndex = 1;
 		}
@@ -37,7 +40,11 @@ public class Battle implements Runnable{
 				continue;
 			}
 			final Turn turn = contestents[contIndex].getTurn();
-			getBattleLog().add(turn);
+
+			final BattleLogEvent event = logProvider.get();
+			event.setTurn(turn);
+			battleLog.add(event);
+
 			Log.info("executing " + contestents[contIndex].getClass().getSimpleName() + " his turn");
 			turn.execute();
 
@@ -46,8 +53,10 @@ public class Battle implements Runnable{
 				// perserve the current contestants' turn to detrmin winner
 				break;
 			}
+			event.isExtraTurn = true;
 			speed -= getStats(otherGuy()).getSpeed();
 			if(speed < 0){
+                event.isExtraTurn = false;
 				speed = -speed;
 				contIndex = otherGuy();
 			}
@@ -69,8 +78,5 @@ public class Battle implements Runnable{
 	}
 	private IPokemonStatistics getStats(final int who){
 		return contestents[who].getPokemon().getCurrentStats();
-	}
-	public synchronized List<Turn> getBattleLog() {
-		return battleLog;
 	}
 }
