@@ -27,7 +27,7 @@ public class NpcDsl extends ADsl{
 		commands.call();
 
 		if(!factory.isDone()){
-			Log.warn("a person was not complete, remember to set both id and facing fields");
+			Log.warn("a person was not complete, remember to set both position and facing fields");
 		}
 	}
 }

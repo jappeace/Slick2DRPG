@@ -1,5 +1,6 @@
 package org.bakkes.game.model.map;
 
+import org.bakkes.game.R;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.PathFindingContext;
@@ -8,27 +9,27 @@ import org.newdawn.slick.util.pathfinding.TileBasedMap;
 import com.google.inject.Singleton;
 
 @Singleton
-public class LayerdMap implements TileBasedMap {
+public class LayerdMap implements TileBasedMap, IAreaNameAcces {
 
 	private TiledMap map;
 	private int[] blockingLayers;
 	private int grassLayer;
-	private int npcLayer;
+	private String areaName;
 
 	/**
 	 * load a new map, can't be done by injection because the opengl context needs to be created first
 	 * @param url
 	 */
-	public void load(final String url){
+	public void load(final String areaName){
+		this.areaName = areaName;
 		try {
-			this.map = new TiledMap(url);
+			this.map = new TiledMap(R.map + areaName + ".tmx");
 		} catch (final SlickException e) {
 			e.printStackTrace();
             return;
 		}
-		this.blockingLayers = new int[]{map.getLayerIndex("objects"), map.getLayerIndex("npc")};
+		this.blockingLayers = new int[]{map.getLayerIndex("objects")};
 		grassLayer = map.getLayerIndex("grass");
-		npcLayer = map.getLayerIndex("npc");
 	}
 
 	public boolean isGrass(final Tile location) {
@@ -82,33 +83,11 @@ public class LayerdMap implements TileBasedMap {
 			final int l) {
 		map.render(i,j,tileIndexX,tileIndexY,k,l);
 	}
-	private int findNPCidOn(final Tile tile){
-		return Integer.parseInt(
-            map.getTileProperty(
-                    getTileId(tile, npcLayer),
-                    "npcid",
-                    "-1"
-                )
-            );
-	}
-	public int getNPCidOn(final Tile tile){
-		int result = findNPCidOn(tile);
-		if(result != -1){
-			return result;
-		}
-		result = findNPCidOn(tile.plus(new Tile(-1,0)));
-		if(result != -1){
-			return result;
-		}
-		result = findNPCidOn(tile.plus(new Tile(-1,1)));
-		if(result != -1){
-			return result;
-		}
-		result = findNPCidOn(tile.plus(new Tile(0,1)));
-		if(result != -1){
-			return result;
-		}
-
-		return result;
+	/* (non-Javadoc)
+	 * @see org.bakkes.game.model.map.IAreaNameAcces#getAreaName()
+	 */
+	@Override
+	public String getAreaName() {
+		return areaName;
 	}
 }

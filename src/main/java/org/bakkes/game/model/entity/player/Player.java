@@ -23,6 +23,10 @@ public class Player extends Entity {
 
 	private boolean hasEnteredNewTile = false;
 
+	public Player(){
+		setName("player");
+	}
+
 	public void addCommand(final ICommand command){
 		commands.addLast(command);
 	}

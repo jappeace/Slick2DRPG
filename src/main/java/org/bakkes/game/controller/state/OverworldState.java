@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import org.bakkes.game.R;
 import org.bakkes.game.controller.events.key.IKeyListener;
 import org.bakkes.game.controller.events.key.InventoryToggleListener;
 import org.bakkes.game.model.entity.command.ICommand;
@@ -27,7 +26,6 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
-import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 
@@ -55,7 +53,7 @@ public class OverworldState extends CommonGameState {
 	public void init(final GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
 		super.init(gc, arg1);
-		map.load(R.map+ "map.tmx");
+		map.load("outside");
 		translatedViews.add(new OverworldEntityView(player));
 		keyListeners.add(new InventoryToggleListener(this, new InventoryGameComponent(player)));
 	}
@@ -110,10 +108,8 @@ public class OverworldState extends CommonGameState {
         clickedTile = null;
 	}
 	private void moveToNPC(){
-        final int npcID = map.getNPCidOn(clickedTile);
-        final Person person = tracker.findPersonById(npcID);
+        final Person person = tracker.findPersonByTile(clickedTile);
         if(person == null){
-        	Log.debug("person null");
         	return;
         }
         final Tile facingTile = person.getFacingTile();

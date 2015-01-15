@@ -6,7 +6,7 @@ import org.bakkes.game.controller.init.GameModule;
 import org.bakkes.game.controller.state.StateModule;
 import org.bakkes.game.model.entity.npc.PeopleModule;
 import org.bakkes.game.model.entity.player.PlayerModule;
-import org.bakkes.game.model.map.WorldModule;
+import org.bakkes.game.model.map.MapModule;
 import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
@@ -23,7 +23,7 @@ public class Starter_JappieMon {
 		final Injector injector = Guice.createInjector(
 				new GameModule(),
 				new GameContainerModule(),
-				new WorldModule(),
+				new MapModule(),
 				new PlayerModule(),
 				new StateModule(),
 				new PeopleModule()

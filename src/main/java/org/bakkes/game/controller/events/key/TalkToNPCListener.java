@@ -7,7 +7,6 @@ import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
 import org.lwjgl.input.Keyboard;
-import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 
@@ -19,9 +18,7 @@ public class TalkToNPCListener implements IKeyListener {
 	@Override
 	public void KeyDown(final int key, final char c) {
 		if(key == Keyboard.KEY_SPACE) {
-			final int facingNpc = findFacingNPC();
-			Log.info("Facing: " + facingNpc);
-			final Person person = peopleTracker.findPersonById(facingNpc);
+			final Person person = findFacingNPC();
 			if(person == null){
 				return;
 			}
@@ -35,7 +32,7 @@ public class TalkToNPCListener implements IKeyListener {
 
 	}
 
-	private int findFacingNPC(){
+	private Person findFacingNPC(){
 		Tile facingTile = player.getTile();
 		switch(player.getFacing()) {
 		case Direction.NORTH:
@@ -51,7 +48,7 @@ public class TalkToNPCListener implements IKeyListener {
 			facingTile = facingTile.plus(new Tile(-2,1));
 			break;
 		}
-		return map.getNPCidOn(facingTile);
+		return peopleTracker.findPersonByTile(facingTile);
 	}
 
 }

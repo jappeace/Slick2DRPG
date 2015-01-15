@@ -21,7 +21,7 @@ public class Person extends Entity{
 	}
 
 	public void interact(){
-		Log.info("talking to npc with id: " + getId() + " on location: " + getPosition());
+		Log.info("talking to " + getName() + " on location: " + getPosition());
 		if(onInteract == null){
 			return;
 		}

@@ -9,12 +9,21 @@ public class Item extends AModel{
 	private String name;
 	private Image image;
 
+	private int id;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(final int id) {
+		this.id = id;
+	}
 	public Item(final int i, final String name) {
 		super();
 		setId(i);
 		this.name = name;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}

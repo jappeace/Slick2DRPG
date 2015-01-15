@@ -28,6 +28,7 @@ public class ScriptLoader {
 	 * @return succes
 	 */
 	public boolean load(final String path, final Object delagate){
+		Log.info("loading script: " + path);
 		boolean success = false;
 		final File file = new File(path);
 		if(!file.isFile()){

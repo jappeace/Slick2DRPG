@@ -2,13 +2,18 @@ package org.bakkes.game.model;
 
 public class AModel {
 
-	private int id;
+	private String name;
 
-	public int getId() {
-		return id;
+	public AModel(){
+		name = "anonymos";
 	}
 
-	public void setId(int id) {
-		this.id = id;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(final String name) {
+		this.name = name;
 	}
 }

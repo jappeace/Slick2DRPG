@@ -7,10 +7,11 @@ import java.util.Map;
 
 import org.bakkes.game.model.entity.npc.Person;
 import org.bakkes.game.model.map.Direction;
+import org.bakkes.game.model.map.Tile;
 
 public class PersonDsl extends ADsl{
-	boolean isIdSet = false;
 	boolean isFacingSet = false;
+	boolean isPositionSet = false;
 	private static Map<String, Integer> directions = new HashMap<>();
 	static{
 		// lazy scripting people don't even want to import directions
@@ -26,10 +27,6 @@ public class PersonDsl extends ADsl{
 		this.target = target;
 	}
 
-	public void id(final int id){
-		target.setId(id);
-	}
-
 	public void onInteract(final Closure callback){
 		target.setInteract(callback);
 	}
@@ -40,6 +37,15 @@ public class PersonDsl extends ADsl{
 
 	@Override
 	public boolean isDone(){
-		return super.isDone() && isIdSet && isFacingSet;
+		return super.isDone() && isPositionSet && isFacingSet;
+	}
+	/**
+	 * set to a tile location
+	 * @param x
+	 * @param y
+	 */
+	public void location(final Integer left, final Integer top){
+		isPositionSet = true;
+		target.setPosition(new Tile(left, top).topLeftPixels());
 	}
 }

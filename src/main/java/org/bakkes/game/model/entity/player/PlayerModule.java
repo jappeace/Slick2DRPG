@@ -13,7 +13,7 @@ public class PlayerModule extends PositionModule{
 	// TODO: load player starting start from script
 	private static final int PLAYER_POKE_LEVEL = 20;
 	private static final String PLAYER_POKEMON = "charmender";
-	private static final Tile STARTING_TILE = new Tile(60,20);
+	private static final Tile STARTING_TILE = new Tile(20,10); // 60,20 before grass
 
 	private SpeciesModule species = new SpeciesModule();
 

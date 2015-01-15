@@ -9,12 +9,13 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.name.Names;
 
-public class WorldModule extends AbstractModule{
+public class MapModule extends AbstractModule{
 
 	@Override
 	protected void configure() {
 		bind(String.class).annotatedWith(Names.named("path-script-npcs")).toInstance(R.npcScript);
 		bind(TileBasedMap.class).to(LayerdMap.class);
+		bind(IAreaNameAcces.class).to(LayerdMap.class);
 		bind(PathFinder.class).to(AStarPathFinder.class);
 	}
 

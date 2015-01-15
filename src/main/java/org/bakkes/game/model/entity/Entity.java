@@ -10,7 +10,7 @@ import com.google.inject.name.Named;
 
 public abstract class Entity extends AModel{
 
-	private @Named("position") @Inject Vector2f position; // not encapsulated anyways
+	private @Named("position") @Inject Vector2f position;
 	protected int facing = Direction.SOUTH;
 
 	public Vector2f getPosition() {

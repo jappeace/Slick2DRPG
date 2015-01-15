@@ -6,6 +6,7 @@ person {
 		give 4,4
 		dialog "Here's some protein, your pokemon will love it!" 
 	}
-	id 1
 	facing 'south'
+	name = 'nice old lady'
+	location 10,5
 }
