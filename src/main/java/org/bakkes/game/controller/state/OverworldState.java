@@ -10,6 +10,7 @@ import org.bakkes.game.model.entity.command.ICommand;
 import org.bakkes.game.model.entity.npc.Person;
 import org.bakkes.game.model.entity.npc.PersonTracker;
 import org.bakkes.game.model.entity.player.Player;
+import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.view.IRenderable;
@@ -117,8 +118,18 @@ public class OverworldState extends CommonGameState {
         }
         final Tile facingTile = person.getDirectionTile();
         final CommonGameState state = this;
-        player.moveTo(new Tile(facingTile.multiply(new Vector2f(2,2))).plus(clickedTile));
-        player.moveTo(facingTile.plus(clickedTile));
+        Vector2f faceCorrection = new Vector2f(3,3);
+        if(person.getFacing() == Direction.NORTH || person.getFacing() == Direction.WEST){
+        	faceCorrection = new Vector2f(2,2); // nort and west need less correction, because they are drawn from top left, so the available tile is one less away
+        }
+        // first move 2 tiles away in the direction the npc is facing
+        player.moveTo(new Tile(facingTile.multiply(faceCorrection)).plus(person.getTile()));
+
+        // now move closer to garantee facing
+        faceCorrection = faceCorrection.sub(new Vector2f(1,1));
+        player.moveTo(new Tile(facingTile.multiply(faceCorrection)).plus(person.getTile()));
+
+        // finaly press the spacebar
         player.addCommand(new ICommand(){
         	private boolean executed = false;
 			@Override

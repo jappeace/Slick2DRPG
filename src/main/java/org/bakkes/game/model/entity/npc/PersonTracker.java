@@ -18,7 +18,7 @@ public class PersonTracker {
     private @Inject Provider<List<Person>> people;
 	public @Nullable Person findPersonByTile(final Tile tile) {
         for(final Person person : getPeople()){
-        	if(person.getTile().equals(tile)){
+        	if(person.getBlockedTiles().contains(tile)){
         		return person;
         	}
         }
