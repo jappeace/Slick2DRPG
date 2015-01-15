@@ -32,6 +32,7 @@ public class PersonDsl extends ADsl{
 	}
 
 	public void facing(final String direction){
+		isFacingSet = true;
 		target.setFacing(directions.get(direction));
 	}
 

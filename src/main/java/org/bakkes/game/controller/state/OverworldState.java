@@ -14,8 +14,8 @@ import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.view.IRenderable;
 import org.bakkes.game.view.overworld.Camera;
-import org.bakkes.game.view.overworld.InventoryGameComponent;
 import org.bakkes.game.view.overworld.EntityView;
+import org.bakkes.game.view.overworld.InventoryGameComponent;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -54,6 +54,9 @@ public class OverworldState extends CommonGameState {
 			throws SlickException {
 		super.init(gc, arg1);
 		map.load("outside");
+		for(final Person person : tracker.getPeople()){
+			translatedViews.add(new EntityView(person));
+		}
 		translatedViews.add(new EntityView(player));
 		keyListeners.add(new InventoryToggleListener(this, new InventoryGameComponent(player)));
 	}

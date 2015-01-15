@@ -6,6 +6,7 @@ import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.PathFindingContext;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
@@ -15,6 +16,7 @@ public class LayerdMap implements TileBasedMap, IAreaNameAcces {
 	private int[] blockingLayers;
 	private int grassLayer;
 	private String areaName;
+	@Inject private BlockedTileTracker tracker;
 
 	/**
 	 * load a new map, can't be done by injection because the opengl context needs to be created first
@@ -65,6 +67,11 @@ public class LayerdMap implements TileBasedMap, IAreaNameAcces {
 		for(final int blockingLayer : blockingLayers) {
 			if(isBlocked(location, blockingLayer))
 				return true;
+		}
+		for(final Tile tile : tracker.getAllBlockedTiles()){
+			if(tile.equals(location)){
+				return true;
+			}
 		}
 		return false;
 	}

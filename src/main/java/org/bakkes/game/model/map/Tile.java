@@ -94,5 +94,16 @@ public class Tile implements IPlusOperator<Tile>, IMinusOperator<Tile>, IMultipl
 	public Vector2f multiply(final Vector2f righthandSide) {
 		return new Vector2f(left * righthandSide.x, top * righthandSide.y);
 	}
+	@Override
+	public boolean equals(final Object e){
+		if(super.equals(e)){
+			return true;
+		}
+		if(!(e instanceof Tile)){
+			return false;
+		}
+		final Tile comparer = (Tile) e;
+		return comparer.left == this.left && comparer.top == this.top;
+	}
 }
 

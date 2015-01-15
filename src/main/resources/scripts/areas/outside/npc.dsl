@@ -8,5 +8,20 @@ person {
 	}
 	facing 'south'
 	name = 'nice old lady'
-	location 10,5
+	location 12,7
+}
+person {
+	facing 'east'
+	name = 'friend'
+	location 20,5
+}
+person {
+	facing 'west'
+	name = 'bully'
+	location 8,14
+}
+person {
+	facing 'north'
+	name = 'bully'
+	location 20,30
 }
