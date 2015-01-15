@@ -1,7 +1,8 @@
-package org.bakkes.game.view;
+package org.bakkes.game.view.battle;
 
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
+import org.bakkes.game.view.AView;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;

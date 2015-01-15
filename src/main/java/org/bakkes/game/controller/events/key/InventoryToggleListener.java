@@ -1,7 +1,7 @@
 package org.bakkes.game.controller.events.key;
 
 import org.bakkes.game.controller.state.OverworldState;
-import org.bakkes.game.view.InventoryGameComponent;
+import org.bakkes.game.view.overworld.InventoryGameComponent;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.util.Log;
 

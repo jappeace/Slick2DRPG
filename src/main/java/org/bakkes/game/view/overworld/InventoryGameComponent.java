@@ -1,8 +1,9 @@
-package org.bakkes.game.view;
+package org.bakkes.game.view.overworld;
 
 import org.bakkes.game.model.entity.player.Inventory;
 import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.items.Item;
+import org.bakkes.game.view.AView;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;

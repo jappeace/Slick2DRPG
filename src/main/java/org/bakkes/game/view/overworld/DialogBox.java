@@ -1,7 +1,8 @@
-package org.bakkes.game.view;
+package org.bakkes.game.view.overworld;
 
 import org.bakkes.game.controller.events.key.IKeyListener;
 import org.bakkes.game.controller.state.CommonGameState;
+import org.bakkes.game.view.AView;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 

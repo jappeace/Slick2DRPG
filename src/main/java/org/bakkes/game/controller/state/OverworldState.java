@@ -12,10 +12,10 @@ import org.bakkes.game.model.entity.npc.PersonTracker;
 import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
-import org.bakkes.game.view.Camera;
 import org.bakkes.game.view.IRenderable;
-import org.bakkes.game.view.InventoryGameComponent;
-import org.bakkes.game.view.OverworldEntityView;
+import org.bakkes.game.view.overworld.Camera;
+import org.bakkes.game.view.overworld.InventoryGameComponent;
+import org.bakkes.game.view.overworld.EntityView;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -54,7 +54,7 @@ public class OverworldState extends CommonGameState {
 			throws SlickException {
 		super.init(gc, arg1);
 		map.load("outside");
-		translatedViews.add(new OverworldEntityView(player));
+		translatedViews.add(new EntityView(player));
 		keyListeners.add(new InventoryToggleListener(this, new InventoryGameComponent(player)));
 	}
 

@@ -1,4 +1,4 @@
-package org.bakkes.game.view;
+package org.bakkes.game.view.battle;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import org.bakkes.game.model.battle.BattleLogEvent;
 import org.bakkes.game.model.battle.Turn;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
+import org.bakkes.game.view.AView;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;

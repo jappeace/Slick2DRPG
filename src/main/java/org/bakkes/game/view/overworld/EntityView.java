@@ -1,20 +1,21 @@
-package org.bakkes.game.view;
+package org.bakkes.game.view.overworld;
 
 import org.bakkes.game.R;
 import org.bakkes.game.model.entity.Entity;
 import org.bakkes.game.model.map.Direction;
+import org.bakkes.game.view.AView;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-public class OverworldEntityView extends AView{
+public class EntityView extends AView{
 
 	private SpriteSheet _spriteSheet;
 	private Animation[] _animation;
 	private Entity entity;
 
-	public OverworldEntityView(final Entity entity){
+	public EntityView(final Entity entity){
 		this.entity = entity;
 		// probably good defaults, this should become configurable
         try {

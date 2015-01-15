@@ -1,4 +1,4 @@
-package org.bakkes.game.view;
+package org.bakkes.game.view.overworld;
 
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
