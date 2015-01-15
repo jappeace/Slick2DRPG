@@ -1,6 +1,6 @@
 package org.bakkes.game.model;
 
-public class AModel {
+public class AModel implements IModel{
 
 	private String name;
 
@@ -9,6 +9,7 @@ public class AModel {
 	}
 
 
+	@Override
 	public String getName() {
 		return name;
 	}

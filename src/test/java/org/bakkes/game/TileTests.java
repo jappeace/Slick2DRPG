@@ -38,4 +38,9 @@ public class TileTests{
         testNotContains(0,0,16f,16f);
         testNotContains(1,1,15.9f,15.9f);
 	}
+	@Test
+	public void hashTest(){
+		Assert.assertTrue(new Tile(1,0).hashCode() != new Tile(0,1).hashCode());
+		Assert.assertTrue(new Tile(1,0).hashCode() == new Tile(1,0).hashCode());
+	}
 }

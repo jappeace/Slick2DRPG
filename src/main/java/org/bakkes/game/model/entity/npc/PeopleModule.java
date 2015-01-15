@@ -8,8 +8,6 @@ import org.bakkes.game.controller.scripting.ScriptLoader;
 import org.bakkes.game.controller.scripting.dsl.NpcDsl;
 import org.bakkes.game.model.map.BlockedTileTracker;
 import org.bakkes.game.model.map.IAreaNameAcces;
-import org.bakkes.game.model.map.Tile;
-import org.newdawn.slick.util.Log;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -26,8 +24,7 @@ public class PeopleModule extends AbstractModule{
         final NpcDsl npcdsl,
         final ScriptLoader scriptloader,
         final IAreaNameAcces areaNameHolder,
-        final BlockedTileTracker tracker,
-        final LinkedList<Tile> tiles
+        final BlockedTileTracker tracker
     ){
 		if(previousAreaName.equals(areaNameHolder.getAreaName())){
 			return people;
@@ -37,13 +34,7 @@ public class PeopleModule extends AbstractModule{
 		npcdsl.setPeople(people);
 		scriptloader.load(R.scripts + "/areas/" + areaNameHolder.getAreaName() + "/npc.dsl", npcdsl);
 
-		for(final Person p : people){
-			final Tile tile = p.getTile();
-			Log.debug("blocking "+ tile);
-			tiles.add(tile);
-
-		}
-        tracker.putBlockedTiles("npc layer", tiles);
+        tracker.putBlockedTiles("npc layer", people);
 
 		return people;
 	}

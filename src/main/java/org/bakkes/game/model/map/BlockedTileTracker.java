@@ -13,16 +13,18 @@ import com.google.inject.Singleton;
  */
 @Singleton
 public class BlockedTileTracker {
-	Map<String, Collection<Tile>> blocked = new HashMap<>();
+	Map<String, Collection< ? extends IBlocksTiles>> blockers = new HashMap<>();
 
-	public void putBlockedTiles(final String layerName, final Collection<Tile> tiles){
-		blocked.put(layerName, tiles);
+	public void putBlockedTiles(final String layerName, final Collection<? extends IBlocksTiles> tiles){
+		blockers.put(layerName, tiles);
 	}
 
 	Collection<Tile> getAllBlockedTiles(){
 		final Collection<Tile> result = new LinkedList<>();
-		for(final Collection<Tile> tileset : blocked.values()){
-			result.addAll(tileset);
+		for(final Collection<? extends IBlocksTiles> tileset : blockers.values()){
+			for(final IBlocksTiles blocker : tileset){
+                result.addAll(blocker.getBlockedTiles());
+			}
 		}
 		return result;
 	}

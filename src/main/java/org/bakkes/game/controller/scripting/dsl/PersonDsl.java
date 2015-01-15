@@ -41,11 +41,6 @@ public class PersonDsl extends ADsl{
 	public boolean isDone(){
 		return super.isDone() && isPositionSet && isFacingSet;
 	}
-	/**
-	 * set to a tile location
-	 * @param x
-	 * @param y
-	 */
 	public void location(final Integer left, final Integer top){
 		isPositionSet = true;
 		target.setPosition(new Tile(left, top).topLeftPixels());

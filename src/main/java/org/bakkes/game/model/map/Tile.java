@@ -105,5 +105,9 @@ public class Tile implements IPlusOperator<Tile>, IMinusOperator<Tile>, IMultipl
 		final Tile comparer = (Tile) e;
 		return comparer.left == this.left && comparer.top == this.top;
 	}
+	@Override
+	public int hashCode(){
+		return (left | 3194) * left * top + left; // I have no idea, I'm trying to Tile(1,0) != Tile(0,1)
+	}
 }
 

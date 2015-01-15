@@ -113,17 +113,6 @@ public abstract class CommonGameState extends BasicGameState {
 		}
     }
 
-	public void showDialog(final String text) {
-		final DialogBox d = new DialogBox(this, text);
-		d.show();
-	}
-
-	//give a callback which should be called when the dialog is closed
-	public void showDialog(final String text, final IDialogClosed callback) {
-		showDialog(text);
-		dialogCallback = callback;
-	}
-
 	public void activateDialogs() {
 		if(currentDialogBox == null && dialogQueue.size() > 0)
 			nextDialog();
