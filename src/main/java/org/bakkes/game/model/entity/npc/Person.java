@@ -8,14 +8,19 @@ import org.bakkes.game.view.overworld.DialogBox;
 import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 
 public class Person extends Entity{
 
 	private Closure onInteract = null;
-	@Inject private DialogBox dialog;
+	@Inject private Provider<DialogBox> dialogProvider;
 	@Inject private Player player;
 
+	@Override
+	public void setName(final String to){
+		super.setName(to);
+	}
 	public void interact(){
 		Log.info("talking to " + getName() + " on location: " + getPosition());
 		if(onInteract == null){
@@ -31,6 +36,8 @@ public class Person extends Entity{
 	}
 
 	public void dialog( final String text){
+		final DialogBox dialog = dialogProvider.get();
+		dialog.setTitle(getName() + ":");
 		dialog.setText(text);
 		dialog.show();
 	}

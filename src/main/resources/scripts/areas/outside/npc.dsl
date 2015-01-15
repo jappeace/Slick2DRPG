@@ -13,15 +13,26 @@ person {
 person {
 	facing 'east'
 	name 'friend'
+	onInteract{
+		dialog "I hate you!"
+	}
 	location 20,5
 }
 person {
 	facing 'west'
 	name 'bencent'
+	onInteract{
+		dialog "Vanaaf waterpijp?" 
+	}
 	location 8,14
 }
 person {
+	onInteract{
+		dialog "I am SLEG, son of SLEG"
+		dialog "Give me all your money or there will be battle" 
+		dialog "... functionality not implemented yet..." 
+	}
 	facing 'north'
-	name 'bully'
+	name 'SLEG'
 	location 20,30
 }
