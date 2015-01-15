@@ -1,8 +1,5 @@
 package org.bakkes.game.view;
 
-import java.util.List;
-
-import org.bakkes.game.model.battle.move.IMove;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.newdawn.slick.Color;
@@ -13,6 +10,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.sun.xml.internal.ws.util.StringUtils;
 
 public class PokeView extends AView{
 
@@ -29,23 +27,14 @@ public class PokeView extends AView{
 			avatar = new Image(pokemon.getSpritePath());
 		} catch (final SlickException e) {
 		}
-		out = new LineWriterView();
 	}
 	@Override
 	public void renderView(final Graphics g) {
         g.drawImage(avatar, topLeft.x + 260, topLeft.y);
-        if(renderMoves){
-            out.setLocation(new Vector2f(topLeft.x + 260, topLeft.y + 75));
-            out.write("Moves:");
-            final List<IMove> moves = pokemon.getMoves();
-            for(int i = 0; i < moves.size(); i++) {
-                out.write(moves.get(i).getName());
-            }
-        }
 
         g.drawRect(topLeft.x - 5f, topLeft.y + 37, 200f, 130f);
         out.setLocation(new Vector2f(topLeft.x, topLeft.y + 40));
-        out.write("Level: " + pokemon.getLevel());
+        out.write(StringUtils.capitalize(pokemon.getName()) + " level: " + pokemon.getLevel());
         out.write("Stats:");
         final IPokemonStatistics stat = pokemon.getCurrentStats();
         out.write("HP: " + stat.getHealth() + " SP: " + stat.getSpeed());
