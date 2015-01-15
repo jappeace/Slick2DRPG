@@ -2,9 +2,10 @@
 
 person {
 	onInteract{
-		dialog "You just talked to NPC 1!\nWelcome to this game."
 		give 4,4
 		dialog "Here's some protein, your pokemon will love it!" 
+		tought "wtf is protein"
+		dialog "You just talked to NPC 1!\nWelcome to this game."
 		tought "This is why everyone thinks you're crazy"
 	}
 	facing 'south'

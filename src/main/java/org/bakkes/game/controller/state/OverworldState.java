@@ -29,6 +29,7 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class OverworldState extends CommonGameState {
 	public static final int PLAYING_STATE_ID = 0;
@@ -40,6 +41,7 @@ public class OverworldState extends CommonGameState {
 
 
 	private @Inject List<IKeyListener> keyListeners;
+	private @Inject Provider<EntityView> entityViewProvider;
 	private Tile clickedTile;
 	private @Inject Camera camera;
 	private List<IRenderable> translatedViews = new LinkedList<>();
@@ -56,9 +58,13 @@ public class OverworldState extends CommonGameState {
 		super.init(gc, arg1);
 		map.load("outside");
 		for(final Person person : tracker.getPeople()){
-			translatedViews.add(new EntityView(person));
+			final EntityView view = entityViewProvider.get();
+			view.setEntity(person);
+			translatedViews.add(view);
 		}
-		translatedViews.add(new EntityView(player));
+        final EntityView view = entityViewProvider.get();
+        view.setEntity(player);
+		translatedViews.add(view);
 		keyListeners.add(new InventoryToggleListener(this, new InventoryGameComponent(player)));
 	}
 

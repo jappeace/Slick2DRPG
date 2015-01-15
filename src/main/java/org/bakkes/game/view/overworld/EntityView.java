@@ -1,6 +1,7 @@
 package org.bakkes.game.view.overworld;
 
 import org.bakkes.game.R;
+import org.bakkes.game.model.ImageCache;
 import org.bakkes.game.model.entity.Entity;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.view.AView;
@@ -9,17 +10,19 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+import com.google.inject.Inject;
+
 public class EntityView extends AView{
 
 	private SpriteSheet _spriteSheet;
 	private Animation[] _animation;
 	private Entity entity;
 
-	public EntityView(final Entity entity){
-		this.entity = entity;
+	@Inject
+	public EntityView(final ImageCache cache){
 		// probably good defaults, this should become configurable
         try {
-            _spriteSheet = new SpriteSheet(R.sprites+"player.png", 32, 32);
+            _spriteSheet = cache.load(R.sprites+"player.png", 32, 32);
 
             _animation = new Animation[4];
             _animation[Direction.NORTH] = new Animation(_spriteSheet, 0, 0, 2, 0, true, 200, true);
@@ -37,14 +40,20 @@ public class EntityView extends AView{
 	}
 	@Override
 	public void renderView(final Graphics g) {
-		final Animation animation = _animation[entity.getFacing()];
-		if(entity.isWalking()){
+		final Animation animation = _animation[getEntity().getFacing()];
+		if(getEntity().isWalking()){
 			animation.setAutoUpdate(true);
 		}else{
 			animation.setAutoUpdate(false);
 			animation.setCurrentFrame(0);
 		}
-		animation.draw(entity.getPosition().getX(), entity.getPosition().getY());
+		animation.draw(getEntity().getPosition().getX(), getEntity().getPosition().getY());
+	}
+	private Entity getEntity() {
+		return entity;
+	}
+	public void setEntity(final Entity entity) {
+		this.entity = entity;
 	}
 
 }
