@@ -63,7 +63,7 @@ public class BattleState extends CommonGameState {
 
 		this.enemyView = injector.getInstance(PokeView.class);
 
-		final Pokemon player = this.player.getPokemon();
+		final Pokemon player = this.player.getPokebelt().getFirstAlive();
 		pokeModule.setPokemon(player);
 		positionModule.setPosition(new Vector2f(20f, 400));
 		this.playerView = injector.getInstance(PokeView.class);
@@ -83,7 +83,7 @@ public class BattleState extends CommonGameState {
 	 * TODO: make a menu view or something, this is retarded
 	 */
 	private void selectMove(final int selected) {
-		final int moveSize = player.getPokemon().getMoves().size();
+		final int moveSize = playerContestent.getOwn().getMoves().size();
 		if(selected >= moveSize)
 			selectedMove = 0;
 		else if(selected < 0)
@@ -149,7 +149,7 @@ public class BattleState extends CommonGameState {
 			out.write("To heal your pokemon, visit the old lady at the beginning!");
 		} else {
 
-			final List<IMove> myMoves = player.getPokemon().getMoves();
+			final List<IMove> myMoves = playerContestent.getOwn().getMoves();
 			for(int i = 0; i < myMoves.size(); i++) {
 				if(i == selectedMove)
 					g.setColor(new Color(255, 255, 255, 255));

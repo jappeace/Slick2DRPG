@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 
 import org.bakkes.game.controller.events.key.IKeyListener;
-import org.bakkes.game.controller.events.key.InventoryToggleListener;
 import org.bakkes.game.model.entity.command.ICommand;
 import org.bakkes.game.model.entity.npc.Person;
 import org.bakkes.game.model.entity.npc.PersonTracker;
@@ -16,7 +15,6 @@ import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.view.IRenderable;
 import org.bakkes.game.view.overworld.Camera;
 import org.bakkes.game.view.overworld.EntityView;
-import org.bakkes.game.view.overworld.InventoryGameComponent;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -65,7 +63,6 @@ public class OverworldState extends CommonGameState {
         final EntityView view = entityViewProvider.get();
         view.setEntity(player);
 		translatedViews.add(view);
-		keyListeners.add(new InventoryToggleListener(this, new InventoryGameComponent(player)));
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class PlayerContestent extends AContestent {
 	}
 
 	@Override
-	protected Pokemon getOwn() {
+	public Pokemon getOwn() {
 		return ownPokemon;
 	}
 

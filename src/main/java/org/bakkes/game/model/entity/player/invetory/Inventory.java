@@ -1,7 +1,6 @@
-package org.bakkes.game.model.entity.player;
+package org.bakkes.game.model.entity.player.invetory;
 
-import org.bakkes.game.model.items.Item;
-import org.bakkes.game.model.items.ItemCache;
+
 
 public class Inventory {
 
@@ -15,10 +14,6 @@ public class Inventory {
 			}
 		}
 		return false;
-	}
-
-	public void addItem(final int itemID) {
-		addItem(ItemCache.getItemById(itemID));
 	}
 
 	public Item getItem(final int slot) {

@@ -6,8 +6,9 @@ import java.util.List;
 import org.bakkes.game.model.entity.Entity;
 import org.bakkes.game.model.entity.command.ICommand;
 import org.bakkes.game.model.entity.command.WalkPath;
+import org.bakkes.game.model.entity.player.invetory.Inventory;
+import org.bakkes.game.model.entity.player.invetory.PokeBelt;
 import org.bakkes.game.model.map.Tile;
-import org.bakkes.game.model.pokemon.Pokemon;
 import org.newdawn.slick.GameContainer;
 
 import com.google.inject.Inject;
@@ -16,8 +17,9 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class Player extends Entity {
-	@Inject protected Pokemon pokemon;
-	@Inject private Inventory inventory;
+	private @Inject PokeBelt pokebelt;
+
+	private @Inject Inventory inventory;
 	private @Inject Provider<WalkPath> walkPathProvider;
 	private LinkedList<ICommand> commands = new LinkedList<>();
 
@@ -51,10 +53,6 @@ public class Player extends Entity {
 
 	}
 
-	public Pokemon getPokemon() {
-		return pokemon;
-	}
-
 	public Inventory getInventory() {
 		return inventory;
 	}
@@ -82,4 +80,9 @@ public class Player extends Entity {
 	public boolean isDone(){
 		return commands.isEmpty();
 	}
+
+	public PokeBelt getPokebelt() {
+		return pokebelt;
+	}
+
 }

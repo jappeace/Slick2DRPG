@@ -1,19 +1,16 @@
 package org.bakkes.game.controller.events.key;
 
 import org.bakkes.game.controller.state.OverworldState;
-import org.bakkes.game.view.overworld.InventoryGameComponent;
+import org.bakkes.game.view.overworld.InventoryView;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.util.Log;
 
-public class InventoryToggleListener implements IKeyListener {
-	private OverworldState game;
-	private InventoryGameComponent inventoryComponent;
-	private boolean enabled = false;
+import com.google.inject.Inject;
 
-	public InventoryToggleListener(final OverworldState playingGameState, final InventoryGameComponent inventoryComponent) {
-		this.game = playingGameState;
-		this.inventoryComponent = inventoryComponent;
-	}
+public class InventoryToggleListener implements IKeyListener {
+	private @Inject OverworldState game;
+	private @Inject InventoryView inventoryComponent;
+	private boolean enabled = false;
 
 	@Override
 	public void KeyDown(final int key, final char c) {

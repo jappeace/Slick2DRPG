@@ -1,24 +1,27 @@
 package org.bakkes.game.view.overworld;
 
-import org.bakkes.game.model.entity.player.Inventory;
+import org.bakkes.game.R;
+import org.bakkes.game.model.ImageCache;
 import org.bakkes.game.model.entity.player.Player;
-import org.bakkes.game.model.items.Item;
+import org.bakkes.game.model.entity.player.invetory.Inventory;
+import org.bakkes.game.model.entity.player.invetory.Item;
 import org.bakkes.game.view.AView;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.util.Log;
 
-public class InventoryGameComponent extends AView {
+import com.google.inject.Inject;
+
+public class InventoryView extends AView {
 	private static final Color ITEM_HIGHLIGHTED_COLOR = new Color(205, 201, 201, 128);
 	private static final Color INVENTORY_BACKGROUND_COLOR = new Color(0, 0, 0, 128);
 	private static final Color INVENTORY_OUTLINE_COLOR = new Color(255, 255, 255);
+	private @Inject ImageCache images;
 
-	private Player player;
+	private @Inject Player player;
 	private int currentlySelected = 0;
-
-	public InventoryGameComponent(final Player player) {
-		this.player = player;
-	}
 
 	public void down() {
 		currentlySelected--;
@@ -68,7 +71,12 @@ public class InventoryGameComponent extends AView {
 					g.setColor(INVENTORY_OUTLINE_COLOR);
 				}
 
-				g.drawImage(item.getImage(), currentlyDrawing.getX(), currentlyDrawing.getY());
+				final String path =R.itemSprites + item.getId() + ".png";
+				try {
+					g.drawImage(images.load(path), currentlyDrawing.getX(), currentlyDrawing.getY());
+				} catch (final SlickException e) {
+					Log.warn("failed drwaing " + path);
+				}
 				g.drawString(item.getName(), currentlyDrawing.getX() + 32, currentlyDrawing.getY() + 4);
 				currentlyDrawing.add(new Vector2f(0, 32));
 
