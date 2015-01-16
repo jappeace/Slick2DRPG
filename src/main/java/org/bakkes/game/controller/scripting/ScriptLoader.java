@@ -32,7 +32,7 @@ public class ScriptLoader {
 		boolean success = false;
 		final File file = new File(path);
 		if(!file.isFile()){
-			Log.warn("script file is not a file: " + path);
+			Log.warn("script file is not a file: " + path + " \n pwd: " + new File(".").getAbsolutePath());
 			return success;
 		}
 

@@ -1,6 +1,5 @@
 package org.bakkes.game.controller.scripting.dsl;
 
-import static org.bakkes.game.model.GameInfo.ANIMATION_SCRIPT_FOLDER;
 import groovy.lang.Closure;
 
 import org.bakkes.game.R;
@@ -74,9 +73,9 @@ public class AnimationDsl extends ADsl{
      * mapping tiles on a sprite sheet is a horrible job
      * this commands lets you use previous mappings as long as they use the same pattern
      */
-	public void offset(final String path, final Integer left, final Integer top){
+	public void offset(final String fileName, final Integer left, final Integer top){
 		this.offset = new Tile(left, top);
-		loader.load(ANIMATION_SCRIPT_FOLDER + path + ".dsl",this);
+		loader.load(R.overworldAnimationScript + fileName + ".dsl",this);
 	}
 
 }

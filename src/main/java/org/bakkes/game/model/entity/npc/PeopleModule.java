@@ -32,7 +32,7 @@ public class PeopleModule extends AbstractModule{
 		previousAreaName = areaNameHolder.getAreaName();
 		people.clear();
 		npcdsl.setPeople(people);
-		scriptloader.load(R.scripts + "/areas/" + areaNameHolder.getAreaName() + "/npc.dsl", npcdsl);
+		scriptloader.load(R.overworldAreas + areaNameHolder.getAreaName() + "/npc.dsl", npcdsl);
 
         tracker.putBlockedTiles("npc layer", people);
 

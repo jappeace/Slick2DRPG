@@ -1,7 +1,6 @@
 package org.bakkes.game.view.overworld;
 
-import static org.bakkes.game.model.GameInfo.ANIMATION_SCRIPT_FOLDER;
-
+import org.bakkes.game.R;
 import org.bakkes.game.controller.scripting.ScriptLoader;
 import org.bakkes.game.controller.scripting.dsl.AnimationDsl;
 import org.bakkes.game.model.entity.Entity;
@@ -41,8 +40,8 @@ public class EntityView extends AView{
 		// try loading a entity representation based on its name
 		// I considered giving a animation name but that is just tedious
 		// Don't forget to replace spaces, filesystems hate spaces
-		if(!loader.load(ANIMATION_SCRIPT_FOLDER + entity.getName().toLowerCase().replace(' ', '_')  + ".dsl", dsl)){
-			loader.load(ANIMATION_SCRIPT_FOLDER + DEFAULT_ANIMATION + ".dsl", dsl);
+		if(!loader.load(R.overworldAnimationScript + entity.getName().toLowerCase().replace(' ', '_')  + ".dsl", dsl)){
+			loader.load(R.overworldAnimationScript + DEFAULT_ANIMATION + ".dsl", dsl);
 		}
         _animation = dsl.getResult();
 	}
