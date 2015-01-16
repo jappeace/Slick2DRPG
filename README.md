@@ -6,28 +6,29 @@ frustrations with the original game. For example:
 * Why can I only have 4 moves for each pokemon
 * Why does every action get precided by a very slow moving text (fixed later by emulators)
 * Why can I only carry 6 pokemon (probably because the gameboy had to little ram)
-* The battles are kindof repetative
-* To much is decided on level alone
+*	chris told me this is because they want you to succeed with only 6.
+* The battles are kindof repetative, I think I already made them more fun
+* To much is decided on level alone, (I might have made it worse)
 
 ## TODO
 First I will try to emulate the orignal pokemongame. I'll create a working (stable) prototype
 as soon as possible.
-
 * add trainers and npc's trough scripting
 * catch pokemon
 * Make the overworld work
-** Go into buildings
-** different areas which would contain
-*** diferent wild pokemon for each area
-*** reduce script sizes (the original pokemon had hunderds of trainers, imagine, it would be quite a bit less annoying to maintain this with trainers for each area (and more stable)
+*	Go into buildings
+* 	different areas which would contain
+* 		diferent wild pokemon for each area
+* 		reduce script sizes (the original pokemon had hunderds of trainers, imagine, it would be quite a bit less annoying to maintain this with trainers for each area (and more stable)
 * add a pokecenter
 * add a mall
 * add gyms
 
 
 # DONE
-* --pathfinding was a real bitch--
-* -declaring pokemon and their moves-
+* animation for npc's trough scripting.
+* pathfinding was a real bitch
+* declaring pokemon and their moves
 * own pokemon receives xp after batle
 * own pokemon levels up
 * talk to npc's
