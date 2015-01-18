@@ -1,25 +1,24 @@
 package org.bakkes.game.model.pokemon;
 
-import groovy.lang.Closure;
-
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.bakkes.game.R;
-import org.bakkes.game.controller.scripting.ScriptLoader;
+import org.bakkes.game.model.IHasSpriteName;
 import org.bakkes.game.model.battle.move.IMove;
-import org.bakkes.game.model.battle.move.Move;
-import org.newdawn.slick.util.Log;
 
-public class PokemonSpecies implements IPokemonSpecies{
-	String spriteName;
-	String evolution;
-	String name;
-	int evolutionLevel;
-	PokemonStatistics base = new PokemonStatistics();
-	PokemonStatistics increase = new PokemonStatistics();
+public class PokemonSpecies implements IPokemonSpecies, IHasSpriteName{
+	private String spriteName;
+	/**
+	 * empty string means no evolution (final form)
+	 */
+	private String evolution = "";
+	private String name;
+	private int evolutionLevel;
+	private PokemonStatistics base = new PokemonStatistics();
+	private PokemonStatistics increase = new PokemonStatistics();
 	private float trainingSpeed = 1;
+	private Type type;
+	private List<IMove> moves = new LinkedList<>();
 
 	public PokemonSpecies(){
 		increase.health = 10;
@@ -28,9 +27,6 @@ public class PokemonSpecies implements IPokemonSpecies{
 		increase.speed = 3;
 	}
 
-    final ScriptLoader loader = new ScriptLoader();
-	Type type;
-	List<IMove> moves = new LinkedList<>();
 	@Override
 	public final String getSpriteName() {
 		return spriteName;
@@ -59,6 +55,7 @@ public class PokemonSpecies implements IPokemonSpecies{
 	public float getTrainingSpeed() {
 		return trainingSpeed;
 	}
+	@Override
 	public final void setSpriteName(final String spriteName) {
 		this.spriteName = spriteName;
 	}
@@ -71,35 +68,11 @@ public class PokemonSpecies implements IPokemonSpecies{
 	public final void setEvolutionLevel(final int evolutionLevel) {
 		this.evolutionLevel = evolutionLevel;
 	}
-	public void base(final Closure commands){
-		commands.setDelegate(base);
-		commands.call();
+	public final void setType(final Type type) {
+		this.type = type;
 	}
-	public void onLevelIncrease(final Closure commands){
-		commands.setDelegate(increase);
-		commands.call();
-	}
-	public final void setType(final String type) {
-		if(type.equals(Type.unkown.name())){
-			Log.warn("the unkown type is only meant for errorhandeling, using it in production code may lead to problems");
-		}
-		for(final Type t : Type.values()){
-			if(t.name().equals(type)){
-                this.type = t;
-                return;
-			}
-		}
-		Log.warn("type " + type + " not found, setting to unkown");
-		this.type = Type.unkown;
-	}
-	public final void setMoves(final Collection<String> moves) {
-		for(final String moveName : moves){
-			Log.info("reading " + moveName);
-			final Move move = new Move();
-			loader.load(R.moveScripts + moveName + ".dsl", move);
-			move.setName(moveName); // avoid confusion user can't override name
-			this.moves.add(move);
-		}
+	public final void setMoves(final List<IMove> moves) {
+		this.moves = moves;
 	}
 	public void setTrainingSpeed(final float trainingSpeed) {
 		this.trainingSpeed = trainingSpeed;
@@ -111,5 +84,11 @@ public class PokemonSpecies implements IPokemonSpecies{
 	@Override
 	public IPokemonStatistics getIncrease() {
 		return increase;
+	}
+	public void setBase(final PokemonStatistics to){
+		this.base = to;
+	}
+	public void setIncrease(final PokemonStatistics to){
+		this.increase = to;
 	}
 }

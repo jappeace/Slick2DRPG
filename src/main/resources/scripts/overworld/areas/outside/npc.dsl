@@ -1,15 +1,13 @@
-
-
 person {
 	name 'nice old lady'
 	facing 'south'
 	location 12,7
 	onInteract{
-		give 4,4
-		dialog "Here's some protein, your pokemon will love it!" 
-		tought "wtf is protein"
+		give "potion","potion"
+		dialog "Here are some potions, your pokemon will love it!" 
+		tought "uhhh, I wish there was just a poke center"
 		dialog "You just talked to NPC 1!\nWelcome to this game."
-		tought "This is why everyone thinks you're crazy"
+		tought "This is why everyone thinks you're crazy, calling yourself npc 1?"
 	}
 }
 person {

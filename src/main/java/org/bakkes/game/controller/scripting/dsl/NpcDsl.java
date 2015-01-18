@@ -12,19 +12,16 @@ import com.google.inject.Provider;
 
 public class NpcDsl extends ADsl{
 	private List<Person> people;
-	private @Inject Provider<Person> personProvider;
 	private @Inject Provider<PersonDsl> dslProvider;
 	public void setPeople(final List<Person> people){
 		this.people = people;
 	}
 	public void person(final Closure commands){
 
-		final Person person = personProvider.get();
-		people.add(person);
 		final PersonDsl factory = dslProvider.get();
-		factory.setTarget(person);
-		commands.setDelegate(factory);
-		commands.call();
+		delegate(commands, factory);
+		final Person person = factory.getTarget();
+		people.add(person);
 
 		if(!factory.isDone()){
 			Log.warn("a person was not complete, remember to set both position and facing fields");

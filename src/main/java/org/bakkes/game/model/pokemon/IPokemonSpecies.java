@@ -9,7 +9,7 @@ import org.bakkes.game.model.battle.move.IMove;
 /**
  * descibes how a certain kind of pokemon evolves over time
  */
-public interface IPokemonSpecies {
+public interface IPokemonSpecies{
 	/**
 	 * sprites can be named weirdly
 	 * @return

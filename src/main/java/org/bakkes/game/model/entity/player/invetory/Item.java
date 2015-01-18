@@ -1,19 +1,19 @@
 package org.bakkes.game.model.entity.player.invetory;
 
 import org.bakkes.game.model.AModel;
-import org.newdawn.slick.Image;
+import org.bakkes.game.model.IHasSpriteName;
 
-public class Item extends AModel{
+public class Item extends AModel implements IHasSpriteName{
+	String spriteName;
 
-	private Image image;
-
-	private int id;
-	public int getId() {
-		return id;
+	@Override
+	public String getSpriteName() {
+		return spriteName;
 	}
 
-	public void setId(final int id) {
-		this.id = id;
+	@Override
+	public void setSpriteName(final String to) {
+		this.spriteName = to;
 	}
 }
 

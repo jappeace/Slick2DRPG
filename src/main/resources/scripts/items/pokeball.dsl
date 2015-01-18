@@ -1,0 +1,1 @@
+spriteName = '0'

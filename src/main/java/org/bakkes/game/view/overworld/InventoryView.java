@@ -71,7 +71,7 @@ public class InventoryView extends AView {
 					g.setColor(INVENTORY_OUTLINE_COLOR);
 				}
 
-				final String path =R.itemSprites + item.getId() + ".png";
+				final String path =R.itemSprites + item.getSpriteName() + ".png";
 				try {
 					g.drawImage(images.load(path), currentlyDrawing.getX(), currentlyDrawing.getY());
 				} catch (final SlickException e) {

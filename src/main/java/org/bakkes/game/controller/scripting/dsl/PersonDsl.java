@@ -5,6 +5,8 @@ import groovy.lang.Closure;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bakkes.game.controller.scripting.dsl.anotation.Required;
+import org.bakkes.game.controller.scripting.dsl.anotation.Result;
 import org.bakkes.game.model.entity.npc.Person;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.Tile;
@@ -25,13 +27,13 @@ public class PersonDsl extends ADsl{
 		directions.put("west", Direction.WEST);
 	}
 
-	private Person target;
+	private Person target = new Person();
 	private @Inject Provider<InteractDsl> dslProvider;
 
-	public void setTarget(final Person target) {
-		this.target = target;
+	@Result
+	public Person getTarget(){
+		return target;
 	}
-
 	public void onInteract(final Closure callback){
 		final InteractDsl dsl = dslProvider.get();
 		dsl.target = target;
@@ -39,6 +41,7 @@ public class PersonDsl extends ADsl{
 		target.setInteract(callback);
 	}
 
+	@Required
 	public void facing(final String direction){
 		isFacingSet = true;
 		target.setFacing(directions.get(direction));
@@ -48,6 +51,7 @@ public class PersonDsl extends ADsl{
 	public boolean isDone(){
 		return super.isDone() && isPositionSet && isFacingSet;
 	}
+	@Required
 	public void location(final Integer left, final Integer top){
 		isPositionSet = true;
 		target.setPosition(new Tile(left, top).topLeftPixels());
