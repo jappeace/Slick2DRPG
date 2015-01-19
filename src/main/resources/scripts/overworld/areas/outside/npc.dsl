@@ -3,7 +3,9 @@ person {
 	facing 'south'
 	location 12,7
 	onInteract{
-		give "potion","potion"
+		player{
+            giveItem "potion","potion"
+		}
 		dialog "Here are some potions, your pokemon will love it!" 
 		tought "uhhh, I wish there was just a poke center"
 		dialog "You just talked to NPC 1!\nWelcome to this game."
@@ -38,4 +40,25 @@ person {
 		dialog "... functionality not implemented yet..." 
 		tought "WTF!"
 	}
+}
+person {
+	name 'bencent'
+	facing 'south'
+	onInteract{
+		dialog "I don't want this pokemon any more, do you want it?"
+		tought "uhhh, I hate pokemon"
+		player{
+			givePokemon{
+				species="charmender"
+				xp=500
+				statistics{
+					health=50
+					speed=10
+					defence=10
+					attack=10
+				}
+			}
+		}
+	}
+	location 50,30
 }

@@ -6,27 +6,21 @@ import org.bakkes.game.model.pokemon.PokemonSpecies;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.google.inject.name.Named;
 
 public class SpeciesModule extends AbstractModule{
 
 	private String speciesName;
-	private  int level;
 
 	public SpeciesModule(){
-		this(1, "caterpie");
+		this("caterpie");
 	}
-	public SpeciesModule(final int level, final String speciesName){
-		this.level = level;
+	public SpeciesModule(final String speciesName){
 		this.speciesName = speciesName;
 	}
 
 	private ScriptLoader scriptLoader = new ScriptLoader();
 	public void setSpeciesName(final String name){
         speciesName = name;
-	}
-	public void setLevel(final int level) {
-		this.level = level;
 	}
 
 
@@ -40,9 +34,4 @@ public class SpeciesModule extends AbstractModule{
 		species.setName(speciesName); // user can't overide, filename is pokemon name to avoid confusion
 		return species;
 	}
-
-	public @Named("pokelevel") @Provides int provideLevel() {
-		return level;
-	}
-
 }

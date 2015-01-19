@@ -8,7 +8,6 @@ import org.bakkes.game.model.battle.move.IMove;
 import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 public class Pokemon{
 
@@ -18,22 +17,45 @@ public class Pokemon{
 	private int level = 0;
 	private int experiance;
 	private String name = "";
-	private Random random;
+	private @Inject Random random;
 	@Inject
-	public Pokemon(@Named("pokelevel") final int level, final IPokemonSpecies species, final Random random){
-		this.random = random;
-		normalStats = species.getBase();
+	public Pokemon(final IPokemonSpecies species){
+		this(species, species.getBase());
+	}
+
+	public Pokemon(final IPokemonSpecies species, final IPokemonStatistics stats){
+		normalStats = stats;
 		this.species = species;
-		setExperiance(calculateXpFor(level));
-		for(int i = 0; i < level; i++){
-			levelUp();
+		heal();
+
+	}
+	/**
+	 * level up to a specific level, this has all the user fuckup gaurds
+	 * @param lvl
+	 */
+	public void setLevel(final int lvl){
+		if(lvl < 0){
+			// I'm not gonna implement negitve levels
+			throw new IllegalArgumentException("trying to level up to a negative level");
 		}
+		setExperiance(calculateXpFor(lvl));
+		if(lvl > level){
+			// this is probably a bug
+			Log.warn("leveling down?");
+		}
+		level(lvl - level);
 		heal();
 	}
 
-	private void levelUp(){
-		level = getLevel() + 1;
-		normalStats = normalStats.plus(species.getIncrease().createFrom(random));
+	private void level(final int diff){
+		level = getLevel() + diff;
+		for(int i = 0; i < Math.abs(diff); i++){
+			if(diff > 0){
+                normalStats = normalStats.plus(species.getIncrease().createFrom(random));
+                continue;
+			}
+            normalStats = normalStats.minus(species.getIncrease().createFrom(random));
+		}
 	}
 	public final IPokemonSpecies getSpecies() {
 		return species;
@@ -68,7 +90,7 @@ public class Pokemon{
 		if(getExperiance() > nextLevel){
 			Log.info("level up!!");
             final PokemonStatistics current = new PokemonStatistics(normalStats);
-			levelUp();
+			level(1);
 			return normalStats.minus(current).plus(addExperiance(0)); // recursive to make sure lvl match xp (especialy usefull for low level battles
 		}
 		return null; // no leveling
@@ -97,8 +119,22 @@ public class Pokemon{
 		return experiance;
 	}
 
-	private void setExperiance(final int experiance) {
+	/**
+	 * set the experiance and adjust the level without changing the statistics
+	 * @param experiance
+	 */
+	public void setExperiance(final int experiance) {
+		if(experiance < 0){
+			throw new IllegalArgumentException("negative experiance not suported, (yes this games gives only positive experiances)");
+		}
+		if(experiance < this.experiance){
+			// this function will not level down
+			Log.warn("setting experiance to a lower amount than before?");
+		}
 		this.experiance = experiance;
+		while(calculateXpFor(getLevel()) < experiance){
+			level++;
+		}
 	}
 
 	public String getName() {

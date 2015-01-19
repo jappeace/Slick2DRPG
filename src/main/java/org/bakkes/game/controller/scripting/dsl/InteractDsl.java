@@ -1,9 +1,8 @@
 package org.bakkes.game.controller.scripting.dsl;
 
-import org.bakkes.game.R;
-import org.bakkes.game.controller.scripting.ScriptLoader;
-import org.bakkes.game.model.entity.npc.Person;
-import org.bakkes.game.model.entity.player.Player;
+import groovy.lang.Closure;
+
+import org.bakkes.game.model.AModel;
 import org.bakkes.game.view.overworld.DialogBox;
 
 import com.google.inject.Inject;
@@ -11,30 +10,38 @@ import com.google.inject.Provider;
 
 public class InteractDsl extends ADsl {
 	private @Inject Provider<DialogBox> dialogProvider;
-	private @Inject Player player;
-	private @Inject Provider<ItemDsl> itemDslProvider;
-	private @Inject ScriptLoader loader;
+	private @Inject Provider<PlayerDsl> playerDslProvider;
+	public AModel target;
+	/**
+	 * show a dialog
+	 * @param text
+	 * @return
+	 */
+	public DialogBox dialog(final String text){
+		return dialog(text, target.getName() + ":");
+	}
 
-	public Person target;
-	public DialogBox dialog( final String text){
+	public DialogBox dialog(final String text, final String title){
 		final DialogBox dialog = dialogProvider.get();
-		dialog.setTitle(target.getName() + ":");
+		dialog.setTitle(title);
 		dialog.setText(text);
 		dialog.show();
 		return dialog;
 	}
 
-	public void give(final String ... items){
-		for(final String itemName : items){
-			final ItemDsl dsl = itemDslProvider.get();
-			loader.load(R.itemScripts + itemName + ".dsl", dsl);
-			dsl.setItemName(itemName);
-            player.getInventory().addItem(dsl.getItem());
-		}
+	/**
+	 * do stuff to the player
+	 * @param commands
+	 */
+	public void player(final Closure commands){
+		delegate(commands, playerDslProvider.get());
 	}
 
+	/**
+	 * show a tought
+	 * @param text
+	 */
 	public void tought(final String text){
-		final DialogBox box = dialog(text);
-		box.setTitle("you think:");
+        dialog(text, "you think:");
 	}
 }

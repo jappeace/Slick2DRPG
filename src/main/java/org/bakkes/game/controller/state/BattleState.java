@@ -52,9 +52,10 @@ public class BattleState extends CommonGameState {
 	 * TODO: clear and use a module instead
 	 */
 	public void startWild() {
-		Injector injector = Guice.createInjector(new SpeciesModule(GameInfo.WILD_POKE_LEVEL, GameInfo.WILD[random.nextInt(GameInfo.WILD.length)]));
+		Injector injector = Guice.createInjector(new SpeciesModule(GameInfo.WILD[random.nextInt(GameInfo.WILD.length)]));
 
 		final Pokemon enemy = injector.getInstance(Pokemon.class);
+		enemy.setLevel(GameInfo.WILD_POKE_LEVEL);
 
 		final PokemonModule pokeModule = new PokemonModule(enemy);
 		final PositionModule positionModule = new PositionModule(new Vector2f(20,10));
