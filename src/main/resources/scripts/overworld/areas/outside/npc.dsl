@@ -3,7 +3,7 @@ person {
 	facing 'south'
 	location 12,7
 	onInteract{
-		player{
+		selectPlayer{
             giveItem "potion","potion"
 		}
 		dialog "Here are some potions, your pokemon will love it!" 

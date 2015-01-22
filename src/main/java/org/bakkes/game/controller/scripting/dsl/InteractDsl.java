@@ -33,7 +33,7 @@ public class InteractDsl extends ADsl {
 	 * do stuff to the player
 	 * @param commands
 	 */
-	public void player(final Closure commands){
+	public void selectPlayer(final Closure commands){
 		delegate(commands, playerDslProvider.get());
 	}
 
