@@ -1,0 +1,68 @@
+package org.bakkes.game.model.entity;
+
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.bakkes.game.model.AModel;
+import org.bakkes.game.model.map.Tile;
+import org.newdawn.slick.geom.Vector2f;
+
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
+/**
+ * a entity in the overworld has to have a position (form top left of the map in pixels),
+ * and offers
+ */
+public class OverworldEntity extends AModel implements IOverworldEntity{
+	private @Named("position") @Inject Vector2f position;
+
+	/**
+	 * overwrite the regular name for a spritname,
+	 * By convention use a regular name, it makes things more readable.
+	 *
+	 * all the pokemon are named by a number instead of a sprite, renaming them all
+	 * is a bit of a choir, so for now I've implemented thsi feature
+	 *
+	 * Using this for example to rename a npc whilest having a different skin is a bad idea.
+	 * Instead you should create a symlink (shortcut) to the desired animation so he will always have the
+	 * same skin
+	 */
+	private String spriteName = "";
+
+	@Override
+	public Vector2f getPosition() {
+		return position;
+	}
+
+	@Override
+	public void setPosition(final Vector2f to){
+		position = to;
+	}
+
+	@Override
+	public Collection<Tile> getBlockedTiles() {
+		final List<Tile> result = new LinkedList<>();
+		result.add(getTile());
+		return result;
+	}
+	@Override
+	public Tile getTile() {
+		return Tile.createFromPixelsCoordinates(position);
+	}
+
+	@Override
+	public String getSpriteName() {
+		if(spriteName.isEmpty()){
+            return getName();
+		}
+		return spriteName;
+	}
+
+	@Override
+	public void setSpriteName(final String to) {
+		assert to != null;
+		spriteName = to;
+	}
+}

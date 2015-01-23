@@ -1,9 +1,9 @@
 package org.bakkes.game.model.entity.player.invetory;
 
-import org.bakkes.game.model.AModel;
 import org.bakkes.game.model.IHasSpriteName;
+import org.bakkes.game.model.entity.OverworldEntity;
 
-public class Item extends AModel implements IHasSpriteName{
+public class Item extends OverworldEntity implements IHasSpriteName{
 	String spriteName;
 
 	@Override

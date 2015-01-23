@@ -2,11 +2,11 @@ package org.bakkes.game.model.entity.npc;
 
 import groovy.lang.Closure;
 
-import org.bakkes.game.model.entity.Entity;
+import org.bakkes.game.model.entity.Character;
 import org.newdawn.slick.util.Log;
 
 
-public class Person extends Entity{
+public class Person extends Character{
 
 	private Closure onInteract = null;
 

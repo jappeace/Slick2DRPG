@@ -3,7 +3,7 @@ package org.bakkes.game.model.entity.player;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.bakkes.game.model.entity.Entity;
+import org.bakkes.game.model.entity.Character;
 import org.bakkes.game.model.entity.command.ICommand;
 import org.bakkes.game.model.entity.command.WalkPath;
 import org.bakkes.game.model.entity.player.invetory.Inventory;
@@ -16,7 +16,7 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 @Singleton
-public class Player extends Entity {
+public class Player extends Character {
 	private @Inject PokeBelt pokebelt;
 
 	private @Inject Inventory inventory;

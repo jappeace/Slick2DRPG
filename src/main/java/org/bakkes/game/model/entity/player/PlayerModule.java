@@ -1,7 +1,7 @@
 package org.bakkes.game.model.entity.player;
 
 import org.bakkes.game.controller.scripting.SpeciesModule;
-import org.bakkes.game.model.entity.Entity;
+import org.bakkes.game.model.entity.Character;
 import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.model.pokemon.IPokemonSpecies;
 import org.bakkes.game.view.PositionModule;
@@ -24,7 +24,7 @@ public class PlayerModule extends PositionModule{
 
 	@Override
 	protected void configure() {
-		bind(Entity.class).to(Player.class);
+		bind(Character.class).to(Player.class);
 	}
 
 	@Provides @Named("pokelevel") int providePokeLevel(){

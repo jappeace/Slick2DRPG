@@ -3,7 +3,7 @@ package org.bakkes.game.view.overworld;
 import org.bakkes.game.R;
 import org.bakkes.game.controller.scripting.ScriptLoader;
 import org.bakkes.game.controller.scripting.dsl.AnimationDsl;
-import org.bakkes.game.model.entity.Entity;
+import org.bakkes.game.model.entity.Character;
 import org.bakkes.game.view.AView;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
@@ -13,7 +13,7 @@ import com.google.inject.Inject;
 public class EntityView extends AView{
 
 	private Animation[] _animation;
-	private Entity entity;
+	private Character entity;
 	private @Inject ScriptLoader loader;
 	private @Inject AnimationDsl dsl;
 	private static final String DEFAULT_ANIMATION = "default";
@@ -32,10 +32,10 @@ public class EntityView extends AView{
 		}
 		animation.draw(getEntity().getPosition().getX(), getEntity().getPosition().getY());
 	}
-	private Entity getEntity() {
+	private Character getEntity() {
 		return entity;
 	}
-	public void setEntity(final Entity entity) {
+	public void setEntity(final Character entity) {
 		this.entity = entity;
 		// try loading a entity representation based on its name
 		// I considered giving a animation name but that is just tedious
