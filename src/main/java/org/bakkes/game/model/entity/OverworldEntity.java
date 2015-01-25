@@ -73,7 +73,7 @@ public class OverworldEntity extends AModel implements IOverworldEntity{
 		assert to != null;
 		spriteName = to;
 	}
-    private Closure onInteract = null;
+    private Closure<Void> onInteract = null;
     @Override
 	public void interact(){
         Log.info("interacting with " + getName() + " on location: " + getPosition());
@@ -85,7 +85,7 @@ public class OverworldEntity extends AModel implements IOverworldEntity{
     }
 
     @Override
-	public void setInteract(final Closure callback){
+	public void setInteract(final Closure<Void> callback){
         onInteract = callback;
     }
 }

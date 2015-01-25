@@ -11,7 +11,7 @@ import com.google.inject.Provider;
 public abstract class AInteractableDsl extends ASpriteNamedDsl{
 	private @Inject Provider<InteractDsl> dslProvider;
 
-	public void onInteract(final Closure callback){
+	public void onInteract(final Closure<Void> callback){
 		final InteractDsl dsl = dslProvider.get();
 		dsl.target = getInteractTarget();
 		callback.setDelegate(dsl);

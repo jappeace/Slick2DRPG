@@ -1,8 +1,8 @@
 package org.bakkes.game.controller.scripting.dsl;
 
-import org.bakkes.game.controller.scripting.loader.IScriptLoadableType;
-
 import groovy.lang.Closure;
+
+import org.bakkes.game.controller.scripting.loader.IScriptLoadableType;
 
 /**
  * just a base class
@@ -25,9 +25,9 @@ public abstract class ADsl implements IScriptLoadableType{
 	 * @param commands
 	 * @param to
 	 */
-	protected void delegate(final Closure commands, final Object to){
+	protected <T> T delegate(final Closure<T> commands, final Object to){
 		commands.setDelegate(to);
 		commands.setResolveStrategy(Closure.DELEGATE_FIRST);
-		commands.call();
+		return commands.call();
 	}
 }

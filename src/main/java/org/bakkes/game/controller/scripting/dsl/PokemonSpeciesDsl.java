@@ -32,13 +32,13 @@ public class PokemonSpeciesDsl extends ASpriteNamedDsl {
 	public final void setEvolutionLevel(final int evolutionLevel) {
 		target.setEvolutionLevel(evolutionLevel);
 	}
-	public void base(final Closure commands){
+	public void base(final Closure<Void> commands){
 		target.setBase(createFromCommands(commands));
 	}
-	public void onLevelIncrease(final Closure commands){
+	public void onLevelIncrease(final Closure<Void> commands){
 		target.setIncrease(createFromCommands(commands));
 	}
-	private PokemonStatistics createFromCommands(final Closure commands){
+	private PokemonStatistics createFromCommands(final Closure<Void> commands){
 		final PokemonStatistics stats = statisticsProvider.get();
 		delegate(commands, stats);
 		return stats;

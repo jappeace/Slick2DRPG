@@ -30,19 +30,19 @@ public class AnimationDsl extends ADsl{
 		duration = to;
 	}
 
-	public void north(final Closure commands){
+	public void north(final Closure<Void> commands){
 		buildDirection(Direction.NORTH,commands);
 	}
-	public void east(final Closure commands){
+	public void east(final Closure<Void> commands){
 		buildDirection(Direction.EAST,commands);
 	}
-	public void south(final Closure commands){
+	public void south(final Closure<Void> commands){
 		buildDirection(Direction.SOUTH,commands);
 	}
-	public void west(final Closure commands){
+	public void west(final Closure<Void> commands){
 		buildDirection(Direction.WEST,commands);
 	}
-	public void buildDirection(final int direction, final Closure commands){
+	public void buildDirection(final int direction, final Closure<Void> commands){
         result[direction] = createAnimation();
         final TileDsl dsl = tiledslProvider.get();
         commands.setDelegate(dsl);

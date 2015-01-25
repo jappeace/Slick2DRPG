@@ -22,7 +22,7 @@ public class PokemonDsl extends ADsl{
 		species = module.provideSpecies();
 	}
 
-	public void statistics(final Closure commands){
+	public void statistics(final Closure<Void> commands){
         statistics = pokemonStatsProvider.get();
         delegate(commands,statistics);
 	}

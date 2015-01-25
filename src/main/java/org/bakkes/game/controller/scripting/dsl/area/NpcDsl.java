@@ -17,7 +17,7 @@ public class NpcDsl extends ADsl{
 	public void setPeople(final List<Person> people){
 		this.people = people;
 	}
-	public void person(final Closure commands){
+	public void person(final Closure<Void> commands){
 
 		final PersonDsl factory = dslProvider.get();
 		delegate(commands, factory);

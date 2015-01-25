@@ -26,7 +26,7 @@ public class PlayerDsl extends ADsl{
 		}
 	}
 
-	public void givePokemon(final Closure commands){
+	public void givePokemon(final Closure<Void> commands){
 		final PokemonDsl dsl = pokemonDsl.get();
 		delegate(commands,dsl);
 		final Pokemon poke = dsl.createPokemon();
