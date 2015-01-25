@@ -19,7 +19,7 @@ public class BlockedTileTracker {
 		blockers.put(layerName, tiles);
 	}
 
-	Collection<Tile> getAllBlockedTiles(){
+	public Collection<Tile> findAllBlockedTiles(){ // named find cause the operation is really heavy
 		final Collection<Tile> result = new LinkedList<>();
 		for(final Collection<? extends IBlocksTiles> tileset : blockers.values()){
 			for(final IBlocksTiles blocker : tileset){

@@ -68,7 +68,7 @@ public class LayerdMap implements TileBasedMap, IAreaNameAcces {
 			if(isBlocked(location, blockingLayer))
 				return true;
 		}
-		for(final Tile tile : tracker.getAllBlockedTiles()){
+		for(final Tile tile : tracker.findAllBlockedTiles()){
 			if(tile.equals(location)){
 				return true;
 			}

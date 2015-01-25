@@ -4,6 +4,8 @@ import nl.jappieklooster.groovy.math.IMinusOperator;
 import nl.jappieklooster.groovy.math.IMultiply;
 import nl.jappieklooster.groovy.math.IPlusOperator;
 
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.pathfinding.Path.Step;
 
@@ -39,6 +41,10 @@ public class Tile implements IPlusOperator<Tile>, IMinusOperator<Tile>, IMultipl
 		return result;
 	}
 
+	public Shape toShape(){
+		final Vector2f coord = topLeftPixels();
+		return new Rectangle(coord.x, coord.y, WIDTH, HEIGHT);
+	}
 	public Vector2f toVector(){
 		return new Vector2f(top,left);
 	}

@@ -28,6 +28,7 @@ public class ItemAreaModule extends AAreaModule{
 		items.clear();
 		scriptloader.load(R.overworldAreas + areaNameHolder.getAreaName() + "/item.dsl", itemDsl);
 		items = itemDsl.getResult();
+		tracker.putBlockedTiles("items", items);
 		return items;
 	}
 }

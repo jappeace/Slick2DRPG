@@ -16,6 +16,7 @@ import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.view.IRenderable;
+import org.bakkes.game.view.overworld.BlockedTileView;
 import org.bakkes.game.view.overworld.Camera;
 import org.bakkes.game.view.overworld.CharacterView;
 import org.bakkes.game.view.overworld.EntityView;
@@ -46,6 +47,7 @@ public class OverworldState extends CommonGameState {
 	private @Inject Provider<CharacterView> characterViewProvider;
 	private @Inject Provider<EntityView> entityViewProvider;
 	private @Inject Provider<Collection<Item>> items;
+	private @Inject BlockedTileView viewer;
 	private Tile clickedTile;
 	private @Inject Camera camera;
 	private List<IRenderable> translatedViews = new LinkedList<>();
@@ -181,6 +183,7 @@ public class OverworldState extends CommonGameState {
 		camera.drawMap();
 
 		camera.translateGraphics(g);
+		viewer.render(g);
 		if(clickedTile != null && !clickedTile.equals(player.getTile())) {
 			g.setColor(new Color(0, 0, 255, 64));
 			final Vector2f tl = clickedTile.topLeftPixels();
