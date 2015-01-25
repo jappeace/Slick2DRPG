@@ -1,5 +1,7 @@
 package org.bakkes.game.controller.scripting.dsl;
 
+import org.bakkes.game.controller.scripting.loader.IScriptLoadableType;
+
 import groovy.lang.Closure;
 
 /**
@@ -12,7 +14,7 @@ import groovy.lang.Closure;
  * to the correct enum, if not available, log a warning. (We assume the user has access to the logs)
  *
  */
-public abstract class ADsl {
+public abstract class ADsl implements IScriptLoadableType{
 
 	public boolean isDone(){
 		return true;

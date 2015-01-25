@@ -1,9 +1,9 @@
-package org.bakkes.game.controller.scripting.dsl;
+package org.bakkes.game.controller.scripting.dsl.area;
 
 import groovy.lang.Closure;
 
-import org.bakkes.game.R;
-import org.bakkes.game.controller.scripting.ScriptLoader;
+import org.bakkes.game.controller.scripting.dsl.ADsl;
+import org.bakkes.game.controller.scripting.loader.ItemLoader;
 import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.newdawn.slick.util.Log;
@@ -16,17 +16,13 @@ import com.google.inject.Provider;
  */
 public class PlayerDsl extends ADsl{
 
-	private @Inject Provider<ItemDsl> itemDslProvider;
 	private @Inject Provider<PokemonDsl> pokemonDsl;
-	private @Inject ScriptLoader loader;
 	private @Inject Player player;
+	private @Inject ItemLoader loader;
 
 	public void giveItem(final String ... items){
 		for(final String itemName : items){
-			final ItemDsl dsl = itemDslProvider.get();
-			loader.load(R.itemScripts + itemName + ".dsl", dsl);
-			dsl.setItemName(itemName);
-            player.getInventory().addItem(dsl.getItem());
+            player.getInventory().addItem(loader.load(itemName));
 		}
 	}
 

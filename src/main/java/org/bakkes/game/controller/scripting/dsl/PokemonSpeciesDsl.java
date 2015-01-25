@@ -5,10 +5,9 @@ import groovy.lang.Closure;
 import java.util.Collection;
 
 import org.bakkes.game.R;
-import org.bakkes.game.controller.scripting.ScriptLoader;
 import org.bakkes.game.controller.scripting.dsl.anotation.Required;
 import org.bakkes.game.controller.scripting.dsl.anotation.Result;
-import org.bakkes.game.model.IHasSpriteName;
+import org.bakkes.game.controller.scripting.loader.ScriptLoader;
 import org.bakkes.game.model.battle.move.Move;
 import org.bakkes.game.model.pokemon.PokemonSpecies;
 import org.bakkes.game.model.pokemon.PokemonStatistics;
@@ -24,10 +23,6 @@ public class PokemonSpeciesDsl extends ASpriteNamedDsl {
 	@Inject Provider<PokemonStatistics> statisticsProvider;
 	@Inject Provider<Move> movesProvider;
 	@Inject ScriptLoader loader;
-	@Override
-	protected IHasSpriteName getSpriteNameBean() {
-		return target;
-	}
 	public final void setEvolution(final String evolution) {
 		target.setEvolution(evolution);
 	}
@@ -74,6 +69,7 @@ public class PokemonSpeciesDsl extends ASpriteNamedDsl {
 	public void setTrainingSpeed(final float trainingSpeed) {
 		target.setTrainingSpeed(trainingSpeed);
 	}
+	@Override
 	@Result
 	public PokemonSpecies getTarget(){
 		return target;

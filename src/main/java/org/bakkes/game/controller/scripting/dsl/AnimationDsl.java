@@ -3,7 +3,7 @@ package org.bakkes.game.controller.scripting.dsl;
 import groovy.lang.Closure;
 
 import org.bakkes.game.R;
-import org.bakkes.game.controller.scripting.ScriptLoader;
+import org.bakkes.game.controller.scripting.loader.ScriptLoader;
 import org.bakkes.game.model.ImageCache;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.Tile;
@@ -64,6 +64,8 @@ public class AnimationDsl extends ADsl{
 	public Animation[] getResult() {
 		// what ever the fuck this does
         for(int i = 0; i <= result.length - 1; i++) {
+        	// I think its something like go >>> <<< >>> instead of >>> >>> >>>
+        	// where every > is a read direction of the tilemap
             result[i].setPingPong(true);
         }
 		return result;

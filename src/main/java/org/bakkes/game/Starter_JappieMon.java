@@ -4,8 +4,9 @@ import java.io.File;
 import org.bakkes.game.controller.init.GameContainerModule;
 import org.bakkes.game.controller.init.GameModule;
 import org.bakkes.game.controller.state.StateModule;
-import org.bakkes.game.model.entity.npc.PeopleModule;
+import org.bakkes.game.model.entity.npc.PeopleAreaModule;
 import org.bakkes.game.model.entity.player.PlayerModule;
+import org.bakkes.game.model.entity.player.invetory.ItemAreaModule;
 import org.bakkes.game.model.map.MapModule;
 import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;
@@ -26,7 +27,8 @@ public class Starter_JappieMon {
 				new MapModule(),
 				new PlayerModule(),
 				new StateModule(),
-				new PeopleModule()
+				new PeopleAreaModule(),
+				new ItemAreaModule()
             );
         injector.getInstance(AppGameContainer.class).start();
 	}

@@ -1,19 +1,23 @@
 package org.bakkes.game.controller.state;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import org.bakkes.game.R;
 import org.bakkes.game.controller.events.key.IKeyListener;
 import org.bakkes.game.model.entity.command.ICommand;
 import org.bakkes.game.model.entity.npc.Person;
 import org.bakkes.game.model.entity.npc.PersonTracker;
 import org.bakkes.game.model.entity.player.Player;
+import org.bakkes.game.model.entity.player.invetory.Item;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.view.IRenderable;
 import org.bakkes.game.view.overworld.Camera;
+import org.bakkes.game.view.overworld.CharacterView;
 import org.bakkes.game.view.overworld.EntityView;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
@@ -39,7 +43,9 @@ public class OverworldState extends CommonGameState {
 
 
 	private @Inject List<IKeyListener> keyListeners;
+	private @Inject Provider<CharacterView> characterViewProvider;
 	private @Inject Provider<EntityView> entityViewProvider;
+	private @Inject Provider<Collection<Item>> items;
 	private Tile clickedTile;
 	private @Inject Camera camera;
 	private List<IRenderable> translatedViews = new LinkedList<>();
@@ -56,11 +62,19 @@ public class OverworldState extends CommonGameState {
 		super.init(gc, arg1);
 		map.load("outside");
 		for(final Person person : tracker.getPeople()){
-			final EntityView view = entityViewProvider.get();
+			final CharacterView view = characterViewProvider.get();
 			view.setEntity(person);
 			translatedViews.add(view);
 		}
-        final EntityView view = entityViewProvider.get();
+		for(final Item item : items.get()){
+			translatedViews.add(
+                entityViewProvider.get().loadView(
+                    R.itemSprites,
+                    item
+                )
+            );
+		}
+        final CharacterView view = characterViewProvider.get();
         view.setEntity(player);
 		translatedViews.add(view);
 	}

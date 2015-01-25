@@ -1,8 +1,9 @@
-package org.bakkes.game.controller.scripting.dsl;
+package org.bakkes.game.controller.scripting.dsl.area;
 
 import groovy.lang.Closure;
 
-import org.bakkes.game.model.AModel;
+import org.bakkes.game.controller.scripting.dsl.ADsl;
+import org.bakkes.game.model.IModel;
 import org.bakkes.game.view.overworld.DialogBox;
 
 import com.google.inject.Inject;
@@ -11,7 +12,8 @@ import com.google.inject.Provider;
 public class InteractDsl extends ADsl {
 	private @Inject Provider<DialogBox> dialogProvider;
 	private @Inject Provider<PlayerDsl> playerDslProvider;
-	public AModel target;
+	public IModel target;
+
 	/**
 	 * show a dialog
 	 * @param text

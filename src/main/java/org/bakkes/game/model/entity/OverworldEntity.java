@@ -1,5 +1,7 @@
 package org.bakkes.game.model.entity;
 
+import groovy.lang.Closure;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.List;
 import org.bakkes.game.model.AModel;
 import org.bakkes.game.model.map.Tile;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -52,10 +55,15 @@ public class OverworldEntity extends AModel implements IOverworldEntity{
 		return Tile.createFromPixelsCoordinates(position);
 	}
 
+	/**
+	 * views should call this method instead of calling getName,
+	 * getName is for showing the name as a string, this has some
+	 * extra filesystem friendly modifications like killing spaces
+	 */
 	@Override
 	public String getSpriteName() {
 		if(spriteName.isEmpty()){
-            return getName();
+            spriteName = getName().toLowerCase().replace(' ', '_');
 		}
 		return spriteName;
 	}
@@ -65,4 +73,19 @@ public class OverworldEntity extends AModel implements IOverworldEntity{
 		assert to != null;
 		spriteName = to;
 	}
+    private Closure onInteract = null;
+    @Override
+	public void interact(){
+        Log.info("interacting with " + getName() + " on location: " + getPosition());
+        if(onInteract == null){
+            Log.info("no interaction present");
+            return;
+        }
+        onInteract.call();
+    }
+
+    @Override
+	public void setInteract(final Closure callback){
+        onInteract = callback;
+    }
 }

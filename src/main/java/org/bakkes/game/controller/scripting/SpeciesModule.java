@@ -1,6 +1,7 @@
 package org.bakkes.game.controller.scripting;
 
 import org.bakkes.game.R;
+import org.bakkes.game.controller.scripting.loader.ScriptLoader;
 import org.bakkes.game.model.pokemon.IPokemonSpecies;
 import org.bakkes.game.model.pokemon.PokemonSpecies;
 

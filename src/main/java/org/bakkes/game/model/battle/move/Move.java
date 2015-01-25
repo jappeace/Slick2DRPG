@@ -1,7 +1,9 @@
 package org.bakkes.game.model.battle.move;
 
+import org.bakkes.game.controller.scripting.loader.IScriptLoadableType;
 
-public class Move implements IMove{
+
+public class Move implements IMove, IScriptLoadableType{
 
 	String name;
 	int damage;

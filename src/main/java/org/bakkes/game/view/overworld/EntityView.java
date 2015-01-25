@@ -1,49 +1,41 @@
 package org.bakkes.game.view.overworld;
 
-import org.bakkes.game.R;
-import org.bakkes.game.controller.scripting.ScriptLoader;
-import org.bakkes.game.controller.scripting.dsl.AnimationDsl;
-import org.bakkes.game.model.entity.Character;
+import org.bakkes.game.model.ImageCache;
+import org.bakkes.game.model.entity.IOverworldEntity;
 import org.bakkes.game.view.AView;
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 
 public class EntityView extends AView{
+	private @Inject ImageCache imageCache;
+	private Image img;
+	private IOverworldEntity entity;
 
-	private Animation[] _animation;
-	private Character entity;
-	private @Inject ScriptLoader loader;
-	private @Inject AnimationDsl dsl;
-	private static final String DEFAULT_ANIMATION = "default";
-
-	@Inject
-	public EntityView(final AnimationDsl dsl, final ScriptLoader loader){
-	}
 	@Override
-	public void renderView(final Graphics g) {
-		final Animation animation = _animation[getEntity().getFacing()];
-		if(getEntity().isWalking()){
-			animation.setAutoUpdate(true);
-		}else{
-			animation.setAutoUpdate(false);
-			animation.setCurrentFrame(0);
-		}
-		animation.draw(getEntity().getPosition().getX(), getEntity().getPosition().getY());
-	}
-	private Character getEntity() {
-		return entity;
-	}
-	public void setEntity(final Character entity) {
-		this.entity = entity;
-		// try loading a entity representation based on its name
-		// I considered giving a animation name but that is just tedious
-		// Don't forget to replace spaces, filesystems hate spaces
-		if(!loader.load(R.overworldAnimationScript + entity.getName().toLowerCase().replace(' ', '_')  + ".dsl", dsl)){
-			loader.load(R.overworldAnimationScript + DEFAULT_ANIMATION + ".dsl", dsl);
-		}
-        _animation = dsl.getResult();
+	protected void renderView(final Graphics g) {
+		final Vector2f position = entity.getPosition();
+		img.draw(position.x, position.y);
 	}
 
+	/**
+	 * @param path, the folder containing the sprites
+	 * @param entity being rendered
+	 * @return itself
+	 */
+	public EntityView loadView(String path, final IOverworldEntity entity){
+		path += "/" + entity.getSpriteName() + ".png";
+		try {
+			img = imageCache.load( path);
+		} catch (final SlickException e) {
+			e.printStackTrace();
+			Log.warn("entityView loading failed for " + path);
+		}
+		this.entity = entity;
+		return this;
+	}
 }

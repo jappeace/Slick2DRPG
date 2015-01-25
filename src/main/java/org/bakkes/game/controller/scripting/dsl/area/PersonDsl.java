@@ -1,23 +1,16 @@
-package org.bakkes.game.controller.scripting.dsl;
-
-import groovy.lang.Closure;
+package org.bakkes.game.controller.scripting.dsl.area;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bakkes.game.controller.scripting.dsl.AOverworldEntityDsl;
 import org.bakkes.game.controller.scripting.dsl.anotation.Required;
 import org.bakkes.game.controller.scripting.dsl.anotation.Result;
 import org.bakkes.game.model.entity.npc.Person;
 import org.bakkes.game.model.map.Direction;
-import org.bakkes.game.model.map.Tile;
-import org.newdawn.slick.util.Log;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-
-public class PersonDsl extends ADsl{
+public class PersonDsl extends AOverworldEntityDsl{
 	boolean isFacingSet = false;
-	boolean isPositionSet = false;
 	private static Map<String, Integer> directions = new HashMap<>();
 	static{
 		// lazy scripting people don't even want to import directions
@@ -28,17 +21,11 @@ public class PersonDsl extends ADsl{
 	}
 
 	private Person target = new Person();
-	private @Inject Provider<InteractDsl> dslProvider;
 
+	@Override
 	@Result
 	public Person getTarget(){
 		return target;
-	}
-	public void onInteract(final Closure callback){
-		final InteractDsl dsl = dslProvider.get();
-		dsl.target = target;
-		callback.setDelegate(dsl);
-		target.setInteract(callback);
 	}
 
 	@Required
@@ -49,16 +36,7 @@ public class PersonDsl extends ADsl{
 
 	@Override
 	public boolean isDone(){
-		return super.isDone() && isPositionSet && isFacingSet;
-	}
-	@Required
-	public void location(final Integer left, final Integer top){
-		isPositionSet = true;
-		target.setPosition(new Tile(left, top).topLeftPixels());
+		return super.isDone() && isFacingSet;
 	}
 
-	public void name(final String name){
-		Log.info("setting name to " + name);
-		target.setName(name);
-	}
 }

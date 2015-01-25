@@ -1,9 +1,10 @@
-package org.bakkes.game.controller.scripting.dsl;
+package org.bakkes.game.controller.scripting.dsl.area;
 
 import groovy.lang.Closure;
 
 import java.util.List;
 
+import org.bakkes.game.controller.scripting.dsl.ADsl;
 import org.bakkes.game.model.entity.npc.Person;
 import org.newdawn.slick.util.Log;
 

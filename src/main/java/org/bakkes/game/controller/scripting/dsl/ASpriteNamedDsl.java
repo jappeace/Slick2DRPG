@@ -9,8 +9,8 @@ import org.bakkes.game.model.IHasSpriteName;
 public abstract class ASpriteNamedDsl extends ADsl {
 
 	public void setSpriteName(final String to){
-		getSpriteNameBean().setSpriteName(to);
+		getTarget().setSpriteName(to);
 	}
 
-	protected abstract IHasSpriteName getSpriteNameBean();
+	protected abstract IHasSpriteName getTarget();
 }

@@ -1,4 +1,4 @@
-package org.bakkes.game.controller.scripting;
+package org.bakkes.game.controller.scripting.loader;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
@@ -11,6 +11,12 @@ import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.newdawn.slick.util.Log;
 
+/**
+ * generic script loader. abstracts away the anucances of script loading
+ *
+ * if you load the same dsl on different locations you should make a specilized instance in this package and
+ * inject that
+ */
 public class ScriptLoader {
 
 	private GroovyShell shell;
@@ -27,7 +33,7 @@ public class ScriptLoader {
 	 * @param delagate this object will handle the dsl calls
 	 * @return succes
 	 */
-	public boolean load(final String path, final Object delagate){
+	public boolean load(final String path, final IScriptLoadableType delagate){
 		Log.info("loading script: " + path);
 		boolean success = false;
 		final File file = new File(path);

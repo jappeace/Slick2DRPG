@@ -1,8 +1,9 @@
-package org.bakkes.game.controller.scripting.dsl;
+package org.bakkes.game.controller.scripting.dsl.area;
 
 import groovy.lang.Closure;
 
 import org.bakkes.game.controller.scripting.SpeciesModule;
+import org.bakkes.game.controller.scripting.dsl.ADsl;
 import org.bakkes.game.model.pokemon.IPokemonSpecies;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
