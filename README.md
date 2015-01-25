@@ -15,14 +15,17 @@ First I will try to emulate the orignal pokemongame. I'll create a working (stab
 as soon as possible.
 * catch pokemon
 * Make the overworld work
-*	Go into buildings
-* 	different areas which would contain
-	* 		diferent wild pokemon for each area
-* 		reduce script sizes (the original pokemon had hunderds of trainers, imagine, it would be quite a bit less annoying to maintain this with trainers for each area (and more stable)
-* add a pokecenter
-* add a mall
-* add gyms
-
+	* Go into buildings
+	* different areas which would contain
+		* diferent wild pokemon for each area
+		* reduce script sizes (the original pokemon had hunderds of trainers, imagine, it would be quite a bit less annoying to maintain this with trainers for each area (and more stable)
+	* add a pokecenter
+	* add a mall
+	* add gyms
+* add a story line
+	* quest support
+	* A horrible story line
+	* probably a bunch of side quests
 
 # DONE
 * animation for npc's trough scripting.
