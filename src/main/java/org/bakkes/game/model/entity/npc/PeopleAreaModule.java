@@ -1,7 +1,7 @@
 package org.bakkes.game.model.entity.npc;
 
+import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 
 import org.bakkes.game.controller.scripting.dsl.area.NpcDsl;
 import org.bakkes.game.controller.scripting.loader.ScriptLoader;
@@ -13,8 +13,8 @@ import com.google.inject.Provides;
 
 public class PeopleAreaModule extends AAreaModule{
 
-	private final List<Person> people = new LinkedList<>();
-	@Provides List<Person> providePeople(
+	private final Collection<Person> people = new LinkedList<>();
+	@Provides Collection<Person> providePeople(
         final NpcDsl npcdsl,
         final ScriptLoader scriptloader,
         final IAreaNameAcces areaNameHolder,

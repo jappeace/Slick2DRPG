@@ -1,22 +1,20 @@
 package org.bakkes.game.controller.state;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 import org.bakkes.game.R;
 import org.bakkes.game.controller.events.key.IKeyListener;
+import org.bakkes.game.model.entity.EntityTracker;
 import org.bakkes.game.model.entity.command.ICommand;
 import org.bakkes.game.model.entity.npc.Person;
-import org.bakkes.game.model.entity.npc.PersonTracker;
 import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.entity.player.invetory.Item;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.view.IRenderable;
-import org.bakkes.game.view.overworld.BlockedTileView;
 import org.bakkes.game.view.overworld.Camera;
 import org.bakkes.game.view.overworld.CharacterView;
 import org.bakkes.game.view.overworld.EntityView;
@@ -30,6 +28,7 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -40,14 +39,13 @@ public class OverworldState extends CommonGameState {
 	private @Inject Player player;
 	private @Inject Random random;
 	private @Inject LayerdMap map;
-	private @Inject PersonTracker tracker;
+	private @Inject EntityTracker<Person> tracker;
+	private @Inject EntityTracker<Item> items;
 
 
 	private @Inject List<IKeyListener> keyListeners;
 	private @Inject Provider<CharacterView> characterViewProvider;
 	private @Inject Provider<EntityView> entityViewProvider;
-	private @Inject Provider<Collection<Item>> items;
-	private @Inject BlockedTileView viewer;
 	private Tile clickedTile;
 	private @Inject Camera camera;
 	private List<IRenderable> translatedViews = new LinkedList<>();
@@ -63,12 +61,12 @@ public class OverworldState extends CommonGameState {
 			throws SlickException {
 		super.init(gc, arg1);
 		map.load("outside");
-		for(final Person person : tracker.getPeople()){
+		for(final Person person : tracker.getEntities()){
 			final CharacterView view = characterViewProvider.get();
 			view.setEntity(person);
 			translatedViews.add(view);
 		}
-		for(final Item item : items.get()){
+		for(final Item item : items.getEntities()){
 			translatedViews.add(
                 entityViewProvider.get().loadView(
                     R.itemSprites,
@@ -122,21 +120,30 @@ public class OverworldState extends CommonGameState {
 	private void onLeftMouseButton(Vector2f mousePos){
         mousePos = new Vector2f(mousePos.getX() + camera.cameraX, mousePos.getY() + camera.cameraY);
         clickedTile = Tile.createFromPixelsCoordinates(mousePos);
-
         if(!map.isBlocked(clickedTile)) {
             player.moveTo(clickedTile);
             return;
         }
-        moveToNPC(); // if is an NPC
-        clickedTile = null;
-	}
-	private void moveToNPC(){
-        final Person person = tracker.findPersonByTile(clickedTile);
-        if(person == null){
+        if(moveToNPC()){
         	return;
         }
+        moveToItem();
+
+        clickedTile = null;
+	}
+	private void moveToItem(){
+		final Item item = items.findEntityByTile(clickedTile);
+		if(item == null){
+			return;
+		}
+		Log.info(item.toString());
+	}
+	private boolean moveToNPC(){
+        final Person person = tracker.findEntityByTile(clickedTile);
+        if(person == null){
+        	return false;
+        }
         final Tile facingTile = person.getDirectionTile();
-        final CommonGameState state = this;
         Vector2f faceCorrection = new Vector2f(3,3);
         if(person.getFacing() == Direction.NORTH || person.getFacing() == Direction.WEST){
         	faceCorrection = new Vector2f(2,2); // nort and west need less correction, because they are drawn from top left, so the available tile is one less away
@@ -149,12 +156,14 @@ public class OverworldState extends CommonGameState {
         player.moveTo(new Tile(facingTile.multiply(faceCorrection)).plus(person.getTile()));
 
         // finaly press the spacebar
+        final CommonGameState state = this;
         player.addCommand(new ICommand(){
         	private boolean executed = false;
 			@Override
 			public void execute(final float tpf) {
 				executed = true;
 				state.keyPressed(Keyboard.KEY_SPACE, ' ');
+				clickedTile = null; // stop painting tile
 			}
 
 			@Override
@@ -168,6 +177,7 @@ public class OverworldState extends CommonGameState {
 			}
 
         });
+        return true;
 	}
 
 
@@ -183,7 +193,6 @@ public class OverworldState extends CommonGameState {
 		camera.drawMap();
 
 		camera.translateGraphics(g);
-		viewer.render(g);
 		if(clickedTile != null && !clickedTile.equals(player.getTile())) {
 			g.setColor(new Color(0, 0, 255, 64));
 			final Vector2f tl = clickedTile.topLeftPixels();

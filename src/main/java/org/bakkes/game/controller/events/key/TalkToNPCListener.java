@@ -1,7 +1,7 @@
 package org.bakkes.game.controller.events.key;
 
+import org.bakkes.game.model.entity.EntityTracker;
 import org.bakkes.game.model.entity.npc.Person;
-import org.bakkes.game.model.entity.npc.PersonTracker;
 import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.map.LayerdMap;
 import org.lwjgl.input.Keyboard;
@@ -10,7 +10,7 @@ import com.google.inject.Inject;
 
 public class TalkToNPCListener implements IKeyListener {
 	private @Inject Player player;
-	private @Inject PersonTracker peopleTracker;
+	private @Inject EntityTracker<Person> peopleTracker;
 	private @Inject LayerdMap map;
 
 	@Override
@@ -31,7 +31,7 @@ public class TalkToNPCListener implements IKeyListener {
 	}
 
 	private Person findFacingNPC(){
-		return peopleTracker.findPersonByTile(player.getDirectionTile().plus(player.getTile()));
+		return peopleTracker.findEntityByTile(player.getDirectionTile().plus(player.getTile()));
 	}
 
 }

@@ -44,10 +44,17 @@ public class OverworldEntity extends AModel implements IOverworldEntity{
 		position = to;
 	}
 
+	/**
+	 * here we sort of assume all entities block 4 tiles
+	 * the getTile(), and the one left below and leftbelow of it
+	 */
 	@Override
 	public Collection<Tile> getBlockedTiles() {
 		final List<Tile> result = new LinkedList<>();
 		result.add(getTile());
+		result.add(getTile().plus(new Tile(1,0)));
+		result.add(getTile().plus(new Tile(0,1)));
+		result.add(getTile().plus(new Tile(1,1)));
 		return result;
 	}
 	@Override
