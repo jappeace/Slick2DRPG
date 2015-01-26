@@ -1,13 +1,13 @@
 package org.bakkes.game.model.map;
 
+import org.bakkes.game.AModule;
 import org.newdawn.slick.util.pathfinding.AStarPathFinder;
 import org.newdawn.slick.util.pathfinding.PathFinder;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 
-public class MapModule extends AbstractModule{
+public class MapModule extends AModule{
 
 	@Override
 	protected void configure() {

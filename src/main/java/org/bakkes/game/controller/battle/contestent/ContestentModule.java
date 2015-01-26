@@ -1,12 +1,12 @@
 package org.bakkes.game.controller.battle.contestent;
 
+import org.bakkes.game.AModule;
 import org.bakkes.game.model.pokemon.Pokemon;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.name.Named;
 
-public class ContestentModule extends AbstractModule{
+public class ContestentModule extends AModule{
 
 	private Pokemon own;
 	private Pokemon target;

@@ -1,14 +1,14 @@
 package org.bakkes.game.controller.scripting;
 
+import org.bakkes.game.AModule;
 import org.bakkes.game.R;
 import org.bakkes.game.controller.scripting.loader.ScriptLoader;
 import org.bakkes.game.model.pokemon.IPokemonSpecies;
 import org.bakkes.game.model.pokemon.PokemonSpecies;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 
-public class SpeciesModule extends AbstractModule{
+public class SpeciesModule extends AModule{
 
 	private String speciesName;
 
@@ -24,11 +24,6 @@ public class SpeciesModule extends AbstractModule{
         speciesName = name;
 	}
 
-
-	@Override
-	protected void configure(){
-
-	}
 	public @Provides IPokemonSpecies provideSpecies(){
 		final PokemonSpecies species = new PokemonSpecies();
 		scriptLoader.load(R.pokemonScripts + speciesName + ".dsl", species);

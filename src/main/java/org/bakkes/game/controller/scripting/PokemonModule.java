@@ -1,19 +1,15 @@
 package org.bakkes.game.controller.scripting;
 
+import org.bakkes.game.AModule;
 import org.bakkes.game.model.pokemon.Pokemon;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 
-public class PokemonModule extends AbstractModule{
+public class PokemonModule extends AModule{
 	private Pokemon pokemon;
 
 	public PokemonModule(final Pokemon which){
 		pokemon = which;
-	}
-
-	@Override
-	protected void configure() {
 	}
 
 	public @Provides Pokemon providePokemon() {

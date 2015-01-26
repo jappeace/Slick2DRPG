@@ -1,9 +1,8 @@
 package org.bakkes.game.model.entity;
 
+import org.bakkes.game.AModule;
 import org.bakkes.game.R;
 import org.bakkes.game.model.map.IAreaNameAcces;
-
-import com.google.inject.AbstractModule;
 
 /**
  * some modules change their provided result based on the area's
@@ -14,14 +13,8 @@ import com.google.inject.AbstractModule;
  *
  * this class provides some commen util functions
  */
-public abstract class AAreaModule extends AbstractModule{
+public abstract class AAreaModule extends AModule{
 
-	/**
-	 * these modules often don't need extra static configuration
-	 */
-	@Override
-	protected void configure() {
-	}
 
 	private String areaName = "";
 	protected boolean isNewArea(final IAreaNameAcces areaNameHolder){

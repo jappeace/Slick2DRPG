@@ -4,16 +4,17 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Random;
 
+import org.bakkes.game.AModule;
 import org.bakkes.game.controller.state.BattleState;
 import org.bakkes.game.controller.state.OverworldState;
 import org.newdawn.slick.state.GameState;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 
-public class GameModule extends AbstractModule{
+public class GameModule extends AModule{
+
 	private static final String GAME_TITLE = "jappie-mon";
 
 	@Override
