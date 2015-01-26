@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.bakkes.game.R;
-import org.bakkes.game.controller.command.MoveToOverworldEntity;
+import org.bakkes.game.controller.command.MoveOnOverworld;
 import org.bakkes.game.controller.events.key.IKeyListener;
 import org.bakkes.game.model.Bean;
 import org.bakkes.game.model.entity.EntityTracker;
@@ -28,7 +28,6 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
-import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -47,7 +46,7 @@ public class OverworldState extends CommonGameState {
 	private @Inject Provider<CharacterView> characterViewProvider;
 	private @Inject Provider<EntityView> entityViewProvider;
 	private @Inject Bean<Tile> clickedTile;
-	private @Inject Provider<MoveToOverworldEntity> onClickHandler;
+	private @Inject Provider<MoveOnOverworld> onClickHandler;
 	private @Inject Camera camera;
 
 	private List<IRenderable> translatedViews = new LinkedList<>();
@@ -126,25 +125,8 @@ public class OverworldState extends CommonGameState {
 	private void onLeftMouseButton(Vector2f mousePos){
         mousePos = new Vector2f(mousePos.getX() + camera.cameraX, mousePos.getY() + camera.cameraY);
         clickedTile.setData(Tile.createFromPixelsCoordinates(mousePos));
-        if(!map.isBlocked(clickedTile.getData())) {
-            player.moveTo(clickedTile.getData());
-            return;
-        }
         player.addCommand(onClickHandler.get());
-        moveToItem();
 	}
-	private void moveToItem(){
-		final Item item = itemTracker.findEntityByTile(clickedTile.getData());
-		if(item == null){
-			return;
-		}
-		final Tile tile = item.getTile();
-		Log.info("I want to go to " + tile);
-	}
-	private boolean moveToNPC(){
-        return true;
-	}
-
 
 	@Override
 	public void render(final GameContainer gc, final StateBasedGame arg1, final Graphics g)
