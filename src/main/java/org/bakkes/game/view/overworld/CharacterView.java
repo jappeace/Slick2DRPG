@@ -20,7 +20,7 @@ public class CharacterView extends AView{
 
 	@Override
 	public void renderView(final Graphics g) {
-		final Animation animation = _animation[getEntity().getFacing()];
+		final Animation animation = _animation[getEntity().getFacing().ordinal()];
 		if(getEntity().isWalking()){
 			animation.setAutoUpdate(true);
 		}else{

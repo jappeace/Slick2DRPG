@@ -31,16 +31,16 @@ public class AnimationDsl extends ADsl{
 	}
 
 	public void north(final Closure<Void> commands){
-		buildDirection(Direction.NORTH,commands);
+		buildDirection(Direction.North.ordinal(),commands);
 	}
 	public void east(final Closure<Void> commands){
-		buildDirection(Direction.EAST,commands);
+		buildDirection(Direction.East.ordinal(),commands);
 	}
 	public void south(final Closure<Void> commands){
-		buildDirection(Direction.SOUTH,commands);
+		buildDirection(Direction.South.ordinal(),commands);
 	}
 	public void west(final Closure<Void> commands){
-		buildDirection(Direction.WEST,commands);
+		buildDirection(Direction.West.ordinal(),commands);
 	}
 	public void buildDirection(final int direction, final Closure<Void> commands){
         result[direction] = createAnimation();

@@ -1,6 +1,7 @@
 
 package org.bakkes.game;
 
+import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.Tile;
 import org.junit.Assert;
 import org.junit.Test;
@@ -42,5 +43,49 @@ public class TileTests{
 	public void hashTest(){
 		Assert.assertTrue(new Tile(1,0).hashCode() != new Tile(0,1).hashCode());
 		Assert.assertTrue(new Tile(1,0).hashCode() == new Tile(1,0).hashCode());
+	}
+
+	private void directionTest(final Direction excpected, final Tile input){
+		Assert.assertEquals(excpected, input.getDirection());
+	}
+	@Test
+	public void directionTestsNorth(){
+		final Direction expected = Direction.North;
+		Tile input = new Tile(0,-1);
+		directionTest(expected, input);
+		input = new Tile(1,-3);
+		directionTest(expected, input);
+		input = new Tile(-1,-3);
+		directionTest(expected, input);
+	}
+	@Test
+	public void directionTestsEast(){
+		final Direction expected = Direction.East;
+		Tile input = new Tile(1,0);
+		directionTest(expected, input);
+		input = new Tile(3,1);
+		directionTest(expected, input);
+		input = new Tile(3,-1);
+		directionTest(expected, input);
+	}
+	@Test
+	public void directionTestsWest(){
+		final Direction expected = Direction.West;
+		Tile input = new Tile(-1,0);
+		directionTest(expected, input);
+		input = new Tile(-3,1);
+		directionTest(expected, input);
+		input = new Tile(-3,-1);
+		directionTest(expected, input);
+	}
+	@Test
+	public void directionTestsSouth(){
+		final Direction expected = Direction.South;
+		Tile input = new Tile(0,1);
+		directionTest(expected, input);
+		input = new Tile(1,3);
+		directionTest(expected, input);
+		input = new Tile(-1,3);
+		directionTest(expected, input);
 	}
 }

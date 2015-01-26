@@ -115,5 +115,20 @@ public class Tile implements IPlusOperator<Tile>, IMinusOperator<Tile>, IMultipl
 	public int hashCode(){
 		return (left | 3194) * left * top + left; // I have no idea, I'm trying to Tile(1,0) != Tile(0,1)
 	}
+
+	public Direction getDirection(){
+		final Vector2f tl = this.topLeftPixels();
+		final double degrees = tl.getTheta();
+		if(degrees <= 135 && degrees > 45){
+            return Direction.South; // the map is flipped more y means lower
+		}
+		if(degrees <= 225 && degrees > 135){
+            return Direction.West;
+		}
+		if(degrees <= 315 && degrees > 225){
+			return Direction.North;
+		}
+		return Direction.East; // east is really anoying to compare
+	}
 }
 

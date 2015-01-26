@@ -5,11 +5,11 @@ import org.bakkes.game.model.map.Tile;
 
 public abstract class Character extends OverworldEntity {
 
-	protected int facing = Direction.SOUTH;
-	public int getFacing() {
+	protected Direction facing = Direction.South;
+	public Direction getFacing() {
 		return facing;
 	}
-	public void setFacing(final int direction){
+	public void setFacing(final Direction direction){
 		facing = direction;
 	}
 
@@ -28,19 +28,19 @@ public abstract class Character extends OverworldEntity {
 	 * @return
 	 */
 	public Tile getDirectionTile(){
-        final int facing = getFacing();
+        final Direction facing = getFacing();
         final Tile result = new Tile();
         switch(facing){
-        	case Direction.NORTH:
+        	case North:
         		result.top-=1;
         		break;
-        	case Direction.SOUTH:
+        	case South:
         		result.top+=1;
         		break;
-        	case Direction.EAST:
+        	case East:
         		result.left+=1;
         		break;
-        	case Direction.WEST:
+        	case West:
         		result.left-=1;
         		break;
         }

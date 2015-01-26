@@ -3,9 +3,9 @@ package org.bakkes.game.model.entity.player;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bakkes.game.controller.command.ICommand;
+import org.bakkes.game.controller.command.WalkPath;
 import org.bakkes.game.model.entity.Character;
-import org.bakkes.game.model.entity.command.ICommand;
-import org.bakkes.game.model.entity.command.WalkPath;
 import org.bakkes.game.model.entity.player.invetory.Inventory;
 import org.bakkes.game.model.entity.player.invetory.PokeBelt;
 import org.bakkes.game.model.map.Tile;
@@ -84,5 +84,4 @@ public class Player extends Character {
 	public PokeBelt getPokebelt() {
 		return pokebelt;
 	}
-
 }

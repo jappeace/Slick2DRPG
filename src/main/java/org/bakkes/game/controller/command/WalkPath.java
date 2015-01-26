@@ -1,4 +1,4 @@
-package org.bakkes.game.model.entity.command;
+package org.bakkes.game.controller.command;
 
 import org.bakkes.game.model.entity.Character;
 import org.bakkes.game.model.map.Direction;
@@ -9,17 +9,15 @@ import org.newdawn.slick.util.pathfinding.PathFinder;
 
 import com.google.inject.Inject;
 
-public class WalkPath implements ICommand{
+public class WalkPath extends ACommand{
 
 	private Path path;
 	private int currentStep = 0;
-	private boolean isDone = false;
 	private boolean firstTime = true;
 	private Tile destination;
 	private @Inject Character entity;
 	private @Inject PathFinder pathFinder;
 	private final Vector2f added = new Vector2f();
-	private boolean interupted = false;
 
 	@Override
 	public void execute(final float tpf) {
@@ -32,7 +30,7 @@ public class WalkPath implements ICommand{
                 getDestination().top
             );
             if(path == null){
-            	isDone = true;
+            	done();
             	return;
             }
 		}
@@ -80,8 +78,8 @@ public class WalkPath implements ICommand{
         added.x = 0;
         added.y = 0;
 
-        if(currentStep >= path.getLength() || interupted) {
-            isDone = true;
+        if(currentStep >= path.getLength() || isInterupted()) {
+        	done();
             currentStep = 0;
             entity.onFinishedWalking();
             return;
@@ -93,27 +91,17 @@ public class WalkPath implements ICommand{
         final Tile p = new Tile(path.getStep(currentStep-1)).minus(nextTile);
 
         if(p.left == -1){
-            entity.setFacing(Direction.EAST);
+            entity.setFacing(Direction.East);
         }else if(p.left == 1){
-            entity.setFacing(Direction.WEST);
+            entity.setFacing(Direction.West);
         }
 
         if(p.top == -1){
-            entity.setFacing(Direction.SOUTH);
+            entity.setFacing(Direction.South);
         }else if(p.top == 1){
-            entity.setFacing(Direction.NORTH);
+            entity.setFacing(Direction.North);
         }
 
-	}
-
-	@Override
-	public boolean isDone() {
-		// TODO Auto-generated method stub
-		return isDone;
-	}
-	@Override
-	public void onInterupt() {
-		interupted = true;
 	}
 
 	private Tile getDestination() {

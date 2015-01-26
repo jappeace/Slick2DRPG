@@ -11,13 +11,13 @@ import org.bakkes.game.model.map.Direction;
 
 public class PersonDsl extends AOverworldEntityDsl{
 	boolean isFacingSet = false;
-	private static Map<String, Integer> directions = new HashMap<>();
+	private static Map<String, Direction> directions = new HashMap<>();
 	static{
 		// lazy scripting people don't even want to import directions
-		directions.put("south", Direction.SOUTH);
-		directions.put("north", Direction.NORTH);
-		directions.put("east", Direction.EAST);
-		directions.put("west", Direction.WEST);
+		directions.put("south", Direction.South);
+		directions.put("north", Direction.North);
+		directions.put("east", Direction.East);
+		directions.put("west", Direction.West);
 	}
 
 	private Person target = new Person();
