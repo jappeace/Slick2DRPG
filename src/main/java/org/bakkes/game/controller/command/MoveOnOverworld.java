@@ -72,6 +72,7 @@ public class MoveOnOverworld extends AOneTimeCommand{
 		if(isMoveToItem()){
 			return;
 		}
+		Log.info("tile inaccesable");
 		clickedTile.setData(null);
 	}
 	private boolean isMoveToItem(){
@@ -119,7 +120,6 @@ public class MoveOnOverworld extends AOneTimeCommand{
 	private boolean isMoveToPerson(){
         final Person npc = personTracker.findEntityByTile(clickedTile.getData());
         if(npc == null){
-        	Log.info("did not find a npc");
         	return false;
         }
         followPathAndInteract(moveTo(npc.getDirectionTile(), npc.getTile()));

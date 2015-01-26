@@ -1,24 +1,17 @@
 package org.bakkes.game.controller.state;
 
-import java.util.LinkedList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-import org.bakkes.game.R;
 import org.bakkes.game.controller.command.MoveOnOverworld;
 import org.bakkes.game.controller.events.key.IKeyListener;
 import org.bakkes.game.model.Bean;
-import org.bakkes.game.model.entity.EntityTracker;
-import org.bakkes.game.model.entity.npc.Person;
 import org.bakkes.game.model.entity.player.Player;
-import org.bakkes.game.model.entity.player.invetory.Item;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.view.IRenderable;
-import org.bakkes.game.view.overworld.BlockedTileView;
 import org.bakkes.game.view.overworld.Camera;
-import org.bakkes.game.view.overworld.CharacterView;
-import org.bakkes.game.view.overworld.EntityView;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -38,24 +31,16 @@ public class OverworldState extends CommonGameState {
 	private @Inject Player player;
 	private @Inject Random random;
 	private @Inject LayerdMap map;
-	private @Inject EntityTracker<Person> personTracker;
-	private @Inject EntityTracker<Item> itemTracker;
 
 
 	private @Inject List<IKeyListener> keyListeners;
-	private @Inject Provider<CharacterView> characterViewProvider;
-	private @Inject Provider<EntityView> entityViewProvider;
 	private @Inject Bean<Tile> clickedTile;
 	private @Inject Provider<MoveOnOverworld> onClickHandler;
 	private @Inject Camera camera;
 
-	private List<IRenderable> translatedViews = new LinkedList<>();
+	private @Inject Provider<Collection<IRenderable>> translatedViews;
 	private static final int WILD_POKE_CHANCE = 2; // chance of encountering wild pokemone (1 in chance)
 
-	@Inject
-	public OverworldState(final BlockedTileView view){
-		translatedViews.add(view);
-	}
 	@Override
 	public int getID() {
 		return PLAYING_STATE_ID;
@@ -66,22 +51,6 @@ public class OverworldState extends CommonGameState {
 			throws SlickException {
 		super.init(gc, arg1);
 		map.load("outside");
-		for(final Person person : personTracker.getEntities()){
-			final CharacterView view = characterViewProvider.get();
-			view.setEntity(person);
-			translatedViews.add(view);
-		}
-		for(final Item item : itemTracker.getEntities()){
-			translatedViews.add(
-                entityViewProvider.get().loadView(
-                    R.itemSprites,
-                    item
-                )
-            );
-		}
-        final CharacterView view = characterViewProvider.get();
-        view.setEntity(player);
-		translatedViews.add(view);
 	}
 
 	@Override
@@ -145,7 +114,7 @@ public class OverworldState extends CommonGameState {
 			final Vector2f tl = clickedTile.getData().topLeftPixels();
 			g.fillRect(tl.x, tl.y, Tile.WIDTH, Tile.HEIGHT);
 		}
-		for(final IRenderable renderable : translatedViews){
+		for(final IRenderable renderable : translatedViews.get()){
 			renderable.render(g);
 		}
 		camera.untranslateGraphics(g);

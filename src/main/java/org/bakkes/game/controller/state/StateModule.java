@@ -7,7 +7,7 @@ import org.bakkes.game.AModule;
 import org.bakkes.game.controller.events.key.IKeyListener;
 import org.bakkes.game.controller.events.key.InventoryToggleListener;
 import org.bakkes.game.controller.events.key.MovementListener;
-import org.bakkes.game.controller.events.key.TalkToNPCListener;
+import org.bakkes.game.controller.events.key.InteractionListener;
 
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
@@ -22,7 +22,7 @@ public class StateModule extends AModule{
 
 	@Provides List<IKeyListener> provideKeyListeners(
         final LinkedList<IKeyListener> linkedList,
-        final TalkToNPCListener npc,
+        final InteractionListener npc,
         final MovementListener movement,
         final InventoryToggleListener inventory
     ){

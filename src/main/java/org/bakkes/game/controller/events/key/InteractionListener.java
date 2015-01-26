@@ -1,26 +1,26 @@
 package org.bakkes.game.controller.events.key;
 
 import org.bakkes.game.model.entity.EntityTracker;
-import org.bakkes.game.model.entity.npc.Person;
+import org.bakkes.game.model.entity.IOverworldEntity;
 import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.map.LayerdMap;
 import org.lwjgl.input.Keyboard;
 
 import com.google.inject.Inject;
 
-public class TalkToNPCListener implements IKeyListener {
+public class InteractionListener implements IKeyListener {
 	private @Inject Player player;
-	private @Inject EntityTracker<Person> peopleTracker;
+	private @Inject EntityTracker<IOverworldEntity> overworldEntitiesTracker;
 	private @Inject LayerdMap map;
 
 	@Override
 	public void KeyDown(final int key, final char c) {
 		if(key == Keyboard.KEY_SPACE) {
-			final Person person = findFacingNPC();
-			if(person == null){
+			final IOverworldEntity entity = findFacingEntity();
+			if(entity == null){
 				return;
 			}
-			person.interact();
+			entity.interact();
 		}
 	}
 
@@ -30,8 +30,8 @@ public class TalkToNPCListener implements IKeyListener {
 
 	}
 
-	private Person findFacingNPC(){
-		return peopleTracker.findEntityByTile(player.getDirectionTile().plus(player.getTile()));
+	private IOverworldEntity findFacingEntity(){
+		return overworldEntitiesTracker.findEntityByTile(player.getDirectionTile().plus(player.getTile()));
 	}
 
 }
