@@ -132,8 +132,6 @@ public class OverworldState extends CommonGameState {
         }
         player.addCommand(onClickHandler.get());
         moveToItem();
-
-        clickedTile.setData(null);
 	}
 	private void moveToItem(){
 		final Item item = itemTracker.findEntityByTile(clickedTile.getData());

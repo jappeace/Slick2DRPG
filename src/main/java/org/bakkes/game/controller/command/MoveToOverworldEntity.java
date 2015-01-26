@@ -13,6 +13,7 @@ import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 
@@ -36,6 +37,7 @@ public class MoveToOverworldEntity extends ACommand{
 	public void execute(final float tpf) {
         final Person npc = personTracker.findEntityByTile(clickedTile.getData());
         if(npc == null){
+        	Log.info("did not find a npc");
         	done();
         	return;
         }
