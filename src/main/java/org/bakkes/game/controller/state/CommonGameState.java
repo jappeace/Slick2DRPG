@@ -10,6 +10,7 @@ import org.bakkes.game.controller.events.key.DebugToggleListener;
 import org.bakkes.game.controller.events.key.IKeyListener;
 import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.view.IRenderable;
+import org.bakkes.game.view.overworld.dialog.DialogState;
 import org.bakkes.game.view.overworld.dialog.IDialog;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
@@ -68,13 +69,18 @@ public abstract class CommonGameState extends BasicGameState {
 	}
 
 	public void queueDialogBox(final IDialog dialogBox) {
+		dialogBox.setState(DialogState.Queued);
 		dialogQueue.add(dialogBox);
 	}
 
 	public void nextDialog() {
+		if(currentDialogBox != null){
+			currentDialogBox.setState(DialogState.Done);
+		}
 		if(dialogQueue.size() > 0) {
 			inputEnabled = false;
 			currentDialogBox = dialogQueue.remove();
+			currentDialogBox.setState(DialogState.Showing);
 			return;
 		}
         inputEnabled = true;

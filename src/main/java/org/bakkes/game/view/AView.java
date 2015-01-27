@@ -11,7 +11,6 @@ public abstract class AView implements IRenderable{
 	@Override
 	public void render(final Graphics g) {
 		final Color previousColor = g.getColor();
-		final float lineWidth = g.getLineWidth();
 
 		if(out != null){
             out.clear();
@@ -23,7 +22,7 @@ public abstract class AView implements IRenderable{
             out.render(g);
 		}
 
-		g.setLineWidth(lineWidth);
+		g.resetLineWidth();
 		g.setColor(previousColor);
 	}
 
