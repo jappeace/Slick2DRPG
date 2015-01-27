@@ -82,6 +82,11 @@ public class MoveOnOverworld extends AOneTimeCommand{
 		}
 		final Tile tile = item.getTile();
 		for(int i = 0; i < 360; i += 90){
+			/*
+			 * TODO: pick the closest path instead of the first that fits.
+			 * makes the game character look less stupid, but is pretty low
+			 * priority
+			 */
 			final Collection<Tile> tiles = moveTo(new Tile(new Vector2f(i)), tile);
 			if(!tiles.isEmpty()){
                 followPathAndInteract(tiles);

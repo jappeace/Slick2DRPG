@@ -76,6 +76,10 @@ public class OverworldModule extends AModule{
 		result.add(blockedTiles);
 		return result;
 	}
+	/*
+	 * TODO:
+	 * cache based on area name
+	 */
 	public @Provides Collection<IOverworldEntity> provideEntities(
         final LinkedList<IOverworldEntity> result,
         final EntityTracker<Person> personTracker,

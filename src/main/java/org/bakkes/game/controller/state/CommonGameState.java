@@ -11,7 +11,7 @@ import org.bakkes.game.controller.events.key.DebugToggleListener;
 import org.bakkes.game.controller.events.key.IKeyListener;
 import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.view.IRenderable;
-import org.bakkes.game.view.overworld.DialogBox;
+import org.bakkes.game.view.overworld.dialog.IDialog;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -21,8 +21,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public abstract class CommonGameState extends BasicGameState {
 	protected boolean inputEnabled = true;
-	protected DialogBox currentDialogBox = null;
-	protected Queue<DialogBox> dialogQueue = new LinkedList<>();
+	protected IDialog currentDialogBox = null;
+	protected Queue<IDialog> dialogQueue = new LinkedList<>();
 	private List<IRenderable> drawables;
 	protected IDialogClosed dialogCallback;
 
@@ -69,7 +69,7 @@ public abstract class CommonGameState extends BasicGameState {
 		this.drawables.remove(gameComponent);
 	}
 
-	public void queueDialogBox(final DialogBox dialogBox) {
+	public void queueDialogBox(final IDialog dialogBox) {
 		dialogQueue.add(dialogBox);
 	}
 
