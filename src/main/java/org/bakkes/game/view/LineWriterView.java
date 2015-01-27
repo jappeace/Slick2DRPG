@@ -3,6 +3,7 @@ package org.bakkes.game.view;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -19,9 +20,11 @@ public class LineWriterView implements IRenderable{
 	private Vector2f start = new Vector2f();
 	private List<Line> lines = new LinkedList<>();
 	public float lineIncrease = 15f;
+	public Color color = Color.black;
 
 	@Override
 	public void render(final Graphics g) {
+		g.setColor(color);
 		for(final Line l : lines){
 			l.render(g);
 		}
@@ -30,6 +33,9 @@ public class LineWriterView implements IRenderable{
 	public void setLocation(final Vector2f location) {
 		this.start = location.copy(); // to calculate the current hight
 		this.location = location.copy(); // mutable location
+	}
+	public void setLocation(final float x, final float y) {
+		setLocation(new Vector2f(x,y));
 	}
 	public float getHeight(){
 		return location.y - start.y;

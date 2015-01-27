@@ -4,14 +4,16 @@ import groovy.lang.Closure;
 
 import org.bakkes.game.controller.scripting.dsl.ADsl;
 import org.bakkes.game.model.IModel;
-import org.bakkes.game.view.overworld.dialog.IDialog;
+import org.bakkes.game.view.overworld.dialog.Dialog;
+import org.bakkes.game.view.overworld.dialog.IMessageBox;
 import org.bakkes.game.view.overworld.dialog.MessageBox;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class InteractDsl extends ADsl {
-	private @Inject Provider<MessageBox> dialogProvider;
+	private @Inject Provider<MessageBox> messageBoxProvider;
+	private @Inject Provider<Dialog> dialogProvider;
 	private @Inject Provider<PlayerDsl> playerDslProvider;
 	public IModel target;
 
@@ -20,12 +22,12 @@ public class InteractDsl extends ADsl {
 	 * @param text
 	 * @return
 	 */
-	public IDialog dialog(final String text){
+	public IMessageBox dialog(final String text){
 		return dialog(text, target.getName() + ":");
 	}
 
-	public IDialog dialog(final String text, final String title){
-		final IDialog dialog = dialogProvider.get();
+	public IMessageBox dialog(final String text, final String title){
+		final IMessageBox dialog = messageBoxProvider.get();
 		dialog.setTitle(title);
 		dialog.setText(text);
 		dialog.show();
@@ -48,7 +50,14 @@ public class InteractDsl extends ADsl {
         dialog(text, "you think:");
 	}
 
-	public boolean desiscion(final String text){
+	public boolean decision(final String text){
+		return decision(text, "decision:");
+	}
+	public boolean decision(final String text, final String title){
+		final Dialog d = dialogProvider.get();
+		d.setText(text);
+		d.setTitle(title);
+		d.show();
 		return false;
 	}
 }

@@ -7,12 +7,12 @@ import org.newdawn.slick.util.Log;
 import com.google.common.base.Preconditions;
 import com.google.inject.Inject;
 
-public abstract class ADialog extends AView implements IDialog{
+public abstract class AMessageBox extends AView implements IMessageBox{
 	private @Inject CommonGameState container;
 
 	private String title = "";
 	private String text = "";
-	private DialogState state;
+	private MessageBoxState state;
 
 	/* (non-Javadoc)
 	 * @see org.bakkes.game.view.overworld.dialog.IDialog#setTitle(java.lang.String)
@@ -47,12 +47,12 @@ public abstract class ADialog extends AView implements IDialog{
 	}
 
 	@Override
-	public void setState(final DialogState to) {
+	public void setState(final MessageBoxState to) {
 		this.state = to;
 	}
 
 	@Override
-	public DialogState getState() {
+	public MessageBoxState getState() {
 		return state;
 	}
 

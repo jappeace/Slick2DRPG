@@ -10,8 +10,8 @@ import org.bakkes.game.controller.events.key.DebugToggleListener;
 import org.bakkes.game.controller.events.key.IKeyListener;
 import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.view.IRenderable;
-import org.bakkes.game.view.overworld.dialog.DialogState;
-import org.bakkes.game.view.overworld.dialog.IDialog;
+import org.bakkes.game.view.overworld.dialog.MessageBoxState;
+import org.bakkes.game.view.overworld.dialog.IMessageBox;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -21,8 +21,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public abstract class CommonGameState extends BasicGameState {
 	protected boolean inputEnabled = true;
-	protected IDialog currentDialogBox = null;
-	protected Queue<IDialog> dialogQueue = new LinkedList<>();
+	protected IMessageBox currentDialogBox = null;
+	protected Queue<IMessageBox> dialogQueue = new LinkedList<>();
 	private List<IRenderable> drawables;
 
 
@@ -68,19 +68,19 @@ public abstract class CommonGameState extends BasicGameState {
 		this.drawables.remove(gameComponent);
 	}
 
-	public void queueDialogBox(final IDialog dialogBox) {
-		dialogBox.setState(DialogState.Queued);
+	public void queueDialogBox(final IMessageBox dialogBox) {
+		dialogBox.setState(MessageBoxState.Queued);
 		dialogQueue.add(dialogBox);
 	}
 
 	public void nextDialog() {
 		if(currentDialogBox != null){
-			currentDialogBox.setState(DialogState.Done);
+			currentDialogBox.setState(MessageBoxState.Done);
 		}
 		if(dialogQueue.size() > 0) {
 			inputEnabled = false;
 			currentDialogBox = dialogQueue.remove();
-			currentDialogBox.setState(DialogState.Showing);
+			currentDialogBox.setState(MessageBoxState.Showing);
 			return;
 		}
         inputEnabled = true;

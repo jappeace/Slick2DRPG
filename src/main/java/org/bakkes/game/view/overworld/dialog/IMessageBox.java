@@ -2,7 +2,7 @@ package org.bakkes.game.view.overworld.dialog;
 
 import org.bakkes.game.view.IRenderable;
 
-public interface IDialog extends IRenderable{
+public interface IMessageBox extends IRenderable{
 
 	public abstract void setTitle(String title);
 
@@ -10,6 +10,6 @@ public interface IDialog extends IRenderable{
 
 	public abstract void show();
 
-	public void setState(DialogState to);
-	public DialogState getState();
+	public void setState(MessageBoxState to);
+	public MessageBoxState getState();
 }

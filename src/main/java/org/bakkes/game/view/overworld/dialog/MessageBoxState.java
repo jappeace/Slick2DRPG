@@ -1,6 +1,6 @@
 package org.bakkes.game.view.overworld.dialog;
 
-public enum DialogState {
+public enum MessageBoxState {
 	Queued,
 	Showing,
 	Done
