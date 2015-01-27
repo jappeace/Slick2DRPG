@@ -14,8 +14,8 @@ public class Box implements IRenderable, IShape{
 
 	private Shape shape;
 
-	private Color background = Color.white;
-	private Color border = Color.black;
+	private Color background = new Color(255,200,180);
+	private Color border = new Color(0,0,255,150);
 	private float borderWidth = 3;
 	public Box(final float x, final float y, final float width, final float height){
 		shape = new Rectangle(x,y,width,height);
@@ -60,6 +60,15 @@ public class Box implements IRenderable, IShape{
 	@Override
 	public float y() {
 		return shape.getY();
+	}
+	@Override
+	public void x(final float to) {
+		shape.setX(to);
+
+	}
+	@Override
+	public void y(final float to) {
+		shape.setY(to);
 	}
 
 }

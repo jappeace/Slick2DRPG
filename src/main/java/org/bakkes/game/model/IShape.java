@@ -9,4 +9,6 @@ public interface IShape {
 	public float height();
 	public float x();
 	public float y();
+	public void x(float to);
+	public void y(float to);
 }

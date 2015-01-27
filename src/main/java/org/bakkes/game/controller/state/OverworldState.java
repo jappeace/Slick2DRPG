@@ -126,7 +126,7 @@ public class OverworldState extends CommonGameState {
 	}
 
 	@Override
-	public List<IKeyListener> getKeyListeners() {
+	protected List<IKeyListener> getKeyListeners() {
 		return keyListeners;
 	}
 

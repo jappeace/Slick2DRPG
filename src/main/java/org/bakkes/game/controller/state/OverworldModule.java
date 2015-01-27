@@ -34,6 +34,7 @@ public class OverworldModule extends AModule{
 		// at compile time the generic flags are stripped away (after the checks) and replaced by
 		// object, this means at runtime List<String> = List<Integer>, guice fixes this with type literals
 		bind(new TypeLiteral<Bean<Tile>>(){}).in(Singleton.class);
+		bind(new TypeLiteral<Bean<Integer>>(){}).in(Singleton.class);
 	}
 	private String lastArea = "";
 	private Collection<IRenderable> renderable;

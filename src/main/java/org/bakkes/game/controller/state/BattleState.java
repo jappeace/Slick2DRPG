@@ -169,7 +169,7 @@ public class BattleState extends CommonGameState {
 	}
 
 	@Override
-	public List<IKeyListener> getKeyListeners() {
+	protected List<IKeyListener> getKeyListeners() {
 		return new LinkedList<>();
 	}
 

@@ -1,7 +1,6 @@
 package org.bakkes.game.controller.state;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -10,8 +9,8 @@ import org.bakkes.game.controller.events.key.DebugToggleListener;
 import org.bakkes.game.controller.events.key.IKeyListener;
 import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.view.IRenderable;
-import org.bakkes.game.view.overworld.dialog.MessageBoxState;
 import org.bakkes.game.view.overworld.dialog.IMessageBox;
+import org.bakkes.game.view.overworld.dialog.MessageBoxState;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -33,7 +32,13 @@ public abstract class CommonGameState extends BasicGameState {
 		this.getKeyListeners().add(new DebugToggleListener());
 	}
 
-	public abstract List<IKeyListener> getKeyListeners();
+	public boolean add(final IKeyListener listener){
+		return getKeyListeners().add(listener);
+	}
+	public boolean remove(final IKeyListener listener){
+		return getKeyListeners().remove(listener);
+	}
+	protected abstract List<IKeyListener> getKeyListeners();
 	/**
 	 * @param delta = tpf time that has passed between frames
 	 */
@@ -91,11 +96,8 @@ public abstract class CommonGameState extends BasicGameState {
     public void keyPressed(final int key, final char c) {
 		if(!inputEnabled)
 			return;
-		final ArrayList<IKeyListener> keyListenersCopy = new ArrayList<IKeyListener>(getKeyListeners()); //Create a copy because scripts can register keypress components.
-		final Iterator<IKeyListener> it = keyListenersCopy.iterator();
-		while(it.hasNext()) {
-			final IKeyListener next = it.next();
-			next.KeyDown(key, c);
+		for(final IKeyListener listener : getKeyListeners()){
+			listener.KeyDown(key, c);
 		}
     }
 
@@ -106,11 +108,8 @@ public abstract class CommonGameState extends BasicGameState {
 		}
 		if(!inputEnabled)
 			return;
-		final ArrayList<IKeyListener> keyListenersCopy = new ArrayList<IKeyListener>(getKeyListeners()); //Create a copy because scripts can register keyrelease components.
-		final Iterator<IKeyListener> it = keyListenersCopy.iterator();
-		while(it.hasNext()) {
-			final IKeyListener next = it.next();
-			next.KeyUp(key, c);
+		for(final IKeyListener listener : getKeyListeners()){
+			listener.KeyUp(key, c);
 		}
     }
 
