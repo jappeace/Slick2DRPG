@@ -6,7 +6,7 @@ public class Inventory {
 
 	private Item[] items = new Item[10];
 
-	public boolean addItem(final Item item) {
+	public synchronized boolean addItem(final Item item) {
 		for(int i = 0; i < items.length; i++) {
 			if(items[i] == null) {
 				items[i] = item;
@@ -22,7 +22,7 @@ public class Inventory {
 		return null;
 	}
 
-	public void deleteItem(final int slot) {
+	public synchronized void deleteItem(final int slot) {
 		if(slot >= 0 && slot < items.length)
 			items[slot] = null;
 	}

@@ -10,6 +10,9 @@ import com.sun.istack.internal.Nullable;
 
 /**
  * contains the pokemon the player has
+ * this amount should be small
+ *
+ * thread safe
  */
 public class PokeBelt implements Iterable<Pokemon> {
 	private List<Pokemon> pokemon = new ArrayList<>();
@@ -23,12 +26,19 @@ public class PokeBelt implements Iterable<Pokemon> {
 		return null;
 	}
 
-	public void add(final Pokemon poke){
+	/**
+	 * the syncrhonized operator togehter with making a copy of the pokemon list makes this class thread safe
+	 * @param poke
+	 */
+	public synchronized void add(final Pokemon poke){
 		pokemon.add(poke);
 	}
 
+	/**
+	 * @return the most recent list, copied and there a iterator from
+	 */
 	@Override
 	public Iterator<Pokemon> iterator() {
-		return pokemon.iterator();
+		return new ArrayList<>(pokemon).iterator();
 	}
 }

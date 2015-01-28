@@ -44,6 +44,9 @@ public abstract class AMessageBox extends AView implements IMessageBox{
 		Log.info("done with dialogbox " + title);
 	}
 
+	/**
+	 * the states are my little syncrhonization trick
+	 */
 	@Override
 	public synchronized void setState(final MessageBoxState to) {
 		this.state = to;

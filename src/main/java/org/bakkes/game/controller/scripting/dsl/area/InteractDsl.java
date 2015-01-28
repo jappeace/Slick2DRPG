@@ -4,6 +4,7 @@ import groovy.lang.Closure;
 
 import org.bakkes.game.controller.MessageBoxController;
 import org.bakkes.game.controller.scripting.dsl.ADsl;
+import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.model.IModel;
 import org.bakkes.game.view.overworld.dialog.Dialog;
 import org.bakkes.game.view.overworld.dialog.MessageBox;
@@ -59,7 +60,7 @@ public class InteractDsl extends ADsl {
 		msgBoxController.add(dialog);
 		while(dialog.getState() != MessageBoxState.Done){
 			try {
-				Thread.sleep(10);
+				Thread.sleep(GameInfo.USERINPUT_THREADSLEEP_TIME);
 			} catch (final InterruptedException e) {
 				Log.info("ooh nos, I have really no Idea what this means");
 			}

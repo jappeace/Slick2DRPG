@@ -15,4 +15,5 @@ public class GameInfo {
 	// TODO: make a system for this, for example per area load a script with pokemon in it ranging form level to level
 	public static final String[] WILD = new String[]{"caterpie", "charmender"};
 	public static final int WILD_POKE_LEVEL = 10;
+	public static final long USERINPUT_THREADSLEEP_TIME = 10;
 }
