@@ -54,7 +54,7 @@ public class InteractDsl extends ADsl {
 		final Dialog d = dialogProvider.get();
 		d.setText(text);
 		d.setTitle(title);
-		d.show();
+		msgBoxController.add(d);
 		return false;
 	}
 }

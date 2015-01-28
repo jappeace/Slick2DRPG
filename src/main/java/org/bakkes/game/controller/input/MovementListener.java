@@ -2,36 +2,31 @@ package org.bakkes.game.controller.input;
 
 import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.map.Tile;
-import org.lwjgl.input.Keyboard;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-//Class to use WASD for movement
-public class MovementListener implements IKeyListener {
+/**
+ * ## MovementListener
+ * allows the main character to be controlled by the keyboard
+ */
+public class MovementListener extends AKeyListener implements IKeyListener {
 
 	private @Inject Player player;
 	private @Inject Provider<Tile> tileProvider;
 
 	@Override
-	public void KeyDown(final int key, final char c) {
+	public void KeyDown(final Key key) {
 		final Tile diff = tileProvider.get();
-		if(key == Keyboard.KEY_W) {
+		if(key.isUp()) {
 			diff.top --;
-		} else if(key == Keyboard.KEY_A) {
+		} else if(key.isLeft()) {
 			diff.left --;
-		} else if(key == Keyboard.KEY_S) {
+		} else if(key.isDown()) {
 			diff.top ++;
-		} else if(key == Keyboard.KEY_D) {
-			diff.left++;
+		} else if(key.isRight()) {
+			diff.left ++;
 		}
 		player.moveTo(player.getTile().plus(diff));
 	}
-
-	@Override
-	public void KeyUp(final int key, final char c) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

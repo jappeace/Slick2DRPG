@@ -3,10 +3,10 @@ package org.bakkes.game.controller;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import org.bakkes.game.controller.input.Key;
 import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.view.overworld.dialog.IMessageBox;
 import org.bakkes.game.view.overworld.dialog.MessageBoxState;
-import org.lwjgl.input.Keyboard;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -19,11 +19,11 @@ public class MessageBoxController implements IController{
 	private @Inject CommonGameState state;
 	private @Inject Provider<IMessageBox> msgBoxProvider;
 	private Queue<IMessageBox> dialogQueue = new LinkedList<>();
-	private @Nullable IMessageBox overlay;
+	private @Nullable IMessageBox currentMsgBox;
 
 	private final void setOverlay(final IMessageBox overlay) {
 		state.setOverlay(overlay);
-		this.overlay = overlay;
+		this.currentMsgBox = overlay;
 	}
 
 	public boolean add(final String title, final String text){
@@ -37,13 +37,13 @@ public class MessageBoxController implements IController{
 		return dialogQueue.add(box);
 	}
 	public void nextDialog() {
-		if(overlay != null){
-			overlay.setState(MessageBoxState.Done);
+		if(currentMsgBox != null){
+			currentMsgBox.setState(MessageBoxState.Done);
 		}
 		if(dialogQueue.size() > 0) {
 			state.setKeyListener(this);
 			setOverlay(dialogQueue.remove());
-			overlay.setState(MessageBoxState.Showing);
+			currentMsgBox.setState(MessageBoxState.Showing);
 			return;
 		}
 		state.setKeyListener(null);
@@ -51,14 +51,17 @@ public class MessageBoxController implements IController{
 	}
 
 	@Override
-	public void KeyDown(final int key, final char c) {
-		if(key == Keyboard.KEY_SPACE){
+	public void KeyDown(final Key k) {
+		if(k.isConfirm()){
 			nextDialog();
+			return;
 		}
+		currentMsgBox.KeyDown(k);
 	}
 
 	@Override
-	public void KeyUp(final int key, final char c) {
+	public void KeyUp(final Key k) {
+		currentMsgBox.KeyUp(k);
 	}
 
 	@Override
@@ -66,7 +69,7 @@ public class MessageBoxController implements IController{
         if(dialogQueue.isEmpty()){
 			return;
 		}
-		if(overlay == null){
+		if(currentMsgBox == null){
 			nextDialog();
 		}
 	}

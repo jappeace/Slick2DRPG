@@ -1,7 +1,7 @@
 package org.bakkes.game.view.overworld.dialog;
 
 import org.bakkes.game.controller.input.IKeyListener;
-import org.lwjgl.input.Keyboard;
+import org.bakkes.game.controller.input.Key;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
@@ -52,24 +52,6 @@ public class Dialog extends MessageBox implements IKeyListener{
 		return current;
 	}
 
-	@Override
-	public void KeyDown(final int key, final char c) {
-		switch(key){
-		case Keyboard.KEY_UP:
-			up();
-			return;
-		case Keyboard.KEY_W:
-			up();
-			return;
-		case Keyboard.KEY_DOWN:
-			down();
-			return;
-		case Keyboard.KEY_S:
-			down();
-		case Keyboard.KEY_RETURN:
-			done();
-		}
-	}
 	private void up(){
 		selected = (selected + 1) % options.length;
 	}
@@ -79,8 +61,13 @@ public class Dialog extends MessageBox implements IKeyListener{
 			selected = options.length-1;
 		}
 	}
-
 	@Override
-	public void KeyUp(final int key, final char c) {
+	public void KeyDown(final Key key) {
+		if(key.isUp()){
+			up();
+		}
+		if(key.isDown()){
+			down();
+		}
 	}
 }

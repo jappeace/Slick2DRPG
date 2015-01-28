@@ -7,6 +7,7 @@ import java.util.List;
 import org.bakkes.game.controller.IController;
 import org.bakkes.game.controller.input.CompositeKeyListener;
 import org.bakkes.game.controller.input.IKeyListener;
+import org.bakkes.game.controller.input.Key;
 import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.view.IRenderable;
 import org.newdawn.slick.GameContainer;
@@ -27,6 +28,7 @@ public abstract class CommonGameState extends BasicGameState {
 	private @Inject Collection<IController> controllers;
 	private IKeyListener keyListener;
 	private @Inject Provider<CompositeKeyListener> defaultKeysProvider;
+	private @Inject Provider<Key> keyProvider;
 
 	/**
 	 *
@@ -86,7 +88,9 @@ public abstract class CommonGameState extends BasicGameState {
 	 */
 	@Override
 	public void keyPressed(final int key, final char c) {
-		keyListener.KeyDown(key, c);
+		final Key k = keyProvider.get();
+		k.setId(key);
+		keyListener.KeyDown(k);
 	}
 
 	/**
@@ -94,6 +98,8 @@ public abstract class CommonGameState extends BasicGameState {
 	 */
 	@Override
 	public void keyReleased(final int key, final char c) {
-		keyListener.KeyUp(key, c);
+		final Key k = keyProvider.get();
+		k.setId(key);
+		keyListener.KeyUp(k);
 	}
 }

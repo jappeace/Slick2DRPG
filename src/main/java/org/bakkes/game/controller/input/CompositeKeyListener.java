@@ -8,16 +8,16 @@ public class CompositeKeyListener implements IKeyListener{
 
 	private @Inject Collection<IKeyListener> keyListeners;
 	@Override
-	public void KeyDown(final int key, final char c) {
+	public void KeyDown(final Key key) {
 		for(final IKeyListener k : keyListeners){
-			k.KeyDown(key, c);
+			k.KeyDown(key);
 		}
 	}
 
 	@Override
-	public void KeyUp(final int key, final char c) {
+	public void KeyUp(final Key key) {
 		for(final IKeyListener k : keyListeners){
-			k.KeyUp(key, c);
+			k.KeyUp(key);
 		}
 	}
 }

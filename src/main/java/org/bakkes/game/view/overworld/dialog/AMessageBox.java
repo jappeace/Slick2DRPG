@@ -1,5 +1,6 @@
 package org.bakkes.game.view.overworld.dialog;
 
+import org.bakkes.game.controller.input.Key;
 import org.bakkes.game.view.AView;
 import org.newdawn.slick.util.Log;
 
@@ -63,5 +64,11 @@ public abstract class AMessageBox extends AView implements IMessageBox{
 	public MessageBoxState getState() {
 		return state;
 	}
+
+	@Override
+	public void KeyDown(final Key key) {}
+
+	@Override
+	public void KeyUp(final Key key) {}
 
 }
