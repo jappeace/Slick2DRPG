@@ -1,13 +1,11 @@
 package org.bakkes.game.controller.state;
 
+import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 
 import org.bakkes.game.AModule;
-import org.bakkes.game.controller.input.IKeyListener;
-import org.bakkes.game.controller.input.InteractionListener;
-import org.bakkes.game.controller.input.InventoryToggleListener;
-import org.bakkes.game.controller.input.MovementListener;
+import org.bakkes.game.controller.IController;
+import org.bakkes.game.controller.MessageBoxController;
 
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
@@ -20,17 +18,12 @@ public class StateModule extends AModule{
 		bind(BattleState.class).in(Singleton.class);
 	}
 
-	@Provides List<IKeyListener> provideKeyListeners(
-        final LinkedList<IKeyListener> linkedList,
-        final InteractionListener npc,
-        final MovementListener movement,
-        final InventoryToggleListener inventory
+
+	public @Provides Collection<IController> provideControllers(
+        final LinkedList<IController> result,
+        final MessageBoxController msgBoxes
     ){
-
-		linkedList.add(npc);
-		linkedList.add(movement);
-		linkedList.add(inventory);
-		return linkedList;
-	}
-
+		result.add(msgBoxes);
+		return result;
+    }
 }

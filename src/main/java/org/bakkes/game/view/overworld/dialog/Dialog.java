@@ -1,18 +1,14 @@
 package org.bakkes.game.view.overworld.dialog;
 
 import org.bakkes.game.controller.input.IKeyListener;
-import org.bakkes.game.controller.state.CommonGameState;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-
-import com.google.inject.Inject;
 
 public class Dialog extends MessageBox implements IKeyListener{
 
 	private String[] options = new String[]{"yes", "no"};
 
-	private @Inject CommonGameState container;
 	private int selected = 0;
 	private final Box anwserBox = new Box(
 			box.x() + box.width()*0.8f - margin,
@@ -57,12 +53,6 @@ public class Dialog extends MessageBox implements IKeyListener{
 	}
 
 	@Override
-	public void show(){
-		super.show();
-		container.add(this);
-	}
-
-	@Override
 	public void KeyDown(final int key, final char c) {
 		switch(key){
 		case Keyboard.KEY_UP:
@@ -90,11 +80,6 @@ public class Dialog extends MessageBox implements IKeyListener{
 		}
 	}
 
-	@Override
-	public void done(){
-		container.remove(this); // cleanup
-		// send result back
-	}
 	@Override
 	public void KeyUp(final int key, final char c) {
 	}

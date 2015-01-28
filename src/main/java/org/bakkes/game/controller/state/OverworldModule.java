@@ -5,6 +5,10 @@ import java.util.LinkedList;
 
 import org.bakkes.game.AModule;
 import org.bakkes.game.R;
+import org.bakkes.game.controller.input.IKeyListener;
+import org.bakkes.game.controller.input.InteractionListener;
+import org.bakkes.game.controller.input.InventoryToggleListener;
+import org.bakkes.game.controller.input.MovementListener;
 import org.bakkes.game.model.Bean;
 import org.bakkes.game.model.entity.EntityTracker;
 import org.bakkes.game.model.entity.IOverworldEntity;
@@ -17,6 +21,8 @@ import org.bakkes.game.view.IRenderable;
 import org.bakkes.game.view.overworld.BlockedTileView;
 import org.bakkes.game.view.overworld.CharacterView;
 import org.bakkes.game.view.overworld.EntityView;
+import org.bakkes.game.view.overworld.dialog.IMessageBox;
+import org.bakkes.game.view.overworld.dialog.MessageBox;
 
 import com.google.inject.Provider;
 import com.google.inject.Provides;
@@ -35,6 +41,7 @@ public class OverworldModule extends AModule{
 		// object, this means at runtime List<String> = List<Integer>, guice fixes this with type literals
 		bind(new TypeLiteral<Bean<Tile>>(){}).in(Singleton.class);
 		bind(new TypeLiteral<Bean<Integer>>(){}).in(Singleton.class);
+		bind(IMessageBox.class).to(MessageBox.class);
 	}
 	private String lastArea = "";
 	private Collection<IRenderable> renderable;
@@ -89,5 +96,17 @@ public class OverworldModule extends AModule{
 		result.addAll(personTracker.getEntities());
 		result.addAll(itemTracker.getEntities());
 		return result;
+	}
+	@Provides Collection<IKeyListener> provideKeyListeners(
+        final LinkedList<IKeyListener> linkedList,
+        final InteractionListener npc,
+        final MovementListener movement,
+        final InventoryToggleListener inventory
+    ){
+
+		linkedList.add(npc);
+		linkedList.add(movement);
+		linkedList.add(inventory);
+		return linkedList;
 	}
 }

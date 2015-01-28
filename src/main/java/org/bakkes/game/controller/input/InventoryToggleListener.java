@@ -6,9 +6,13 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class InventoryToggleListener implements IKeyListener {
-	private @Inject OverworldState game;
+	/*
+	 * TODO: remove provider and make more sensible
+	 */
+	private @Inject Provider<OverworldState> game;
 	private @Inject InventoryView inventoryComponent;
 	private boolean enabled = false;
 
@@ -17,9 +21,9 @@ public class InventoryToggleListener implements IKeyListener {
 		if(key == 1) { //ESC
 			enabled = !enabled;
 			if(enabled) {
-				game.addComponent(inventoryComponent);
+				game.get().addComponent(inventoryComponent);
 			} else {
-				game.removeComponent(inventoryComponent);
+				game.get().removeComponent(inventoryComponent);
 			}
 		}
 		if(enabled) {

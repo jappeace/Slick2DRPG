@@ -1,6 +1,5 @@
 package org.bakkes.game.controller.state;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -8,7 +7,6 @@ import org.bakkes.game.controller.battle.Battle;
 import org.bakkes.game.controller.battle.BattleModule;
 import org.bakkes.game.controller.battle.contestent.ContestentModule;
 import org.bakkes.game.controller.battle.contestent.PlayerContestent;
-import org.bakkes.game.controller.input.IKeyListener;
 import org.bakkes.game.controller.scripting.PokemonModule;
 import org.bakkes.game.controller.scripting.SpeciesModule;
 import org.bakkes.game.model.GameInfo;
@@ -167,12 +165,4 @@ public class BattleState extends CommonGameState {
 
 		super.render(gc, arg1, g);
 	}
-
-	@Override
-	protected List<IKeyListener> getKeyListeners() {
-		return new LinkedList<>();
-	}
-
-
-
 }

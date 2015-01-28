@@ -1,11 +1,10 @@
 package org.bakkes.game.controller.state;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Random;
 
 import org.bakkes.game.controller.command.MoveOnOverworld;
-import org.bakkes.game.controller.input.IKeyListener;
+import org.bakkes.game.controller.input.CompositeKeyListener;
 import org.bakkes.game.model.Bean;
 import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.map.LayerdMap;
@@ -33,7 +32,6 @@ public class OverworldState extends CommonGameState {
 	private @Inject LayerdMap map;
 
 
-	private @Inject List<IKeyListener> keyListeners;
 	private @Inject Bean<Tile> clickedTile;
 	private @Inject Provider<MoveOnOverworld> onClickHandler;
 	private @Inject Camera camera;
@@ -44,6 +42,11 @@ public class OverworldState extends CommonGameState {
 	@Override
 	public int getID() {
 		return PLAYING_STATE_ID;
+	}
+
+	@Inject
+	public OverworldState(final CompositeKeyListener listener){
+		this.setKeyListener(listener);
 	}
 
 	@Override
@@ -124,10 +127,4 @@ public class OverworldState extends CommonGameState {
 		g.drawRect(mouseTile.getX(), mouseTile.getY(), Tile.WIDTH, Tile.HEIGHT);
 		super.render(gc, arg1, g);
 	}
-
-	@Override
-	protected List<IKeyListener> getKeyListeners() {
-		return keyListeners;
-	}
-
 }

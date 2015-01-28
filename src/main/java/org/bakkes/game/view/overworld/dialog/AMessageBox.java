@@ -1,15 +1,11 @@
 package org.bakkes.game.view.overworld.dialog;
 
-import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.view.AView;
 import org.newdawn.slick.util.Log;
 
 import com.google.common.base.Preconditions;
-import com.google.inject.Inject;
 
 public abstract class AMessageBox extends AView implements IMessageBox{
-	private @Inject CommonGameState container;
-
 	private String title = "";
 	private String text = "";
 	private MessageBoxState state;
@@ -39,7 +35,6 @@ public abstract class AMessageBox extends AView implements IMessageBox{
 
 	public void queued() {
 		Log.info("queing dialogbox " + title);
-		container.queueDialogBox(this);
 	}
 	public void show() {
 		Log.info("showing dialogbox " + title);

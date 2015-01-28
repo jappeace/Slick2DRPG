@@ -2,12 +2,11 @@ package org.bakkes.game.controller.scripting.dsl.area;
 
 import groovy.lang.Closure;
 
+import org.bakkes.game.controller.MessageBoxController;
 import org.bakkes.game.controller.scripting.dsl.ADsl;
 import org.bakkes.game.model.IModel;
 import org.bakkes.game.view.overworld.dialog.Dialog;
-import org.bakkes.game.view.overworld.dialog.IMessageBox;
 import org.bakkes.game.view.overworld.dialog.MessageBox;
-import org.bakkes.game.view.overworld.dialog.MessageBoxState;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -16,6 +15,7 @@ public class InteractDsl extends ADsl {
 	private @Inject Provider<MessageBox> messageBoxProvider;
 	private @Inject Provider<Dialog> dialogProvider;
 	private @Inject Provider<PlayerDsl> playerDslProvider;
+	private @Inject MessageBoxController msgBoxController;
 	public IModel target;
 
 	/**
@@ -23,16 +23,12 @@ public class InteractDsl extends ADsl {
 	 * @param text
 	 * @return
 	 */
-	public IMessageBox dialog(final String text){
-		return dialog(text, target.getName() + ":");
+	public void dialog(final String text){
+		dialog(text, target.getName() + ":");
 	}
 
-	public IMessageBox dialog(final String text, final String title){
-		final IMessageBox dialog = messageBoxProvider.get();
-		dialog.setTitle(title);
-		dialog.setText(text);
-		dialog.setState(MessageBoxState.Queued);
-		return dialog;
+	public void dialog(final String text, final String title){
+		msgBoxController.add(title,text);
 	}
 
 	/**
