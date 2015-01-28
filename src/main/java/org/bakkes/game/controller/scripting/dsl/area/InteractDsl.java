@@ -7,6 +7,8 @@ import org.bakkes.game.controller.scripting.dsl.ADsl;
 import org.bakkes.game.model.IModel;
 import org.bakkes.game.view.overworld.dialog.Dialog;
 import org.bakkes.game.view.overworld.dialog.MessageBox;
+import org.bakkes.game.view.overworld.dialog.MessageBoxState;
+import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -47,14 +49,23 @@ public class InteractDsl extends ADsl {
         dialog(text, "you think:");
 	}
 
-	public boolean decision(final String text){
+	public int decision(final String text){
 		return decision(text, "decision:");
 	}
-	public boolean decision(final String text, final String title){
-		final Dialog d = dialogProvider.get();
-		d.setText(text);
-		d.setTitle(title);
-		msgBoxController.add(d);
-		return false;
+	public int decision(final String text, final String title){
+		final Dialog dialog = dialogProvider.get();
+		dialog.setText(text);
+		dialog.setTitle(title);
+		msgBoxController.add(dialog);
+		while(dialog.getState() != MessageBoxState.Done){
+			try {
+				Thread.sleep(10);
+			} catch (final InterruptedException e) {
+				Log.info("ooh nos, I have really no Idea what this means");
+			}
+		}
+		final int choice = dialog.getSelected();
+		Log.info("chose option: "+ choice);
+		return choice ;
 	}
 }

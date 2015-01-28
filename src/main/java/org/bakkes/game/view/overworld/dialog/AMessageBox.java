@@ -45,7 +45,7 @@ public abstract class AMessageBox extends AView implements IMessageBox{
 	}
 
 	@Override
-	public void setState(final MessageBoxState to) {
+	public synchronized void setState(final MessageBoxState to) {
 		this.state = to;
 		switch(to){
 		case Showing:
@@ -61,7 +61,7 @@ public abstract class AMessageBox extends AView implements IMessageBox{
 	}
 
 	@Override
-	public MessageBoxState getState() {
+	public synchronized MessageBoxState getState() {
 		return state;
 	}
 

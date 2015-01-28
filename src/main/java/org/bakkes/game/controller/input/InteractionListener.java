@@ -24,6 +24,9 @@ public class InteractionListener extends AKeyListener {
          * some functions in interact require userinput, the scripting has to wait
          * but this can't happen on this thread because this is the render thread...
          * So fun
+         *
+         * not that you really don't need to keep a ref to the thread once its spinning it will do its thing
+         * gets garbage collected automaticly, the util functions of a thread are bullshit anyways
          */
         new Thread(new Runnable(){
             @Override

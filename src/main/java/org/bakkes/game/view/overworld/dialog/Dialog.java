@@ -7,9 +7,12 @@ import org.newdawn.slick.Graphics;
 
 public class Dialog extends MessageBox implements IKeyListener{
 
-	private String[] options = new String[]{"yes", "no"};
+	private String[] options = new String[]{"no", "yes"};
 
 	private int selected = 0;
+	public int getSelected(){
+		return selected;
+	}
 	private final Box anwserBox = new Box(
 			box.x() + box.width()*0.8f - margin,
 			box.y() - margin,
