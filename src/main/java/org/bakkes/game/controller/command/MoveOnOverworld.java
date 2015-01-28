@@ -106,6 +106,7 @@ public class MoveOnOverworld extends AOneTimeCommand{
 			@Override
 			public void execute(final float tpf) {
 				executed = true;
+				// TODO: this probably should not be hard coded here
 				state.keyPressed(Keyboard.KEY_SPACE, ' ');
 				clickedTile.setData(null);
 			}
