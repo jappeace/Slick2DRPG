@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import org.bakkes.game.controller.events.key.DebugToggleListener;
-import org.bakkes.game.controller.events.key.IKeyListener;
+import org.bakkes.game.controller.input.DebugToggleListener;
+import org.bakkes.game.controller.input.IKeyListener;
 import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.view.IRenderable;
 import org.bakkes.game.view.overworld.dialog.IMessageBox;

@@ -1,4 +1,4 @@
-package org.bakkes.game.controller.events.key;
+package org.bakkes.game.controller.input;
 
 import org.bakkes.game.model.GameInfo;
 import org.newdawn.slick.Input;

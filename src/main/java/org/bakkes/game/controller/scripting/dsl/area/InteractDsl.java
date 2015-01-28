@@ -7,6 +7,7 @@ import org.bakkes.game.model.IModel;
 import org.bakkes.game.view.overworld.dialog.Dialog;
 import org.bakkes.game.view.overworld.dialog.IMessageBox;
 import org.bakkes.game.view.overworld.dialog.MessageBox;
+import org.bakkes.game.view.overworld.dialog.MessageBoxState;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -30,7 +31,7 @@ public class InteractDsl extends ADsl {
 		final IMessageBox dialog = messageBoxProvider.get();
 		dialog.setTitle(title);
 		dialog.setText(text);
-		dialog.show();
+		dialog.setState(MessageBoxState.Queued);
 		return dialog;
 	}
 

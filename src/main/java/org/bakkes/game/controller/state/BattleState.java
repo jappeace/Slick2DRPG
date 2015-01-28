@@ -8,7 +8,7 @@ import org.bakkes.game.controller.battle.Battle;
 import org.bakkes.game.controller.battle.BattleModule;
 import org.bakkes.game.controller.battle.contestent.ContestentModule;
 import org.bakkes.game.controller.battle.contestent.PlayerContestent;
-import org.bakkes.game.controller.events.key.IKeyListener;
+import org.bakkes.game.controller.input.IKeyListener;
 import org.bakkes.game.controller.scripting.PokemonModule;
 import org.bakkes.game.controller.scripting.SpeciesModule;
 import org.bakkes.game.model.GameInfo;

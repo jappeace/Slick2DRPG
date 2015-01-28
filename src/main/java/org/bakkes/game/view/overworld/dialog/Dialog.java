@@ -1,6 +1,6 @@
 package org.bakkes.game.view.overworld.dialog;
 
-import org.bakkes.game.controller.events.key.IKeyListener;
+import org.bakkes.game.controller.input.IKeyListener;
 import org.bakkes.game.controller.state.CommonGameState;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
@@ -90,7 +90,8 @@ public class Dialog extends MessageBox implements IKeyListener{
 		}
 	}
 
-	private void done(){
+	@Override
+	public void done(){
 		container.remove(this); // cleanup
 		// send result back
 	}

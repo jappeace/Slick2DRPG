@@ -37,18 +37,31 @@ public abstract class AMessageBox extends AView implements IMessageBox{
 		return title;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.bakkes.game.view.overworld.dialog.IDialog#show()
-	 */
-	@Override
-	public void show() {
-		Log.info("showing dialogbox with: " + text);
+	public void queued() {
+		Log.info("queing dialogbox " + title);
 		container.queueDialogBox(this);
+	}
+	public void show() {
+		Log.info("showing dialogbox " + title);
+	}
+	public void done() {
+		Log.info("done with dialogbox " + title);
 	}
 
 	@Override
 	public void setState(final MessageBoxState to) {
 		this.state = to;
+		switch(to){
+		case Showing:
+			show();
+			break;
+		case Queued:
+			queued();
+			break;
+		case Done:
+			done();
+			break;
+		}
 	}
 
 	@Override

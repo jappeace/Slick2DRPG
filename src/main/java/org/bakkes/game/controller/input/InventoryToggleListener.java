@@ -1,4 +1,4 @@
-package org.bakkes.game.controller.events.key;
+package org.bakkes.game.controller.input;
 
 import org.bakkes.game.controller.state.OverworldState;
 import org.bakkes.game.view.overworld.InventoryView;

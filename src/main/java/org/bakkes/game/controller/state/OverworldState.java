@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.bakkes.game.controller.command.MoveOnOverworld;
-import org.bakkes.game.controller.events.key.IKeyListener;
+import org.bakkes.game.controller.input.IKeyListener;
 import org.bakkes.game.model.Bean;
 import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.map.LayerdMap;

@@ -1,4 +1,4 @@
-package org.bakkes.game.controller.events.key;
+package org.bakkes.game.controller.input;
 
 import org.bakkes.game.model.entity.EntityTracker;
 import org.bakkes.game.model.entity.IOverworldEntity;

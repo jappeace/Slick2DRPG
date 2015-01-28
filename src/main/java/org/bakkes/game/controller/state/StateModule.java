@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.bakkes.game.AModule;
-import org.bakkes.game.controller.events.key.IKeyListener;
-import org.bakkes.game.controller.events.key.InventoryToggleListener;
-import org.bakkes.game.controller.events.key.MovementListener;
-import org.bakkes.game.controller.events.key.InteractionListener;
+import org.bakkes.game.controller.input.IKeyListener;
+import org.bakkes.game.controller.input.InteractionListener;
+import org.bakkes.game.controller.input.InventoryToggleListener;
+import org.bakkes.game.controller.input.MovementListener;
 
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
