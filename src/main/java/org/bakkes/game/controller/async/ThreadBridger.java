@@ -1,7 +1,9 @@
-package org.bakkes.game.controller;
+package org.bakkes.game.controller.async;
 
 import java.util.LinkedList;
 import java.util.Queue;
+
+import org.bakkes.game.controller.IUpdatable;
 
 /**
  * ## Thread bridger

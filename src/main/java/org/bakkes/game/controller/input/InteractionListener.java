@@ -1,5 +1,6 @@
 package org.bakkes.game.controller.input;
 
+import org.bakkes.game.controller.async.IThreadPool;
 import org.bakkes.game.model.entity.EntityTracker;
 import org.bakkes.game.model.entity.IOverworldEntity;
 import org.bakkes.game.model.entity.player.Player;
@@ -9,7 +10,7 @@ import com.google.inject.Inject;
 public class InteractionListener extends AKeyListener {
 	private @Inject Player player;
 	private @Inject EntityTracker<IOverworldEntity> overworldEntitiesTracker;
-
+	private @Inject IThreadPool pool;
 	@Override
 	public void KeyDown(final Key key) {
 		if(!key.isConfirm()) {
@@ -28,12 +29,12 @@ public class InteractionListener extends AKeyListener {
          * not that you really don't need to keep a ref to the thread once its spinning it will do its thing
          * gets garbage collected automaticly, the util functions of a thread are bullshit anyways
          */
-        new Thread(new Runnable(){
+        pool.execute(new Runnable(){
             @Override
             public void run() {
                 entity.interact();
             }
-        }).start();
+        });
     }
 
 	private IOverworldEntity findFacingEntity(){

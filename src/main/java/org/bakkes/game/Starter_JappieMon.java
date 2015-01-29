@@ -1,6 +1,7 @@
 package org.bakkes.game;
 import java.io.File;
 
+import org.bakkes.game.controller.async.ThreadModule;
 import org.bakkes.game.controller.init.GameContainerModule;
 import org.bakkes.game.controller.init.GameModule;
 import org.bakkes.game.controller.state.OverworldModule;
@@ -32,7 +33,8 @@ public class Starter_JappieMon {
 				new PeopleAreaModule(),
 				new ItemAreaModule(),
 				new OverworldModule(),
-				new FontModule()
+				new FontModule(),
+				new ThreadModule()
             );
         injector.getInstance(AppGameContainer.class).start();
 	}

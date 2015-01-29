@@ -30,7 +30,7 @@ public class PokeBelt implements Iterable<Pokemon> {
 	 * the syncrhonized operator togehter with making a copy of the pokemon list makes this class thread safe
 	 * @param poke
 	 */
-	public synchronized void add(final Pokemon poke){
+	public void add(final Pokemon poke){
 		pokemon.add(poke);
 	}
 
@@ -39,6 +39,6 @@ public class PokeBelt implements Iterable<Pokemon> {
 	 */
 	@Override
 	public Iterator<Pokemon> iterator() {
-		return new ArrayList<>(pokemon).iterator();
+		return pokemon.iterator();
 	}
 }

@@ -3,6 +3,7 @@ package org.bakkes.game.controller.state;
 import java.util.List;
 import java.util.Random;
 
+import org.bakkes.game.controller.async.IThreadPool;
 import org.bakkes.game.controller.battle.Battle;
 import org.bakkes.game.controller.battle.BattleModule;
 import org.bakkes.game.controller.battle.contestent.ContestentModule;
@@ -40,6 +41,7 @@ public class BattleState extends CommonGameState {
 	private int selectedMove = 0;
 	private boolean firstRun = true;
 	private @Inject Random random;
+	private @Inject IThreadPool pool;
 	private @Inject Player player;
 	@Override
 	public int getID() {
@@ -74,7 +76,7 @@ public class BattleState extends CommonGameState {
 		injector = injector.createChildInjector(new BattleModule(this.playerContestent));
 		this.battle = injector.getInstance(Battle.class);
 		this.battleLog = injector.getInstance(BattleLogView.class);
-		new Thread(this.battle).start();
+		pool.execute(this.battle);
 		this.playerView.renderMoves = false;
 		firstRun = true;
 	}

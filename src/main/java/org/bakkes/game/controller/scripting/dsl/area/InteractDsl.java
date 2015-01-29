@@ -4,7 +4,7 @@ import groovy.lang.Closure;
 
 import org.bakkes.game.controller.IUpdatable;
 import org.bakkes.game.controller.MessageBoxController;
-import org.bakkes.game.controller.ThreadBridger;
+import org.bakkes.game.controller.async.ThreadBridger;
 import org.bakkes.game.controller.scripting.dsl.ADsl;
 import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.model.IModel;
@@ -47,7 +47,13 @@ public class InteractDsl extends ADsl {
 	 * @param commands
 	 */
 	public void selectPlayer(final Closure<Void> commands){
-		delegate(commands, playerDslProvider.get());
+		// since we don't want to wait for user input, lets just syncrhonize this one
+		threadBridger.add(new IUpdatable(){
+            @Override
+            public void update(final int delta) {
+                delegate(commands, playerDslProvider.get());
+            }
+		});
 	}
 
 	/**
@@ -90,6 +96,10 @@ public class InteractDsl extends ADsl {
             Log.info("ooh nos, I have really no Idea what this means");
         }
 	}
+	/**
+	 * I hate threads
+	 * Also java 7 for not having lambdas that could have replaced this bullshit
+	 */
 	private class DialogConstructor implements IUpdatable{
 
 		private @Nullable Dialog dialog = null;

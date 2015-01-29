@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import org.bakkes.game.AModule;
 import org.bakkes.game.controller.IUpdatable;
 import org.bakkes.game.controller.MessageBoxController;
-import org.bakkes.game.controller.ThreadBridger;
+import org.bakkes.game.controller.async.ThreadBridger;
 
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
