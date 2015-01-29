@@ -20,7 +20,7 @@ public class MutableFont implements org.newdawn.slick.Font{
 
 	private String name = Font.SANS_SERIF;
 	private int decoration = Font.PLAIN;
-	private int size = 12;
+	private int size = 15;
 	private boolean antiAliasing = true;
 
     private org.newdawn.slick.Font font;

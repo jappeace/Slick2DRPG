@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bakkes.game.view.IRenderable;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -43,14 +44,20 @@ public class LineWriterView implements IRenderable{
 		return location.y - start.y;
 	}
 
+	public void write(final String str){
+		write(str, null);
+	}
+	public void write(final String str, final Font font){
+		final TextLine t = textLineProvider.get();
+		t.setText(str);
+		t.y(getLocation().y);
+		t.x(getLocation().x);
+		t.setFont(font);
+		write(t);
+	}
 	public void write(final TextLine line){
 		lines.add(line);
 		getLocation().y += line.height();
-	}
-	public void write(final String str){
-		final TextLine t = textLineProvider.get();
-		t.setText(str);
-		write(t);
 	}
 	public void clear(){
 		lines.clear();

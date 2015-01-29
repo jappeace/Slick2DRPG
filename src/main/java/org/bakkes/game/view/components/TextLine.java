@@ -41,6 +41,9 @@ public class TextLine extends AShape implements IRenderable{
 		this.text = text;
 	}
 	public final void setFont(final org.newdawn.slick.Font font) {
+		if(font == null){
+			return;
+		}
 		this.font = font;
 	}
 }

@@ -18,7 +18,7 @@ public class Menu extends AShape implements IRenderable{
 	private @Inject Provider<TextLine> textLineProvider;
 
 	private int selected = 0;
-	private float margin = 15;
+	private float padding = 15;
 	private float overrideHeight = -1;
 	private float overrideWidth = -1;
 	private final Box backgroundBox = new Box();
@@ -32,11 +32,11 @@ public class Menu extends AShape implements IRenderable{
 	private void updateShape(){
 		backgroundBox.x(x());
 		backgroundBox.y(y());
-		backgroundBox.width(width());
-		backgroundBox.width(height());
-		selectBox.x(x() + margin /2);
-		selectBox.x(y() + margin);
-		selectBox.width(width()-margin);
+		backgroundBox.width(width() + padding * 2);
+		backgroundBox.height(height()*options.size() + padding);
+		selectBox.x(x() + padding /2);
+		selectBox.y(y() + padding);
+		selectBox.width(width() + padding);
 	}
 	public void add(final String ... options){
 		for(final String option : options){
@@ -57,12 +57,13 @@ public class Menu extends AShape implements IRenderable{
         int linenr = 0;
         for(final TextLine option : options){
         	option.x(backgroundBox.x() + backgroundBox.width()/2 - option.width() /2);
-        	option.y(backgroundBox.y() + margin + option.height()*linenr);
+        	option.y(backgroundBox.y() + padding/2 + option.height()*linenr);
         	if(linenr == selected){
         		selectBox.height(option.height());
-                selectBox.y(backgroundBox.y() + margin + selected*selectBox.height());
+                selectBox.y(backgroundBox.y() + padding/2 + selected*selectBox.height());
                 selectBox.render(g);
         	}
+        	g.setColor(Color.black);
         	option.render(g);
         	linenr++;
         }
