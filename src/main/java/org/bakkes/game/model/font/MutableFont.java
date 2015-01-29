@@ -1,9 +1,14 @@
 package org.bakkes.game.model.font;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.bakkes.game.model.AModel;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.util.Log;
 
 /**
  * ##Font
@@ -20,26 +25,38 @@ import org.newdawn.slick.TrueTypeFont;
  * I still experiance frame drops when loading other fonts, so creating some kind of caching might be good
  * but I don't think I'll do it, I'm to lazy anyways to use many fonts
  */
-public class MutableFont implements Font{
+public class MutableFont extends AModel implements Font{
 
-    private static class Default{
-        public static final String name = java.awt.Font.SANS_SERIF;
-        public static final int decoration = java.awt.Font.PLAIN;
-        public static final int size = 15;
-        public static final boolean antiAliasing = true;
-        public static final Font font = new TrueTypeFont(new java.awt.Font(name, decoration, size), antiAliasing);
+	private int decoration = java.awt.Font.PLAIN;
+	private int size = 15;
+	private boolean antiAliasing = true;
+
+    private Font font;
+    private static final Map<String, Font> cache = new HashMap<>();
+
+
+    MutableFont(){
+    	setName(java.awt.Font.SANS_SERIF);
+    	update();
     }
-	private String name = Default.name;
-	private int decoration = Default.decoration;
-	private int size = Default.size;
-	private boolean antiAliasing = Default.antiAliasing;
 
-    private Font font = Default.font;
-
+    private synchronized Font loadFont(){
+    	Font result = cache.get(toString());
+    	if(result == null){
+    		result = new TrueTypeFont(new java.awt.Font(getName(), decoration, size), antiAliasing);
+    		Log.info("loading new font " + toString());
+    		cache.put(toString(), result);
+    	}
+    	return result;
+    }
     private void update(){
-        font = new TrueTypeFont(new java.awt.Font(name, decoration, size), antiAliasing);
+        font = loadFont();
     }
 
+    @Override
+	public String toString(){
+    	return super.toString() + "[" + "decoration: " + decoration + " size: " + size + " antiAliasing: " + antiAliasing +" ]";
+    }
 
 	@Override
 	public int getWidth(final String str) {
@@ -47,10 +64,6 @@ public class MutableFont implements Font{
 	}
 
 
-
-	public final String getName() {
-		return name;
-	}
 
 	public final int getDecoration() {
 		return decoration;
@@ -64,8 +77,9 @@ public class MutableFont implements Font{
 		return antiAliasing;
 	}
 
+	@Override
 	public final void setName(final String name) {
-		this.name = name;
+		super.setName(name);
 		update();
 	}
 

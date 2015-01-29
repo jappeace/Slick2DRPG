@@ -8,6 +8,9 @@ import org.newdawn.slick.Graphics;
 
 import com.google.inject.Inject;
 
+/**
+ * adds a menu with choice to the messagebox
+ */
 public class Dialog extends MessageBox implements IKeyListener{
 
     private Menu menu;
