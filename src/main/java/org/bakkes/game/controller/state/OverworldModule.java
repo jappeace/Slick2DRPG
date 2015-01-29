@@ -7,7 +7,7 @@ import org.bakkes.game.AModule;
 import org.bakkes.game.R;
 import org.bakkes.game.controller.input.IKeyListener;
 import org.bakkes.game.controller.input.InteractionListener;
-import org.bakkes.game.controller.input.InventoryToggleListener;
+import org.bakkes.game.controller.input.MenuToggleListener;
 import org.bakkes.game.controller.input.MovementListener;
 import org.bakkes.game.model.Bean;
 import org.bakkes.game.model.entity.EntityTracker;
@@ -101,7 +101,7 @@ public class OverworldModule extends AModule{
         final LinkedList<IKeyListener> linkedList,
         final InteractionListener npc,
         final MovementListener movement,
-        final InventoryToggleListener inventory
+        final MenuToggleListener inventory
     ){
 
 		linkedList.add(npc);

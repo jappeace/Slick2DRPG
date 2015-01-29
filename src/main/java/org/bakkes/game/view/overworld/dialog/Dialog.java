@@ -10,7 +10,6 @@ import com.google.inject.Inject;
 
 public class Dialog extends MessageBox implements IKeyListener{
 
-	private String[] options = new String[]{"no", "yes"};
     private Menu menu;
 	@Inject
 	public Dialog(final Menu menu, final MutableFont font){
@@ -18,6 +17,8 @@ public class Dialog extends MessageBox implements IKeyListener{
 		this.menu = menu;
 		menu.x(box.x()+ box.width()*0.8f - margin);
 		menu.y(box.y()-margin);
+	}
+	public void add(final String ... options){
 		menu.add(options);
 	}
 	@Override

@@ -1,8 +1,8 @@
 package org.bakkes.game.model.font;
 
-import java.awt.Font;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.TrueTypeFont;
 
 /**
@@ -15,22 +15,29 @@ import org.newdawn.slick.TrueTypeFont;
  * I will construct more complex fonts based on this one
  *
  * I want to be able to create this default font and then modify it
+ *
+ * aperantly is font creating quite heavy, so the default font is now stored staticly (usualy it is not changed)
+ * I still experiance frame drops when loading other fonts, so creating some kind of caching might be good
+ * but I don't think I'll do it, I'm to lazy anyways to use many fonts
  */
-public class MutableFont implements org.newdawn.slick.Font{
+public class MutableFont implements Font{
 
-	private String name = Font.SANS_SERIF;
-	private int decoration = Font.PLAIN;
-	private int size = 15;
-	private boolean antiAliasing = true;
-
-    private org.newdawn.slick.Font font;
-
-    public MutableFont(){
-    	update();
+    private static class Default{
+        public static final String name = java.awt.Font.SANS_SERIF;
+        public static final int decoration = java.awt.Font.PLAIN;
+        public static final int size = 15;
+        public static final boolean antiAliasing = true;
+        public static final Font font = new TrueTypeFont(new java.awt.Font(name, decoration, size), antiAliasing);
     }
+	private String name = Default.name;
+	private int decoration = Default.decoration;
+	private int size = Default.size;
+	private boolean antiAliasing = Default.antiAliasing;
+
+    private Font font = Default.font;
 
     private void update(){
-        font = new TrueTypeFont(new Font(name, decoration, size), antiAliasing);
+        font = new TrueTypeFont(new java.awt.Font(name, decoration, size), antiAliasing);
     }
 
 

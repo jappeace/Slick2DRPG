@@ -12,6 +12,10 @@ import org.newdawn.slick.geom.Vector2f;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
+/**
+ * creates a nice select input
+ * basicly the player sees a couple of texts he can chose from and select
+ */
 public class Menu extends AShape implements IRenderable{
 
 	private Collection<TextLine> options = new LinkedList<>();
@@ -33,7 +37,11 @@ public class Menu extends AShape implements IRenderable{
 		backgroundBox.x(x());
 		backgroundBox.y(y());
 		backgroundBox.width(width() + padding * 2);
-		backgroundBox.height(height()*options.size() + padding);
+		if(isOverrideHeight()){
+            backgroundBox.height(height() + padding);
+		}else{
+            backgroundBox.height(height()*options.size() + padding);
+		}
 		selectBox.x(x() + padding /2);
 		selectBox.y(y() + padding);
 		selectBox.width(width() + padding);
@@ -53,13 +61,12 @@ public class Menu extends AShape implements IRenderable{
 	public void render(final Graphics g) {
 		backgroundBox.render(g);
 
-
         int linenr = 0;
         for(final TextLine option : options){
         	option.x(backgroundBox.x() + backgroundBox.width()/2 - option.width() /2);
         	option.y(backgroundBox.y() + padding/2 + option.height()*linenr);
         	if(linenr == selected){
-        		selectBox.height(option.height());
+                selectBox.height(option.height());
                 selectBox.y(backgroundBox.y() + padding/2 + selected*selectBox.height());
                 selectBox.render(g);
         	}
@@ -117,9 +124,12 @@ public class Menu extends AShape implements IRenderable{
 		return result;
 	}
 
+	private boolean isOverrideHeight(){
+		return overrideHeight > 0;
+	}
 	@Override
 	public float height() {
-		if(overrideHeight > 0){
+		if(isOverrideHeight()){
 			return overrideHeight;
 		}
 		float result = 0;

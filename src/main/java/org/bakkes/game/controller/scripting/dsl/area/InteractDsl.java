@@ -2,6 +2,9 @@ package org.bakkes.game.controller.scripting.dsl.area;
 
 import groovy.lang.Closure;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.bakkes.game.controller.IUpdatable;
 import org.bakkes.game.controller.MessageBoxController;
 import org.bakkes.game.controller.async.ThreadBridger;
@@ -65,11 +68,11 @@ public class InteractDsl extends ADsl {
 	}
 
 	public int decision(final String text){
-		return decision(text, "decision:");
+		return decision(text, "decision:", Arrays.asList(new String[]{"yes", "no"}));
 	}
-	public int decision(final String text, final String title){
+	public int decision(final String text, final String title, final Collection<String> options){
 
-		final DialogConstructor d = new DialogConstructor(text, title);
+		final DialogConstructor d = new DialogConstructor(text, title, options);
 
 		threadBridger.add(d);
 		// now the wait begins
@@ -90,31 +93,41 @@ public class InteractDsl extends ADsl {
 		return choice ;
 	}
 	private void sleep(){
-        try {
-            Thread.sleep(GameInfo.USERINPUT_THREADSLEEP_TIME);
-        } catch (final InterruptedException e) {
-            Log.info("ooh nos, I have really no Idea what this means");
-        }
+		try {
+			Thread.sleep(GameInfo.USERINPUT_THREADSLEEP_TIME);
+		} catch (final InterruptedException e) {
+			Log.info(e.getMessage());
+		}
 	}
 	/**
 	 * I hate threads
 	 * Also java 7 for not having lambdas that could have replaced this bullshit
+	 *
+	 * this class' update function will be exuceted on the main thread
 	 */
 	private class DialogConstructor implements IUpdatable{
 
 		private @Nullable Dialog dialog = null;
 		private String text, title;
-		public DialogConstructor(final String text, final String title){
+		private Collection<String> options;
+		public DialogConstructor(final String text, final String title, final Collection<String> options){
 			this.text = text;
 			this.title = title;
+			this.options = options;
 		}
         @Override
         public void update(final int delta) {
-            dialog = dialogProvider.get();
-            getDialog().setText(text);
-            getDialog().setTitle(title);
-            msgBoxController.add(getDialog());
+            final Dialog dialog = dialogProvider.get();
+            dialog.setText(text);
+            dialog.setTitle(title);
+            dialog.add(options.toArray(new String[options.size()]));
+            msgBoxController.add(dialog);
+            this.dialog = dialog; // after this thread is done make it accesable
         }
+        /**
+         * the dialog will keep returining null until its filled by the update
+         * @return
+         */
 		public Dialog getDialog() {
 			return dialog;
 		}
