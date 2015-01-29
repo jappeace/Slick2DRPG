@@ -2,6 +2,7 @@ package org.bakkes.game.view.overworld.dialog;
 
 import org.bakkes.game.controller.input.IKeyListener;
 import org.bakkes.game.controller.input.Key;
+import org.bakkes.game.model.font.MutableFont;
 import org.bakkes.game.view.components.Menu;
 import org.newdawn.slick.Graphics;
 
@@ -12,7 +13,8 @@ public class Dialog extends MessageBox implements IKeyListener{
 	private String[] options = new String[]{"no", "yes"};
     private Menu menu;
 	@Inject
-	public Dialog(final Menu menu){
+	public Dialog(final Menu menu, final MutableFont font){
+		super(font);
 		menu.x(box.x()+ box.width()*0.8f - margin);
 		menu.y(box.y()-margin);
 		menu.add(options);

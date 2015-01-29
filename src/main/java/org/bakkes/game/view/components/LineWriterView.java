@@ -18,9 +18,7 @@ public class LineWriterView implements IRenderable{
 	private Vector2f location = new Vector2f();
 	private Vector2f start = new Vector2f();
 	private List<TextLine> lines = new LinkedList<>();
-	public float lineIncrease = 15f;
 	public Color color = Color.black;
-	private float width = -1;
 
 	@Override
 	public void render(final Graphics g) {
@@ -41,14 +39,20 @@ public class LineWriterView implements IRenderable{
 		return location.y - start.y;
 	}
 
+	public void write(final TextLine line){
+		lines.add(line);
+		getLocation().y += line.height();
+	}
 	public void write(final String str){
-		lines.add(new TextLine(getLocation(), str));
-		getLocation().y += lineIncrease;
+		write(new TextLine(getLocation(), str));
 	}
 	public void clear(){
 		lines.clear();
 	}
 	public Vector2f getLocation() {
 		return location;
+	}
+	public int lineCount(){
+		return lines.size();
 	}
 }

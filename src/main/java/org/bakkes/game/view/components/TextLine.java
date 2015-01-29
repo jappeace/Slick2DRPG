@@ -2,12 +2,11 @@ package org.bakkes.game.view.components;
 
 import static com.sun.xml.internal.ws.util.StringUtils.capitalize;
 
-import java.awt.Font;
-
 import org.bakkes.game.view.IRenderable;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Vector2f;
+
+import com.google.inject.Inject;
 
 /**
  * ##TextLine
@@ -20,7 +19,7 @@ public class TextLine extends AShape implements IRenderable{
      * The fonts are fucking horrible
      * I have no Idea what the fuck I'm doing here
      */
-    private org.newdawn.slick.Font font;
+    private @Inject org.newdawn.slick.Font font;
 
     public TextLine(){
     	this(new Vector2f(),"");
@@ -29,7 +28,6 @@ public class TextLine extends AShape implements IRenderable{
     	this(new Vector2f(),str);
     }
     public TextLine(final Vector2f location, final String str){
-    	font = new TrueTypeFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12), true);
         setPosition(location);
         text = str;
     }

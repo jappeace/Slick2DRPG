@@ -7,7 +7,6 @@ import org.bakkes.game.controller.scripting.dsl.ADsl;
 import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.model.IModel;
 import org.bakkes.game.view.overworld.dialog.Dialog;
-import org.bakkes.game.view.overworld.dialog.MessageBox;
 import org.bakkes.game.view.overworld.dialog.MessageBoxState;
 import org.newdawn.slick.util.Log;
 
@@ -15,7 +14,6 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class InteractDsl extends ADsl {
-	private @Inject Provider<MessageBox> messageBoxProvider;
 	private @Inject Provider<Dialog> dialogProvider;
 	private @Inject Provider<PlayerDsl> playerDslProvider;
 	private @Inject MessageBoxController msgBoxController;

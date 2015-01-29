@@ -8,6 +8,7 @@ import org.bakkes.game.controller.state.StateModule;
 import org.bakkes.game.model.entity.npc.PeopleAreaModule;
 import org.bakkes.game.model.entity.player.PlayerModule;
 import org.bakkes.game.model.entity.player.invetory.ItemAreaModule;
+import org.bakkes.game.model.font.FontModule;
 import org.bakkes.game.model.map.MapModule;
 import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;
@@ -30,7 +31,8 @@ public class Starter_JappieMon {
 				new StateModule(),
 				new PeopleAreaModule(),
 				new ItemAreaModule(),
-				new OverworldModule()
+				new OverworldModule(),
+				new FontModule()
             );
         injector.getInstance(AppGameContainer.class).start();
 	}

@@ -34,7 +34,7 @@ public class BattleLogView extends AView {
         	out.write("Turn #"+i+":");
         	renderTurn(log.get(i));
         	out.write("------");
-        	if(out.getHeight() + MAX_TURN_LINES * out.lineIncrease > SHAPE.getHeight()){
+        	if(out.getHeight() + MAX_TURN_LINES * (out.getHeight()/out.lineCount()) > SHAPE.getHeight()){
         		break;
         	}
         }
