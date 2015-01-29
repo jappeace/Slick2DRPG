@@ -1,5 +1,6 @@
 package org.bakkes.game.view;
 
+import org.bakkes.game.view.components.LineWriterView;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 

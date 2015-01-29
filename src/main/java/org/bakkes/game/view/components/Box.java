@@ -1,6 +1,5 @@
-package org.bakkes.game.view.overworld.dialog;
+package org.bakkes.game.view.components;
 
-import org.bakkes.game.model.IShape;
 import org.bakkes.game.view.IRenderable;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -17,8 +16,12 @@ public class Box implements IRenderable, IShape{
 	private Color background = new Color(255,200,180);
 	private Color border = new Color(0,0,255,150);
 	private float borderWidth = 3;
+	public Box(){
+		// make it big so configuration won't be forgotten
+		this(0,0,400,500);
+	}
 	public Box(final float x, final float y, final float width, final float height){
-		shape = new Rectangle(x,y,width,height);
+		shape = createShape(x,y,width,height);
 	}
 	@Override
 	public void render(final Graphics g) {
@@ -61,6 +64,16 @@ public class Box implements IRenderable, IShape{
 	public float y() {
 		return shape.getY();
 	}
+	/**
+	 * As everyone knows boxes are resizable in contradiction to shapes
+	 * you can step on one for example
+	 */
+	public void width(final float to){
+		shape = createShape(x(), y(), to, height());
+	}
+	public void height(final float to){
+		shape = createShape(x(), y(), width(), to);
+	}
 	@Override
 	public void x(final float to) {
 		shape.setX(to);
@@ -69,6 +82,9 @@ public class Box implements IRenderable, IShape{
 	@Override
 	public void y(final float to) {
 		shape.setY(to);
+	}
+	private Shape createShape(final float x, final float y, final float width, final float height){
+		return new Rectangle(x,y,width,height);
 	}
 
 }

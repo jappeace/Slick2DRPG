@@ -47,7 +47,7 @@ person {
 	onInteract{
 		dialog "I don't want this pokemon any more, do you want it?"
 		tought "uhhh, I hate pokemon"
-		player{
+		selectPlayer{
 			givePokemon{
 				species="charmender"
 				xp=500

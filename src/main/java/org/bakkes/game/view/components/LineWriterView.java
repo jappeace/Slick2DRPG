@@ -1,13 +1,12 @@
-package org.bakkes.game.view;
+package org.bakkes.game.view.components;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bakkes.game.view.IRenderable;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
-
-import com.sun.xml.internal.ws.util.StringUtils;
 
 /**
  * don't extends a view otherwise stackoverflow
@@ -18,7 +17,7 @@ public class LineWriterView implements IRenderable{
 
 	private Vector2f location = new Vector2f();
 	private Vector2f start = new Vector2f();
-	private List<Line> lines = new LinkedList<>();
+	private List<TextLine> lines = new LinkedList<>();
 	public float lineIncrease = 15f;
 	public Color color = Color.black;
 	private float width = -1;
@@ -26,7 +25,7 @@ public class LineWriterView implements IRenderable{
 	@Override
 	public void render(final Graphics g) {
 		g.setColor(color);
-		for(final Line l : lines){
+		for(final TextLine l : lines){
 			l.render(g);
 		}
 	}
@@ -43,7 +42,7 @@ public class LineWriterView implements IRenderable{
 	}
 
 	public void write(final String str){
-		lines.add(new Line(getLocation(), str));
+		lines.add(new TextLine(getLocation(), str));
 		getLocation().y += lineIncrease;
 	}
 	public void clear(){
@@ -51,18 +50,5 @@ public class LineWriterView implements IRenderable{
 	}
 	public Vector2f getLocation() {
 		return location;
-	}
-	private static class Line implements IRenderable{
-		public Vector2f position;
-		String string;
-		public float width = -1;
-		public Line(final Vector2f location, final String str){
-			position = new Vector2f(location);
-			string = str;
-		}
-		@Override
-		public void render(final Graphics g) {
-			g.drawString(StringUtils.capitalize(string), position.x, position.y);
-		}
 	}
 }

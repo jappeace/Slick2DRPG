@@ -1,5 +1,6 @@
 package org.bakkes.game.view.overworld.dialog;
 
+import org.bakkes.game.view.components.Box;
 import org.newdawn.slick.Graphics;
 
 /**
