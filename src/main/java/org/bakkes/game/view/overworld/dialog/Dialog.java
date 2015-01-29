@@ -15,6 +15,7 @@ public class Dialog extends MessageBox implements IKeyListener{
 	@Inject
 	public Dialog(final Menu menu, final MutableFont font){
 		super(font);
+		this.menu = menu;
 		menu.x(box.x()+ box.width()*0.8f - margin);
 		menu.y(box.y()-margin);
 		menu.add(options);

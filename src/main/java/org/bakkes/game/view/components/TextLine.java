@@ -4,7 +4,6 @@ import static com.sun.xml.internal.ws.util.StringUtils.capitalize;
 
 import org.bakkes.game.view.IRenderable;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Vector2f;
 
 import com.google.inject.Inject;
 
@@ -22,14 +21,7 @@ public class TextLine extends AShape implements IRenderable{
     private @Inject org.newdawn.slick.Font font;
 
     public TextLine(){
-    	this(new Vector2f(),"");
-    }
-    public TextLine(final String str){
-    	this(new Vector2f(),str);
-    }
-    public TextLine(final Vector2f location, final String str){
-        setPosition(location);
-        text = str;
+    	text = "";
     }
     @Override
     public void render(final Graphics g) {

@@ -20,6 +20,5 @@ import org.bakkes.game.controller.input.IKeyListener;
  * 		* logic is not really that reusable at all
  * is a best practice.
  */
-public interface IController extends IKeyListener{
-	public void update(final int delta);
+public interface IController extends IKeyListener, IUpdatable{
 }

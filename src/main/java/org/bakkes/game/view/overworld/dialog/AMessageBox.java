@@ -9,7 +9,7 @@ import com.google.common.base.Preconditions;
 public abstract class AMessageBox extends AView implements IMessageBox{
 	private String title = "";
 	private String text = "";
-	private MessageBoxState state;
+	private MessageBoxState state = MessageBoxState.Created;
 
 	/* (non-Javadoc)
 	 * @see org.bakkes.game.view.overworld.dialog.IDialog#setTitle(java.lang.String)

@@ -8,6 +8,9 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+
 /**
  * don't extends a view otherwise stackoverflow
  *
@@ -18,6 +21,7 @@ public class LineWriterView implements IRenderable{
 	private Vector2f location = new Vector2f();
 	private Vector2f start = new Vector2f();
 	private List<TextLine> lines = new LinkedList<>();
+	private @Inject Provider<TextLine> textLineProvider;
 	public Color color = Color.black;
 
 	@Override
@@ -44,7 +48,9 @@ public class LineWriterView implements IRenderable{
 		getLocation().y += line.height();
 	}
 	public void write(final String str){
-		write(new TextLine(getLocation(), str));
+		final TextLine t = textLineProvider.get();
+		t.setText(str);
+		write(t);
 	}
 	public void clear(){
 		lines.clear();

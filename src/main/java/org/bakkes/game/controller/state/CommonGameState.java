@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.bakkes.game.controller.IController;
+import org.bakkes.game.controller.IUpdatable;
 import org.bakkes.game.controller.input.CompositeKeyListener;
 import org.bakkes.game.controller.input.IKeyListener;
 import org.bakkes.game.controller.input.Key;
@@ -25,7 +25,7 @@ public abstract class CommonGameState extends BasicGameState {
 	private IRenderable overlay = null;
 	private List<IRenderable> drawables;
 
-	private @Inject Collection<IController> controllers;
+	private @Inject Collection<IUpdatable> controllers;
 	private IKeyListener keyListener;
 	private @Inject Provider<CompositeKeyListener> defaultKeysProvider;
 	private @Inject Provider<Key> keyProvider;
@@ -54,7 +54,7 @@ public abstract class CommonGameState extends BasicGameState {
 	@Override
 	public void update(final GameContainer gc, final StateBasedGame arg1, final int delta)
 			throws SlickException {
-		for(final IController controller : controllers){
+		for(final IUpdatable controller : controllers){
 			controller.update(delta);
 		}
 	}
