@@ -7,6 +7,8 @@ import org.bakkes.game.AModule;
 import org.bakkes.game.controller.IUpdatable;
 import org.bakkes.game.controller.MessageBoxController;
 import org.bakkes.game.controller.async.DelayedBatchExecutor;
+import org.bakkes.game.controller.state.battle.BattleState;
+import org.bakkes.game.controller.state.overworld.OverworldState;
 
 import com.google.inject.Provides;
 import com.google.inject.Singleton;

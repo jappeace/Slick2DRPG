@@ -5,9 +5,9 @@ import java.util.Collection;
 import java.util.List;
 
 import org.bakkes.game.controller.IUpdatable;
-import org.bakkes.game.controller.input.CompositeKeyListener;
-import org.bakkes.game.controller.input.IKeyListener;
-import org.bakkes.game.controller.input.Key;
+import org.bakkes.game.controller.event.input.CompositeKeyListener;
+import org.bakkes.game.controller.event.input.IKeyListener;
+import org.bakkes.game.controller.event.input.Key;
 import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.view.IRenderable;
 import org.newdawn.slick.GameContainer;

@@ -1,6 +1,6 @@
 package org.bakkes.game.controller;
 
-import org.bakkes.game.controller.input.Key;
+import org.bakkes.game.controller.event.input.Key;
 
 public class AController implements IController{
 

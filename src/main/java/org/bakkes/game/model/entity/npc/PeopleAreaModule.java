@@ -3,8 +3,8 @@ package org.bakkes.game.model.entity.npc;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import org.bakkes.game.controller.scripting.dsl.area.NpcDsl;
-import org.bakkes.game.controller.scripting.loader.ScriptLoader;
+import org.bakkes.game.controller.init.scripting.dsl.area.NpcDsl;
+import org.bakkes.game.controller.init.scripting.loader.ScriptLoader;
 import org.bakkes.game.model.entity.AAreaModule;
 import org.bakkes.game.model.map.BlockedTileTracker;
 import org.bakkes.game.model.map.IAreaNameAcces;

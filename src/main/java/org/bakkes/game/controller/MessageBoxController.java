@@ -3,7 +3,7 @@ package org.bakkes.game.controller;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import org.bakkes.game.controller.input.Key;
+import org.bakkes.game.controller.event.input.Key;
 import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.view.overworld.dialog.IMessageBox;
 import org.bakkes.game.view.overworld.dialog.MessageBoxState;

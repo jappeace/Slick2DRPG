@@ -1,6 +1,7 @@
 package org.bakkes.game.controller;
 
-import org.bakkes.game.controller.input.Key;
+import org.bakkes.game.controller.event.IItemSelectHandler;
+import org.bakkes.game.controller.event.input.Key;
 import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.view.components.Menu;
 import org.bakkes.game.view.overworld.MenuView;

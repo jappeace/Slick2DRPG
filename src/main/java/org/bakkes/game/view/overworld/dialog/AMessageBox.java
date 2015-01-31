@@ -1,6 +1,6 @@
 package org.bakkes.game.view.overworld.dialog;
 
-import org.bakkes.game.controller.input.Key;
+import org.bakkes.game.controller.event.input.Key;
 import org.bakkes.game.view.AView;
 
 import com.google.common.base.Preconditions;

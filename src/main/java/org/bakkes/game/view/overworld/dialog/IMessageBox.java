@@ -1,6 +1,6 @@
 package org.bakkes.game.view.overworld.dialog;
 
-import org.bakkes.game.controller.input.IKeyListener;
+import org.bakkes.game.controller.event.input.IKeyListener;
 import org.bakkes.game.view.IRenderable;
 
 public interface IMessageBox extends IRenderable, IKeyListener{

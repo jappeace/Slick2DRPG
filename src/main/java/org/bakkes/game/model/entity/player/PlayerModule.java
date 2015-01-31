@@ -1,6 +1,6 @@
 package org.bakkes.game.model.entity.player;
 
-import org.bakkes.game.controller.scripting.SpeciesModule;
+import org.bakkes.game.controller.init.scripting.SpeciesModule;
 import org.bakkes.game.model.entity.Character;
 import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.model.pokemon.IPokemonSpecies;

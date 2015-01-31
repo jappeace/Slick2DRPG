@@ -1,8 +1,8 @@
 package org.bakkes.game.view.overworld;
 
 import org.bakkes.game.R;
-import org.bakkes.game.controller.scripting.dsl.AnimationDsl;
-import org.bakkes.game.controller.scripting.loader.ScriptLoader;
+import org.bakkes.game.controller.init.scripting.dsl.AnimationDsl;
+import org.bakkes.game.controller.init.scripting.loader.ScriptLoader;
 import org.bakkes.game.model.entity.Character;
 import org.bakkes.game.view.AView;
 import org.newdawn.slick.Animation;
