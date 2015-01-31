@@ -1,6 +1,6 @@
 package org.bakkes.game.controller;
 
-import org.bakkes.game.controller.event.IItemSelectHandler;
+import org.bakkes.game.controller.event.IMenuHandler;
 import org.bakkes.game.controller.event.input.Key;
 import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.view.components.Menu;
@@ -12,7 +12,7 @@ public class MenuController extends AController implements IController{
 
 	private CommonGameState state;
 	private Menu menu;
-	private IItemSelectHandler handler;
+	private IMenuHandler handler;
 	@Inject
 	public MenuController(final Menu menu, final MenuView view, final CommonGameState state){
 		view.setMenu(menu);
@@ -20,11 +20,9 @@ public class MenuController extends AController implements IController{
 		this.state = state;
 		state.setOverlay(view);
 	}
-	public void add(final String ... options){
-		menu.add(options);
-	}
-	public void setItemSelectHandler(final IItemSelectHandler handler){
+	public void setItemSelectHandler(final IMenuHandler handler){
 		this.handler = handler;
+		menu.add(handler.getOptions());
 	}
 	@Override
 	public void KeyDown(final Key key) {

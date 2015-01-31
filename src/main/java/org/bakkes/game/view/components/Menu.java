@@ -47,6 +47,9 @@ public class Menu extends AShape implements IRenderable{
 		selectBox.width(width() + padding);
 	}
 	public void add(final String ... options){
+		add(Arrays.asList(options));
+	}
+	public void add(final Iterable<String> options){
 		for(final String option : options){
 			final TextLine t = textLineProvider.get();
 			t.setText(option);

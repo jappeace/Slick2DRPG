@@ -147,4 +147,9 @@ public class Pokemon{
 	public void setName(final String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString(){
+		return getName() + ", current stats: [" + currentStats + "] normal stats: [" + normalStats + "]";
+	}
 }

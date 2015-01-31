@@ -31,6 +31,9 @@ public class PokeBelt implements Iterable<Pokemon> {
 	 * @param poke
 	 */
 	public void add(final Pokemon poke){
+		if(poke == null){
+			throw new NullPointerException("null not allowed");
+		}
 		pokemon.add(poke);
 	}
 
@@ -40,5 +43,9 @@ public class PokeBelt implements Iterable<Pokemon> {
 	@Override
 	public Iterator<Pokemon> iterator() {
 		return pokemon.iterator();
+	}
+
+	public Pokemon getAt(final int index){
+		return pokemon.get(index);
 	}
 }

@@ -2,6 +2,7 @@ package org.bakkes.game.model.entity.player;
 
 import org.bakkes.game.controller.init.scripting.SpeciesModule;
 import org.bakkes.game.model.entity.Character;
+import org.bakkes.game.model.entity.player.invetory.PokeBelt;
 import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.model.pokemon.IPokemonSpecies;
 import org.bakkes.game.view.PositionModule;
@@ -27,13 +28,19 @@ public class PlayerModule extends PositionModule{
 		bind(Character.class).to(Player.class);
 	}
 
-	@Provides @Named("pokelevel") int providePokeLevel(){
+	public @Provides @Named("pokelevel") int providePokeLevel(){
 		return PLAYER_POKE_LEVEL;
 	}
 
 	public @Provides IPokemonSpecies provideSpecies(){
 		species.setSpeciesName(PLAYER_POKEMON);
 		return species.provideSpecies();
+	}
+
+	@Provides
+	@Named("player belt")
+	public  PokeBelt providePlayerBelt(final Player player){
+		return player.getPokebelt();
 	}
 
 }

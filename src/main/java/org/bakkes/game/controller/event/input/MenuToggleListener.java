@@ -1,31 +1,25 @@
 package org.bakkes.game.controller.event.input;
 
-import org.bakkes.game.controller.MenuController;
-import org.bakkes.game.controller.event.IItemSelectHandler;
-import org.bakkes.game.controller.state.overworld.OverworldState;
+import org.bakkes.game.controller.event.MainMenuHandler;
+import org.bakkes.game.controller.event.MenuShower;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 public class MenuToggleListener extends AKeyListener{
 	/*
 	 * TODO: remove provider and make more sensible (overworld is a singleton)
 	 */
-	private @Inject Provider<OverworldState> game;
-	private @Inject Provider<MenuController> menu;
+	private final MenuShower shower;
 
+	@Inject
+	public MenuToggleListener(final MenuShower shower, final MainMenuHandler handler){
+		shower.setMenuHandler(handler);
+		this.shower = shower;
+	}
 	@Override
 	public void KeyDown(final Key key) {
 		if(key.isMenu()) {
-			final MenuController controller =menu.get();
-			controller.add(new String[]{"pokemon", "items"});
-			controller.setItemSelectHandler(new IItemSelectHandler(){
-				@Override
-				public void select(final int item) {
-
-				}
-			});
-			game.get().setKeyListener(controller);
+			shower.show();
 		}
 	}
 }
