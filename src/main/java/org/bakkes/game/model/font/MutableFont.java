@@ -32,6 +32,12 @@ public class MutableFont extends AModel implements Font{
 	private boolean antiAliasing = true;
 
     private Font font;
+
+    /**
+     * loading a font is a extremly heavy operation
+     *
+     * using a cache gains a lot of time and reduced the overal number of frame drops
+     */
     private static final Map<String, Font> cache = new HashMap<>();
 
 
@@ -55,7 +61,7 @@ public class MutableFont extends AModel implements Font{
 
     @Override
 	public String toString(){
-    	return super.toString() + "[" + "decoration: " + decoration + " size: " + size + " antiAliasing: " + antiAliasing +" ]";
+    	return super.toString() + "[" + "decoration: " + decoration + " size: " + size + " antiAliasing: " + antiAliasing +"]";
     }
 
 	@Override

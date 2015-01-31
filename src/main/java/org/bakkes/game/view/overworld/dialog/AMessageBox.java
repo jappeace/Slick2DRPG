@@ -2,7 +2,6 @@ package org.bakkes.game.view.overworld.dialog;
 
 import org.bakkes.game.controller.input.Key;
 import org.bakkes.game.view.AView;
-import org.newdawn.slick.util.Log;
 
 import com.google.common.base.Preconditions;
 
@@ -35,13 +34,10 @@ public abstract class AMessageBox extends AView implements IMessageBox{
 	}
 
 	public void queued() {
-		Log.info("queing dialogbox " + title);
 	}
 	public void show() {
-		Log.info("showing dialogbox " + title);
 	}
 	public void done() {
-		Log.info("done with dialogbox " + title);
 	}
 
 	/**

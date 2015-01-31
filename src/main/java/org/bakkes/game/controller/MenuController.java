@@ -7,17 +7,23 @@ import org.bakkes.game.view.overworld.MenuView;
 
 import com.google.inject.Inject;
 
-public class MenuController implements IController{
+public class MenuController extends AController implements IController{
 
 	private CommonGameState state;
 	private Menu menu;
+	private IItemSelectHandler handler;
 	@Inject
 	public MenuController(final Menu menu, final MenuView view, final CommonGameState state){
-		menu.add("pokemon", "items");
 		view.setMenu(menu);
 		this.menu = menu;
 		this.state = state;
 		state.setOverlay(view);
+	}
+	public void add(final String ... options){
+		menu.add(options);
+	}
+	public void setItemSelectHandler(final IItemSelectHandler handler){
+		this.handler = handler;
 	}
 	@Override
 	public void KeyDown(final Key key) {
@@ -32,20 +38,11 @@ public class MenuController implements IController{
 		}
 		if(key.isConfirm()){
 			sucicide();
-			// handle option
+			handler.select(menu.getSelected());
 		}
 	}
 	private void sucicide(){
         state.setKeyListener(null);
         state.setOverlay(null);
 	}
-
-	@Override
-	public void KeyUp(final Key key) {
-	}
-
-	@Override
-	public void update(final int delta) {
-	}
-
 }
