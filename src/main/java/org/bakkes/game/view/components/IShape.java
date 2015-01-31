@@ -1,5 +1,8 @@
 package org.bakkes.game.view.components;
 
+import org.bakkes.game.view.IPositionable;
+import org.bakkes.game.view.IRenderable;
+
 
 /**
  * #IShape
@@ -9,11 +12,7 @@ package org.bakkes.game.view.components;
  *
  * I am to lazy for all the getting and setting
  */
-public interface IShape {
+public interface IShape extends IPositionable, IRenderable{
 	public float width();
 	public float height();
-	public float x();
-	public float y();
-	public void x(float to);
-	public void y(float to);
 }

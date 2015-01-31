@@ -38,7 +38,7 @@ public class PlayerModule extends PositionModule{
 	}
 
 	@Provides
-	@Named("player belt")
+	@Named("from player")
 	public  PokeBelt providePlayerBelt(final Player player){
 		return player.getPokebelt();
 	}

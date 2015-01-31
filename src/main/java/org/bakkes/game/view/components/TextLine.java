@@ -2,7 +2,6 @@ package org.bakkes.game.view.components;
 
 import static com.sun.xml.internal.ws.util.StringUtils.capitalize;
 
-import org.bakkes.game.view.IRenderable;
 import org.newdawn.slick.Graphics;
 
 import com.google.inject.Inject;
@@ -11,7 +10,7 @@ import com.google.inject.Inject;
  * ##TextLine
  * this class tries to makes handling strings more managable (less painfull)
  */
-public class TextLine extends AShape implements IRenderable{
+public class TextLine extends AShape{
     private String text;
 
 	/**

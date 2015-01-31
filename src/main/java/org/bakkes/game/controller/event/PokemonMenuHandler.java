@@ -12,7 +12,7 @@ import com.google.inject.name.Named;
 
 public class PokemonMenuHandler implements IMenuHandler{
 
-	private @Inject @Named("player belt") PokeBelt belt;
+	private @Inject @Named("from player") PokeBelt belt;
 	@Override
 	public void select(final int item) {
 		Log.info(belt.getAt(item).toString());
