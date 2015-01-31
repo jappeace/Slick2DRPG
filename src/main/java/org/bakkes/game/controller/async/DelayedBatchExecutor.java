@@ -2,14 +2,17 @@ package org.bakkes.game.controller.async;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.Executor;
 
 import org.bakkes.game.controller.IUpdatable;
 
 /**
- * ## Thread bridger
+ * ## DelayedBatchExeuctor
  * can move code from one thread to another
+ * basicly it collects all runnables in a que that are executad. Then all thes tasks
+ * are executed when the run method is called
  *
- * one thread adds runnable trough the add method, the other thread executes these
+ * one thread adds runnable trough the execute method, the other thread executes these
  * and clears the commands one by one until no more are left
  *
  * ### Example
@@ -23,26 +26,33 @@ import org.bakkes.game.controller.IUpdatable;
  *
  * This creates a producer pattern where the dsl keeps adding new commands and the statemodule keeps executing them
  */
-public class ThreadBridger implements IUpdatable{
-	private Queue<IUpdatable> queue = new LinkedList<>();
-
-	/**
-	 * one thread is supposed to add commands via this method
-	 * @param r
-	 * @return
-	 */
-	public synchronized boolean add(final IUpdatable r){
-        return queue.add(r);
-	}
+public class DelayedBatchExecutor implements IUpdatable, Executor, Runnable{
+	private Queue<Runnable> queue = new LinkedList<>();
 
 	/**
 	 * the other thread calls this methods which executes all commands once
 	 */
 	@Override
 	public synchronized void update(final int delta) {
+		this.run();
+	}
+
+	/**
+	 * one thread is supposed to add commands via this method
+	 * @param r
+	 * @return
+	 */
+	@Override
+	public synchronized void execute(final Runnable command) {
+        queue.add(command);
+	}
+
+	@Override
+	public synchronized void run() {
 		while(!queue.isEmpty()){
-			final IUpdatable runner = queue.poll();
-			runner.update(delta);
+			final Runnable runner = queue.poll();
+			runner.run();
 		}
+
 	}
 }

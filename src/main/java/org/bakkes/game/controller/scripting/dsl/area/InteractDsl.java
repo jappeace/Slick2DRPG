@@ -5,9 +5,8 @@ import groovy.lang.Closure;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.bakkes.game.controller.IUpdatable;
 import org.bakkes.game.controller.MessageBoxController;
-import org.bakkes.game.controller.async.ThreadBridger;
+import org.bakkes.game.controller.async.DelayedBatchExecutor;
 import org.bakkes.game.controller.scripting.dsl.ADsl;
 import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.model.IModel;
@@ -24,7 +23,7 @@ public class InteractDsl extends ADsl {
 	private @Inject Provider<Dialog> dialogProvider;
 	private @Inject Provider<PlayerDsl> playerDslProvider;
 	private @Inject MessageBoxController msgBoxController;
-	private @Inject @Named("in mainthread") ThreadBridger threadBridger;
+	private @Inject @Named("in mainthread") DelayedBatchExecutor threadBridger;
 	public IModel target;
 
 	/**
@@ -37,9 +36,9 @@ public class InteractDsl extends ADsl {
 	}
 
 	public void dialog(final String text, final String title){
-		threadBridger.add(new IUpdatable(){
+		threadBridger.execute(new Runnable(){
             @Override
-            public void update(final int delta) {
+            public void run() {
                 msgBoxController.add(title,text);
             }
         });
@@ -51,9 +50,9 @@ public class InteractDsl extends ADsl {
 	 */
 	public void selectPlayer(final Closure<Void> commands){
 		// since we don't want to wait for user input, lets just syncrhonize this one
-		threadBridger.add(new IUpdatable(){
+		threadBridger.execute(new Runnable(){
             @Override
-            public void update(final int delta) {
+            public void run() {
                 delegate(commands, playerDslProvider.get());
             }
 		});
@@ -74,7 +73,7 @@ public class InteractDsl extends ADsl {
 
 		final DialogConstructor d = new DialogConstructor(text, title, options);
 
-		threadBridger.add(d);
+		threadBridger.execute(d);
 		// now the wait begins
 		// first till the fucking thing is constructed
 		while(d.getDialog() == null){
@@ -105,7 +104,7 @@ public class InteractDsl extends ADsl {
 	 *
 	 * this class' update function will be exuceted on the main thread
 	 */
-	private class DialogConstructor implements IUpdatable{
+	private class DialogConstructor implements Runnable{
 
 		private @Nullable Dialog dialog = null;
 		private String text, title;
@@ -116,7 +115,7 @@ public class InteractDsl extends ADsl {
 			this.options = options;
 		}
         @Override
-        public void update(final int delta) {
+        public void run() {
             final Dialog dialog = dialogProvider.get();
             dialog.setText(text);
             dialog.setTitle(title);
