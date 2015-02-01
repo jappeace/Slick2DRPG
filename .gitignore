@@ -50,3 +50,4 @@ local.properties
 /bin
 build
 src/main/resources/map/outside.tmx
+src/main/resources/sprites/pokemon/*
