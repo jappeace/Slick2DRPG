@@ -3,6 +3,9 @@ package org.bakkes.game.controller.event;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.bakkes.game.controller.ShapesConverter;
+import org.bakkes.game.view.components.IShape;
+
 import com.google.inject.Inject;
 
 
@@ -14,32 +17,27 @@ public class MainMenuHandler implements IMenuHandler {
 	}
 	private @Inject MenuShower shower;
 	private @Inject PokemonMenuHandler pokeHandler;
+	private @Inject ItemMenuHandler itemHandler;
+	private @Inject ShapesConverter converter;
 	@Override
 	public void select(final int item) {
 		final Option opt = Option.values()[item];
 		switch(opt){
 		case Pokemon:
-			pokemon();
+            shower.showHandler(pokeHandler);
 			break;
 		case Items:
-			items();
+            shower.showHandler(itemHandler);
 			break;
 		}
 	}
 
 	@Override
-	public Iterable<String> getOptions() {
+	public Collection<IShape> getOptions() {
 		final Collection<String> result = new LinkedList<>();
 		for(final Option option : Option.values()){
 			result.add(option.name());
 		}
-		return result;
-	}
-
-	private void pokemon(){
-		shower.setMenuHandler(pokeHandler);
-		shower.show();
-	}
-	private void items(){
+		return converter.convert(result);
 	}
 }

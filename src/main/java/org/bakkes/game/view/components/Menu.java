@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import org.bakkes.game.view.IRenderable;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
@@ -16,10 +15,10 @@ import com.google.inject.Provider;
  * creates a nice select input
  * basicly the player sees a couple of texts he can chose from and select
  */
-public class Menu extends AShape implements IRenderable{
+public class Menu extends AShape{
 
-	private Collection<TextLine> options = new LinkedList<>();
-	private @Inject Provider<TextLine> textLineProvider;
+	private Collection<IShape> options = new LinkedList<>();
+	private @Inject Provider<ITextableShape> textLineProvider;
 
 	private int selected = 0;
 	private float padding = 15;
@@ -51,13 +50,16 @@ public class Menu extends AShape implements IRenderable{
 	}
 	public void add(final Iterable<String> options){
 		for(final String option : options){
-			final TextLine t = textLineProvider.get();
+			final ITextableShape t = textLineProvider.get();
 			t.setText(option);
 			add(t);
 		}
 	}
-	public void add(final TextLine ... options){
-		this.options.addAll(Arrays.asList(options));
+	public void add(final IShape ... options){
+		add(Arrays.asList(options));
+	}
+	public void add(final Collection<IShape>  options){
+		this.options.addAll(options);
 		updateShape();
 	}
 	@Override
@@ -65,7 +67,7 @@ public class Menu extends AShape implements IRenderable{
 		backgroundBox.render(g);
 
         int linenr = 0;
-        for(final TextLine option : options){
+        for(final IShape option : options){
         	option.x(backgroundBox.x() + backgroundBox.width()/2 - option.width() /2);
         	option.y(backgroundBox.y() + padding/2 + option.height()*linenr);
         	if(linenr == selected){
@@ -119,7 +121,7 @@ public class Menu extends AShape implements IRenderable{
 			return overrideWidth;
 		}
 		float result = 0;
-        for(final TextLine option : options){
+        for(final IShape option : options){
         	if(option.width() > result){
         		result = option.width();
         	}
@@ -136,7 +138,7 @@ public class Menu extends AShape implements IRenderable{
 			return overrideHeight;
 		}
 		float result = 0;
-        for(final TextLine option : options){
+        for(final IShape option : options){
         	if(option.height() > result){
         		result = option.height();
         	}

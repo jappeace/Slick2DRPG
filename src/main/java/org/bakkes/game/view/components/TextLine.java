@@ -10,7 +10,7 @@ import com.google.inject.Inject;
  * ##TextLine
  * this class tries to makes handling strings more managable (less painfull)
  */
-public class TextLine extends AShape{
+public class TextLine extends AShape implements ITextableShape{
     private String text;
 
 	/**
@@ -36,6 +36,7 @@ public class TextLine extends AShape{
 	public float height() {
 		return font.getHeight(text);
 	}
+	@Override
 	public final void setText(final String text) {
 		this.text = text;
 	}

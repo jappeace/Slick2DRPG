@@ -6,6 +6,7 @@ import java.util.Map;
 import org.bakkes.game.model.map.Direction;
 import org.newdawn.slick.Graphics;
 
+import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class ShapeComposition implements IShape{
@@ -13,6 +14,7 @@ public class ShapeComposition implements IShape{
 	private IShape mainShape;
 	private Map<Direction, IShape> composites = new EnumMap<>(Direction.class);
 
+	@Inject
 	public ShapeComposition(final Provider<NoShape> noShapeProvider){
 		for(final Direction key : Direction.values()){
 			composites.put(key, noShapeProvider.get());

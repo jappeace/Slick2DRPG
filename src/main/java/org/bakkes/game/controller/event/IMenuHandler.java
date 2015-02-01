@@ -1,5 +1,9 @@
 package org.bakkes.game.controller.event;
 
+import java.util.Collection;
+
+import org.bakkes.game.view.components.IShape;
+
 
 /**
  * ##IMenuHandler
@@ -9,5 +13,5 @@ package org.bakkes.game.controller.event;
  */
 public interface IMenuHandler {
 	public void select(final int item);
-	public Iterable<String> getOptions();
+	public Collection<IShape> getOptions();
 }

@@ -11,14 +11,13 @@ import com.google.inject.Provider;
  */
 public class MenuShower {
 
+	/*
+	 * TODO: remove provider and make more sensible (overworld is a singleton)
+	 * the provider breaks a dependecy cycle
+	 */
 	private @Inject Provider<OverworldState> game;
 	private @Inject Provider<MenuController> menu;
-	private IMenuHandler handler;
-	public void setMenuHandler(final IMenuHandler handler){
-		this.handler = handler;
-	}
-
-	public void show(){
+	public void showHandler(final IMenuHandler handler){
         final MenuController controller =menu.get();
         controller.setItemSelectHandler(handler);
         game.get().setKeyListener(controller);

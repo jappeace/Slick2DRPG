@@ -6,20 +6,13 @@ import org.bakkes.game.controller.event.MenuShower;
 import com.google.inject.Inject;
 
 public class MenuToggleListener extends AKeyListener{
-	/*
-	 * TODO: remove provider and make more sensible (overworld is a singleton)
-	 */
-	private final MenuShower shower;
+	private @Inject MenuShower shower;
+	private @Inject MainMenuHandler handler;
 
-	@Inject
-	public MenuToggleListener(final MenuShower shower, final MainMenuHandler handler){
-		shower.setMenuHandler(handler);
-		this.shower = shower;
-	}
 	@Override
 	public void KeyDown(final Key key) {
 		if(key.isMenu()) {
-			shower.show();
+            shower.showHandler(handler);
 		}
 	}
 }

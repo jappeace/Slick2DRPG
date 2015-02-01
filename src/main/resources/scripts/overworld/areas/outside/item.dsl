@@ -4,7 +4,7 @@ def startPokemon = ["charmender", "squertle", "bulbasar"]
 
 int index = 0
 startPokemon.each{  String name ->
-    item 'pokeball', 10 + index, 10, {
+    item 'pokeball', 15 + index, 13, {
 		def wantsPokemon = decision("do you want to choose "+ name +" as your starting pokemon?") 
         if(wantsPokemon == 0){
             selectPlayer{

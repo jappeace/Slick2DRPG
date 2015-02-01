@@ -1,34 +1,30 @@
 package org.bakkes.game.model.entity.player.invetory;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
-public class Inventory {
 
-	private Item[] items = new Item[10];
+public class Inventory implements Iterable<Item>{
 
+	private int inventorySize = 10;
+	private List<Item> items = new ArrayList<>(inventorySize);
+	public Inventory(){
+	}
 	public boolean addItem(final Item item) {
-		for(int i = 0; i < items.length; i++) {
-			if(items[i] == null) {
-				items[i] = item;
-				return true;
-			}
+		if(items.size() < inventorySize){
+            return items.add(item);
 		}
 		return false;
 	}
 
-	public Item getItem(final int slot) {
-		if(slot >= 0 && slot < items.length && items[slot] != null)
-			return items[slot];
-		return null;
+	public void delete(final int slot) {
+		items.remove(slot);
 	}
 
-	public void deleteItem(final int slot) {
-		if(slot >= 0 && slot < items.length)
-			items[slot] = null;
+	@Override
+	public Iterator<Item> iterator() {
+		return items.iterator();
 	}
-
-	public int getItemCount() {
-		return items.length;
-	}
-
 }

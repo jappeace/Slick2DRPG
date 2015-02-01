@@ -2,6 +2,7 @@ package org.bakkes.game.model.entity.player;
 
 import org.bakkes.game.controller.init.scripting.SpeciesModule;
 import org.bakkes.game.model.entity.Character;
+import org.bakkes.game.model.entity.player.invetory.Inventory;
 import org.bakkes.game.model.entity.player.invetory.PokeBelt;
 import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.model.pokemon.IPokemonSpecies;
@@ -41,6 +42,11 @@ public class PlayerModule extends PositionModule{
 	@Named("from player")
 	public  PokeBelt providePlayerBelt(final Player player){
 		return player.getPokebelt();
+	}
+	@Provides
+	@Named("from player")
+	public Inventory providePlayerInventory(final Player player){
+		return player.getInventory();
 	}
 
 }

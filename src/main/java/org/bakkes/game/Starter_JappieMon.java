@@ -11,6 +11,7 @@ import org.bakkes.game.model.entity.player.PlayerModule;
 import org.bakkes.game.model.entity.player.invetory.ItemAreaModule;
 import org.bakkes.game.model.font.FontModule;
 import org.bakkes.game.model.map.MapModule;
+import org.bakkes.game.view.ViewModule;
 import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
@@ -34,7 +35,8 @@ public class Starter_JappieMon {
 				new ItemAreaModule(),
 				new OverworldModule(),
 				new FontModule(),
-				new ThreadModule()
+				new ThreadModule(),
+				new ViewModule()
             );
         injector.getInstance(AppGameContainer.class).start();
 	}
