@@ -2,14 +2,15 @@ package org.bakkes.game.view.overworld;
 
 import org.bakkes.game.R;
 import org.bakkes.game.model.IHasSpriteName;
-import org.bakkes.game.model.ImageCache;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.view.APositionedView;
 import org.bakkes.game.view.components.IShape;
 import org.bakkes.game.view.components.ShapeComposition;
+import org.bakkes.game.view.components.ShapePadding;
 import org.bakkes.game.view.components.Sprite;
 import org.bakkes.game.view.components.TextLine;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Vector2f;
 
 import com.google.inject.Inject;
 
@@ -26,22 +27,23 @@ import com.google.inject.Inject;
 public class SpritedNameView extends APositionedView implements IShape{
 
 
-	private @Inject ImageCache images;
-
-	private TextLine line;
-	private ShapeComposition composition;
+	private @Inject TextLine line;
+	private @Inject ShapeComposition composition;
 	private @Inject Sprite sprite;
+	private @Inject ShapePadding padding;
+
 	private Direction direction = Direction.West;
-    @Inject
-	public SpritedNameView(final TextLine line, final ShapeComposition composition){
-    	this.line = line;
-    	this.composition = composition;
-    	this.composition.setMainShape(line);
-	}
+
 	public void setNamed(final IHasSpriteName to){
 		line.setText(to.getName());
         final String path =R.itemSprites + to.getSpriteName() + ".png";
         sprite.setSpritePath(path);
+
+        final float heightDifference = sprite.height() - line.height();
+        padding.setPadding(new Vector2f(0, heightDifference/2));
+        padding.setShape(line);
+        composition.setShape(padding);
+
         composition.put(direction, sprite);
 	}
 	public void setDirection(final Direction to){

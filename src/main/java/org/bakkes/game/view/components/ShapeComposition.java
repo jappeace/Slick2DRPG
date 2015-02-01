@@ -9,9 +9,8 @@ import org.newdawn.slick.Graphics;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-public class ShapeComposition implements IShape{
+public class ShapeComposition extends AShapeContainer implements IShape{
 
-	private IShape mainShape;
 	private Map<Direction, IShape> composites = new EnumMap<>(Direction.class);
 
 	@Inject
@@ -21,13 +20,6 @@ public class ShapeComposition implements IShape{
 		}
 	}
 
-	/**
-	 * this method has to be called
-	 * @param shape
-	 */
-	public void setMainShape(final IShape shape){
-		this.mainShape = shape;
-	}
 	public IShape put(final Direction relativeToMainshape, final IShape what){
 		final IShape result = composites.put(relativeToMainshape, what);
 		updateCoordinates();
@@ -40,7 +32,16 @@ public class ShapeComposition implements IShape{
 	}
 	@Override
 	public float width() {
-		float totalWidth = mainShape.width();
+		float totalWidth = getShape().width();
+		// pick the biggest
+		for(final Direction dir : new Direction[]{Direction.West, Direction.East}){
+			final float compWidth = composites.get(dir).width();
+			if(totalWidth < compWidth){
+				totalWidth = compWidth;
+			}
+		}
+
+		// add the other direction
 		for(final Direction dir : new Direction[]{Direction.West, Direction.East}){
             totalWidth += composites.get(dir).width();
 		}
@@ -49,7 +50,17 @@ public class ShapeComposition implements IShape{
 
 	@Override
 	public float height() {
-		float totalHeight = mainShape.height();
+		float totalHeight = getShape().height();
+
+		// pick the biggest
+		for(final Direction dir : new Direction[]{Direction.West, Direction.East}){
+			final float compHeight = composites.get(dir).height();
+			if(totalHeight < compHeight){
+				totalHeight = compHeight;
+			}
+		}
+
+		// add the other direction
 		for(final Direction dir : new Direction[]{Direction.South, Direction.North}){
             totalHeight += composites.get(dir).height();
 		}
@@ -57,25 +68,28 @@ public class ShapeComposition implements IShape{
 	}
 	@Override
 	public float x() {
-		return mainShape.x() - composites.get(Direction.West).width();
+		return getShape().x() - composites.get(Direction.West).width();
 	}
 
 	@Override
 	public float y() {
-		return mainShape.y() - composites.get(Direction.North).height();
+		return getShape().y() - composites.get(Direction.North).height();
 	}
 
 	@Override
 	public void render(final Graphics g) {
-		mainShape.render(g);
+		getShape().render(g);
+		for(final IShape shape : composites.values()){
+			shape.render(g);
+		}
 	}
 
 
 	@Override
 	public void x(final float to) {
-		mainShape.x(to);
+		getShape().x(to);
 		composites.get(Direction.West).x(x());
-		composites.get(Direction.East).x(mainShape.x() + mainShape.width());
+		composites.get(Direction.East).x(getShape().x() + getShape().width());
 		for(final Direction key : new Direction[]{Direction.North, Direction.South}){
 			composites.get(key).x(to);
 		}
@@ -83,9 +97,9 @@ public class ShapeComposition implements IShape{
 
 	@Override
 	public void y(final float to) {
-		mainShape.y(to);
+		getShape().y(to);
 		composites.get(Direction.North).y(y());
-		composites.get(Direction.South).y(mainShape.y() + mainShape.height());
+		composites.get(Direction.South).y(getShape().y() + getShape().height());
 		for(final Direction key : new Direction[]{Direction.West, Direction.East}){
 			composites.get(key).y(to);
 		}
