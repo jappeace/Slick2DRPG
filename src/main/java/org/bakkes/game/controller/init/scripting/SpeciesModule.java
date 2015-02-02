@@ -11,9 +11,10 @@ import com.google.inject.Provides;
 public class SpeciesModule extends AModule{
 
 	private String speciesName;
+	private static final String DEFAULT_SPECIES = "caterpie";
 
 	public SpeciesModule(){
-		this("caterpie");
+		this(DEFAULT_SPECIES);
 	}
 	public SpeciesModule(final String speciesName){
 		this.speciesName = speciesName;
@@ -26,7 +27,10 @@ public class SpeciesModule extends AModule{
 
 	public @Provides IPokemonSpecies provideSpecies(){
 		final PokemonSpecies species = new PokemonSpecies();
-		scriptLoader.load(R.pokemonScripts + speciesName + ".dsl", species);
+		if(!scriptLoader.load(R.pokemonScripts + speciesName + ".dsl", species)){
+            scriptLoader.load(R.pokemonScripts + DEFAULT_SPECIES + ".dsl", species);
+            species.setName(speciesName);
+		}
 		species.setName(speciesName); // user can't overide, filename is pokemon name to avoid confusion
 		return species;
 	}

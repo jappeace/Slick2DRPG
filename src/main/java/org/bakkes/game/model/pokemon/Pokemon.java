@@ -9,6 +9,7 @@ import org.bakkes.game.model.battle.move.IMove;
 import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
+import com.sun.istack.internal.Nullable;
 
 public class Pokemon extends AModel implements IHasSpriteName{
 
@@ -25,8 +26,11 @@ public class Pokemon extends AModel implements IHasSpriteName{
 		this(species, species.getBase());
 	}
 
-	public Pokemon(final IPokemonSpecies species, final IPokemonStatistics stats){
-		normalStats = stats;
+	public Pokemon(final IPokemonSpecies species, final @Nullable IPokemonStatistics stats){
+		normalStats = species.getBase();
+		if(stats != null){
+            normalStats = stats;
+		}
 		this.species = species;
 		this.setName(species.getName());
 		heal();

@@ -8,6 +8,7 @@ import org.bakkes.game.model.pokemon.IPokemonSpecies;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.model.pokemon.PokemonStatistics;
+import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -15,7 +16,7 @@ import com.google.inject.Provider;
 public class PokemonDsl extends ADsl{
 	private IPokemonSpecies species;
     private IPokemonStatistics statistics;
-	private int xp = 0;
+	private int level = 0;
 	private @Inject Provider<PokemonStatistics> pokemonStatsProvider;
 	public void setSpecies(final String name){
 		final SpeciesModule module = new SpeciesModule(name);
@@ -26,14 +27,17 @@ public class PokemonDsl extends ADsl{
         statistics = pokemonStatsProvider.get();
         delegate(commands,statistics);
 	}
-
-	public void setExperiance(final int to){
-		xp = to;
+	public void setLevel(final int lvl){
+		this.level = lvl;
 	}
 
 	public Pokemon createPokemon(){
-		final Pokemon result = new Pokemon(species, statistics);
-		result.setExperiance(xp);
+		if(species == null){
+			Log.warn("no species set, going for caterpie");
+			species = new SpeciesModule().provideSpecies();
+		}
+        final Pokemon result = new Pokemon(species, statistics);
+		result.setLevel(this.level);
 		return result;
 	}
 
