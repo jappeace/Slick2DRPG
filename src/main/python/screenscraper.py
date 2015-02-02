@@ -98,13 +98,20 @@ def resetCurrentAndRetry(i):
             rmtree(path)
         handleIterationIgnoringConnectionBullshit(i)
 def handleIterationIgnoringConnectionBullshit(i):
+    path = storePath+getName(i).lower()
     try:
+        if os.path.isdir(path):
+            print(path + "exists already")
+            return
         handleIteration(i)
     except exceptions.ConnectionError as connectionError:
         print("got a connection error, trying again")
         resetCurrentAndRetry(i)
     except socket.timeout as time:
-        print("had a timeout")
+        print("had a socket timeout")
+        resetCurrentAndRetry(i)
+    except exceptions.Timeout as time:
+        print("had a requests timeout")
         resetCurrentAndRetry(i)
 
 target = wikiUrl+'List_of_Pok%C3%A9mon_by_base_stats_(Generation_II-V)'
