@@ -28,6 +28,7 @@ as soon as possible.
 	* probably a bunch of side quests
 
 # DONE
+* see pokemon in the menu with all their glory (600\*600 pixels)
 * animation for npc's trough scripting.
 * pathfinding was a real bitch
 * declaring pokemon and their moves
