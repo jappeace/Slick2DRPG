@@ -13,9 +13,7 @@ import org.newdawn.slick.GameContainer;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.google.inject.Singleton;
 
-@Singleton
 public class Player extends Character {
 	private @Inject PokeBelt pokebelt;
 

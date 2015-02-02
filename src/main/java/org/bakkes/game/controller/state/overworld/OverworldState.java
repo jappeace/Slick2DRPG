@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Random;
 
 import org.bakkes.game.controller.event.input.CompositeKeyListener;
+import org.bakkes.game.controller.init.PlayerLoader;
 import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.controller.state.battle.BattleState;
 import org.bakkes.game.controller.state.overworld.command.MoveOnOverworld;
@@ -32,6 +33,7 @@ public class OverworldState extends CommonGameState {
 	private @Inject Player player;
 	private @Inject Random random;
 	private @Inject LayerdMap map;
+	private @Inject PlayerLoader loader;
 
 
 	private @Inject Bean<Tile> clickedTile;
@@ -56,6 +58,7 @@ public class OverworldState extends CommonGameState {
 			throws SlickException {
 		super.init(gc, arg1);
 		map.load("outside");
+		loader.load();
 	}
 
 	@Override

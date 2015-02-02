@@ -5,6 +5,7 @@ import groovy.lang.Closure;
 import org.bakkes.game.controller.init.scripting.dsl.ADsl;
 import org.bakkes.game.controller.init.scripting.loader.ItemLoader;
 import org.bakkes.game.model.entity.player.Player;
+import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.newdawn.slick.util.Log;
 
@@ -34,5 +35,8 @@ public class PlayerDsl extends ADsl{
 		Log.info("player is reciving a " + poke.getName());
 	}
 
+	public void position(final int x, final int y){
+		player.setPosition(new Tile(x,y).topLeftPixels());
+	}
 
 }

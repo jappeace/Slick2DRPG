@@ -11,21 +11,21 @@ import org.bakkes.game.model.map.Tile;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.Log;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
-
 /**
  * a entity in the overworld has to have a position (form top left of the map in pixels),
  * and offers
  */
 public class OverworldEntity extends ASpriteNamedModel implements IOverworldEntity{
-	private @Named("position") @Inject Vector2f position;
+	private Vector2f position;
 
 	@Override
 	public Vector2f getPosition() {
 		return position;
 	}
 
+	/**
+	 * in pixels
+	 */
 	@Override
 	public void setPosition(final Vector2f to){
 		position = to;

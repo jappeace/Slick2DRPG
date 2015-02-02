@@ -1,6 +1,6 @@
 
 // starting pokemon balls
-def startPokemon = ["charmander", "squirtle", "bulbasaur"]
+def startPokemon = ["charmander", "squirtle", "bulbasaur", "onix" /* go brock style */]
 
 int index = 0
 startPokemon.each{  String name ->

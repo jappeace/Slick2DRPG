@@ -14,7 +14,6 @@ import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.model.battle.move.IMove;
 import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.pokemon.Pokemon;
-import org.bakkes.game.view.PositionModule;
 import org.bakkes.game.view.battle.BattleLogView;
 import org.bakkes.game.view.battle.PokeView;
 import org.bakkes.game.view.components.LineWriter;
@@ -23,7 +22,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.google.inject.Guice;
@@ -58,15 +56,13 @@ public class BattleState extends CommonGameState {
 		enemy.setLevel(GameInfo.WILD_POKE_LEVEL);
 
 		final PokemonModule pokeModule = new PokemonModule(enemy);
-		final PositionModule positionModule = new PositionModule(new Vector2f(20,10));
 
-		injector = Guice.createInjector(positionModule, pokeModule);
+		injector = Guice.createInjector(pokeModule);
 
 		this.enemyView = injector.getInstance(PokeView.class);
 
 		final Pokemon player = this.player.getPokebelt().getFirstAlive();
 		pokeModule.setPokemon(player);
-		positionModule.setPosition(new Vector2f(20f, 400));
 		this.playerView = injector.getInstance(PokeView.class);
 
 		final ContestentModule contestent = new ContestentModule(player, enemy);
