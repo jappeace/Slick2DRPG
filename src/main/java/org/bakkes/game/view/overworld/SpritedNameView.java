@@ -35,7 +35,7 @@ public class SpritedNameView extends APositionedView implements IShape{
 
 	public void setNamed(final String spritePath, final IHasSpriteName to){
 		line.setText(to.getName());
-        final String path =spritePath + to.getSpriteName() + ".png";
+        final String path =spritePath + to.getSpriteName();
         sprite.setSpritePath(path);
 
         final float heightDifference = sprite.height() - line.height();

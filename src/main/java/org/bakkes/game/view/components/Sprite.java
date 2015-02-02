@@ -15,7 +15,7 @@ public class Sprite extends AShape{
 
 	public void setSpritePath(final String path){
 		try {
-			image = cache.load(path);
+			image = cache.load(path + ".png");
 		} catch (final SlickException e) {
 			Log.warn("failed loading sprite " + path);
 		}

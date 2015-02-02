@@ -4,12 +4,15 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import org.bakkes.game.R;
+import org.bakkes.game.controller.event.input.IKeyListener;
+import org.bakkes.game.controller.event.input.Key;
+import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.model.SpriteNameExtender;
 import org.bakkes.game.model.entity.player.invetory.PokeBelt;
 import org.bakkes.game.model.pokemon.Pokemon;
+import org.bakkes.game.view.battle.PokeView;
 import org.bakkes.game.view.components.IShape;
 import org.bakkes.game.view.overworld.SpritedNameView;
-import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -20,9 +23,27 @@ public class PokemonMenuHandler implements IMenuHandler{
 	private @Inject @Named("from player") PokeBelt belt;
 	private @Inject Provider<SpritedNameView> viewsProvider;
 	private @Inject Provider<SpriteNameExtender> extenderProvider;
+	private @Inject PokeView view;
+	private @Inject Provider<CommonGameState> state;
 	@Override
 	public void select(final int item) {
-		Log.info(belt.getAt(item).toString());
+		view.setPokemon(belt.getAt(item));
+		state.get().setOverlay(view);
+		state.get().setKeyListener(new IKeyListener(){
+
+			@Override
+			public void KeyDown(final Key key) {
+				if(key.isConfirm()){
+					state.get().setOverlay(null);
+					state.get().setKeyListener(null);
+				}
+			}
+
+			@Override
+			public void KeyUp(final Key key) {
+			}
+
+		});
 	}
 
 	@Override

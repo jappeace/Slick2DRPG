@@ -92,7 +92,7 @@ public class Menu extends AShape{
 	}
 
     @Override
-    public void onPositionChange(final Vector2f position){
+    public void onChangePosition(final Vector2f position){
     	updateShape();
     }
 

@@ -18,18 +18,18 @@ public abstract class APositionable implements IPositionable{
 	@Override
 	public void x(final float to) {
 		position.x = to;
-        onPositionChange(position);
+        onChangePosition(position);
 	}
 	@Override
 	public void y(final float to) {
 		position.y = to;
-        onPositionChange(position);
+        onChangePosition(position);
 	}
     @Override
 	public void setPosition(final Vector2f position) {
 		this.position.x = position.x;
 		this.position.y = position.y;
-        onPositionChange(position);
+        onChangePosition(position);
 	}
     @Override
 	public Vector2f getPosition(){
@@ -41,5 +41,5 @@ public abstract class APositionable implements IPositionable{
      * use this to update you're composited view
      * @param position
      */
-    protected void onPositionChange(final Vector2f position){}
+    protected void onChangePosition(final Vector2f position){}
 }

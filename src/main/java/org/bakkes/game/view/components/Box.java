@@ -102,5 +102,11 @@ public class Box implements IRenderable, IShape{
 	public Vector2f getPosition() {
 		return shape.getLocation();
 	}
+	public float getBorderWidth(){
+		return borderWidth;
+	}
+	public Color getBorderColor(){
+		return border;
+	}
 
 }
