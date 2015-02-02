@@ -1,5 +1,6 @@
 package org.bakkes.game.view.battle;
 
+import org.bakkes.game.R;
 import org.bakkes.game.model.ImageCache;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
@@ -26,7 +27,7 @@ public class PokeView extends AView{
 		this.pokemon = pokemon;
 		this.topLeft = topLeft;
 		try {
-			avatar = imageCache.load(pokemon.getSpritePath());
+			avatar = imageCache.load(R.pokemonSprites + pokemon.getSpriteName() + "/front");
 		} catch (final SlickException e) {
 		}
 	}

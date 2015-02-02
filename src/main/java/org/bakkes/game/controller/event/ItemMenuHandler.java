@@ -3,6 +3,7 @@ package org.bakkes.game.controller.event;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.bakkes.game.R;
 import org.bakkes.game.model.entity.player.invetory.Inventory;
 import org.bakkes.game.model.entity.player.invetory.Item;
 import org.bakkes.game.view.components.IShape;
@@ -25,7 +26,7 @@ public class ItemMenuHandler implements IMenuHandler {
 		final Collection<IShape> result = new LinkedList<>();
 		for(final Item item : inventory){
 			final SpritedNameView view = viewsProvider.get();
-			view.setNamed(item);
+			view.setNamed(R.itemSprites, item);
 			result.add(view);
 		}
 		return result;

@@ -4,16 +4,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.bakkes.game.controller.init.scripting.loader.IScriptLoadableType;
+import org.bakkes.game.model.ASpriteNamedModel;
 import org.bakkes.game.model.IHasSpriteName;
 import org.bakkes.game.model.battle.move.IMove;
 
-public class PokemonSpecies implements IPokemonSpecies, IHasSpriteName, IScriptLoadableType{
-	private String spriteName;
+public class PokemonSpecies extends ASpriteNamedModel implements IPokemonSpecies, IHasSpriteName, IScriptLoadableType{
 	/**
 	 * empty string means no evolution (final form)
 	 */
 	private String evolution = "";
-	private String name;
 	private int evolutionLevel;
 	private PokemonStatistics base = new PokemonStatistics();
 	private PokemonStatistics increase = new PokemonStatistics();
@@ -29,16 +28,8 @@ public class PokemonSpecies implements IPokemonSpecies, IHasSpriteName, IScriptL
 	}
 
 	@Override
-	public final String getSpriteName() {
-		return spriteName;
-	}
-	@Override
 	public final String getEvolution() {
 		return evolution;
-	}
-	@Override
-	public final String getName() {
-		return name;
 	}
 	@Override
 	public final int getEvolutionLevel() {
@@ -56,15 +47,8 @@ public class PokemonSpecies implements IPokemonSpecies, IHasSpriteName, IScriptL
 	public float getTrainingSpeed() {
 		return trainingSpeed;
 	}
-	@Override
-	public final void setSpriteName(final String spriteName) {
-		this.spriteName = spriteName;
-	}
 	public final void setEvolution(final String evolution) {
 		this.evolution = evolution;
-	}
-	public final void setName(final String name) {
-		this.name = name;
 	}
 	public final void setEvolutionLevel(final int evolutionLevel) {
 		this.evolutionLevel = evolutionLevel;

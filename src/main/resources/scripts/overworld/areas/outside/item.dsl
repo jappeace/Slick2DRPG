@@ -1,6 +1,6 @@
 
 // starting pokemon balls
-def startPokemon = ["charmender", "squertle", "bulbasar"]
+def startPokemon = ["charmander", "squirtle", "bulbasaur"]
 
 int index = 0
 startPokemon.each{  String name ->

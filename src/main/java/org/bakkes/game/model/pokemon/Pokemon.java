@@ -3,20 +3,20 @@ package org.bakkes.game.model.pokemon;
 import java.util.List;
 import java.util.Random;
 
-import org.bakkes.game.R;
+import org.bakkes.game.model.AModel;
+import org.bakkes.game.model.IHasSpriteName;
 import org.bakkes.game.model.battle.move.IMove;
 import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 
-public class Pokemon{
+public class Pokemon extends AModel implements IHasSpriteName{
 
 	private IPokemonSpecies species;
 	private IPokemonStatistics normalStats;
 	private PokemonStatistics currentStats;
 	private int level = 0;
 	private int experiance;
-	private String name = "";
 	private @Inject Random random;
 	@Inject
 	public Pokemon(final IPokemonSpecies species){
@@ -26,6 +26,7 @@ public class Pokemon{
 	public Pokemon(final IPokemonSpecies species, final IPokemonStatistics stats){
 		normalStats = stats;
 		this.species = species;
+		this.setName(species.getName());
 		heal();
 
 	}
@@ -66,10 +67,6 @@ public class Pokemon{
 
 	public final void damage(final int dmg) {
 		currentStats.setHealth(currentStats.getHealth() - dmg);
-	}
-
-	public String getSpritePath(){
-		return R.pokemonSprites + getSpecies().getSpriteName() + ".png";
 	}
 
 	public List<IMove> getMoves() {
@@ -137,19 +134,18 @@ public class Pokemon{
 		}
 	}
 
-	public String getName() {
-		if(name.isEmpty()){
-			name = species.getName();
-		}
-		return name;
-	}
-
-	public void setName(final String name) {
-		this.name = name;
-	}
-
 	@Override
 	public String toString(){
 		return getName() + ", current stats: [" + currentStats + "] normal stats: [" + normalStats + "]";
+	}
+
+	@Override
+	public String getSpriteName() {
+		return species.getSpriteName();
+	}
+
+	@Override
+	public void setSpriteName(final String to) {
+		Log.warn("can't set sprite of indivdual pokemon: " + to);
 	}
 }

@@ -6,8 +6,8 @@ package org.bakkes.game;
 public class R {
 
 	public static final String sprites = "sprites/";
-	public static final String pokemonSprites = sprites + "/pokemon/";
-	public static final String itemSprites = sprites + "/items/";
+	public static final String pokemonSprites = sprites + "pokemon/";
+	public static final String itemSprites = sprites + "items/";
 
 	public static final String map = "map/";
 
