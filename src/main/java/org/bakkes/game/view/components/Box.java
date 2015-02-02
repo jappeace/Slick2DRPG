@@ -5,6 +5,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Vector2f;
 
 /**
  * a box (to draw shit in like text, the shit has now a clear background).
@@ -20,6 +21,13 @@ public class Box implements IRenderable, IShape{
 		// make it big so configuration won't be forgotten
 		this(0,0,400,500);
 	}
+	/**
+	 * this is one of the few objects that can safly be constructed with new
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
 	public Box(final float x, final float y, final float width, final float height){
 		shape = createShape(x,y,width,height);
 	}
@@ -85,6 +93,14 @@ public class Box implements IRenderable, IShape{
 	}
 	private Shape createShape(final float x, final float y, final float width, final float height){
 		return new Rectangle(x,y,width,height);
+	}
+	@Override
+	public void setPosition(final Vector2f position) {
+		shape.setLocation(position);
+	}
+	@Override
+	public Vector2f getPosition() {
+		return shape.getLocation();
 	}
 
 }

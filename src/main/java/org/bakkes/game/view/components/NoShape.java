@@ -1,6 +1,7 @@
 package org.bakkes.game.view.components;
 
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Vector2f;
 
 import com.google.inject.Singleton;
 
@@ -38,4 +39,13 @@ public class NoShape implements IShape{
 	public void x(final float to) {}
 	@Override
 	public void y(final float to) {}
+
+	@Override
+	public void setPosition(final Vector2f position) {
+	}
+
+	@Override
+	public Vector2f getPosition() {
+		return new Vector2f();
+	}
 }

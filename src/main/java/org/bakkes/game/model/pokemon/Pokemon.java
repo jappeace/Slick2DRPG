@@ -18,6 +18,8 @@ public class Pokemon extends AModel implements IHasSpriteName{
 	private int level = 0;
 	private int experiance;
 	private @Inject Random random;
+	private boolean isFemale = false;
+	private boolean isShiny = false;
 	@Inject
 	public Pokemon(final IPokemonSpecies species){
 		this(species, species.getBase());
@@ -147,5 +149,12 @@ public class Pokemon extends AModel implements IHasSpriteName{
 	@Override
 	public void setSpriteName(final String to) {
 		Log.warn("can't set sprite of indivdual pokemon: " + to);
+	}
+
+	public boolean isShiny(){
+		return isShiny;
+	}
+	public boolean isFemale(){
+		return isFemale;
 	}
 }

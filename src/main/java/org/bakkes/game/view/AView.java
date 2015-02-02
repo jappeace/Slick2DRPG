@@ -1,6 +1,6 @@
 package org.bakkes.game.view;
 
-import org.bakkes.game.view.components.LineWriterView;
+import org.bakkes.game.view.components.LineWriter;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
@@ -8,7 +8,7 @@ import com.google.inject.Inject;
 
 public abstract class AView implements IRenderable{
 
-	protected @Inject LineWriterView out;
+	protected @Inject LineWriter out;
 	@Override
 	public void render(final Graphics g) {
 		final Color previousColor = g.getColor();

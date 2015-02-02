@@ -7,7 +7,6 @@ import org.bakkes.game.view.IRenderable;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Vector2f;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -17,10 +16,8 @@ import com.google.inject.Provider;
  *
  * a simple utility to emulate the cout << "" kind of stuff on screen
  */
-public class LineWriterView implements IRenderable{
+public class LineWriter extends APositionable implements IRenderable{
 
-	private Vector2f location = new Vector2f();
-	private Vector2f start = new Vector2f();
 	private List<TextLine> lines = new LinkedList<>();
 	private @Inject Provider<TextLine> textLineProvider;
 	public Color color = Color.black;
@@ -33,15 +30,21 @@ public class LineWriterView implements IRenderable{
 		}
 	}
 
-	public void setLocation(final Vector2f location) {
-		this.start = location.copy(); // to calculate the current hight
-		this.location = location.copy(); // mutable location
-	}
-	public void setLocation(final float x, final float y) {
-		setLocation(new Vector2f(x,y));
-	}
 	public float getHeight(){
-		return location.y - start.y;
+		float lowY = Float.POSITIVE_INFINITY;
+		float highY = Float.NEGATIVE_INFINITY;
+		for(final TextLine t : lines){
+			if(lowY > t.y()){
+				lowY = t.y();
+			}
+			if(highY < t.y()){
+				highY = t.y();
+			}
+		}
+		if(lowY == Float.POSITIVE_INFINITY || highY == Float.NEGATIVE_INFINITY){
+			return 0;
+		}
+		return highY - lowY;
 	}
 
 	public void write(final String str){
@@ -50,20 +53,17 @@ public class LineWriterView implements IRenderable{
 	public void write(final String str, final Font font){
 		final TextLine t = textLineProvider.get();
 		t.setText(str);
-		t.y(getLocation().y);
-		t.x(getLocation().x);
+		t.y(y());
+		t.x(x());
 		t.setFont(font);
 		write(t);
 	}
 	public void write(final TextLine line){
 		lines.add(line);
-		getLocation().y += line.height();
+		y(y()+line.height());
 	}
 	public void clear(){
 		lines.clear();
-	}
-	public Vector2f getLocation() {
-		return location;
 	}
 	public int lineCount(){
 		return lines.size();

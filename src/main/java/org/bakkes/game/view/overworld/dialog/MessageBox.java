@@ -27,7 +27,8 @@ public class MessageBox extends AMessageBox implements IMessageBox {
 	@Override
 	protected void renderView(final Graphics g) {
 		box.render(g);
-		out.setLocation(box.x() + margin, box.y() + margin);
+		out.x(box.x() + margin);
+		out.y(box.y() + margin);
 		out.write(getTitle(), titleFont);
 		out.write("");
 		out.write(getText());

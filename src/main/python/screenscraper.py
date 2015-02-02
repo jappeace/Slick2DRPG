@@ -17,8 +17,8 @@ def tohtml(lines):
     f.close()
 
 session = Session()
-def fileIsGood(fileName):
-    with open(fileName, 'rb') as f:
+def fileIsGood(filePath):
+    with open(filePath, 'rb') as f:
         if md5(f.read()).hexdigest() == '6e78c36b63bbb23649a8b8582ae706b0':
             print("file is not good, (got a known error file)")
             return False
@@ -64,15 +64,29 @@ def requestImageUrl(fileName):
 
 def fetchSprite(imgName, folder, url, afterurl = ""):
     if fetchImage(imgName, folder, requestImageUrl(url+afterurl)):
-        return
+        return True
     print("suspecting that there is a female and male image")
-    fetchImage(imgName, folder, requestImageUrl(url+"_m" + afterurl))
-    fetchImage(imgName+"_female", folder, requestImageUrl(url+"_f" + afterurl))
+    if fetchImage(imgName, folder, requestImageUrl(url+"_m" + afterurl)):
+        fetchImage(imgName+"_female", folder, requestImageUrl(url+"_f" + afterurl))
+        return True
+    return False
+
 
 def getName(i):
     return i.find_all('td')[2].a.text.replace("\u2640","").replace("\u2642","t")
 
-def handleIteration(i):
+def fetchSprites(generation, name, id):
+    front = "Spr_{}_{}".format(generation, id)
+    back = "Spr_b_{}_{}".format(generation, id)
+    if not fetchSprite("front", name, front):
+        print("suspecting this generation has not this pokemon, upping the gneration")
+        fetchSprites("5b", name, id)
+        return
+    fetchSprite("back", name, back)
+    fetchSprite("shiny_front", name, front,"_s")
+    fetchSprite("shiny_back", name, back,"_s")
+
+def handleIteration(i, generation = "4d"):
     nextPage = i.a.get('href')
 
     name =getName(i)
@@ -84,11 +98,8 @@ def handleIteration(i):
         print(("handeling " + name).encode("utf8"))
 
     fetchImage("small", name, i.img.get('src'))
-    fetchSprite("front", name, "Spr_4d_"+id)
-    fetchSprite("back", name, "Spr_b_4d_"+id)
-    fetchSprite("shiny_front", name, "Spr_4d_"+id,"_s")
-    fetchSprite("shiny_back", name, "Spr_b_4d_"+id,"_s")
     fetchImage("big", name, requestImageUrl(id+name))
+    fetchSprites(generation, name, id)
 
 def resetCurrentAndRetry(i):
         # clear the working tree so the existing file check is cirumvented,
@@ -101,7 +112,14 @@ def handleIterationIgnoringConnectionBullshit(i):
     path = storePath+getName(i).lower()
     try:
         if os.path.isdir(path):
-            print(path + "exists already")
+            print("exists already: '{}'".format(path))
+            for f in os.listdir(path):
+                if fileIsGood("{}/{}".format(path,f)):
+                    continue
+                print("one of the files is worng, trying a different generation")
+                rmtree(path)
+                handleIteration(i,"5b")
+                return
             return
         handleIteration(i)
     except exceptions.ConnectionError as connectionError:

@@ -18,10 +18,24 @@ public abstract class APositionedView extends AView implements IPositionable {
 	@Override
 	public void x(final float to) {
 		position.x = to;
+		onChangePosition(position);
 	}
 
 	@Override
 	public void y(final float to) {
 		position.y = to;
+		onChangePosition(position);
+	}
+
+	protected void onChangePosition(final Vector2f newLocation){}
+	@Override
+	public void setPosition(final Vector2f position) {
+		x(position.x);
+		y(position.y);
+	}
+
+	@Override
+	public Vector2f getPosition() {
+		return position;
 	}
 }

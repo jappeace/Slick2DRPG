@@ -28,7 +28,9 @@ public class BattleLogView extends AView {
 		g.setColor(Color.white);
         g.draw(SHAPE);
 
-        out.setLocation(SHAPE.getLocation().add(LINE_WRITER_START));
+        final Vector2f result = SHAPE.getLocation().add(LINE_WRITER_START);
+        out.x(result.x);
+        out.y(result.y);
         out.write("Battle log:");
         for(int i = log.size() - 1; i >= 0; i --){
         	out.write("Turn #"+i+":");

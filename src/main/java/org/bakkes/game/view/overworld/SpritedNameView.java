@@ -54,15 +54,9 @@ public class SpritedNameView extends APositionedView implements IShape{
 		composition.render(g);
 	}
 	@Override
-	public void x(final float to) {
-		super.x(to);
-		composition.x(to);
-	}
-
-	@Override
-	public void y(final float to) {
-		super.y(to);
-		composition.y(to);
+	protected void onChangePosition(final Vector2f to){
+		composition.x(to.x);
+		composition.y(to.y);
 	}
 	@Override
 	public float width() {
@@ -72,5 +66,4 @@ public class SpritedNameView extends APositionedView implements IShape{
 	public float height() {
 		return composition.height();
 	}
-
 }

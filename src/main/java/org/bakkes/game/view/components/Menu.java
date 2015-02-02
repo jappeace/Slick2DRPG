@@ -82,30 +82,19 @@ public class Menu extends AShape{
 	}
 
 	public void up(){
-		selected = (selected + 1) % options.size();
-	}
-	public void down(){
 		selected--;
 		if(selected < 0){
 			selected = options.size()-1;
 		}
 	}
+	public void down(){
+		selected = (selected + 1) % options.size();
+	}
 
-	@Override
-	public void x(final float to) {
-		super.x(to);
-		updateShape();
-	}
-	@Override
-	public void y(final float to) {
-		super.y(to);
-		updateShape();
-	}
     @Override
-	public void setPosition(final Vector2f position) {
-		super.setPosition(position);
-		updateShape();
-	}
+    public void onPositionChange(final Vector2f position){
+    	updateShape();
+    }
 
 	public void width(final float to) {
 		overrideWidth = to;

@@ -17,7 +17,7 @@ import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.PositionModule;
 import org.bakkes.game.view.battle.BattleLogView;
 import org.bakkes.game.view.battle.PokeView;
-import org.bakkes.game.view.components.LineWriterView;
+import org.bakkes.game.view.components.LineWriter;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -77,7 +77,6 @@ public class BattleState extends CommonGameState {
 		this.battle = injector.getInstance(Battle.class);
 		this.battleLog = injector.getInstance(BattleLogView.class);
 		pool.execute(this.battle);
-		this.playerView.renderMoves = false;
 		firstRun = true;
 	}
 	/*
@@ -128,7 +127,7 @@ public class BattleState extends CommonGameState {
 	}
 	private float leftOffset = 20f;
 	private int showCount = 30;
-	private LineWriterView out = new LineWriterView();
+	private @Inject LineWriter out;
 
 	@Override
 	public void render(final GameContainer gc, final StateBasedGame arg1, final Graphics g)
@@ -136,7 +135,8 @@ public class BattleState extends CommonGameState {
 		g.setColor(new Color(255, 255, 255, 255));
 		g.setLineWidth(5f);
 		out.clear();
-		out.setLocation(new Vector2f(20f, 150f));
+		out.x(20);
+		out.y(150);
 
 		if(battle.isOver() && playerContestent.hasWon()) { //player won, don't show enemy stuff
 			out.write("You are victorious! Press enter to leave");
@@ -145,7 +145,7 @@ public class BattleState extends CommonGameState {
 		}
 
 		if(battle.isOver() && !playerContestent.hasWon()) { //player lost, dont show player
-			out.getLocation().y += 300;
+			out.y(out.y() + 300);
 			out.write("You lost! Press enter to leave");
 			out.write("To heal your pokemon, visit the old lady at the beginning!");
 		} else {
