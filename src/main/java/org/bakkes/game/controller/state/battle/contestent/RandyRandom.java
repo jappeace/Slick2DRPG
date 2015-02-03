@@ -1,5 +1,6 @@
 package org.bakkes.game.controller.state.battle.contestent;
 
+import java.util.List;
 import java.util.Random;
 
 import org.bakkes.game.model.battle.move.IMove;
@@ -12,7 +13,8 @@ public class RandyRandom extends AI{
 	@Inject Random random;
 	@Override
 	protected IMove getMove() {
-		return getOwn().getMoves().get(random.nextInt(getOwn().getMoves().size()));
+		final List<IMove> own = getOwnPokemon().getMoves();
+		return own.get(random.nextInt(own.size()));
 	}
 
 }

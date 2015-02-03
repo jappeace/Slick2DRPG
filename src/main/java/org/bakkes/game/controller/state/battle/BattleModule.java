@@ -21,6 +21,8 @@ public class BattleModule extends AModule{
 		final IContestent[] result = new IContestent[2];
 		result[0] = ai;
 		result[1] = player;
+		ai.setOwnPokemon(player.getTargetPokemon());
+		ai.setTargetPokemon(player.getOwnPokemon());
 		return result;
 	}
 	public @Singleton @Provides List<BattleLogEvent> provideLog(){

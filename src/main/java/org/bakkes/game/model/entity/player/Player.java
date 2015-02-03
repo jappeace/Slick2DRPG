@@ -9,7 +9,6 @@ import org.bakkes.game.model.entity.Character;
 import org.bakkes.game.model.entity.player.invetory.Inventory;
 import org.bakkes.game.model.entity.player.invetory.PokeBelt;
 import org.bakkes.game.model.map.Tile;
-import org.newdawn.slick.GameContainer;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -35,7 +34,7 @@ public class Player extends Character {
 		command.setDestination(tile);
 		addCommand(command);
 	}
-	public void update(final GameContainer gc, final int delta) {
+	public void update(final int delta) {
 		if(isDone()) {
 			return;
 		}

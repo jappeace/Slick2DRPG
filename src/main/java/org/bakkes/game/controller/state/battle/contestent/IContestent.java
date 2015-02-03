@@ -8,7 +8,10 @@ public interface IContestent {
 
 	boolean isReady();
 	Turn getTurn();
-	Pokemon getPokemon();
 	void onWin();
 	boolean hasWon();
+	void setOwnPokemon(final Pokemon ownPokemon);
+	void setTargetPokemon(final Pokemon targetPokemon);
+	Pokemon getOwnPokemon();
+	Pokemon getTargetPokemon();
 }

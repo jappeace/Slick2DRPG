@@ -8,7 +8,6 @@ import org.bakkes.game.model.pokemon.IPokemonSpecies;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.model.pokemon.PokemonStatistics;
-import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -32,10 +31,6 @@ public class PokemonDsl extends ADsl{
 	}
 
 	public Pokemon createPokemon(){
-		if(species == null){
-			Log.warn("no species set, going for caterpie");
-			species = new SpeciesModule().provideSpecies();
-		}
         final Pokemon result = new Pokemon(species, statistics);
 		result.setLevel(this.level);
 		return result;

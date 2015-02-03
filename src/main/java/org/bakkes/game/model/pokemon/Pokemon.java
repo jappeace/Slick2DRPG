@@ -27,6 +27,9 @@ public class Pokemon extends AModel implements IHasSpriteName{
 	}
 
 	public Pokemon(final IPokemonSpecies species, final @Nullable IPokemonStatistics stats){
+		if(species == null){
+			throw new IllegalArgumentException("no species set");
+		}
 		normalStats = species.getBase();
 		if(stats != null){
             normalStats = stats;

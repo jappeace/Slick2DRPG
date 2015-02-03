@@ -7,6 +7,7 @@ import org.bakkes.game.controller.event.input.CompositeKeyListener;
 import org.bakkes.game.controller.init.PlayerLoader;
 import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.controller.state.battle.BattleState;
+import org.bakkes.game.controller.state.battle.BattleType;
 import org.bakkes.game.controller.state.overworld.command.MoveOnOverworld;
 import org.bakkes.game.model.Bean;
 import org.bakkes.game.model.entity.player.Player;
@@ -35,6 +36,8 @@ public class OverworldState extends CommonGameState {
 	private @Inject LayerdMap map;
 	private @Inject PlayerLoader loader;
 
+	private @Inject Input input;
+	private @Inject StateBasedGame game;
 
 	private @Inject Bean<Tile> clickedTile;
 	private @Inject Provider<MoveOnOverworld> onClickHandler;
@@ -54,26 +57,20 @@ public class OverworldState extends CommonGameState {
 	}
 
 	@Override
-	public void init(final GameContainer gc, final StateBasedGame arg1)
-			throws SlickException {
-		super.init(gc, arg1);
+	public void init(){
 		map.load("outside");
 		loader.load();
 	}
 
 	@Override
-	public void update(final GameContainer gc, final StateBasedGame arg1, final int delta)
-			throws SlickException {
-		super.update(gc, arg1, delta);
-		final Input input = gc.getInput();
-
+	public void update(final int delta) {
 		if(inputEnabled){
-			handleMouseInput(input);
+			handleMouseInput();
 		}
-		player.update(gc, delta);
-		checkForWildPokeBattle(arg1);
+		player.update(delta);
+		checkForWildPokeBattle();
 	}
-	private void checkForWildPokeBattle(final StateBasedGame game){
+	private void checkForWildPokeBattle(){
 		if(!player.hasEnteredNewTile()){
 			return;
 		}
@@ -84,10 +81,11 @@ public class OverworldState extends CommonGameState {
         if(random.nextInt(WILD_POKE_CHANCE) != 1) {
         	return;
         }
-        ((BattleState)game.getState(BattleState.BATTLE_STATE_ID)).startWild();
+        final BattleState state = ((BattleState)game.getState(BattleState.BATTLE_STATE_ID));
+        state.setType(BattleType.Wild);
         game.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
 	}
-	private void handleMouseInput(final Input input){
+	private void handleMouseInput(){
         final Vector2f mousePos = new Vector2f(input.getMouseX(), input.getMouseY());
 		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)){
 			onLeftMouseButton(mousePos);

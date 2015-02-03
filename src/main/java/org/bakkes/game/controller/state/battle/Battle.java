@@ -77,6 +77,6 @@ public class Battle implements Runnable{
 		return false;
 	}
 	private IPokemonStatistics getStats(final int who){
-		return contestents[who].getPokemon().getCurrentStats();
+		return contestents[who].getOwnPokemon().getCurrentStats();
 	}
 }

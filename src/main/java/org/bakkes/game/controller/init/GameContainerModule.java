@@ -4,6 +4,7 @@ import org.bakkes.game.AModule;
 import org.bakkes.game.model.GameInfo;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.gui.GUIContext;
@@ -35,6 +36,9 @@ public class GameContainerModule extends AModule{
 	}
 
 	public @Provides @Named("canvas size") Vector2f provideCanvasSize(final GUIContext g){
-        return new Vector2f(GameInfo.SCREEN_WIDTH, GameInfo.SCREEN_HEIGHT);
+        return new Vector2f(g.getWidth(), g.getHeight());
+	}
+	public @Provides Input provideInput(final GUIContext container){
+		return container.getInput();
 	}
 }

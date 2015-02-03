@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.sun.istack.internal.Nullable;
 
-public abstract class CommonGameState extends BasicGameState {
+public abstract class CommonGameState extends BasicGameState implements IUpdatable{
 	protected boolean inputEnabled = true;
 	private IRenderable overlay = null;
 	private List<IRenderable> drawables;
@@ -43,21 +43,32 @@ public abstract class CommonGameState extends BasicGameState {
 	}
 
 	@Override
-	public void init(final GameContainer gc, final StateBasedGame arg1)
+	public final void init(final GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
 		drawables = new ArrayList<>();
+
+		init();
 	}
+	protected void init(){}
+	@Override
+	public final void enter(final GameContainer container, final StateBasedGame game) throws SlickException{
+		enter();
+	}
+	protected void enter(){}
 
 	/**
 	 * @param delta = tpf time that has passed between frames
 	 */
 	@Override
-	public void update(final GameContainer gc, final StateBasedGame arg1, final int delta)
+	public final void update(final GameContainer gc, final StateBasedGame arg1, final int delta)
 			throws SlickException {
 		for(final IUpdatable controller : controllers){
 			controller.update(delta);
 		}
+		update(delta);
 	}
+	@Override
+	public void update(final int delta){}
 
 	@Override
 	public void render(final GameContainer gc, final StateBasedGame arg1, final Graphics g)

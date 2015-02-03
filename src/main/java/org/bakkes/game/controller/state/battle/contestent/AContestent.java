@@ -10,39 +10,59 @@ import org.newdawn.slick.util.Log;
 public abstract class AContestent implements IContestent{
 
 
+	private Pokemon ownPokemon;
+	private Pokemon targetPokemon;
 	private boolean hasWon = false;
 
 	@Override
 	public Turn getTurn() {
 		final Turn result = new Turn();
-		result.setTarget(getTarget());
-		result.setAgressor(getOwn());
+		result.setTarget(getTargetPokemon());
+		result.setAgressor(getOwnPokemon());
 		result.setMove(getMove());
 		return result;
 	}
 
-	protected abstract IMove getMove();
-	protected abstract Pokemon getOwn();
-	protected abstract Pokemon getTarget();
+	@Override
+	public final Pokemon getOwnPokemon() {
+		return ownPokemon;
+	}
 
 	@Override
-	public Pokemon getPokemon() {
-		return getOwn();
+	public final Pokemon getTargetPokemon() {
+		return targetPokemon;
 	}
+
+	@Override
+	public final void setOwnPokemon(final Pokemon ownPokemon) {
+		this.ownPokemon = ownPokemon;
+	}
+
+	@Override
+	public final void setTargetPokemon(final Pokemon targetPokemon) {
+		this.targetPokemon = targetPokemon;
+	}
+
+	protected abstract IMove getMove();
+
 	/**
 	 * so any pokemon will get xp, if a player is stupid and keeps killing himself against another trainer,
 	 * the other trainer keeps becoming stronger, which is reasonable.
 	 */
 	@Override
 	public synchronized void onWin() {
-		float xp = (getOwn().getLevel() * GameInfo.XP_MODIFIER / getOwn().getSpecies().getTrainingSpeed());
+		final Pokemon own = getOwnPokemon();
+		final Pokemon target = getTargetPokemon();
+
+		float xp = (own.getLevel() * GameInfo.XP_MODIFIER / own.getSpecies().getTrainingSpeed());
+
         // even the losers win,
         // IRL you probably learn more by losing
         // however we want to promote winning, so divide by 2
-        getTarget().addExperiance((int)xp/2);
+        target.addExperiance((int)xp/2);
 
-		xp = (getTarget().getLevel() * GameInfo.XP_MODIFIER / getTarget().getSpecies().getTrainingSpeed());
-        final IPokemonStatistics stats = getOwn().addExperiance((int) xp);
+		xp = (target.getLevel() * GameInfo.XP_MODIFIER / target.getSpecies().getTrainingSpeed());
+        final IPokemonStatistics stats = own.addExperiance((int) xp);
         if(stats != null){
             Log.info("level up: " + stats);
         }
