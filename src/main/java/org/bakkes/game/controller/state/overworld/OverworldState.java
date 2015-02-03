@@ -6,6 +6,7 @@ import java.util.Random;
 import org.bakkes.game.controller.event.input.CompositeKeyListener;
 import org.bakkes.game.controller.init.PlayerLoader;
 import org.bakkes.game.controller.state.CommonGameState;
+import org.bakkes.game.controller.state.State;
 import org.bakkes.game.controller.state.battle.BattleState;
 import org.bakkes.game.controller.state.battle.BattleType;
 import org.bakkes.game.controller.state.overworld.command.MoveOnOverworld;
@@ -29,8 +30,6 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class OverworldState extends CommonGameState {
-	public static final int PLAYING_STATE_ID = 0;
-
 	private @Inject Player player;
 	private @Inject Random random;
 	private @Inject LayerdMap map;
@@ -48,7 +47,7 @@ public class OverworldState extends CommonGameState {
 
 	@Override
 	public int getID() {
-		return PLAYING_STATE_ID;
+		return State.Overworld.ordinal();
 	}
 
 	@Inject
@@ -81,9 +80,9 @@ public class OverworldState extends CommonGameState {
         if(random.nextInt(WILD_POKE_CHANCE) != 1) {
         	return;
         }
-        final BattleState state = ((BattleState)game.getState(BattleState.BATTLE_STATE_ID));
+        final BattleState state = ((BattleState)game.getState(State.Battle.ordinal()));
         state.setType(BattleType.Wild);
-        game.enterState(BattleState.BATTLE_STATE_ID, new FadeOutTransition(), new FadeInTransition());
+        game.enterState(State.Battle.ordinal(), new FadeOutTransition(), new FadeInTransition());
 	}
 	private void handleMouseInput(){
         final Vector2f mousePos = new Vector2f(input.getMouseX(), input.getMouseY());

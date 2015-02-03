@@ -5,8 +5,8 @@ import java.util.Random;
 
 import org.bakkes.game.controller.async.IThreadPool;
 import org.bakkes.game.controller.state.CommonGameState;
+import org.bakkes.game.controller.state.State;
 import org.bakkes.game.controller.state.battle.contestent.PlayerContestent;
-import org.bakkes.game.controller.state.overworld.OverworldState;
 import org.bakkes.game.model.battle.move.IMove;
 import org.bakkes.game.model.entity.player.invetory.PokeBelt;
 import org.bakkes.game.model.pokemon.Pokemon;
@@ -27,7 +27,6 @@ import com.google.inject.Provider;
 import com.google.inject.name.Named;
 
 public class BattleState extends CommonGameState {
-	public static final int BATTLE_STATE_ID = 2;
 
 	private Battle battle;
 	private PokeView enemyView;
@@ -50,7 +49,7 @@ public class BattleState extends CommonGameState {
 
 	@Override
 	public int getID() {
-		return BATTLE_STATE_ID;
+		return State.Battle.ordinal();
 	}
 
 	@Override
@@ -91,7 +90,7 @@ public class BattleState extends CommonGameState {
 		if(battle.isOver()) {
 			if(input.isKeyPressed(Input.KEY_ENTER)) {
 				selectedMove = 0;
-				game.enterState(OverworldState.PLAYING_STATE_ID);
+				game.enterState(State.Overworld.ordinal());
 			}
 			return;
 		}

@@ -20,8 +20,8 @@ public class GameModule extends AModule{
 
 	@Override
 	protected void configure() {
-		bind(org.newdawn.slick.Game.class).to(StateBasedGame.class);
-		bind(StateBasedGame.class).to(Game.class);
+		bind(org.newdawn.slick.Game.class).to(StateBasedGame.class).in(Singleton.class);
+		bind(StateBasedGame.class).to(Game.class).in(Singleton.class);
 		bind(String.class).annotatedWith(Names.named("game-title")).toInstance(GAME_TITLE);
 		bind(Random.class).in(Singleton.class);
 	}

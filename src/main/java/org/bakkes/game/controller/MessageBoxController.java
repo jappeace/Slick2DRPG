@@ -16,13 +16,13 @@ import com.sun.istack.internal.Nullable;
 @Singleton
 public class MessageBoxController implements IController{
 
-	private @Inject CommonGameState state;
+	private @Inject Provider<CommonGameState> state;
 	private @Inject Provider<IMessageBox> msgBoxProvider;
 	private Queue<IMessageBox> dialogQueue = new LinkedList<>();
 	private @Nullable IMessageBox currentMsgBox;
 
 	private final void setOverlay(final IMessageBox overlay) {
-		state.setOverlay(overlay);
+		state.get().setOverlay(overlay);
 		this.currentMsgBox = overlay;
 	}
 
@@ -41,12 +41,12 @@ public class MessageBoxController implements IController{
 			currentMsgBox.setState(MessageBoxState.Done);
 		}
 		if(dialogQueue.size() > 0) {
-			state.setKeyListener(this);
+			state.get().setKeyListener(this);
 			setOverlay(dialogQueue.remove());
 			currentMsgBox.setState(MessageBoxState.Showing);
 			return;
 		}
-		state.setKeyListener(null);
+		state.get().setKeyListener(null);
 		setOverlay(null);
 	}
 

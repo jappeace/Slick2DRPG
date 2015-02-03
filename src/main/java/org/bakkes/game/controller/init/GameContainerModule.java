@@ -17,8 +17,8 @@ public class GameContainerModule extends AModule{
 
 	@Override
 	protected void configure() {
-		bind(GUIContext.class).to(GameContainer.class);
-		bind(GameContainer.class).to(AppGameContainer.class);
+		bind(GUIContext.class).to(GameContainer.class).in(Singleton.class);
+		bind(GameContainer.class).to(AppGameContainer.class).in(Singleton.class);;
 	}
 
 	@Provides @Singleton AppGameContainer provideGameContainer(final org.newdawn.slick.Game game){

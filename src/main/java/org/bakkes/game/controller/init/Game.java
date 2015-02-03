@@ -2,6 +2,7 @@ package org.bakkes.game.controller.init;
 
 import java.util.Collection;
 
+import org.bakkes.game.controller.state.State;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.GameState;
@@ -23,8 +24,6 @@ public class Game extends StateBasedGame{
 		for(final GameState state : states.get()){
 			this.addState(state);
 		}
+		this.enterState(State.Overworld.ordinal());
 	}
-
-
-
 }
