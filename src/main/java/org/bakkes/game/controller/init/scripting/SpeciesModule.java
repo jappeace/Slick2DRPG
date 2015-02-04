@@ -1,37 +1,41 @@
 package org.bakkes.game.controller.init.scripting;
 
+import java.nio.file.Path;
+
 import org.bakkes.game.AModule;
-import org.bakkes.game.R;
 import org.bakkes.game.controller.init.scripting.loader.ScriptLoader;
+import org.bakkes.game.model.Bean;
 import org.bakkes.game.model.pokemon.IPokemonSpecies;
 import org.bakkes.game.model.pokemon.PokemonSpecies;
 
 import com.google.inject.Provides;
+import com.google.inject.Singleton;
+import com.google.inject.TypeLiteral;
+import com.google.inject.name.Named;
+import com.google.inject.name.Names;
 
 public class SpeciesModule extends AModule{
 
-	private String speciesName;
 	private static final String DEFAULT_SPECIES = "caterpie";
 
-	public SpeciesModule(){
-		this(DEFAULT_SPECIES);
-	}
-	public SpeciesModule(final String speciesName){
-		this.speciesName = speciesName;
+	@Override
+	public void configure(){
+		bind(new TypeLiteral<Bean<String>>(){}).annotatedWith(Names.named("species name")).to(new TypeLiteral<Bean<String>>(){}).in(Singleton.class);;
 	}
 
-	private ScriptLoader scriptLoader = new ScriptLoader();
-	public void setSpeciesName(final String name){
-        speciesName = name;
-	}
-
-	public @Provides IPokemonSpecies provideSpecies(){
-		final PokemonSpecies species = new PokemonSpecies();
-		if(!scriptLoader.load(R.pokemonScripts + speciesName + ".dsl", species)){
-            scriptLoader.load(R.pokemonScripts + DEFAULT_SPECIES + ".dsl", species);
-            species.setName(speciesName);
+	public @Provides IPokemonSpecies provideSpecies(
+			@Named("scriptPokemon") final Path path,
+            final ScriptLoader scriptLoader,
+            @Named("species name") final Bean<String> speciesName
+        ){
+		if(speciesName.getData() == null){
+			speciesName.setData(DEFAULT_SPECIES);
 		}
-		species.setName(speciesName); // user can't overide, filename is pokemon name to avoid confusion
+		final PokemonSpecies species = new PokemonSpecies();
+		if(!scriptLoader.load(path.resolve( speciesName + ".dsl"), species)){
+            scriptLoader.load(path.resolve(DEFAULT_SPECIES + ".dsl"), species);
+		}
+		species.setName(speciesName.getData()); // user can't overide, filename is pokemon name to avoid confusion
 		return species;
 	}
 }

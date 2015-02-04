@@ -1,10 +1,10 @@
 package org.bakkes.game.controller.state.overworld;
 
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.LinkedList;
 
 import org.bakkes.game.AModule;
-import org.bakkes.game.R;
 import org.bakkes.game.controller.event.input.IKeyListener;
 import org.bakkes.game.controller.event.input.InteractionListener;
 import org.bakkes.game.controller.event.input.MenuToggleListener;
@@ -28,6 +28,7 @@ import com.google.inject.Provider;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
+import com.google.inject.name.Named;
 
 /**
  * TODO: this module should probably not be part of the main initilisation squence but one tier lower
@@ -58,7 +59,8 @@ public class OverworldModule extends AModule{
         final Provider<EntityView> entityViewProvider,
         final Player player,
         final BlockedTileView blockedTiles,
-        final IAreaNameAcces map
+        final IAreaNameAcces map,
+        @Named("spriteItems") final Path path
     ){
 		if(lastArea.equals(map.getAreaName())){
 			return renderable;
@@ -72,10 +74,7 @@ public class OverworldModule extends AModule{
 		}
 		for(final Item item : itemTracker.getEntities()){
 			result.add(
-                entityViewProvider.get().loadView(
-                    R.itemSprites,
-                    item
-                )
+                entityViewProvider.get().loadView(path, item)
             );
 		}
         final CharacterView view = characterViewProvider.get();

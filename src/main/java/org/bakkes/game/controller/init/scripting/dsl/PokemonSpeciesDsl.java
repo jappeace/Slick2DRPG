@@ -2,9 +2,9 @@ package org.bakkes.game.controller.init.scripting.dsl;
 
 import groovy.lang.Closure;
 
+import java.nio.file.Path;
 import java.util.Collection;
 
-import org.bakkes.game.R;
 import org.bakkes.game.controller.init.scripting.dsl.anotation.Required;
 import org.bakkes.game.controller.init.scripting.dsl.anotation.Result;
 import org.bakkes.game.controller.init.scripting.loader.ScriptLoader;
@@ -16,6 +16,7 @@ import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.name.Named;
 
 public class PokemonSpeciesDsl extends ASpriteNamedDsl {
 
@@ -23,6 +24,7 @@ public class PokemonSpeciesDsl extends ASpriteNamedDsl {
 	@Inject Provider<PokemonStatistics> statisticsProvider;
 	@Inject Provider<Move> movesProvider;
 	@Inject ScriptLoader loader;
+	@Inject @Named("moves") Path path;
 	public final void setEvolution(final String evolution) {
 		target.setEvolution(evolution);
 	}
@@ -61,7 +63,7 @@ public class PokemonSpeciesDsl extends ASpriteNamedDsl {
 		for(final String moveName : moves){
 			Log.info("reading " + moveName);
 			final Move move = movesProvider.get();
-			loader.load(R.moveScripts + moveName + ".dsl", move);
+			loader.load(path.resolve(moveName + ".dsl"), move);
 			move.setName(moveName); // avoid confusion user can't override name
 			target.getMoves().add(move);
 		}

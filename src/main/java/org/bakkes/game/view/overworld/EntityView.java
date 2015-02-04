@@ -1,5 +1,7 @@
 package org.bakkes.game.view.overworld;
 
+import java.nio.file.Path;
+
 import org.bakkes.game.model.ImageCache;
 import org.bakkes.game.model.entity.IOverworldEntity;
 import org.bakkes.game.view.AView;
@@ -27,8 +29,8 @@ public class EntityView extends AView{
 	 * @param entity being rendered
 	 * @return itself
 	 */
-	public EntityView loadView(String path, final IOverworldEntity entity){
-		path += "/" + entity.getSpriteName() + ".png";
+	public EntityView loadView(Path path, final IOverworldEntity entity){
+		path = path.resolve(entity.getSpriteName() + ".png");
 		try {
 			img = imageCache.load( path);
 		} catch (final SlickException e) {

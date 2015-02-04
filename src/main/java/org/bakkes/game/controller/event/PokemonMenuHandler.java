@@ -1,9 +1,9 @@
 package org.bakkes.game.controller.event;
 
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import org.bakkes.game.R;
 import org.bakkes.game.controller.event.input.IKeyListener;
 import org.bakkes.game.controller.event.input.Key;
 import org.bakkes.game.controller.state.CommonGameState;
@@ -25,6 +25,7 @@ public class PokemonMenuHandler implements IMenuHandler{
 	private @Inject Provider<SpriteNameExtender> extenderProvider;
 	private @Inject PokeView view;
 	private @Inject Provider<CommonGameState> state;
+	private @Inject @Named("spritePokemon") Path path;
 	@Override
 	public void select(final int item) {
 		view.setPokemon(belt.getAt(item));
@@ -55,7 +56,7 @@ public class PokemonMenuHandler implements IMenuHandler{
 			final SpriteNameExtender extender = extenderProvider.get();
 			extender.setHasSpriteName(pokemon);
 			extender.setExtension("/small");
-			view.setNamed(R.pokemonSprites, extender);
+			view.setNamed(path, extender);
 			result.add(view);
 		}
 		return result;

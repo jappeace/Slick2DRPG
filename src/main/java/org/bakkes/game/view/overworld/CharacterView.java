@@ -1,6 +1,7 @@
 package org.bakkes.game.view.overworld;
 
-import org.bakkes.game.R;
+import java.nio.file.Path;
+
 import org.bakkes.game.controller.init.scripting.dsl.AnimationDsl;
 import org.bakkes.game.controller.init.scripting.loader.ScriptLoader;
 import org.bakkes.game.model.entity.Character;
@@ -9,6 +10,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 public class CharacterView extends AView{
 
@@ -17,6 +19,7 @@ public class CharacterView extends AView{
 	private @Inject ScriptLoader loader;
 	private @Inject AnimationDsl dsl;
 	private static final String DEFAULT_ANIMATION = "default";
+	private @Inject @Named("animations") Path path;
 
 	@Override
 	public void renderView(final Graphics g) {
@@ -37,8 +40,8 @@ public class CharacterView extends AView{
 		// try loading a entity representation based on its name
 		// I considered giving a animation name but that is just tedious
 		// Don't forget to replace spaces, filesystems hate spaces
-		if(!loader.load(R.overworldAnimationScript + entity.getSpriteName()  + ".dsl", dsl)){
-			loader.load(R.overworldAnimationScript + DEFAULT_ANIMATION + ".dsl", dsl);
+		if(!loader.load(path.resolve(entity.getSpriteName()  + ".dsl"), dsl)){
+			loader.load(path.resolve(DEFAULT_ANIMATION + ".dsl"), dsl);
 		}
         _animation = dsl.getResult();
 	}

@@ -1,5 +1,7 @@
 package org.bakkes.game.view.components;
 
+import java.nio.file.Path;
+
 import org.bakkes.game.model.ImageCache;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -13,9 +15,9 @@ public class Sprite extends AShape{
 	private Image image;
 	private @Inject ImageCache cache;
 
-	public void setSpritePath(final String path){
+	public void setSpritePath(final Path path){
 		try {
-			image = cache.load(path + ".png");
+			image = cache.load(path);
 		} catch (final SlickException e) {
 			Log.warn("failed loading sprite " + path);
 		}

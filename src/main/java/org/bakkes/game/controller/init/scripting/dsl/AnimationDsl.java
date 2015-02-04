@@ -2,7 +2,8 @@ package org.bakkes.game.controller.init.scripting.dsl;
 
 import groovy.lang.Closure;
 
-import org.bakkes.game.R;
+import java.nio.file.Path;
+
 import org.bakkes.game.controller.init.scripting.loader.ScriptLoader;
 import org.bakkes.game.model.ImageCache;
 import org.bakkes.game.model.map.Direction;
@@ -13,6 +14,7 @@ import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.name.Named;
 
 public class AnimationDsl extends ADsl{
 
@@ -22,6 +24,8 @@ public class AnimationDsl extends ADsl{
 	private @Inject ImageCache imageCache;
 	private @Inject Provider<TileDsl> tiledslProvider;
 	private @Inject ScriptLoader loader;
+	@Inject @Named("animations") Path animationsPath;
+	@Inject @Named("sprites") Path spritePath;
 	private Tile offset = new Tile();
 	public void setFilename(final String to){
 		fileName = to;
@@ -53,7 +57,7 @@ public class AnimationDsl extends ADsl{
         }
 	}
 	private Animation createAnimation(){
-		final String path = R.sprites+fileName;
+		final Path path = spritePath.resolve(fileName);
 		try {
 			return new Animation(imageCache.load(path,32,32),new int[0],new int[0]);
 		} catch (final SlickException e) {
@@ -77,7 +81,7 @@ public class AnimationDsl extends ADsl{
      */
 	public void offset(final String fileName, final Integer left, final Integer top){
 		this.offset = new Tile(left, top);
-		loader.load(R.overworldAnimationScript + fileName + ".dsl",this);
+		loader.load(animationsPath.resolve(fileName + ".dsl"),this);
 	}
 
 }

@@ -2,8 +2,8 @@ package org.bakkes.game.controller.init.scripting.dsl.area;
 
 import groovy.lang.Closure;
 
-import org.bakkes.game.controller.init.scripting.SpeciesModule;
 import org.bakkes.game.controller.init.scripting.dsl.ADsl;
+import org.bakkes.game.model.Bean;
 import org.bakkes.game.model.pokemon.IPokemonSpecies;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
@@ -11,15 +11,20 @@ import org.bakkes.game.model.pokemon.PokemonStatistics;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.name.Named;
 
 public class PokemonDsl extends ADsl{
-	private IPokemonSpecies species;
     private IPokemonStatistics statistics;
 	private int level = 0;
 	private @Inject Provider<PokemonStatistics> pokemonStatsProvider;
+	private @Inject Provider<IPokemonSpecies> speciesProvider;
+
+	/**
+	 * name bean passes the species name to the module that creates the species
+	 */
+	private @Inject @Named("species name") Bean<String> nameBean;
 	public void setSpecies(final String name){
-		final SpeciesModule module = new SpeciesModule(name);
-		species = module.provideSpecies();
+		nameBean.setData(name);
 	}
 
 	public void statistics(final Closure<Void> commands){
@@ -31,7 +36,7 @@ public class PokemonDsl extends ADsl{
 	}
 
 	public Pokemon createPokemon(){
-        final Pokemon result = new Pokemon(species, statistics);
+        final Pokemon result = new Pokemon(speciesProvider.get(), statistics);
 		result.setLevel(this.level);
 		return result;
 	}

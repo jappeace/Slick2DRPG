@@ -1,6 +1,7 @@
 package org.bakkes.game.model.map;
 
-import org.bakkes.game.R;
+import java.nio.file.Path;
+
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.PathFindingContext;
@@ -8,6 +9,7 @@ import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 
 @Singleton
 public class LayerdMap implements TileBasedMap, IAreaNameAcces {
@@ -16,7 +18,8 @@ public class LayerdMap implements TileBasedMap, IAreaNameAcces {
 	private int[] blockingLayers;
 	private int grassLayer;
 	private String areaName;
-	@Inject private BlockedTileTracker tracker;
+	private @Inject BlockedTileTracker tracker;
+	private @Inject @Named("map") Path path;
 
 	/**
 	 * load a new map, can't be done by injection because the opengl context needs to be created first
@@ -25,7 +28,7 @@ public class LayerdMap implements TileBasedMap, IAreaNameAcces {
 	public void load(final String areaName){
 		this.areaName = areaName;
 		try {
-			this.map = new TiledMap(R.map + areaName + ".tmx");
+			this.map = new TiledMap(path.resolve(areaName + ".tmx").toString());
 		} catch (final SlickException e) {
 			e.printStackTrace();
             return;

@@ -1,5 +1,6 @@
 package org.bakkes.game.model;
 
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,22 +24,23 @@ public class ImageCache {
 	 * Map<Path to img, Image instance>
 	 * by using a path to image, the file system guarantees that we always talk about the same img
 	 */
-	private Map<String, Image> images = new HashMap<>();
-	public Image load(final String path) throws SlickException{
+	private Map<Path, Image> images = new HashMap<>();
+	public Image load(final Path path) throws SlickException{
 		Image result = images.get(path);
 		if(result == null){
-			result = cache(path, new Image(path));
+			result = cache(path, new Image(path.toString()));
 		}
+
 		return result;
 	}
-	public SpriteSheet load(final String path, final int x, final int y) throws SlickException{
+	public SpriteSheet load(final Path path, final int x, final int y) throws SlickException{
 		SpriteSheet result = (SpriteSheet)images.get(path);
 		if(result == null){
-            result = (SpriteSheet)cache(path, new SpriteSheet(path,x,y));
+            result = (SpriteSheet)cache(path, new SpriteSheet(path.toString(),x,y));
 		}
 		return result;
 	}
-	private Image cache(final String path, final Image img){
+	private Image cache(final Path path, final Image img){
 		Log.info("caching image into ram: " + path);
         images.put(path, img);
         return img;

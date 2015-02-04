@@ -9,6 +9,7 @@ import org.bakkes.game.controller.state.State;
 import org.bakkes.game.controller.state.battle.contestent.PlayerContestent;
 import org.bakkes.game.model.battle.move.IMove;
 import org.bakkes.game.model.entity.player.invetory.PokeBelt;
+import org.bakkes.game.model.font.FontModule;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.battle.BattleLogView;
 import org.bakkes.game.view.battle.PokeView;
@@ -59,7 +60,7 @@ public class BattleState extends CommonGameState {
 
 		playerContestent.setOwnPokemon(player);
 		playerContestent.setTargetPokemon(enemy);
-		final Injector injector = Guice.createInjector(new BattleModule(this.playerContestent));
+		final Injector injector = Guice.createInjector(new BattleModule(this.playerContestent), new FontModule());
 		this.battle = injector.getInstance(Battle.class);
 		this.battleLog = injector.getInstance(BattleLogView.class);
 		pool.execute(this.battle);

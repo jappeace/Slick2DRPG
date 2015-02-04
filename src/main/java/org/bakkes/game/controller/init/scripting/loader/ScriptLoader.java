@@ -6,6 +6,7 @@ import groovy.util.DelegatingScript;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.control.CompilerConfiguration;
@@ -33,10 +34,10 @@ public class ScriptLoader {
 	 * @param delagate this object will handle the dsl calls
 	 * @return succes
 	 */
-	public boolean load(final String path, final IScriptLoadableType delagate){
+	public boolean load(final Path path, final IScriptLoadableType delagate){
 		Log.info("loading script: " + path);
 		boolean success = false;
-		final File file = new File(path);
+		final File file = path.toFile();
 		if(!file.isFile()){
 			Log.warn("script file is not a file: " + path + " \n pwd: " + new File(".").getAbsolutePath());
 			return success;

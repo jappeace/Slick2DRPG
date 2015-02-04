@@ -1,6 +1,5 @@
 package org.bakkes.game.view;
 
-import org.bakkes.game.R;
 import org.bakkes.game.model.pokemon.Pokemon;
 
 public enum SpriteType {
@@ -17,6 +16,6 @@ public enum SpriteType {
 		if(target.isFemale()){
 			female = "_female";
 		}
-		return R.pokemonSprites + target.getSpriteName() + "/" + shiny + this.name() + female;
+		return target.getSpriteName() + "/" + shiny + this.name() + female +".png";
 	}
 }

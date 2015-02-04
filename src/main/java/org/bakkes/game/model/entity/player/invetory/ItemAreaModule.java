@@ -1,9 +1,9 @@
 package org.bakkes.game.model.entity.player.invetory;
 
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import org.bakkes.game.R;
 import org.bakkes.game.controller.init.scripting.dsl.area.ItemDsl;
 import org.bakkes.game.controller.init.scripting.loader.ScriptLoader;
 import org.bakkes.game.model.entity.AAreaModule;
@@ -11,6 +11,7 @@ import org.bakkes.game.model.map.BlockedTileTracker;
 import org.bakkes.game.model.map.IAreaNameAcces;
 
 import com.google.inject.Provides;
+import com.google.inject.name.Named;
 
 public class ItemAreaModule extends AAreaModule{
 
@@ -20,13 +21,14 @@ public class ItemAreaModule extends AAreaModule{
         final ItemDsl itemDsl,
         final ScriptLoader scriptloader,
         final IAreaNameAcces areaNameHolder,
-        final BlockedTileTracker tracker
+        final BlockedTileTracker tracker,
+        @Named("current area") final Path path
     ){
 		if(!isNewArea(areaNameHolder)){
 			return items;
 		}
 		items.clear();
-		scriptloader.load(R.overworldAreas + areaNameHolder.getAreaName() + "/item.dsl", itemDsl);
+		scriptloader.load(path.resolve("item.dsl"), itemDsl);
 		items = itemDsl.getResult();
 		tracker.putBlockedTiles("items", items);
 		return items;

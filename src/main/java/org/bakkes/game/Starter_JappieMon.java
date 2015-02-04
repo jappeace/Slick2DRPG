@@ -4,6 +4,7 @@ import java.io.File;
 import org.bakkes.game.controller.async.ThreadModule;
 import org.bakkes.game.controller.init.GameContainerModule;
 import org.bakkes.game.controller.init.GameModule;
+import org.bakkes.game.controller.init.scripting.SpeciesModule;
 import org.bakkes.game.controller.state.StateModule;
 import org.bakkes.game.controller.state.overworld.OverworldModule;
 import org.bakkes.game.model.entity.npc.PeopleAreaModule;
@@ -36,7 +37,9 @@ public class Starter_JappieMon {
 				new OverworldModule(),
 				new FontModule(),
 				new ThreadModule(),
-				new ViewModule()
+				new ViewModule(),
+				new PathsModule(),
+				new SpeciesModule()
             );
         injector.getInstance(AppGameContainer.class).start();
 	}

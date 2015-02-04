@@ -1,7 +1,6 @@
 package org.bakkes.game.model.entity;
 
 import org.bakkes.game.AModule;
-import org.bakkes.game.R;
 import org.bakkes.game.model.map.IAreaNameAcces;
 
 /**
@@ -25,7 +24,4 @@ public abstract class AAreaModule extends AModule{
 		return true;
 	}
 
-	protected String getScriptFolder(){
-		return R.overworldAreas + areaName + "/";
-	}
 }

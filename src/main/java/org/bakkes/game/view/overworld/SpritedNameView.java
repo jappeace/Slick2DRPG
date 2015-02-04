@@ -1,5 +1,7 @@
 package org.bakkes.game.view.overworld;
 
+import java.nio.file.Path;
+
 import org.bakkes.game.model.IHasSpriteName;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.view.APositionedView;
@@ -33,9 +35,9 @@ public class SpritedNameView extends APositionedView implements IShape{
 
 	private Direction direction = Direction.West;
 
-	public void setNamed(final String spritePath, final IHasSpriteName to){
+	public void setNamed(final Path spritePath, final IHasSpriteName to){
 		line.setText(to.getName());
-        final String path =spritePath + to.getSpriteName();
+        final Path path =spritePath.resolve(to.getSpriteName() + ".png");
         sprite.setSpritePath(path);
 
         final float heightDifference = sprite.height() - line.height();
