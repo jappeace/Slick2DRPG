@@ -3,12 +3,11 @@ package org.bakkes.game.model.pokemon;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.bakkes.game.controller.init.scripting.loader.IScriptLoadableType;
 import org.bakkes.game.model.ASpriteNamedModel;
 import org.bakkes.game.model.IHasSpriteName;
 import org.bakkes.game.model.battle.move.IMove;
 
-public class PokemonSpecies extends ASpriteNamedModel implements IPokemonSpecies, IHasSpriteName, IScriptLoadableType{
+public class PokemonSpecies extends ASpriteNamedModel implements IPokemonSpecies, IHasSpriteName{
 	/**
 	 * empty string means no evolution (final form)
 	 */

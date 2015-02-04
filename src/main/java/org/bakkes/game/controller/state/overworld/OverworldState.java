@@ -7,6 +7,7 @@ import org.bakkes.game.controller.event.input.CompositeKeyListener;
 import org.bakkes.game.controller.init.PlayerLoader;
 import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.controller.state.State;
+import org.bakkes.game.controller.state.StateManager;
 import org.bakkes.game.controller.state.battle.BattleState;
 import org.bakkes.game.controller.state.battle.BattleType;
 import org.bakkes.game.controller.state.overworld.command.MoveOnOverworld;
@@ -23,8 +24,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -36,7 +35,7 @@ public class OverworldState extends CommonGameState {
 	private @Inject PlayerLoader loader;
 
 	private @Inject Input input;
-	private @Inject StateBasedGame game;
+	private @Inject StateManager states;
 
 	private @Inject Bean<Tile> clickedTile;
 	private @Inject Provider<MoveOnOverworld> onClickHandler;
@@ -80,9 +79,9 @@ public class OverworldState extends CommonGameState {
         if(random.nextInt(WILD_POKE_CHANCE) != 1) {
         	return;
         }
-        final BattleState state = ((BattleState)game.getState(State.Battle.ordinal()));
+        final BattleState state = ((BattleState)states.get(State.Battle));
         state.setType(BattleType.Wild);
-        game.enterState(State.Battle.ordinal(), new FadeOutTransition(), new FadeInTransition());
+        states.enter(State.Battle);
 	}
 	private void handleMouseInput(){
         final Vector2f mousePos = new Vector2f(input.getMouseX(), input.getMouseY());

@@ -1,4 +1,4 @@
-package org.bakkes.game.view.battle;
+package org.bakkes.game.view.overworld;
 
 import java.nio.file.Path;
 
@@ -6,6 +6,7 @@ import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.IRenderable;
 import org.bakkes.game.view.SpriteType;
+import org.bakkes.game.view.battle.StatisticsView;
 import org.bakkes.game.view.components.Sprite;
 import org.newdawn.slick.Graphics;
 

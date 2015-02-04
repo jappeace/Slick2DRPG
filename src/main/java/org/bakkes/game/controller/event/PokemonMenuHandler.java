@@ -10,8 +10,8 @@ import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.model.SpriteNameExtender;
 import org.bakkes.game.model.entity.player.invetory.PokeBelt;
 import org.bakkes.game.model.pokemon.Pokemon;
-import org.bakkes.game.view.battle.PokeView;
 import org.bakkes.game.view.components.IShape;
+import org.bakkes.game.view.overworld.PokeView;
 import org.bakkes.game.view.overworld.SpritedNameView;
 
 import com.google.inject.Inject;

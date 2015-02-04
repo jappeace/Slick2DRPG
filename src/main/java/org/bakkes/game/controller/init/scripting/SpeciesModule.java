@@ -3,6 +3,7 @@ package org.bakkes.game.controller.init.scripting;
 import java.nio.file.Path;
 
 import org.bakkes.game.AModule;
+import org.bakkes.game.controller.init.scripting.dsl.PokemonSpeciesDsl;
 import org.bakkes.game.controller.init.scripting.loader.ScriptLoader;
 import org.bakkes.game.model.Bean;
 import org.bakkes.game.model.pokemon.IPokemonSpecies;
@@ -26,16 +27,17 @@ public class SpeciesModule extends AModule{
 	public @Provides IPokemonSpecies provideSpecies(
 			@Named("scriptPokemon") final Path path,
             final ScriptLoader scriptLoader,
-            @Named("species name") final Bean<String> speciesName
+            @Named("species name") final Bean<String> speciesName,
+            final PokemonSpeciesDsl dsl
         ){
 		if(speciesName.getData() == null){
 			speciesName.setData(DEFAULT_SPECIES);
 		}
-		final PokemonSpecies species = new PokemonSpecies();
-		if(!scriptLoader.load(path.resolve( speciesName.getData() + ".dsl"), species)){
-            scriptLoader.load(path.resolve(DEFAULT_SPECIES + ".dsl"), species);
+		if(!scriptLoader.load(path.resolve( speciesName.getData() + ".dsl"), dsl)){
+            scriptLoader.load(path.resolve(DEFAULT_SPECIES + ".dsl"), dsl);
 		}
-		species.setName(speciesName.getData()); // user can't overide, filename is pokemon name to avoid confusion
-		return species;
+		final PokemonSpecies result = dsl.getTarget();
+		result.setName(speciesName.getData()); // user can't overide, filename is pokemon name to avoid confusion
+		return result;
 	}
 }

@@ -4,6 +4,9 @@ import org.bakkes.game.view.AView;
 import org.bakkes.game.view.components.Menu;
 import org.newdawn.slick.Graphics;
 
+/*
+ * TODO: remove this maddness
+ */
 public class MenuView extends AView{
 
 	private Menu menu;

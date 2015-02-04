@@ -23,7 +23,7 @@ import com.sun.istack.internal.Nullable;
 public abstract class CommonGameState extends BasicGameState implements IUpdatable{
 	protected boolean inputEnabled = true;
 	private IRenderable overlay = null;
-	private List<IRenderable> drawables;
+	private List<IRenderable> renderables;
 
 	private @Inject Collection<IUpdatable> controllers;
 	private IKeyListener keyListener;
@@ -45,7 +45,7 @@ public abstract class CommonGameState extends BasicGameState implements IUpdatab
 	@Override
 	public final void init(final GameContainer gc, final StateBasedGame arg1)
 			throws SlickException {
-		drawables = new ArrayList<>();
+		renderables = new ArrayList<>();
 
 		init();
 	}
@@ -74,7 +74,7 @@ public abstract class CommonGameState extends BasicGameState implements IUpdatab
 	public void render(final GameContainer gc, final StateBasedGame arg1, final Graphics g)
 			throws SlickException {
 
-		for(final IRenderable drawable : drawables) {
+		for(final IRenderable drawable : renderables) {
 			drawable.render(g);
 		}
 		g.drawString("Debug info: " + (GameInfo.SHOW_DEBUG_INFO ? "ON" : "OFF"), 10, 25);
@@ -82,12 +82,8 @@ public abstract class CommonGameState extends BasicGameState implements IUpdatab
 			overlay.render(g);
 	}
 
-	public void addComponent(final IRenderable gameComponent) {
-		this.drawables.add(gameComponent);
-	}
-
-	public void removeComponent(final IRenderable gameComponent) {
-		this.drawables.remove(gameComponent);
+	public void addRenderable(final IRenderable gameComponent) {
+		renderables.add(gameComponent);
 	}
 
 	public void setOverlay(final IRenderable overlay) {

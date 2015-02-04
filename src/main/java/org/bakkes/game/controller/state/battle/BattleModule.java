@@ -22,6 +22,9 @@ public class BattleModule extends AModule{
 	public void configure(){
 		bind(IContestent.class).to(RandyRandom.class);
 	}
+	public @Provides PlayerContestent provideContestent(){
+		return player;
+	}
 	public @Provides IContestent[] provideContestents(final IContestent ai){
 		final IContestent[] result = new IContestent[2];
 		result[0] = ai;

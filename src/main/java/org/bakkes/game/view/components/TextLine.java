@@ -37,8 +37,9 @@ public class TextLine extends AShape implements ITextableShape{
 		return font.getHeight(text);
 	}
 	@Override
-	public final void setText(final String text) {
+	public final ITextableShape setText(final String text) {
 		this.text = text;
+		return this;
 	}
 	public final void setFont(final org.newdawn.slick.Font font) {
 		if(font == null){
