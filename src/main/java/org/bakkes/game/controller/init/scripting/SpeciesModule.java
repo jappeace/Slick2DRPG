@@ -32,7 +32,7 @@ public class SpeciesModule extends AModule{
 			speciesName.setData(DEFAULT_SPECIES);
 		}
 		final PokemonSpecies species = new PokemonSpecies();
-		if(!scriptLoader.load(path.resolve( speciesName + ".dsl"), species)){
+		if(!scriptLoader.load(path.resolve( speciesName.getData() + ".dsl"), species)){
             scriptLoader.load(path.resolve(DEFAULT_SPECIES + ".dsl"), species);
 		}
 		species.setName(speciesName.getData()); // user can't overide, filename is pokemon name to avoid confusion

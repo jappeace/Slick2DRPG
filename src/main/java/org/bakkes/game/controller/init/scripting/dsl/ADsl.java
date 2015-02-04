@@ -13,6 +13,8 @@ import org.bakkes.game.controller.init.scripting.loader.IScriptLoadableType;
  * However it is in code better to have it as a enumeration, so you receive a string in the dsl class and change it then
  * to the correct enum, if not available, log a warning. (We assume the user has access to the logs)
  *
+ * dsl classes are more than often error handlers than anything else, make sure to log any user fuckups so he can learn
+ * And don't trust the input
  */
 public abstract class ADsl implements IScriptLoadableType{
 
