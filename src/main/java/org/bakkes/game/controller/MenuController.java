@@ -4,25 +4,20 @@ import org.bakkes.game.controller.event.IMenuHandler;
 import org.bakkes.game.controller.event.input.Key;
 import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.view.components.Menu;
-import org.bakkes.game.view.overworld.MenuView;
 
 import com.google.inject.Inject;
 
 public class MenuController extends AController implements IController{
 
-	private CommonGameState state;
+	private @Inject CommonGameState state;
 	private Menu menu;
 	private IMenuHandler handler;
-	@Inject
-	public MenuController(final Menu menu, final MenuView view, final CommonGameState state){
-		view.setMenu(menu);
+
+	public void set(final Menu menu, final IMenuHandler handler){
 		this.menu = menu;
-		this.state = state;
-		state.setOverlay(view);
-	}
-	public void setItemSelectHandler(final IMenuHandler handler){
 		this.handler = handler;
 		menu.add(handler.getOptions());
+		state.setOverlay(menu);
 	}
 	@Override
 	public void KeyDown(final Key key) {

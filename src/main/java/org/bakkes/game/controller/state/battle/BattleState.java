@@ -42,6 +42,7 @@ public class BattleState extends CommonGameState {
             new PathsModule(),
             new ViewModule()
         );
+
 		this.battle = injector.getInstance(Battle.class);
 		this.addRenderable(injector.getInstance(BattleView.class));
 		this.setKeyListener(injector.getInstance(CompositeKeyListener.class));

@@ -36,6 +36,8 @@ public class BattleView extends AView{
         for(final IMove move : playerContestent.getOwnPokemon().getMoves()){
         	moveMenu.add(lines.get().setText(move.getName()));
         }
+		moves.x(playerView.width());
+		moves.y(GameInfo.SCREEN_HEIGHT-playerView.height());
 	}
 	@Override
 	protected void renderView(final Graphics g) {

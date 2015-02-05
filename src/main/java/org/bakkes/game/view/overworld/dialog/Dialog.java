@@ -3,16 +3,19 @@ package org.bakkes.game.view.overworld.dialog;
 import org.bakkes.game.controller.event.input.IKeyListener;
 import org.bakkes.game.controller.event.input.Key;
 import org.bakkes.game.model.font.MutableFont;
+import org.bakkes.game.view.components.ITextableShape;
 import org.bakkes.game.view.components.Menu;
 import org.newdawn.slick.Graphics;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /**
  * adds a menu with choice to the messagebox
  */
 public class Dialog extends MessageBox implements IKeyListener{
 
+	private @Inject Provider<ITextableShape> textLineProvider;
     private Menu menu;
 	@Inject
 	public Dialog(final Menu menu, final MutableFont font){
@@ -22,7 +25,11 @@ public class Dialog extends MessageBox implements IKeyListener{
 		menu.y(box.y()-margin);
 	}
 	public void add(final String ... options){
-		menu.add(options);
+		for(final String option : options){
+			final ITextableShape t = textLineProvider.get();
+			t.setText(option);
+			menu.add(t);
+		}
 	}
 	@Override
 	protected void renderView(final Graphics g) {

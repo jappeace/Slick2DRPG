@@ -8,9 +8,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-
 /**
  * creates a nice select input
  * basicly the player sees a couple of texts he can chose from and select
@@ -18,7 +15,6 @@ import com.google.inject.Provider;
 public class Menu extends AShape{
 
 	private Collection<IShape> options = new LinkedList<>();
-	private @Inject Provider<ITextableShape> textLineProvider;
 
 	private int selected = 0;
 	private float padding = 15;
@@ -44,16 +40,6 @@ public class Menu extends AShape{
 		selectBox.x(x() + padding /2);
 		selectBox.y(y() + padding);
 		selectBox.width(width() + padding);
-	}
-	public void add(final String ... options){
-		add(Arrays.asList(options));
-	}
-	public void add(final Iterable<String> options){
-		for(final String option : options){
-			final ITextableShape t = textLineProvider.get();
-			t.setText(option);
-			add(t);
-		}
 	}
 	public void add(final IShape ... options){
 		add(Arrays.asList(options));

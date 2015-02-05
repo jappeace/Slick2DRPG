@@ -19,6 +19,9 @@ import com.google.inject.Provides;
 public class BattleStateModule extends AModule{
 	private @Inject Provider<StateBasedGame> game;
     private @Inject Provider<IAreaNameAcces> named;
+    @Override
+	public void configure(){
+    }
 	@Provides
 	StateBasedGame provideGame(){
 		return game.get();
