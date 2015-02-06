@@ -20,4 +20,11 @@ public class CompositeKeyListener implements IKeyListener{
 			k.KeyUp(key);
 		}
 	}
+
+	public void clear(){
+		this.keyListeners.clear();
+	}
+	public boolean add(final IKeyListener listner){
+		return this.keyListeners.add(listner);
+	}
 }

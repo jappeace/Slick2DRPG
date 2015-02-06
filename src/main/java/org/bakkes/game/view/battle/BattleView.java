@@ -3,39 +3,40 @@ package org.bakkes.game.view.battle;
 import org.bakkes.game.controller.state.battle.Battle;
 import org.bakkes.game.controller.state.battle.contestent.PlayerContestent;
 import org.bakkes.game.model.GameInfo;
-import org.bakkes.game.model.battle.move.IMove;
+import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.AView;
 import org.bakkes.game.view.SpriteType;
 import org.bakkes.game.view.components.Menu;
 import org.bakkes.game.view.components.TextLine;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.name.Named;
 
 public class BattleView extends AView{
 
-	@Inject Battle battle;
-	@Inject BattleLogView battleLog;
+	private @Inject Battle battle;
+	private @Inject BattleLogView battleLog;
 	private BattlePokeView enemyView;
 	private BattlePokeView playerView;
 	private Menu moves;
-	private PlayerContestent playerContestent;
+	private @Inject PlayerContestent playerContestent;
 	@Inject
-	public BattleView(final Provider<BattlePokeView> viewProvider, final Provider<TextLine> lines, final Menu moveMenu, final PlayerContestent playerContestent){
+	public BattleView(
+			final Provider<BattlePokeView> viewProvider,
+			final Provider<TextLine> lines,
+			final @Named("moves") Menu moveMenu,
+			@Named("current players") final Pokemon playerPoke,
+			@Named("current enemys") final Pokemon enemyPoke
+        ){
 		enemyView = viewProvider.get();
 		playerView = viewProvider.get();
-		enemyView.setPokemon(playerContestent.getTargetPokemon(), SpriteType.front);
-		playerView.setPokemon(playerContestent.getOwnPokemon(), SpriteType.back);
+		playerView.setPokemon(playerPoke, SpriteType.back);
+		enemyView.setPokemon(enemyPoke, SpriteType.front);
 		playerView.y(GameInfo.SCREEN_HEIGHT-playerView.height());
 		moves=moveMenu;
-		this.playerContestent = playerContestent;
-		Log.debug("moves: h" + playerContestent.getOwnPokemon().getMoves());
-        for(final IMove move : playerContestent.getOwnPokemon().getMoves()){
-        	moveMenu.add(lines.get().setText(move.getName()));
-        }
 		moves.x(playerView.width());
 		moves.y(GameInfo.SCREEN_HEIGHT-playerView.height());
 	}

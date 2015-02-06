@@ -6,6 +6,8 @@ import org.bakkes.game.controller.init.GameContainerModule;
 import org.bakkes.game.controller.init.GameModule;
 import org.bakkes.game.controller.init.scripting.SpeciesModule;
 import org.bakkes.game.controller.state.StateModule;
+import org.bakkes.game.controller.state.battle.BattleModule;
+import org.bakkes.game.controller.state.battle.BattleStateModule;
 import org.bakkes.game.controller.state.overworld.OverworldModule;
 import org.bakkes.game.model.entity.npc.PeopleAreaModule;
 import org.bakkes.game.model.entity.player.PlayerModule;
@@ -29,16 +31,22 @@ public class Starter_JappieMon {
 		final Injector injector = Guice.createInjector(
 				new GameModule(),
 				new GameContainerModule(),
-				new MapModule(),
-				new PlayerModule(),
+
+				new ThreadModule(),
+				new PathsModule(),
+				new ViewModule(),
+				new FontModule(),
+
 				new StateModule(),
+				new OverworldModule(),
+				new MapModule(),
+				new BattleStateModule(),
+
+				new BattleModule(),
 				new PeopleAreaModule(),
 				new ItemAreaModule(),
-				new OverworldModule(),
-				new FontModule(),
-				new ThreadModule(),
-				new ViewModule(),
-				new PathsModule(),
+
+				new PlayerModule(),
 				new SpeciesModule()
             );
         injector.getInstance(AppGameContainer.class).start();
