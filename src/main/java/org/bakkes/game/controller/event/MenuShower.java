@@ -1,6 +1,8 @@
 package org.bakkes.game.controller.event;
 
 import org.bakkes.game.controller.MenuController;
+import org.bakkes.game.controller.event.input.AKeyListener;
+import org.bakkes.game.controller.event.input.Key;
 import org.bakkes.game.controller.state.overworld.OverworldState;
 import org.bakkes.game.view.components.Menu;
 
@@ -27,6 +29,17 @@ public class MenuShower {
 		menu.width(180);
 		menu.height(300);
         controller.set(menu, handler);
+        controller.setOnKeyDown(new AKeyListener(){
+			@Override
+			public void KeyDown(final Key key) {
+				if(key.isConfirm()){
+					controller.close();
+				}
+				if(key.isMenu()){
+					controller.close();
+				}
+			}
+        });
         game.get().setKeyListener(controller);
 	}
 }

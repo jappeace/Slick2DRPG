@@ -15,6 +15,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -35,6 +36,7 @@ public abstract class CommonGameState extends BasicGameState implements IUpdatab
 	 * @param to if null, keylisteners will be reset
 	 */
 	public void setKeyListener(final @Nullable IKeyListener to){
+		Log.debug("setting keylistener");
 		if(to == null){
 			keyListener = defaultKeysProvider.get();
 			return;
