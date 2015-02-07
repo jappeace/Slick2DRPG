@@ -7,6 +7,7 @@ import org.bakkes.game.controller.event.input.BattleEndListner;
 import org.bakkes.game.controller.event.input.CompositeKeyListener;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.components.Menu;
+import org.newdawn.slick.util.Log;
 
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
@@ -50,6 +51,7 @@ public class BattleStateModule extends AModule{
     		final BattleEndListner end,
     		@Named("battle") final MenuController controller
         ){
+    	Log.debug("poviding key input");
     	result.clear();
     	result.add(end);
     	result.add(controller);

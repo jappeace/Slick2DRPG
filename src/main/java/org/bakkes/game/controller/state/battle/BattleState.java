@@ -1,6 +1,5 @@
 package org.bakkes.game.controller.state.battle;
 
-import org.bakkes.game.controller.MenuController;
 import org.bakkes.game.controller.async.IThreadPool;
 import org.bakkes.game.controller.event.input.CompositeKeyListener;
 import org.bakkes.game.controller.state.CommonGameState;
@@ -17,7 +16,6 @@ public class BattleState extends CommonGameState {
 	private @Inject BattleLoader loader;
 	private @Inject Provider<BattleView> battleViewProvider;
 	private @Inject @Named("battle") Provider<CompositeKeyListener> keyListener;
-	private @Inject @Named("battle") Provider<MenuController> controller;
 
 	@Override
 	public void enter() {

@@ -8,6 +8,7 @@ import org.bakkes.game.model.battle.move.IMove;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.components.IShape;
 import org.bakkes.game.view.components.ITextableShape;
+import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -20,6 +21,7 @@ public class BattleMenuHandler implements IMenuHandler{
     private @Inject PlayerContestent contestent;
 	@Override
 	public void select(final int item) {
+		Log.info("selecting " + item);
 		contestent.selectMove(item);
 	}
 

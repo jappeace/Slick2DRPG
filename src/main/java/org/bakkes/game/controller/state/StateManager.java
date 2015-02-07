@@ -10,8 +10,8 @@ import com.google.inject.Inject;
 
 public class StateManager {
 	private @Inject StateBasedGame game;
-	private Transition leave = new FadeInTransition();
-	private Transition enter = new FadeOutTransition();
+	private Transition leave = new FadeOutTransition();
+	private Transition enter = new FadeInTransition();
 	public void enter(final State to){
 		game.enterState(to.ordinal(), leave, enter);
 	}
