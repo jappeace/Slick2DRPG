@@ -6,5 +6,10 @@ package nl.jappieklooster.groovy.meta;
  * in favour of just throwing an exception
  */
 public interface IMissingMethodHandler {
+	/**
+	 * @param name of the method that is missing
+	 * @param args, is actualy an Object[] with args,
+	 * but groovy only accepts it like this, so you need to cast it to Object[]
+	 */
 	void methodMissing(final String name, final Object args);
 }

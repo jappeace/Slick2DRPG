@@ -23,14 +23,15 @@ public class WildDsl extends ADsl implements IMissingMethodHandler{
 		Log.info("handeling a " + speciesName);
 		dsl.setSpecies(speciesName);
 
-		if(args == null){
+		final Object first = ((Object[])args)[0];
+		if(first == null){
 			dsl.setLevel(DEFAULT_LEVEL);
 		}
-		if(args instanceof Integer){
-			dsl.setLevel((Integer) args);
+		if(first instanceof Integer){
+			dsl.setLevel((Integer) first);
 		}
-		if(args instanceof List){
-            final List<Integer> levelRange = (List<Integer>) args;
+		if(first instanceof List){
+            final List<Integer> levelRange = (List<Integer>) first;
             dsl.setLevel(random.nextInt(levelRange.get(levelRange.size()-1))+levelRange.get(0));
 		}
 

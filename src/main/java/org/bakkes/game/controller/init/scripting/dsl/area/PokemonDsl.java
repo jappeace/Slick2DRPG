@@ -2,6 +2,8 @@ package org.bakkes.game.controller.init.scripting.dsl.area;
 
 import groovy.lang.Closure;
 
+import java.util.Random;
+
 import org.bakkes.game.controller.init.scripting.dsl.ADsl;
 import org.bakkes.game.model.Bean;
 import org.bakkes.game.model.pokemon.IPokemonSpecies;
@@ -18,6 +20,7 @@ public class PokemonDsl extends ADsl{
 	private int level = 0;
 	private @Inject Provider<PokemonStatistics> pokemonStatsProvider;
 	private @Inject Provider<IPokemonSpecies> speciesProvider;
+	private @Inject Random random;
 
 	/**
 	 * name bean passes the species name to the module that creates the species

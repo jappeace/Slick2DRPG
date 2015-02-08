@@ -18,7 +18,7 @@ public class Pokemon extends AModel implements IHasSpriteName{
 	private PokemonStatistics currentStats;
 	private int level = 0;
 	private int experiance;
-	private @Inject Random random;
+	private static Random random = new Random();
 	private boolean isFemale = false;
 	private boolean isShiny = false;
 	@Inject
@@ -59,12 +59,13 @@ public class Pokemon extends AModel implements IHasSpriteName{
 
 	private void level(final int diff){
 		level = getLevel() + diff;
+		final IPokemonStatistics increase = species.getIncrease();
 		for(int i = 0; i < Math.abs(diff); i++){
 			if(diff > 0){
-                normalStats = normalStats.plus(species.getIncrease().createFrom(random));
+                normalStats = normalStats.plus(increase.createFrom(random));
                 continue;
 			}
-            normalStats = normalStats.minus(species.getIncrease().createFrom(random));
+            normalStats = normalStats.minus(increase.createFrom(random));
 		}
 	}
 	public final IPokemonSpecies getSpecies() {
@@ -138,9 +139,6 @@ public class Pokemon extends AModel implements IHasSpriteName{
 			Log.warn("setting experiance to a lower amount than before?");
 		}
 		this.experiance = experiance;
-		while(calculateXpFor(getLevel()) < experiance){
-			level++;
-		}
 	}
 
 	@Override
