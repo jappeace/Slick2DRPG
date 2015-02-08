@@ -26,6 +26,7 @@ public class BattleState extends CommonGameState {
 			states.enter(State.Overworld);
 			return;
 		}
+		this.clearRenderables();
 		this.addRenderable(battleViewProvider.get());
 		this.setKeyListener(keyListener.get());
 		pool.execute(loader.getCurrentBattle());

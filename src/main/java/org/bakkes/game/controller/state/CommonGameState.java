@@ -87,6 +87,9 @@ public abstract class CommonGameState extends BasicGameState implements IUpdatab
 	public void addRenderable(final IRenderable gameComponent) {
 		renderables.add(gameComponent);
 	}
+	public void clearRenderables(){
+		renderables.clear();
+	}
 
 	public void setOverlay(final IRenderable overlay) {
 		this.overlay = overlay;
