@@ -4,6 +4,8 @@ import org.bakkes.game.controller.async.IThreadPool;
 import org.bakkes.game.controller.event.input.CompositeKeyListener;
 import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.controller.state.State;
+import org.bakkes.game.controller.state.StateManager;
+import org.bakkes.game.model.entity.player.invetory.PokeBelt;
 import org.bakkes.game.view.battle.BattleView;
 
 import com.google.inject.Inject;
@@ -16,12 +18,17 @@ public class BattleState extends CommonGameState {
 	private @Inject BattleLoader loader;
 	private @Inject Provider<BattleView> battleViewProvider;
 	private @Inject @Named("battle") Provider<CompositeKeyListener> keyListener;
-
+	private @Inject @Named("from player") PokeBelt belt;
+	private @Inject StateManager states;
 	@Override
 	public void enter() {
+		if(belt.getFirstAlive() == null){
+			states.enter(State.Overworld);
+			return;
+		}
 		this.addRenderable(battleViewProvider.get());
-		pool.execute(loader.getCurrentBattle());
 		this.setKeyListener(keyListener.get());
+		pool.execute(loader.getCurrentBattle());
 	}
 
 	public void setType(final BattleType to){

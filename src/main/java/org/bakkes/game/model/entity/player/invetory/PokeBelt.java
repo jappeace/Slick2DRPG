@@ -17,6 +17,9 @@ import com.sun.istack.internal.Nullable;
 public class PokeBelt implements Iterable<Pokemon> {
 	private List<Pokemon> pokemon = new ArrayList<>();
 
+	public boolean isEmpty(){
+		return pokemon.isEmpty();
+	}
 	public @Nullable Pokemon getFirstAlive(){
 		for(final Pokemon poke : pokemon){
 			if(poke.isAlive()){

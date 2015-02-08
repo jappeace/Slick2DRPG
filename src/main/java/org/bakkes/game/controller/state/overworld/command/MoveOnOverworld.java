@@ -58,7 +58,7 @@ public class MoveOnOverworld extends AOneTimeCommand{
 	}
 
 	@Override
-	void executeOnce(final float tpf) {
+	public void executeOnce(final float tpf) {
 		if(isInterupted()){
 			return;
 		}

@@ -22,7 +22,7 @@ import com.google.inject.name.Named;
 public class BattleLoader {
 
 	private int battleID = Integer.MIN_VALUE;
-	private @Inject WildDsl dsl;
+	private @Inject Provider<WildDsl> dslProvider;
 	private @Inject CurrentAreaLoader loader;
 	private @Inject Random random;
 	private @Inject @Named("from player") PokeBelt playerBelt;
@@ -40,6 +40,7 @@ public class BattleLoader {
 		currentLog = logProvider.get();
 		switch(type){
 		case Wild:
+			final WildDsl dsl = dslProvider.get();
             loader.loadWild(dsl);
             currentEnemyPokemon = dsl.getResult().get(random.nextInt(dsl.getResult().size()));
             break;

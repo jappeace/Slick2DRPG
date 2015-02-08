@@ -11,6 +11,6 @@ public abstract class AOneTimeCommand extends ACommand{
 		done();
 	}
 
-	abstract void executeOnce(float tpf);
+	public abstract void executeOnce(float tpf);
 
 }

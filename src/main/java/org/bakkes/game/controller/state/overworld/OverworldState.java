@@ -3,6 +3,7 @@ package org.bakkes.game.controller.state.overworld;
 import java.util.Collection;
 import java.util.Random;
 
+import org.bakkes.game.controller.MessageBoxController;
 import org.bakkes.game.controller.event.input.CompositeKeyListener;
 import org.bakkes.game.controller.init.PlayerLoader;
 import org.bakkes.game.controller.state.CommonGameState;
@@ -11,10 +12,13 @@ import org.bakkes.game.controller.state.StateManager;
 import org.bakkes.game.controller.state.battle.BattleState;
 import org.bakkes.game.controller.state.battle.BattleType;
 import org.bakkes.game.controller.state.overworld.command.MoveOnOverworld;
+import org.bakkes.game.controller.state.overworld.command.Teleport;
 import org.bakkes.game.model.Bean;
 import org.bakkes.game.model.entity.player.Player;
+import org.bakkes.game.model.entity.player.invetory.PokeBelt;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
+import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.IRenderable;
 import org.bakkes.game.view.overworld.Camera;
 import org.newdawn.slick.Color;
@@ -27,6 +31,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.name.Named;
 
 public class OverworldState extends CommonGameState {
 	private @Inject Player player;
@@ -44,6 +49,10 @@ public class OverworldState extends CommonGameState {
 	private @Inject Provider<Collection<IRenderable>> translatedViews;
 	private static final int WILD_POKE_CHANCE = 2; // chance of encountering wild pokemone (1 in chance)
 
+
+	private @Inject @Named("from player") PokeBelt belt;
+	private @Inject MessageBoxController msgBoxController;
+	private @Inject Provider<Teleport> teleportProvider;
 	@Override
 	public int getID() {
 		return State.Overworld.ordinal();
@@ -58,6 +67,26 @@ public class OverworldState extends CommonGameState {
 	public void init(){
 		map.load("outside");
 		loader.load();
+	}
+	@Override
+	public void enter(){
+		if(belt.isEmpty()){
+			// player has no pokemon, is normal at start of game, so no respawn check
+			return;
+		}
+		if(belt.getFirstAlive() == null){
+			// dead now, respawn
+			player.clearCommands();
+			player.addCommand(
+                teleportProvider.get()
+                    .setSubject(player)
+                    .setTo(loader.getStartLocation())
+            );
+			for(final Pokemon poke: belt){
+				poke.heal();
+			}
+			msgBoxController.add("GOD", "You died, and like all things in this world get a respawn, but ONLY 1");
+		}
 	}
 
 	@Override

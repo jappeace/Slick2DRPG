@@ -31,6 +31,11 @@ public class OverworldEntity extends ASpriteNamedModel implements IOverworldEnti
 		position = to;
 	}
 
+	@Override
+	public void setPosition(final Tile to){
+		position = to.topLeftPixels();
+	}
+
 	/**
 	 * here we sort of assume all entities block 4 tiles
 	 * the getTile(), and the one left below and leftbelow of it

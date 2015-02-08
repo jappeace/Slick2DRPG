@@ -12,6 +12,7 @@ public interface IOverworldEntity extends IHasSpriteName, IModel, IBlocksTiles, 
 	public Vector2f getPosition();
 
 	public void setPosition(final Vector2f to);
+	public void setPosition(final Tile to);
 
 	public Tile getTile();
 
