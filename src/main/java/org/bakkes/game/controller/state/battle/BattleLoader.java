@@ -21,6 +21,7 @@ import com.google.inject.name.Named;
  */
 public class BattleLoader {
 
+	private int battleID = Integer.MIN_VALUE;
 	private @Inject WildDsl dsl;
 	private @Inject CurrentAreaLoader loader;
 	private @Inject Random random;
@@ -34,6 +35,7 @@ public class BattleLoader {
 	private Battle currentBattle;
 
 	public void loadBattle(final BattleType type) {
+		battleID ++;
 		currentPlayerPokemon = playerBelt.getFirstAlive();
 		currentLog = logProvider.get();
 		switch(type){
@@ -64,4 +66,9 @@ public class BattleLoader {
 	public final Battle getCurrentBattle(){
 		return currentBattle;
 	}
+
+	public int getBattleID() {
+		return battleID;
+	}
+
 }

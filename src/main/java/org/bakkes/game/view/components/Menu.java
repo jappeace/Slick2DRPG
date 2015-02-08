@@ -48,6 +48,9 @@ public class Menu extends AShape{
 		this.options.addAll(options);
 		updateShape();
 	}
+	public void clear(){
+		options.clear();
+	}
 	@Override
 	public void render(final Graphics g) {
 		backgroundBox.render(g);

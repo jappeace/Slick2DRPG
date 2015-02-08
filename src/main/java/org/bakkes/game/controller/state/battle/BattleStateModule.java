@@ -40,6 +40,7 @@ public class BattleStateModule extends AModule{
     @Provides
     @Named("battle")
     public MenuController provideMenuController(@Named("moves") final Menu moveMenu, final MenuController result, final BattleMenuHandler handler){
+    	moveMenu.clear();
     	result.set(moveMenu, handler);
     	return result;
     }
