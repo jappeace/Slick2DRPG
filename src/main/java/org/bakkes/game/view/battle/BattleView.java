@@ -3,6 +3,7 @@ package org.bakkes.game.view.battle;
 import org.bakkes.game.controller.state.battle.Battle;
 import org.bakkes.game.controller.state.battle.contestent.PlayerContestent;
 import org.bakkes.game.model.GameInfo;
+import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.AView;
 import org.bakkes.game.view.SpriteType;
@@ -18,7 +19,6 @@ import com.google.inject.name.Named;
 public class BattleView extends AView{
 
 	private @Inject Battle battle;
-	private @Inject BattleLogView battleLog;
 	private BattlePokeView enemyView;
 	private BattlePokeView playerView;
 	private Menu moves;
@@ -33,8 +33,8 @@ public class BattleView extends AView{
         ){
 		enemyView = viewProvider.get();
 		playerView = viewProvider.get();
-		playerView.setPokemon(playerPoke, SpriteType.back);
-		enemyView.setPokemon(enemyPoke, SpriteType.front);
+		playerView.setPokemon(playerPoke, SpriteType.back, Direction.North);
+		enemyView.setPokemon(enemyPoke, SpriteType.front, Direction.South);
 		playerView.y(GameInfo.SCREEN_HEIGHT-playerView.height());
 		moves=moveMenu;
 		moves.x(playerView.width());
@@ -61,7 +61,6 @@ public class BattleView extends AView{
 		} else {
 			moves.render(g);
 			playerView.render(g);
-			battleLog.render(g);
 		}
 		out.render(g);
 	}

@@ -18,6 +18,7 @@ public class WildDsl extends ADsl implements IMissingMethodHandler{
 	private @Inject Random random;
 	private List<Pokemon> result = new ArrayList<>();
 	private static final int DEFAULT_LEVEL = 5;
+	@SuppressWarnings("unchecked")
 	@Override
 	public void methodMissing(final String speciesName, final Object args) {
 		Log.info("handeling a " + speciesName);

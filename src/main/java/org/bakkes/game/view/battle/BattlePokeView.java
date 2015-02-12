@@ -21,14 +21,14 @@ public class BattlePokeView extends AShape{
     private @Inject ShapeComposition view;
     private @Inject @Named("spritePokemon") Path path;
 
-	public void setPokemon(final Pokemon to, final SpriteType type){
+	public void setPokemon(final Pokemon to, final SpriteType type, final Direction avatarDir){
 		avatar.setSpritePath(path.resolve(type.getImageName(to)));
 		stats.setPokemon(to);
 		final float margin = 40;
 		stats.x(GameInfo.SCREEN_WIDTH - stats.width() - margin);
 		stats.y(margin);
 		view.setShape(stats);
-		view.put(Direction.East, avatar);
+		view.put(avatarDir, avatar);
 		x(x()); // update position of subshapes
 	}
 

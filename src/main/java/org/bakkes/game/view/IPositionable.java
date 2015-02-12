@@ -7,7 +7,7 @@ import org.newdawn.slick.geom.Vector2f;
  */
 public interface IPositionable {
 	/**
-	 * implement this to create a propper positionable
+	 * implement this to create a proper positionable
 	 * @return
 	 */
     public Vector2f getPosition();

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import nl.jappieklooster.annotation.Nullable;
+
 import org.bakkes.game.controller.IUpdatable;
 import org.bakkes.game.controller.event.input.CompositeKeyListener;
 import org.bakkes.game.controller.event.input.IKeyListener;
@@ -18,7 +20,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.sun.istack.internal.Nullable;
 
 public abstract class CommonGameState extends BasicGameState implements IUpdatable{
 	protected boolean inputEnabled = true;

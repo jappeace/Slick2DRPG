@@ -3,13 +3,14 @@ package org.bakkes.game.model.pokemon;
 import java.util.List;
 import java.util.Random;
 
+import nl.jappieklooster.annotation.Nullable;
+
 import org.bakkes.game.model.AModel;
 import org.bakkes.game.model.IHasSpriteName;
 import org.bakkes.game.model.battle.move.IMove;
 import org.newdawn.slick.util.Log;
 
 import com.google.inject.Inject;
-import com.sun.istack.internal.Nullable;
 
 public class Pokemon extends AModel implements IHasSpriteName{
 

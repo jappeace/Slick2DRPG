@@ -1,7 +1,6 @@
 package org.bakkes.game.view.components;
 
-import static com.sun.xml.internal.ws.util.StringUtils.capitalize;
-
+import org.apache.commons.lang3.StringUtils;
 import org.newdawn.slick.Graphics;
 
 import com.google.inject.Inject;
@@ -25,7 +24,7 @@ public class TextLine extends AShape implements ITextableShape{
     @Override
     public void render(final Graphics g) {
     	g.setFont(font);
-        g.drawString(capitalize(text), x(), y());
+        g.drawString(StringUtils.capitalize(text), x(), y());
         g.resetFont();
     }
 	@Override

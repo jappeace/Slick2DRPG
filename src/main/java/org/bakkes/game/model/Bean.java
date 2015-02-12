@@ -1,7 +1,6 @@
 package org.bakkes.game.model;
 
-import com.sun.istack.internal.Nullable;
-
+import nl.jappieklooster.annotation.Nullable;
 
 /**
  * encapsulate a object with this to pass it arround to multiple objects

@@ -1,5 +1,6 @@
 package org.bakkes.game.view.battle;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.components.AShape;
@@ -11,7 +12,6 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
 import com.google.inject.Inject;
-import com.sun.xml.internal.ws.util.StringUtils;
 
 public class StatisticsView extends AShape{
 

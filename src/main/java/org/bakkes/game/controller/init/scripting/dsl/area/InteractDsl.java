@@ -5,6 +5,8 @@ import groovy.lang.Closure;
 import java.util.Arrays;
 import java.util.Collection;
 
+import nl.jappieklooster.annotation.Nullable;
+
 import org.bakkes.game.controller.MessageBoxController;
 import org.bakkes.game.controller.async.DelayedBatchExecutor;
 import org.bakkes.game.controller.init.scripting.dsl.ADsl;
@@ -17,8 +19,6 @@ import org.newdawn.slick.util.Log;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
-import com.sun.istack.internal.Nullable;
-
 public class InteractDsl extends ADsl {
 	private @Inject Provider<Dialog> dialogProvider;
 	private @Inject Provider<PlayerDsl> playerDslProvider;
