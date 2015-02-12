@@ -1,4 +1,3 @@
-package scripts.overworld.animations;
 filename = "player.png"
 duration = 200
 
