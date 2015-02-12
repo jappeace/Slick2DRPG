@@ -3,7 +3,9 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'application'
 
-sourceCompatibility = 1.7
+def javaVersion = 1.8
+sourceCompatibility = javaVersion
+targetCompatibility = javaVersion
 version = '1'
 jar {
     manifest {
