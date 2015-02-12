@@ -56,6 +56,8 @@ public abstract class AMessageBox extends AView implements IMessageBox{
 		case Done:
 			done();
 			break;
+		default:
+			break;
 		}
 	}
 
