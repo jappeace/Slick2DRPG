@@ -51,3 +51,7 @@ local.properties
 build
 src/main/resources/map/outside.tmx
 src/main/resources/sprites/pokemon/*
+
+
+# generated??
+.groovy
