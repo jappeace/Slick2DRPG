@@ -56,7 +56,7 @@ public class SpritedNameView extends APositionedView implements IShape{
 		composition.render(g);
 	}
 	@Override
-	protected void onChangePosition(final Vector2f to){
+	public void onChangePosition(final Vector2f to){
 		composition.x(to.x);
 		composition.y(to.y);
 	}

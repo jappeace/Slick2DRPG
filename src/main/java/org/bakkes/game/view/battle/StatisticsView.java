@@ -32,7 +32,7 @@ public class StatisticsView extends AShape{
 		return box.height();
 	}
     @Override
-	protected void onChangePosition(final Vector2f position){
+	public void onChangePosition(final Vector2f position){
     	box.x(position.x);
     	box.y(position.y);
     }

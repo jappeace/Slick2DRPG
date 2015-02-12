@@ -38,7 +38,7 @@ public class BattlePokeView extends AShape{
 	}
 
     @Override
-	protected void onChangePosition(final Vector2f position){
+	public void onChangePosition(final Vector2f position){
     	view.setPosition(position);
     }
 
