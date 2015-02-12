@@ -9,7 +9,7 @@ import org.bakkes.game.view.components.Menu;
 
 import com.google.inject.Inject;
 
-public class MenuController extends AController implements IController{
+public class MenuController implements IController{
 
 	private @Inject CommonGameState state;
 	private Menu menu;

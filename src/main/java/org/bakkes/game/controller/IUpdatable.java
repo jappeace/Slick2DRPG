@@ -4,5 +4,5 @@ public interface IUpdatable {
 	/**
 	 * @param delta = time per frame, time diference per frame
 	 */
-	public void update(final int delta);
+	default public void update(final int delta){}
 }
