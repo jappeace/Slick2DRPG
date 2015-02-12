@@ -9,16 +9,12 @@ public class CompositeKeyListener implements IKeyListener{
 	private @Inject Collection<IKeyListener> keyListeners;
 	@Override
 	public void KeyDown(final Key key) {
-		for(final IKeyListener k : keyListeners){
-			k.KeyDown(key);
-		}
+		keyListeners.forEach(k -> k.KeyDown(key));
 	}
 
 	@Override
 	public void KeyUp(final Key key) {
-		for(final IKeyListener k : keyListeners){
-			k.KeyUp(key);
-		}
+		keyListeners.forEach(k -> k.KeyUp(key));
 	}
 
 	public void clear(){
