@@ -5,8 +5,7 @@ import scala.collection.JavaConversions._
 
 import com.google.inject.Inject
 
-@Inject
-class CompositeKeyListener(listeners : Collection[IKeyListener]) extends IKeyListener{
+class CompositeKeyListener @Inject() (listeners : Collection[IKeyListener]) extends IKeyListener{
 
 	override def KeyDown(key:Key) = {
 		listeners.foreach{_.KeyDown(key)}

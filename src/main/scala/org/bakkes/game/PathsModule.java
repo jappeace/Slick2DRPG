@@ -12,7 +12,7 @@ import com.google.inject.name.Names;
 public class PathsModule extends AModule {
 	@Override
 	public void configure(){
-		final Path base = FileSystems.getDefault().getPath("bin");
+		final Path base = FileSystems.getDefault().getPath("build").resolve("resources").resolve("main");
 		bind(Path.class).toInstance(base);
         final Path scripts = bind(base, "scripts");
         bind(scripts, "pokemon","scriptPokemon");

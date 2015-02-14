@@ -31,9 +31,9 @@ object Starter_JappieMon {
         System.setProperty("org.lwjgl.librarypath",
             new File(
                 new File(
-                    System.getProperty("user.dir"), 
+                    System.getProperty("user.dir"),
                     "native"
-                ), 
+                ),
                 LWJGLUtil.getPlatformName()
             ).getAbsolutePath()
         )
