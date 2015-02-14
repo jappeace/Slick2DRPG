@@ -3,7 +3,7 @@ apply plugin: 'scala'
 apply plugin: 'eclipse'
 apply plugin: 'application'
 
-def javaVersion = '1.7'
+def javaVersion = 1.7
 sourceCompatibility = javaVersion
 targetCompatibility = javaVersion
 version = '1'
