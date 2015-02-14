@@ -56,3 +56,9 @@ src/main/resources/sprites/pokemon/*
 # generated??
 .groovy
 .cache
+
+#idea bullshit
+Slick2DRPG.iml
+Slick2DRPG.ipr
+Slick2DRPG.iws
+
