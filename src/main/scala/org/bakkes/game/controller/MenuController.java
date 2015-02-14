@@ -42,4 +42,14 @@ public class MenuController implements IController{
 	public void setOnKeyDown(final IKeyListener onKeyDown) {
 		this.onKeyDown = onKeyDown;
 	}
+	@Override
+	public void KeyUp(final Key key) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void update(final int delta) {
+		// TODO Auto-generated method stub
+
+	}
 }

@@ -108,5 +108,8 @@ public class Box implements IRenderable, IShape{
 	public Color getBorderColor(){
 		return border;
 	}
+	@Override
+	public void onChangePosition(final Vector2f newLocation) {
+	}
 
 }

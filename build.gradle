@@ -1,5 +1,4 @@
 
-apply plugin: 'java'
 apply plugin: 'scala'
 apply plugin: 'eclipse'
 apply plugin: 'application'
@@ -29,7 +28,6 @@ dependencies {
 	def scalaVersion = '2.11'
 	//main code base in scala
 	compile "org.scala-lang:scala-library-all:${scalaVersion}.5"
-
 	//client scripts in groovy
 	compile "org.codehaus.groovy:groovy-all:2.3.8"
 

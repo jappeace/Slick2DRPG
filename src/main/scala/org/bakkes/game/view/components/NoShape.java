@@ -48,4 +48,8 @@ public class NoShape implements IShape{
 	public Vector2f getPosition() {
 		return new Vector2f();
 	}
+
+	@Override
+	public void onChangePosition(final Vector2f newLocation) {
+	}
 }

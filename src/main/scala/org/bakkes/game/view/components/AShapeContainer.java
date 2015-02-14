@@ -37,4 +37,7 @@ public abstract class AShapeContainer implements IShape{
 	public Vector2f getPosition() {
 		return new Vector2f(x(), y());
 	}
+	@Override
+	public void onChangePosition(final Vector2f newLocation) {
+	}
 }
