@@ -1,10 +1,10 @@
 
 apply plugin: 'java'
+apply plugin: 'scala'
 apply plugin: 'eclipse'
 apply plugin: 'application'
-apply plugin: 'groovy'
 
-def javaVersion = '1.8'
+def javaVersion = '1.7'
 sourceCompatibility = javaVersion
 targetCompatibility = javaVersion
 version = '1'
@@ -20,23 +20,44 @@ configurations {
 
 repositories {
     mavenCentral()
+	jcenter()
 	maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 dependencies {
+
+	def scalaVersion = '2.11'
+	//main code base in scala
+	compile "org.scala-lang:scala-library-all:${scalaVersion}.5"
+
+	//client scripts in groovy
+	compile "org.codehaus.groovy:groovy-all:2.3.8"
+
+	//Java library for 2d games
+	compile "org.slick2d:slick2d-core:1.0.1"
+
+	// the scala versioning has 2 0 as oposed to 1
+	// so we multiply the zeros by the time we need it
+	def guiceVersion = { n -> "4" +  ".0" * n + "-beta5"}
+	//Java library for dependecy injection
+	compile "com.google.inject:guice:${guiceVersion(1)}"
+	compile "com.google.inject.extensions:guice-assistedinject:"+
+			"${guiceVersion(1)}"
+	// scala extension for dependecy injection
+	compile "net.codingwell:scala-guice_${scalaVersion}:${guiceVersion(2)}"
+
+	// offors some handy string manipulation functions (capitlise)
+	compile "org.apache.commons:commons-lang3:3.3.2"
+
+	//tests in scala
+	testCompile "org.scalatest:scalatest_${scalaVersion}:2.2.4"
+
+	//minor library for mardown being parsed in javadoc
 	markdownDoclet('ch.raffael.pegdown-doclet:pegdown-doclet:1.1.1')
-	compile 'org.apache.commons:commons-lang3:3.3.2'
-	compile 'org.slick2d:slick2d-core:1.0.1'
-	compile 'org.codehaus.groovy:groovy-all:2.3.8'
-	compile 'com.google.inject:guice:4.0-beta5'
-	compile 'com.google.inject.extensions:guice-assistedinject:4.0-beta5'
-	["spock-core", "spock-guice"].each{
-        testCompile "org.spockframework:${it}:1.0-groovy-2.3-SNAPSHOT"
-	}
 }
 
 javadoc.options {
-    docletpath = configurations.markdownDoclet.files.asType(List) // gradle should relly make this simpler
+    docletpath = configurations.markdownDoclet.files.asType(List)
 	doclet = "ch.raffael.doclets.pegdown.PegdownDoclet"
 	addStringOption("parse-timeout", "10")
 }

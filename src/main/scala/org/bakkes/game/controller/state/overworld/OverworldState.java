@@ -18,6 +18,7 @@ import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.entity.player.invetory.PokeBelt;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
+import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.IRenderable;
 import org.bakkes.game.view.overworld.Camera;
 import org.newdawn.slick.Color;
@@ -81,7 +82,9 @@ public class OverworldState extends CommonGameState {
                     .setSubject(player)
                     .setTo(loader.getStartLocation())
             );
-			belt.forEach(poke -> poke.heal());
+			for(final Pokemon poke : belt){
+				poke.heal();
+			}
 			msgBoxController.add("GOD", "You died, and like all things in this world get a respawn, but ONLY 1");
 		}
 	}
@@ -144,7 +147,9 @@ public class OverworldState extends CommonGameState {
 			final Vector2f tl = clickedTile.getData().topLeftPixels();
 			g.fillRect(tl.x, tl.y, Tile.WIDTH, Tile.HEIGHT);
 		}
-		translatedViews.get().forEach(renderable -> renderable.render(g));
+		for(final IRenderable renderable: translatedViews.get()){
+			renderable.render(g);
+		}
 		camera.untranslateGraphics(g);
 
 		final Vector2f mouseTile = Tile.PixelsToGridPixels(mousePos);

@@ -1,5 +1,6 @@
 package org.bakkes.game.view;
 
+import org.bakkes.game.model.IPositionable;
 import org.newdawn.slick.geom.Vector2f;
 
 public abstract class APositionedView extends AView implements IPositionable {

@@ -55,3 +55,4 @@ src/main/resources/sprites/pokemon/*
 
 # generated??
 .groovy
+.cache
