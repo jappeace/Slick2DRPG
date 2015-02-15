@@ -23,7 +23,7 @@ public class PlayerDsl extends ADsl{
 
 	public void giveItem(final String ... items){
 		for(final String itemName : items){
-            player.getInventory().addItem(loader.load(itemName));
+            player.getInventory().add(loader.load(itemName));
 		}
 	}
 

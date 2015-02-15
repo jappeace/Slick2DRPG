@@ -2,6 +2,8 @@ package org.bakkes.game.controller.state.battle.contestent;
 
 import org.bakkes.game.model.battle.move.IMove;
 
+import java.util.List;
+
 public class PlayerContestent extends AContestent {
 
 	IMove currentMove = null;
@@ -9,8 +11,16 @@ public class PlayerContestent extends AContestent {
 		currentMove = move;
 	}
 
-	public synchronized void selectMove(final int which){
-		setMove(getOwnPokemon().getMoves().get(which));
+	public synchronized boolean selectMove(final int which){
+		List<IMove> moves = getOwnPokemon().getMoves();
+		if(which < 0){
+			return false;
+		}
+		if(which >= moves.size()){
+			return false;
+		}
+		setMove(moves.get(which));
+		return true;
 	}
 	@Override
 	public synchronized boolean isReady() {

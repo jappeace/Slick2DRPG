@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.bakkes.game.view.components.AShape;
+import org.bakkes.game.view.components.Box;
+import org.bakkes.game.view.components.IShape;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
@@ -12,7 +15,7 @@ import org.newdawn.slick.geom.Vector2f;
  * creates a nice select input
  * basicly the player sees a couple of texts he can chose from and select
  */
-public class Menu extends AShape{
+public class Menu extends AShape {
 
 	private Collection<IShape> options = new LinkedList<>();
 

@@ -6,11 +6,8 @@ import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.AView;
-import org.bakkes.game.view.IRenderable;
 import org.bakkes.game.view.SpriteType;
 import org.bakkes.game.view.components.Menu;
-import org.bakkes.game.view.components.ShapePadding;
-import org.bakkes.game.view.components.TextLine;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 

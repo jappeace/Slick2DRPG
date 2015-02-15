@@ -5,3 +5,4 @@ givePokemon{
 	species="dustox"
 	level=20
 }
+giveItem "pokeball","pokeball","pokeball","pokeball"

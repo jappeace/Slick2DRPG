@@ -6,14 +6,16 @@ import org.bakkes.game.controller.event.BattleMenuHandler;
 import org.bakkes.game.controller.event.input.BattleEndListner;
 import org.bakkes.game.controller.event.input.CompositeKeyListener;
 import org.bakkes.game.model.pokemon.Pokemon;
-import org.bakkes.game.view.components.Menu;
+import org.bakkes.game.view.components.{Menu, ITextableShape}
+;
 
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
+import com.google.inject.{Provider, Provides, Singleton}
+;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 
 import net.codingwell.scalaguice.ScalaModule
+
 /**
  * bridging module
  */
@@ -31,6 +33,11 @@ class BattleStateModule extends AModule with ScalaModule{
     @Provides
     @Named("current enemys")
     def provideCurrentEnemyPokemon (loader:BattleLoader) : Pokemon = loader.getCurrentEnemyPokemon();
+	@Provides
+	@Named("battle")
+	def provideBattleMenu(result:Menu, lineProvider:Provider[ITextableShape]) : Menu = {
+		return result
+	}
 
     @Provides
     @Named("battle")
