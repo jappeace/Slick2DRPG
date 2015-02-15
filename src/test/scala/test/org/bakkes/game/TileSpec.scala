@@ -1,5 +1,5 @@
 
-package org.bakkes.game
+package test.org.bakkes.game
 
 import org.bakkes.game.model.map.Direction
 import org.bakkes.game.model.map.Tile
@@ -7,7 +7,7 @@ import org.newdawn.slick.geom.Vector2f
 import org.scalatest.WordSpec
 import org.scalatest.prop.TableDrivenPropertyChecks._
 
-class TileTest extends WordSpec {
+class TileSpec extends WordSpec {
 
 	"A Tile" when {
 		"having these coordinate" should {
