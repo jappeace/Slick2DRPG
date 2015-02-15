@@ -35,8 +35,12 @@ public class ShapePadding extends AShapeContainer{
 		getShape().y(to + padding.y);
 	}
 
-	public void setPadding(final Vector2f padding) {
+	public ShapePadding setPadding(float padding) {
+		return setPadding(new Vector2f(padding,padding));
+	}
+	public ShapePadding setPadding(final Vector2f padding) {
 		this.padding = padding;
+		return this;
 	}
 
 }

@@ -13,8 +13,9 @@ public abstract class AShapeContainer implements IShape{
 	 * this method has to be called
 	 * @param shape
 	 */
-	public void setShape(final IShape shape){
+	public AShapeContainer setShape(final IShape shape){
 		this.shape = shape;
+		return this;
 	}
 	protected IShape getShape() {
 		return shape;

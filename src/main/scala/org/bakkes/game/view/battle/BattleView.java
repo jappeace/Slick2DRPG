@@ -6,8 +6,10 @@ import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.AView;
+import org.bakkes.game.view.IRenderable;
 import org.bakkes.game.view.SpriteType;
 import org.bakkes.game.view.components.Menu;
+import org.bakkes.game.view.components.ShapePadding;
 import org.bakkes.game.view.components.TextLine;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -26,7 +28,6 @@ public class BattleView extends AView{
 	@Inject
 	public BattleView(
 			final Provider<BattlePokeView> viewProvider,
-			final Provider<TextLine> lines,
 			final @Named("moves") Menu moveMenu,
 			@Named("current players") final Pokemon playerPoke,
 			@Named("current enemys") final Pokemon enemyPoke
@@ -35,10 +36,16 @@ public class BattleView extends AView{
 		playerView = viewProvider.get();
 		playerView.setPokemon(playerPoke, SpriteType.back, Direction.North);
 		enemyView.setPokemon(enemyPoke, SpriteType.front, Direction.South);
-		playerView.y(GameInfo.SCREEN_HEIGHT-playerView.height());
+		float padding = 20;
+		enemyView.x(enemyView.avatar().width() *3+ padding);
+		enemyView.y(padding);
+		float height = playerView.statsView().height();
+		playerView.y(GameInfo.SCREEN_HEIGHT-height-padding);
+		playerView.x(padding);
 		moves=moveMenu;
 		moves.x(playerView.width());
-		moves.y(GameInfo.SCREEN_HEIGHT-playerView.height());
+		moves.y(GameInfo.SCREEN_HEIGHT - height);
+
 	}
 	@Override
 	protected void renderView(final Graphics g) {
