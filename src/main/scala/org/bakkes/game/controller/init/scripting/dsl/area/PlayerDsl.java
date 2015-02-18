@@ -21,8 +21,9 @@ public class PlayerDsl extends ADsl{
 	private @Inject Player player;
 	private @Inject ItemLoader loader;
 
-	public void giveItem(final String ... items){
+	public void giveItem(final String...  items){
 		for(final String itemName : items){
+			Log.info("giving player " + itemName);
             player.getInventory().add(loader.load(itemName));
 		}
 	}

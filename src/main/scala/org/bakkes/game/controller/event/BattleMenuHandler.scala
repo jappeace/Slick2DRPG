@@ -3,6 +3,7 @@ package org.bakkes.game.controller.event
 import java.util.Collection
 import java.util.LinkedList
 
+import org.bakkes.game.controller.init.scripting.loader.ItemLoader
 import org.bakkes.game.controller.state.battle.contestent.PlayerContestent
 import org.bakkes.game.model.AModel
 import org.bakkes.game.model.battle.move.IMove
@@ -25,7 +26,7 @@ class BattleMenuHandler @Inject() (
 	@Named("from player") inventory:Inventory,
 	lines : Provider[ITextableShape],
 	contestent : PlayerContestent,
-	itemProvider : Provider[Item],
+	itemLoader:ItemLoader,
 	random:Random
 ) extends IMenuHandler{
 
@@ -33,10 +34,9 @@ class BattleMenuHandler @Inject() (
 		if(contestent.selectMove(item)){
 			return
 		}
-		throwPokeball(itemProvider.get())
+		throwPokeball(itemLoader.load("pokeball"))
 	}
 	private def throwPokeball(item:Item): Unit ={
-		item.setName("pokeball")
 		if(!inventory.contains(item)){
 			Log.info("no pokeballs, show user message")
 			return
