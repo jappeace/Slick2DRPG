@@ -9,15 +9,15 @@ import org.bakkes.game.controller.event.input.{IKeyListener, Key}
 import org.bakkes.game.controller.state.CommonGameState
 import org.bakkes.game.model.entity.player.invetory.PokeBelt
 import org.bakkes.game.view.SpriteType
-import org.bakkes.game.view.components.IShape
-import org.bakkes.game.view.overworld.{PokeView, SpritedNameView}
+import org.bakkes.game.view.components.{SpritWithString, IShape}
+import org.bakkes.game.view.overworld.PokeView
 
 import scala.collection.JavaConversions._
 
 class PokemonMenuHandler @Inject() (
 	@Named("from player")
 	private val belt: PokeBelt,
-	private val viewsProvider: Provider[SpritedNameView] ,
+	private val viewsProvider: Provider[SpritWithString] ,
 	private val view: PokeView ,
 	private val state: Provider[CommonGameState] ,
 	@Named("spritePokemon")
@@ -41,7 +41,7 @@ class PokemonMenuHandler @Inject() (
 
 	def getOptions: Collection[IShape] = {
 		val result = belt.map{ pokemon =>
-			val view: SpritedNameView = viewsProvider.get
+			val view: SpritWithString = viewsProvider.get
 			view.setNamed(
 				path.resolve(SpriteType.small.getImageName(pokemon)),
 				pokemon.getName()

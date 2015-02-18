@@ -6,15 +6,14 @@ import java.util.Collection
 import com.google.inject.{Inject, Provider}
 import com.google.inject.name.Named
 import org.bakkes.game.model.entity.player.invetory.Inventory
-import org.bakkes.game.view.components.IShape
-import org.bakkes.game.view.overworld.SpritedNameView
+import org.bakkes.game.view.components.{SpritWithString, IShape}
 
 import scala.collection.JavaConversions._
 
 class ItemMenuHandler @Inject() (
 	@Named("from player")
 	private val inventory: Inventory,
-	private val viewsProvider: Provider[SpritedNameView],
+	private val viewsProvider: Provider[SpritWithString],
 	@Named("spriteItems")
 	private val path: Path
 ) extends IMenuHandler {
@@ -26,7 +25,7 @@ class ItemMenuHandler @Inject() (
 			val result = viewsProvider.get()
 			result.setNamed(
 				path.resolve(item.getSpriteName+".png"),
-				"{}x {}".format(item.amount, item.getName))
+				"%xx %s".format(item.amount, item.getName))
 			result
 		}
 		return result

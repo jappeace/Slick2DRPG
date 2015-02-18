@@ -1,4 +1,4 @@
-package org.bakkes.game.view.overworld;
+package org.bakkes.game.view.components;
 
 import com.google.inject.Inject;
 import org.bakkes.game.model.map.Direction;
@@ -19,7 +19,7 @@ import java.nio.file.Path;
  *
  * the main purpouse of this class was to be used as menu item
  */
-public class SpritedNameView extends APositionedView implements IShape{
+public class SpritWithString extends APositionedView implements IShape{
 
 
 	private @Inject TextLine line;

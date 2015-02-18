@@ -79,10 +79,6 @@ public class ShapeComposition extends AShapeContainer implements IShape{
 
 	@Override
 	public void render(final Graphics g) {
-        if(GameInfo.SHOW_DEBUG_INFO) {
-            g.setColor(new Color(255, 0, 0, 100));
-            g.fillRect(x(), y(), width(), height());
-        }
 		getShape().render(g);
 		for(final IShape shape : composites.values()){
 			shape.render(g);
