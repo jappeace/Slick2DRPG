@@ -1,12 +1,10 @@
 package org.bakkes.game.controller.init.scripting.dsl;
 
-import groovy.lang.Closure;
-
-import org.bakkes.game.controller.init.scripting.dsl.area.InteractDsl;
-import org.bakkes.game.model.IInteractable;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import groovy.lang.Closure;
+import org.bakkes.game.controller.init.scripting.dsl.area.InteractDsl;
+import org.bakkes.game.model.IInteractable;
 
 public abstract class AInteractableDsl extends ASpriteNamedDsl{
 	private @Inject Provider<InteractDsl> dslProvider;

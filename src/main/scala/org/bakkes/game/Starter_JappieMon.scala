@@ -1,13 +1,13 @@
 package org.bakkes.game
 import java.io.File
 
+import com.google.inject.Guice
+import net.codingwell.scalaguice.InjectorExtensions._
 import org.bakkes.game.controller.async.ThreadModule
-import org.bakkes.game.controller.init.GameContainerModule
-import org.bakkes.game.controller.init.GameModule
+import org.bakkes.game.controller.init.{GameContainerModule, GameModule}
 import org.bakkes.game.controller.init.scripting.SpeciesModule
 import org.bakkes.game.controller.state.StateModule
-import org.bakkes.game.controller.state.battle.BattleModule
-import org.bakkes.game.controller.state.battle.BattleStateModule
+import org.bakkes.game.controller.state.battle.{BattleModule, BattleStateModule}
 import org.bakkes.game.controller.state.overworld.OverworldModule
 import org.bakkes.game.model.entity.npc.PeopleAreaModule
 import org.bakkes.game.model.entity.player.PlayerModule
@@ -17,12 +17,6 @@ import org.bakkes.game.model.map.MapModule
 import org.bakkes.game.view.ViewModule
 import org.lwjgl.LWJGLUtil
 import org.newdawn.slick.AppGameContainer
-import org.newdawn.slick.SlickException
-
-import com.google.inject.Guice
-import com.google.inject.Injector
-
-import net.codingwell.scalaguice.InjectorExtensions._
 
 object Starter_JappieMon {
 

@@ -1,9 +1,10 @@
 package org.bakkes.game.controller.event.input
 
 import java.util.Collection
-import scala.collection.JavaConversions._
 
 import com.google.inject.Inject
+
+import scala.collection.JavaConversions._
 
 class CompositeKeyListener @Inject() (listeners : Collection[IKeyListener]) extends IKeyListener{
 

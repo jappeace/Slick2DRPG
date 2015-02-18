@@ -1,9 +1,8 @@
 package org.bakkes.game.view.overworld.dialog;
 
+import com.google.common.base.Preconditions;
 import org.bakkes.game.controller.event.input.Key;
 import org.bakkes.game.view.AView;
-
-import com.google.common.base.Preconditions;
 
 public abstract class AMessageBox extends AView implements IMessageBox{
 	private String title = "";

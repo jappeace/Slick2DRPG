@@ -1,5 +1,8 @@
 package org.bakkes.game.controller.state.battle;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.name.Named;
 import org.bakkes.game.controller.async.IThreadPool;
 import org.bakkes.game.controller.event.input.CompositeKeyListener;
 import org.bakkes.game.controller.state.CommonGameState;
@@ -7,10 +10,6 @@ import org.bakkes.game.controller.state.State;
 import org.bakkes.game.controller.state.StateManager;
 import org.bakkes.game.model.entity.player.invetory.PokeBelt;
 import org.bakkes.game.view.battle.BattleView;
-
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.name.Named;
 
 public class BattleState extends CommonGameState {
 

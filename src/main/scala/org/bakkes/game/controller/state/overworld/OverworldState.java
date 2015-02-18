@@ -1,8 +1,8 @@
 package org.bakkes.game.controller.state.overworld;
 
-import java.util.Collection;
-import java.util.Random;
-
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.name.Named;
 import org.bakkes.game.controller.MessageBoxController;
 import org.bakkes.game.controller.event.input.CompositeKeyListener;
 import org.bakkes.game.controller.init.PlayerLoader;
@@ -21,17 +21,12 @@ import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.IRenderable;
 import org.bakkes.game.view.overworld.Camera;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.name.Named;
+import java.util.Collection;
+import java.util.Random;
 
 public class OverworldState extends CommonGameState {
 	private @Inject Player player;

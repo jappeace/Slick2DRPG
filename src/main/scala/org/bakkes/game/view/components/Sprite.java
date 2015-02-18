@@ -1,14 +1,13 @@
 package org.bakkes.game.view.components;
 
-import java.nio.file.Path;
-
+import com.google.inject.Inject;
 import org.bakkes.game.model.ImageCache;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.util.Log;
 
-import com.google.inject.Inject;
+import java.nio.file.Path;
 
 public class Sprite extends AShape{
 

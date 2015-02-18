@@ -1,14 +1,13 @@
 package org.bakkes.game.controller;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
-
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import org.bakkes.game.view.components.IShape;
 import org.bakkes.game.view.components.ITextableShape;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class ShapesConverter {
 

@@ -1,15 +1,14 @@
 package org.bakkes.game.model;
 
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.google.inject.Singleton;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.util.Log;
 
-import com.google.inject.Singleton;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * creates images and puts them in a hashmap, this drastically improves loading times on pc's with a hdd

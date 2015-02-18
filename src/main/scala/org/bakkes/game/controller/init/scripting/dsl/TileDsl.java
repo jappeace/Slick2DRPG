@@ -1,12 +1,11 @@
 package org.bakkes.game.controller.init.scripting.dsl;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import org.bakkes.game.model.map.Tile;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import org.bakkes.game.model.map.Tile;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class TileDsl {
 

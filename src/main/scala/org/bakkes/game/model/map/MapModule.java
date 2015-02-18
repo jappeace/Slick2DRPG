@@ -1,11 +1,10 @@
 package org.bakkes.game.model.map;
 
+import com.google.inject.Provides;
 import org.bakkes.game.AModule;
 import org.newdawn.slick.util.pathfinding.AStarPathFinder;
 import org.newdawn.slick.util.pathfinding.PathFinder;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
-
-import com.google.inject.Provides;
 
 public class MapModule extends AModule{
 

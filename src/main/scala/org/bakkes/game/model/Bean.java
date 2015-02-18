@@ -3,6 +3,8 @@ package org.bakkes.game.model;
 import nl.jappieklooster.annotation.Nullable;
 
 /**
+ * allows values to be passed around easily between components, trough injection.
+ *
  * encapsulate a object with this to pass it arround to multiple objects
  * make sure to mark it as a singleton in the proper module, can't do it here
  * cause for java it means that all beans will become the singleton

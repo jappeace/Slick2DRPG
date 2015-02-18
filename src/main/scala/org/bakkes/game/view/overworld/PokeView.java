@@ -1,7 +1,7 @@
 package org.bakkes.game.view.overworld;
 
-import java.nio.file.Path;
-
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.view.IRenderable;
@@ -10,8 +10,7 @@ import org.bakkes.game.view.battle.StatisticsView;
 import org.bakkes.game.view.components.Sprite;
 import org.newdawn.slick.Graphics;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
+import java.nio.file.Path;
 
 public class PokeView implements IRenderable{
     private @Inject Sprite avatar;

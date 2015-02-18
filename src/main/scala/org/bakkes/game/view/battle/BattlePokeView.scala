@@ -1,19 +1,16 @@
 package org.bakkes.game.view.battle;
 
-import java.nio.file.Path;
+import java.nio.file.Path
 
-import org.bakkes.game.model.GameInfo;
-import org.bakkes.game.model.map.Direction;
-import org.bakkes.game.model.pokemon.Pokemon;
-import org.bakkes.game.view.SpriteType;
-import org.bakkes.game.view.components.AShape;
-import org.bakkes.game.view.components.ShapeComposition;
-import org.bakkes.game.view.components.Sprite;
-import org.newdawn.slick.Graphics;
+import com.google.inject.Inject
+import com.google.inject.name.Named
+import org.bakkes.game.model.GameInfo
+import org.bakkes.game.model.map.Direction
+import org.bakkes.game.model.pokemon.Pokemon
+import org.bakkes.game.view.SpriteType
+import org.bakkes.game.view.components.{AShape, ShapeComposition, Sprite}
+import org.newdawn.slick.Graphics
 import org.newdawn.slick.geom.Vector2f;
-
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 class BattlePokeView @Inject() (
    val avatar:Sprite,

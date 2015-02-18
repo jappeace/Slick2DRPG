@@ -1,5 +1,6 @@
 package org.bakkes.game.view.battle;
 
+import com.google.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
@@ -10,8 +11,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
-
-import com.google.inject.Inject;
 
 public class StatisticsView extends AShape{
 
@@ -65,7 +64,7 @@ public class StatisticsView extends AShape{
 	 * @param color
 	 */
 	private void drawBar(final Graphics g,final float fraction, final Color color){
-        final float yOffset = out.getHeight() + margin;
+        final float yOffset = out.height() + margin;
 		if(fraction > 1){
 			return;
 		}

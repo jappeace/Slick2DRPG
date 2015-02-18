@@ -1,13 +1,12 @@
 package org.bakkes.game.controller.init.scripting.loader;
 
-import java.nio.file.Path;
-
-import org.bakkes.game.controller.init.scripting.dsl.ItemDefinitionDsl;
-import org.bakkes.game.model.entity.player.invetory.Item;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
+import org.bakkes.game.controller.init.scripting.dsl.ItemDefinitionDsl;
+import org.bakkes.game.model.entity.player.invetory.Item;
+
+import java.nio.file.Path;
 
 public class ItemLoader {
 	private @Inject Provider<ItemDefinitionDsl> itemDslProvider;

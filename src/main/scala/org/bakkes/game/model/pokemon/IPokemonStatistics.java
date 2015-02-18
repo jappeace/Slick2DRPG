@@ -1,9 +1,9 @@
 package org.bakkes.game.model.pokemon;
 
-import java.util.Random;
-
 import nl.jappieklooster.groovy.math.IMinusOperator;
 import nl.jappieklooster.groovy.math.IPlusOperator;
+
+import java.util.Random;
 
 public interface IPokemonStatistics extends IPlusOperator<IPokemonStatistics>, IMinusOperator<IPokemonStatistics> {
 

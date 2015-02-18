@@ -1,13 +1,12 @@
 package org.bakkes.game.view.overworld;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import org.bakkes.game.model.map.LayerdMap;
 import org.bakkes.game.model.map.Tile;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
-
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 //source: http://slick.ninjacave.com/forum/viewtopic.php?t=1906 (koopa)
 public class Camera {

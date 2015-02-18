@@ -1,12 +1,11 @@
 package org.bakkes.game.controller.state;
 
+import com.google.inject.Inject;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.state.transition.Transition;
-
-import com.google.inject.Inject;
 
 public class StateManager {
 	private @Inject StateBasedGame game;

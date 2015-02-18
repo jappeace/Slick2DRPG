@@ -1,7 +1,7 @@
 package org.bakkes.game.view.overworld;
 
-import java.nio.file.Path;
-
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import org.bakkes.game.controller.init.scripting.dsl.AnimationDsl;
 import org.bakkes.game.controller.init.scripting.loader.ScriptLoader;
 import org.bakkes.game.model.entity.Character;
@@ -9,8 +9,7 @@ import org.bakkes.game.view.AView;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
+import java.nio.file.Path;
 
 public class CharacterView extends AView{
 

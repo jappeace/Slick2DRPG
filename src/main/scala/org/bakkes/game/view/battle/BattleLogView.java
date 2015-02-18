@@ -1,7 +1,6 @@
 package org.bakkes.game.view.battle;
 
-import java.util.List;
-
+import com.google.inject.Inject;
 import org.bakkes.game.model.battle.BattleLogEvent;
 import org.bakkes.game.model.battle.Turn;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
@@ -13,7 +12,7 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
-import com.google.inject.Inject;
+import java.util.List;
 
 public class BattleLogView extends AView {
 
@@ -36,7 +35,7 @@ public class BattleLogView extends AView {
         	out.write("Turn #"+i+":");
         	renderTurn(log.get(i));
         	out.write("------");
-        	if(out.getHeight() + MAX_TURN_LINES * (out.getHeight()/out.lineCount()) > SHAPE.getHeight()){
+        	if(out.height() + MAX_TURN_LINES * (out.height()/out.lineCount()) > SHAPE.getHeight()){
         		break;
         	}
         }

@@ -1,11 +1,11 @@
 package org.bakkes.game.model.map;
 
+import com.google.inject.Singleton;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-
-import com.google.inject.Singleton;
 
 /**
  * keeps track of blocked tiles that change dynamicly.

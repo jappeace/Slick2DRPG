@@ -1,10 +1,10 @@
 package org.bakkes.game.controller.async;
 
+import com.google.inject.Inject;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
-
-import com.google.inject.Inject;
 
 public class ThreadPool implements IThreadPool{
 	private @Inject ExecutorService pool;

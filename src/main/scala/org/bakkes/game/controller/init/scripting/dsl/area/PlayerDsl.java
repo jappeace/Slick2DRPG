@@ -1,16 +1,14 @@
 package org.bakkes.game.controller.init.scripting.dsl.area;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import groovy.lang.Closure;
-
 import org.bakkes.game.controller.init.scripting.dsl.ADsl;
 import org.bakkes.game.controller.init.scripting.loader.ItemLoader;
 import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.newdawn.slick.util.Log;
-
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 /**
  * manipulate player stats with this dsl (what kind of pokemon etc)

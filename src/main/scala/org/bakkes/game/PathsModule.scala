@@ -1,12 +1,11 @@
 package org.bakkes.game
 
-import java.nio.file.FileSystems
-import java.nio.file.Path
+import java.nio.file.{FileSystems, Path}
+
+import com.google.inject.Provides
+import com.google.inject.name.{Named, Names}
 import net.codingwell.scalaguice.ScalaModule
 import org.bakkes.game.model.map.IAreaNameAcces
-import com.google.inject.Provides
-import com.google.inject.name.Named
-import com.google.inject.name.Names
 
 class PathsModule extends AModule with ScalaModule{
 

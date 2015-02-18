@@ -1,15 +1,14 @@
 package org.bakkes.game.model.entity.player.invetory;
 
-import java.util.Collection;
-import java.util.LinkedList;
-
+import com.google.inject.Provides;
 import org.bakkes.game.controller.init.scripting.dsl.area.ItemDsl;
 import org.bakkes.game.controller.init.scripting.loader.CurrentAreaLoader;
 import org.bakkes.game.model.entity.AAreaModule;
 import org.bakkes.game.model.map.BlockedTileTracker;
 import org.bakkes.game.model.map.IAreaNameAcces;
 
-import com.google.inject.Provides;
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class ItemAreaModule extends AAreaModule{
 

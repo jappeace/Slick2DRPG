@@ -1,8 +1,6 @@
 package org.bakkes.game.controller.state.overworld.command;
 
-import java.util.Collection;
-import java.util.LinkedList;
-
+import com.google.inject.Inject;
 import org.bakkes.game.controller.state.overworld.OverworldState;
 import org.bakkes.game.model.Bean;
 import org.bakkes.game.model.entity.EntityTracker;
@@ -16,7 +14,8 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.Log;
 
-import com.google.inject.Inject;
+import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  * this is a command executed once,

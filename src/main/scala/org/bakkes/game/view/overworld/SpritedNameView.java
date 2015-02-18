@@ -1,19 +1,13 @@
 package org.bakkes.game.view.overworld;
 
-import java.nio.file.Path;
-
-import org.bakkes.game.model.IHasSpriteName;
+import com.google.inject.Inject;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.view.APositionedView;
-import org.bakkes.game.view.components.IShape;
-import org.bakkes.game.view.components.ShapeComposition;
-import org.bakkes.game.view.components.ShapePadding;
-import org.bakkes.game.view.components.Sprite;
-import org.bakkes.game.view.components.TextLine;
+import org.bakkes.game.view.components.*;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
-import com.google.inject.Inject;
+import java.nio.file.Path;
 
 /**
  * ##SpritedNameView
@@ -35,10 +29,9 @@ public class SpritedNameView extends APositionedView implements IShape{
 
 	private Direction direction = Direction.West;
 
-	public void setNamed(final Path spritePath, final IHasSpriteName to){
-		line.setText(to.getName());
-        final Path path =spritePath.resolve(to.getSpriteName() + ".png");
-        sprite.setSpritePath(path);
+	public void setNamed(final Path spritePath, String text){
+		line.setText(text);
+        sprite.setSpritePath(spritePath);
 
         final float heightDifference = sprite.height() - line.height();
         padding.setPadding(new Vector2f(0, heightDifference/2));

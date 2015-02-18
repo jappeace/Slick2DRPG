@@ -1,12 +1,11 @@
 package org.bakkes.game.model.entity.player.invetory;
 
+import nl.jappieklooster.annotation.Nullable;
+import org.bakkes.game.model.pokemon.Pokemon;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import nl.jappieklooster.annotation.Nullable;
-
-import org.bakkes.game.model.pokemon.Pokemon;
 
 
 /**

@@ -1,13 +1,12 @@
 package org.bakkes.game.controller;
 
+import com.google.inject.Inject;
 import org.bakkes.game.controller.event.IMenuHandler;
 import org.bakkes.game.controller.event.input.EmptyListener;
 import org.bakkes.game.controller.event.input.IKeyListener;
 import org.bakkes.game.controller.event.input.Key;
 import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.view.components.Menu;
-
-import com.google.inject.Inject;
 
 public class MenuController implements IController{
 

@@ -1,8 +1,7 @@
 
 package test.org.bakkes.game
 
-import org.bakkes.game.model.map.Direction
-import org.bakkes.game.model.map.Tile
+import org.bakkes.game.model.map.{Direction, Tile}
 import org.newdawn.slick.geom.Vector2f
 import org.scalatest.WordSpec
 import org.scalatest.prop.TableDrivenPropertyChecks._

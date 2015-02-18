@@ -3,14 +3,13 @@ package org.bakkes.game.controller.init.scripting.loader;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import groovy.util.DelegatingScript;
+import org.codehaus.groovy.control.CompilationFailedException;
+import org.codehaus.groovy.control.CompilerConfiguration;
+import org.newdawn.slick.util.Log;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-
-import org.codehaus.groovy.control.CompilationFailedException;
-import org.codehaus.groovy.control.CompilerConfiguration;
-import org.newdawn.slick.util.Log;
 
 /**
  * generic script loader. abstracts away the anucances of script loading

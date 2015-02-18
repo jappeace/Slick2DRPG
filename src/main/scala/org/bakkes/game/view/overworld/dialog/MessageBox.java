@@ -1,11 +1,10 @@
 package org.bakkes.game.view.overworld.dialog;
 
+import com.google.inject.Inject;
 import org.bakkes.game.model.font.MutableFont;
 import org.bakkes.game.view.components.Box;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
-
-import com.google.inject.Inject;
 
 /**
  * ## Message box

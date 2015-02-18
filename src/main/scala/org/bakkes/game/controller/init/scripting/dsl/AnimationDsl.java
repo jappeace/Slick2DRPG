@@ -1,9 +1,9 @@
 package org.bakkes.game.controller.init.scripting.dsl;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.name.Named;
 import groovy.lang.Closure;
-
-import java.nio.file.Path;
-
 import org.bakkes.game.controller.init.scripting.loader.ScriptLoader;
 import org.bakkes.game.model.ImageCache;
 import org.bakkes.game.model.map.Direction;
@@ -12,9 +12,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.util.Log;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.name.Named;
+import java.nio.file.Path;
 
 public class AnimationDsl extends ADsl{
 

@@ -1,8 +1,8 @@
 package org.bakkes.game.controller.event;
 
-import java.util.Collection;
-
 import org.bakkes.game.view.components.IShape;
+
+import java.util.Collection;
 
 
 /**

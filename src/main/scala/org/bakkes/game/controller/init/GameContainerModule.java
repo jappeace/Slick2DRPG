@@ -1,5 +1,8 @@
 package org.bakkes.game.controller.init;
 
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 import org.bakkes.game.AModule;
 import org.bakkes.game.model.GameInfo;
 import org.newdawn.slick.AppGameContainer;
@@ -8,10 +11,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.gui.GUIContext;
-
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
-import com.google.inject.name.Named;
 
 public class GameContainerModule extends AModule{
 

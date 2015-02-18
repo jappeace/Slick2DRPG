@@ -1,16 +1,14 @@
 package org.bakkes.game.controller.init.scripting.dsl.area;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
+import com.google.inject.Inject;
 import nl.jappieklooster.groovy.meta.IMissingMethodHandler;
-
 import org.bakkes.game.controller.init.scripting.dsl.ADsl;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.newdawn.slick.util.Log;
 
-import com.google.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class WildDsl extends ADsl implements IMissingMethodHandler{
 

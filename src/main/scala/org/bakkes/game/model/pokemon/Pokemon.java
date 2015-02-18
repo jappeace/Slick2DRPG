@@ -1,16 +1,14 @@
 package org.bakkes.game.model.pokemon;
 
-import java.util.List;
-import java.util.Random;
-
+import com.google.inject.Inject;
 import nl.jappieklooster.annotation.Nullable;
-
 import org.bakkes.game.model.AModel;
 import org.bakkes.game.model.IHasSpriteName;
 import org.bakkes.game.model.battle.move.IMove;
 import org.newdawn.slick.util.Log;
 
-import com.google.inject.Inject;
+import java.util.List;
+import java.util.Random;
 
 public class Pokemon extends AModel implements IHasSpriteName{
 

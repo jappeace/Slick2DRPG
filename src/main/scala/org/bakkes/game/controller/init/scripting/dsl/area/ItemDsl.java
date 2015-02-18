@@ -1,17 +1,15 @@
 package org.bakkes.game.controller.init.scripting.dsl.area;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import groovy.lang.Closure;
-
-import java.util.Collection;
-import java.util.LinkedList;
-
 import org.bakkes.game.controller.init.scripting.dsl.ADsl;
 import org.bakkes.game.controller.init.scripting.loader.ItemLoader;
 import org.bakkes.game.model.entity.player.invetory.Item;
 import org.bakkes.game.model.map.Tile;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class ItemDsl extends ADsl{
 

@@ -1,11 +1,11 @@
 package org.bakkes.game.controller.init.scripting.loader;
 
-import java.nio.file.Path;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
+
+import java.nio.file.Path;
 
 @Singleton
 public class CurrentAreaLoader {

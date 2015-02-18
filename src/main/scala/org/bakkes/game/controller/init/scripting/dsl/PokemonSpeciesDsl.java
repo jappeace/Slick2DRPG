@@ -1,10 +1,9 @@
 package org.bakkes.game.controller.init.scripting.dsl;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.name.Named;
 import groovy.lang.Closure;
-
-import java.nio.file.Path;
-import java.util.Collection;
-
 import org.bakkes.game.controller.init.scripting.dsl.anotation.Required;
 import org.bakkes.game.controller.init.scripting.dsl.anotation.Result;
 import org.bakkes.game.controller.init.scripting.loader.ScriptLoader;
@@ -14,9 +13,8 @@ import org.bakkes.game.model.pokemon.PokemonStatistics;
 import org.bakkes.game.model.pokemon.Type;
 import org.newdawn.slick.util.Log;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.name.Named;
+import java.nio.file.Path;
+import java.util.Collection;
 
 public class PokemonSpeciesDsl extends ASpriteNamedDsl {
 

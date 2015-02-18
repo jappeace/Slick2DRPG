@@ -1,15 +1,14 @@
 package org.bakkes.game.model.entity;
 
 import groovy.lang.Closure;
-
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.bakkes.game.model.ASpriteNamedModel;
 import org.bakkes.game.model.map.Tile;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.Log;
+
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * a entity in the overworld has to have a position (form top left of the map in pixels),

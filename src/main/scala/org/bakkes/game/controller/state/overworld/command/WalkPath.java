@@ -1,13 +1,12 @@
 package org.bakkes.game.controller.state.overworld.command;
 
+import com.google.inject.Inject;
 import org.bakkes.game.model.entity.Character;
 import org.bakkes.game.model.map.Direction;
 import org.bakkes.game.model.map.Tile;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.pathfinding.Path;
 import org.newdawn.slick.util.pathfinding.PathFinder;
-
-import com.google.inject.Inject;
 
 public class WalkPath extends ACommand{
 

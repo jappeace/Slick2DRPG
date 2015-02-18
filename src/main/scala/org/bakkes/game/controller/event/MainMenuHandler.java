@@ -1,12 +1,11 @@
 package org.bakkes.game.controller.event;
 
-import java.util.Collection;
-import java.util.LinkedList;
-
+import com.google.inject.Inject;
 import org.bakkes.game.controller.ShapesConverter;
 import org.bakkes.game.view.components.IShape;
 
-import com.google.inject.Inject;
+import java.util.Collection;
+import java.util.LinkedList;
 
 
 

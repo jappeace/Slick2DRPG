@@ -1,11 +1,10 @@
 package org.bakkes.game.controller.event.input;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import org.bakkes.game.controller.state.State;
 import org.bakkes.game.controller.state.StateManager;
 import org.bakkes.game.controller.state.battle.Battle;
-
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 public class BattleEndListner extends AKeyListener{
 

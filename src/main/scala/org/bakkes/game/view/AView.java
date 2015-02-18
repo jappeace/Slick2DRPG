@@ -1,10 +1,9 @@
 package org.bakkes.game.view;
 
+import com.google.inject.Inject;
 import org.bakkes.game.view.components.LineWriter;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-
-import com.google.inject.Inject;
 
 public abstract class AView implements IRenderable{
 

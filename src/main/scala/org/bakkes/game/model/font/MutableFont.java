@@ -1,14 +1,14 @@
 package org.bakkes.game.model.font;
 
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.bakkes.game.model.AModel;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.util.Log;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ##Font

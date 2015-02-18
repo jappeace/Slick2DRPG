@@ -1,9 +1,8 @@
 package org.bakkes.game.view.components;
 
+import com.google.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.newdawn.slick.Graphics;
-
-import com.google.inject.Inject;
 
 /**
  * ##TextLine

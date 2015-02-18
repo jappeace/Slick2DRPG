@@ -1,13 +1,13 @@
 package org.bakkes.game.controller.init.scripting.dsl.area;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.bakkes.game.controller.init.scripting.dsl.AOverworldEntityDsl;
 import org.bakkes.game.controller.init.scripting.dsl.anotation.Required;
 import org.bakkes.game.controller.init.scripting.dsl.anotation.Result;
 import org.bakkes.game.model.entity.npc.Person;
 import org.bakkes.game.model.map.Direction;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class PersonDsl extends AOverworldEntityDsl{
 	boolean isFacingSet = false;

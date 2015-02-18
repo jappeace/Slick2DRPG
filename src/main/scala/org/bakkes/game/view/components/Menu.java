@@ -1,15 +1,12 @@
 package org.bakkes.game.view.components;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
-
-import org.bakkes.game.view.components.AShape;
-import org.bakkes.game.view.components.Box;
-import org.bakkes.game.view.components.IShape;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  * creates a nice select input

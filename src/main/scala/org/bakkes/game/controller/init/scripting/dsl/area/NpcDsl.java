@@ -1,15 +1,13 @@
 package org.bakkes.game.controller.init.scripting.dsl.area;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import groovy.lang.Closure;
-
-import java.util.Collection;
-
 import org.bakkes.game.controller.init.scripting.dsl.ADsl;
 import org.bakkes.game.model.entity.npc.Person;
 import org.newdawn.slick.util.Log;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.Collection;
 
 public class NpcDsl extends ADsl{
 	private Collection<Person> people;

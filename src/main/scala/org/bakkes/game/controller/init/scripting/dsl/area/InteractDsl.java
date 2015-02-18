@@ -1,12 +1,10 @@
 package org.bakkes.game.controller.init.scripting.dsl.area;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.name.Named;
 import groovy.lang.Closure;
-
-import java.util.Arrays;
-import java.util.Collection;
-
 import nl.jappieklooster.annotation.Nullable;
-
 import org.bakkes.game.controller.MessageBoxController;
 import org.bakkes.game.controller.async.DelayedBatchExecutor;
 import org.bakkes.game.controller.init.scripting.dsl.ADsl;
@@ -16,9 +14,8 @@ import org.bakkes.game.view.overworld.dialog.Dialog;
 import org.bakkes.game.view.overworld.dialog.MessageBoxState;
 import org.newdawn.slick.util.Log;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.name.Named;
+import java.util.Arrays;
+import java.util.Collection;
 public class InteractDsl extends ADsl {
 	private @Inject Provider<Dialog> dialogProvider;
 	private @Inject Provider<PlayerDsl> playerDslProvider;

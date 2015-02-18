@@ -1,17 +1,15 @@
 package org.bakkes.game.controller.init.scripting.dsl.area;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.name.Named;
 import groovy.lang.Closure;
-
 import org.bakkes.game.controller.init.scripting.dsl.ADsl;
 import org.bakkes.game.model.Bean;
 import org.bakkes.game.model.pokemon.IPokemonSpecies;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.model.pokemon.PokemonStatistics;
-
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.name.Named;
 
 public class PokemonDsl extends ADsl{
     private IPokemonStatistics statistics;

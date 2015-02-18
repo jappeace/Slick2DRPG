@@ -1,7 +1,6 @@
 package org.bakkes.game.view.overworld;
 
-import java.nio.file.Path;
-
+import com.google.inject.Inject;
 import org.bakkes.game.model.ImageCache;
 import org.bakkes.game.model.entity.IOverworldEntity;
 import org.bakkes.game.view.AView;
@@ -11,7 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.util.Log;
 
-import com.google.inject.Inject;
+import java.nio.file.Path;
 
 public class EntityView extends AView{
 	private @Inject ImageCache imageCache;

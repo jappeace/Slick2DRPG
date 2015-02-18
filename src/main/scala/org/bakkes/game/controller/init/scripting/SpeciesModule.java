@@ -1,7 +1,10 @@
 package org.bakkes.game.controller.init.scripting;
 
-import java.nio.file.Path;
-
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
+import com.google.inject.TypeLiteral;
+import com.google.inject.name.Named;
+import com.google.inject.name.Names;
 import org.bakkes.game.AModule;
 import org.bakkes.game.controller.init.scripting.dsl.PokemonSpeciesDsl;
 import org.bakkes.game.controller.init.scripting.loader.ScriptLoader;
@@ -9,11 +12,7 @@ import org.bakkes.game.model.Bean;
 import org.bakkes.game.model.pokemon.IPokemonSpecies;
 import org.bakkes.game.model.pokemon.PokemonSpecies;
 
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
-import com.google.inject.TypeLiteral;
-import com.google.inject.name.Named;
-import com.google.inject.name.Names;
+import java.nio.file.Path;
 
 public class SpeciesModule extends AModule{
 

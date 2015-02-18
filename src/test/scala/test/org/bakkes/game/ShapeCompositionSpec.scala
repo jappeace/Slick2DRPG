@@ -2,13 +2,11 @@
 package test.org.bakkes.game
 
 import com.google.inject.Guice
-import org.bakkes.game.model.map.Direction
-import org.bakkes.game.view.components.{IShape, AShape, ShapeComposition}
-import org.newdawn.slick.Graphics
-import org.newdawn.slick.geom.Vector2f
-import org.scalatest.WordSpec
-import org.scalatest.prop.TableDrivenPropertyChecks._
 import net.codingwell.scalaguice.InjectorExtensions._
+import org.bakkes.game.model.map.Direction
+import org.bakkes.game.view.components.{AShape, ShapeComposition}
+import org.newdawn.slick.Graphics
+import org.scalatest.WordSpec
 
 class ShapeCompositionSpec extends WordSpec {
 

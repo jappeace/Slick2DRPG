@@ -1,15 +1,14 @@
 package org.bakkes.game.controller.state.battle;
 
-import java.util.List;
-
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import org.bakkes.game.controller.state.battle.contestent.IContestent;
 import org.bakkes.game.model.battle.BattleLogEvent;
 import org.bakkes.game.model.battle.Turn;
 import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.newdawn.slick.util.Log;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.List;
 
 /**
  * decides turns and wat not

@@ -1,18 +1,17 @@
 package org.bakkes.game.controller.init;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Random;
-
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
+import com.google.inject.name.Names;
 import org.bakkes.game.AModule;
 import org.bakkes.game.controller.state.battle.BattleState;
 import org.bakkes.game.controller.state.overworld.OverworldState;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
-import com.google.inject.name.Names;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Random;
 
 public class GameModule extends AModule{
 

@@ -1,12 +1,11 @@
 package org.bakkes.game.controller.async;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import org.bakkes.game.AModule;
-
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import org.bakkes.game.AModule;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * this module is very dangerous

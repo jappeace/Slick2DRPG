@@ -1,11 +1,10 @@
 package org.bakkes.game.controller.event.input;
 
+import com.google.inject.Inject;
 import org.bakkes.game.controller.async.IThreadPool;
 import org.bakkes.game.model.entity.EntityTracker;
 import org.bakkes.game.model.entity.IOverworldEntity;
 import org.bakkes.game.model.entity.player.Player;
-
-import com.google.inject.Inject;
 
 public class InteractionListener extends AKeyListener {
 	private @Inject Player player;

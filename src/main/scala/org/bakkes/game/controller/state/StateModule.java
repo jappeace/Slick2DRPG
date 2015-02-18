@@ -1,8 +1,9 @@
 package org.bakkes.game.controller.state;
 
-import java.util.Collection;
-import java.util.LinkedList;
-
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
+import com.google.inject.name.Names;
 import org.bakkes.game.AModule;
 import org.bakkes.game.controller.IUpdatable;
 import org.bakkes.game.controller.MessageBoxController;
@@ -11,10 +12,8 @@ import org.bakkes.game.controller.state.battle.BattleState;
 import org.bakkes.game.controller.state.overworld.OverworldState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
-import com.google.inject.name.Named;
-import com.google.inject.name.Names;
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class StateModule extends AModule{
 	@Override

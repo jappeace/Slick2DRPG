@@ -1,14 +1,13 @@
 package org.bakkes.game.controller.init;
 
-import java.nio.file.Path;
-
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import org.bakkes.game.controller.init.scripting.dsl.area.PlayerDsl;
 import org.bakkes.game.controller.init.scripting.loader.ScriptLoader;
 import org.bakkes.game.model.entity.player.Player;
 import org.bakkes.game.model.map.Tile;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
+import java.nio.file.Path;
 
 public class PlayerLoader {
 	private @Inject ScriptLoader loader;

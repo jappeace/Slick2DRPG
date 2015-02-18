@@ -1,8 +1,7 @@
 package org.bakkes.game.model.entity.player;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import org.bakkes.game.controller.state.overworld.command.ICommand;
 import org.bakkes.game.controller.state.overworld.command.WalkPath;
 import org.bakkes.game.model.entity.Character;
@@ -10,8 +9,8 @@ import org.bakkes.game.model.entity.player.invetory.Inventory;
 import org.bakkes.game.model.entity.player.invetory.PokeBelt;
 import org.bakkes.game.model.map.Tile;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Player extends Character {
 	private @Inject PokeBelt pokebelt;

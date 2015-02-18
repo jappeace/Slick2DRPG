@@ -1,10 +1,9 @@
 package org.bakkes.game.controller.event.input;
 
-import org.bakkes.game.model.entity.player.Player;
-import org.bakkes.game.model.map.Tile;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import org.bakkes.game.model.entity.player.Player;
+import org.bakkes.game.model.map.Tile;
 
 /**
  * ## MovementListener

@@ -1,14 +1,13 @@
 package org.bakkes.game.view.overworld.dialog;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import org.bakkes.game.controller.event.input.IKeyListener;
 import org.bakkes.game.controller.event.input.Key;
 import org.bakkes.game.model.font.MutableFont;
 import org.bakkes.game.view.components.ITextableShape;
 import org.bakkes.game.view.components.Menu;
 import org.newdawn.slick.Graphics;
-
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 /**
  * adds a menu with choice to the messagebox

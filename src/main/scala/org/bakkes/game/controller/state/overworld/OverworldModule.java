@@ -1,9 +1,10 @@
 package org.bakkes.game.controller.state.overworld;
 
-import java.nio.file.Path;
-import java.util.Collection;
-import java.util.LinkedList;
-
+import com.google.inject.Provider;
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
+import com.google.inject.TypeLiteral;
+import com.google.inject.name.Named;
 import org.bakkes.game.AModule;
 import org.bakkes.game.controller.event.input.IKeyListener;
 import org.bakkes.game.controller.event.input.InteractionListener;
@@ -24,11 +25,9 @@ import org.bakkes.game.view.overworld.EntityView;
 import org.bakkes.game.view.overworld.dialog.IMessageBox;
 import org.bakkes.game.view.overworld.dialog.MessageBox;
 
-import com.google.inject.Provider;
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
-import com.google.inject.TypeLiteral;
-import com.google.inject.name.Named;
+import java.nio.file.Path;
+import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  * TODO: this module should probably not be part of the main initilisation squence but one tier lower

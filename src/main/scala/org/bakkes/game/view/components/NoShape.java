@@ -1,9 +1,8 @@
 package org.bakkes.game.view.components;
 
+import com.google.inject.Singleton;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
-
-import com.google.inject.Singleton;
 
 /**
  * use this as init shape to avoid nullpointer exceptions

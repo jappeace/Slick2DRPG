@@ -1,12 +1,11 @@
 package org.bakkes.game.view.overworld;
 
+import com.google.inject.Inject;
 import org.bakkes.game.model.map.BlockedTileTracker;
 import org.bakkes.game.model.map.Tile;
 import org.bakkes.game.view.AView;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-
-import com.google.inject.Inject;
 
 public class BlockedTileView extends AView{
 

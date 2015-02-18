@@ -1,11 +1,11 @@
 package org.bakkes.game.model.pokemon;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.bakkes.game.model.ASpriteNamedModel;
 import org.bakkes.game.model.IHasSpriteName;
 import org.bakkes.game.model.battle.move.IMove;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class PokemonSpecies extends ASpriteNamedModel implements IPokemonSpecies, IHasSpriteName{
 	/**

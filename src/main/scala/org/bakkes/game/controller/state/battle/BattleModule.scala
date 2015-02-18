@@ -2,18 +2,13 @@ package org.bakkes.game.controller.state.battle
 
 import java.util.List
 
+import com.google.inject.{Provides, Singleton}
+import com.google.inject.name.Named
+import net.codingwell.scalaguice.ScalaModule
 import org.bakkes.game.AModule
-import org.bakkes.game.controller.state.battle.contestent.IContestent
-import org.bakkes.game.controller.state.battle.contestent.PlayerContestent
-import org.bakkes.game.controller.state.battle.contestent.RandyRandom
+import org.bakkes.game.controller.state.battle.contestent.{IContestent, PlayerContestent, RandyRandom}
 import org.bakkes.game.model.battle.BattleLogEvent
 import org.bakkes.game.model.pokemon.Pokemon
-
-import com.google.inject.Provides
-import com.google.inject.Singleton
-import com.google.inject.name.Named
-
-import net.codingwell.scalaguice.ScalaModule
 
 class BattleModule extends AModule with ScalaModule{
 

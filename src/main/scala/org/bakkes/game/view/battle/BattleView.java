@@ -1,5 +1,8 @@
 package org.bakkes.game.view.battle;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.name.Named;
 import org.bakkes.game.controller.state.battle.Battle;
 import org.bakkes.game.controller.state.battle.contestent.PlayerContestent;
 import org.bakkes.game.model.GameInfo;
@@ -10,10 +13,6 @@ import org.bakkes.game.view.SpriteType;
 import org.bakkes.game.view.components.Menu;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.name.Named;
 
 public class BattleView extends AView{
 

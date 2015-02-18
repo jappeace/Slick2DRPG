@@ -3,7 +3,6 @@ package org.bakkes.game.model.map;
 import nl.jappieklooster.groovy.math.IMinusOperator;
 import nl.jappieklooster.groovy.math.IMultiply;
 import nl.jappieklooster.groovy.math.IPlusOperator;
-
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;

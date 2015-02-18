@@ -1,9 +1,8 @@
 package org.bakkes.game.controller.event.input;
 
+import com.google.inject.Inject;
 import org.bakkes.game.controller.event.MainMenuHandler;
 import org.bakkes.game.controller.event.MenuShower;
-
-import com.google.inject.Inject;
 
 public class MenuToggleListener extends AKeyListener{
 	private @Inject MenuShower shower;

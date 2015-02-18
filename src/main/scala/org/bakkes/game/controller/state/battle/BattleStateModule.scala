@@ -1,20 +1,14 @@
 package org.bakkes.game.controller.state.battle;
 
-import org.bakkes.game.AModule;
-import org.bakkes.game.controller.MenuController;
-import org.bakkes.game.controller.event.BattleMenuHandler;
-import org.bakkes.game.controller.event.input.BattleEndListner;
-import org.bakkes.game.controller.event.input.CompositeKeyListener;
-import org.bakkes.game.model.pokemon.Pokemon;
-import org.bakkes.game.view.components.{Menu, ITextableShape}
-;
-
+import com.google.inject.name.{Named, Names}
 import com.google.inject.{Provider, Provides, Singleton}
-;
-import com.google.inject.name.Named;
-import com.google.inject.name.Names;
-
 import net.codingwell.scalaguice.ScalaModule
+import org.bakkes.game.AModule
+import org.bakkes.game.controller.MenuController
+import org.bakkes.game.controller.event.BattleMenuHandler
+import org.bakkes.game.controller.event.input.{BattleEndListner, CompositeKeyListener}
+import org.bakkes.game.model.pokemon.Pokemon
+import org.bakkes.game.view.components.{ITextableShape, Menu}
 
 /**
  * bridging module

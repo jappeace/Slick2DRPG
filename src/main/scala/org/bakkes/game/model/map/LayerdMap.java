@@ -1,15 +1,14 @@
 package org.bakkes.game.model.map;
 
-import java.nio.file.Path;
-
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.pathfinding.PathFindingContext;
 import org.newdawn.slick.util.pathfinding.TileBasedMap;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.google.inject.name.Named;
+import java.nio.file.Path;
 
 @Singleton
 public class LayerdMap implements TileBasedMap, IAreaNameAcces {

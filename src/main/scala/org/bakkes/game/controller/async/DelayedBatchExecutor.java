@@ -1,10 +1,10 @@
 package org.bakkes.game.controller.async;
 
+import org.bakkes.game.controller.IUpdatable;
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.Executor;
-
-import org.bakkes.game.controller.IUpdatable;
 
 /**
  * ## DelayedBatchExeuctor

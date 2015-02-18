@@ -1,7 +1,6 @@
 package org.bakkes.game.controller.init.scripting.dsl;
 
 import groovy.lang.Closure;
-
 import org.bakkes.game.controller.init.scripting.loader.IScriptLoadableType;
 
 /**

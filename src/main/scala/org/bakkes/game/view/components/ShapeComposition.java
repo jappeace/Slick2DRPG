@@ -1,15 +1,14 @@
 package org.bakkes.game.view.components;
 
-import java.util.EnumMap;
-import java.util.Map;
-
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import org.bakkes.game.model.GameInfo;
 import org.bakkes.game.model.map.Direction;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class ShapeComposition extends AShapeContainer implements IShape{
 
