@@ -8,13 +8,12 @@ class Inventory extends Iterable[Item]{
 	private val items = new ArrayBuffer[Item](inventorySize)
 
 	def add(item: Item):Boolean= {
-		val optional = items.find{_.getName == item.getName}
+		val optional = items.find{_ == item}
 		if(optional.nonEmpty){
 			optional.get.amount = optional.get.amount + 1
 			return true
 		}
 		if (items.size < inventorySize ) {
-			item.inventory_=(this)
 			items += item
 			return true
 		}
