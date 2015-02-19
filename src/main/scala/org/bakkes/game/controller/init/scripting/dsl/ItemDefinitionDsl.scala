@@ -28,3 +28,8 @@ class ItemDefinitionDsl extends AInteractableDsl {
 		return getTarget
 	}
 }
+case class poep(var name:String)
+object a{
+	val b = new poep("b")
+	b.name = "a"
+}

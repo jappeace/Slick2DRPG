@@ -23,10 +23,10 @@ public class WalkPath extends ACommand{
 		if(firstTime){
 			firstTime = false;
             path = pathFinder.findPath(null,
-                entity.getTile().left,
-                entity.getTile().top,
-                getDestination().left,
-                getDestination().top
+                entity.getTile().left(),
+                entity.getTile().top(),
+                getDestination().left(),
+                getDestination().top()
             );
             if(path == null){
             	done();
@@ -35,7 +35,8 @@ public class WalkPath extends ACommand{
 		}
         final Tile destinationTile = new Tile(path.getStep(currentStep));
 
-        final Vector2f delta = destinationTile.minus(entity.getTile()).multiply(new Vector2f(tpf, tpf));
+		final Vector2f src = destinationTile.minus(entity.getTile()).topLeftPixels();
+        final Vector2f delta = new Vector2f(tpf * src.x, tpf * src.y);
         final Vector2f position = entity.getPosition();
         if(delta.equals(new Vector2f(0,0))){
             if(destinationTile.topLeftPixels().x < position.x){
@@ -47,14 +48,14 @@ public class WalkPath extends ACommand{
         }
 
         boolean arrived = false;
-        if(Math.abs(added.x + delta.x) >= Tile.WIDTH) {
-        	final float smoothDistance = Tile.WIDTH - Math.abs(added.x) +0.01f;
+        if(Math.abs(added.x + delta.x) >= Tile.WIDTH()) {
+        	final float smoothDistance = Tile.WIDTH() - Math.abs(added.x) +0.01f;
             delta.x = delta.x >= 0 ?  smoothDistance: -smoothDistance;
             arrived = true;
         }
 
-        if(Math.abs(added.y + delta.y) >= Tile.HEIGHT) {
-        	final float smoothDistance = Tile.HEIGHT - Math.abs(added.y) +0.01f;
+        if(Math.abs(added.y + delta.y) >= Tile.HEIGHT()) {
+        	final float smoothDistance = Tile.HEIGHT() - Math.abs(added.y) +0.01f;
             delta.y = delta.y >= 0 ? smoothDistance : -smoothDistance;
             arrived = true;
         }
@@ -89,15 +90,15 @@ public class WalkPath extends ACommand{
 
         final Tile p = new Tile(path.getStep(currentStep-1)).minus(nextTile);
 
-        if(p.left == -1){
+        if(p.left() == -1){
             entity.setFacing(Direction.East);
-        }else if(p.left == 1){
+        }else if(p.left() == 1){
             entity.setFacing(Direction.West);
         }
 
-        if(p.top == -1){
+        if(p.top() == -1){
             entity.setFacing(Direction.South);
-        }else if(p.top == 1){
+        }else if(p.top() == 1){
             entity.setFacing(Direction.North);
         }
 

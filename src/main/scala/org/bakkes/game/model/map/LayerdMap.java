@@ -50,7 +50,7 @@ public class LayerdMap implements TileBasedMap, IAreaNameAcces {
 
     }
     private int getTileId(final Tile tile, final int layer){
-    	return map.getTileId(tile.left, tile.top, layer);
+    	return map.getTileId(tile.left(), tile.top(), layer);
     }
 
 	@Override

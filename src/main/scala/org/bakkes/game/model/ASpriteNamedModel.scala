@@ -1,6 +1,6 @@
-package org.bakkes.game.model;
+package org.bakkes.game.model
 
-public class ASpriteNamedModel extends AModel implements IHasSpriteName{
+class ASpriteNamedModel() extends AModel() with IHasSpriteName {
 	/**
 	 * overwrite the regular name for a spritname,
 	 * By convention use a regular name, it makes things more readable.
@@ -12,23 +12,22 @@ public class ASpriteNamedModel extends AModel implements IHasSpriteName{
 	 * Instead you should create a symlink (shortcut) to the desired animation so he will always have the
 	 * same skin
 	 */
-	private String spriteName = "";
+	private var spriteName: String = ""
+
 	/**
 	 * views should call this method instead of calling getName,
 	 * getName is for showing the name as a string, this has some
 	 * extra filesystem friendly modifications like killing spaces
 	 */
-	@Override
-	public String getSpriteName() {
-		if(spriteName.isEmpty()){
-            spriteName = getName().toLowerCase().replace(' ', '_');
+	def getSpriteName: String = {
+		if (spriteName.isEmpty) {
+			spriteName = getName.toLowerCase.replace(' ', '_')
 		}
-		return spriteName;
+		return spriteName
 	}
 
-	@Override
-	public void setSpriteName(final String to) {
-		assert to != null;
-		spriteName = to;
+	def setSpriteName(to: String) {
+		assert(to != null)
+		spriteName = to
 	}
 }

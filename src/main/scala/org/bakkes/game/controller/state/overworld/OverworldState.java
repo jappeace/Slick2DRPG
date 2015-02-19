@@ -140,7 +140,7 @@ public class OverworldState extends CommonGameState {
 		if(clickedTile.getData() != null && !clickedTile.getData().equals(player.getTile())) {
 			g.setColor(new Color(0, 0, 255, 64));
 			final Vector2f tl = clickedTile.getData().topLeftPixels();
-			g.fillRect(tl.x, tl.y, Tile.WIDTH, Tile.HEIGHT);
+			g.fillRect(tl.x, tl.y, Tile.WIDTH(), Tile.HEIGHT());
 		}
 		for(final IRenderable renderable: translatedViews.get()){
 			renderable.render(g);
@@ -149,7 +149,7 @@ public class OverworldState extends CommonGameState {
 
 		final Vector2f mouseTile = Tile.PixelsToGridPixels(mousePos);
 		g.setColor(Color.black);
-		g.drawRect(mouseTile.getX(), mouseTile.getY(), Tile.WIDTH, Tile.HEIGHT);
+		g.drawRect(mouseTile.getX(), mouseTile.getY(), Tile.WIDTH(), Tile.HEIGHT());
 		super.render(gc, arg1, g);
 	}
 }

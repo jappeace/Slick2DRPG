@@ -3,8 +3,11 @@ package org.bakkes.game.model
 import org.newdawn.slick.geom.Vector2f
 trait TPosition extends IPositionable{
 
-	private val position:Vector2f  = new Vector2f()
-	override def getPosition = position
+	private val _position:Vector2f  = new Vector2f()
+	override def getPosition = _position
+
+	def position = getPosition
+	def position_= (to:Vector2f) = setPosition(to)
 
 	override def x = getPosition().x
 	override def y = getPosition().y
@@ -17,8 +20,8 @@ trait TPosition extends IPositionable{
 		onChangePosition(getPosition())
 	}
 	override def setPosition(position: Vector2f ) = {
-		this.position.x = position.x
-		this.position.y = position.y
+		_position.x = position.x
+		_position.y = position.y
 		onChangePosition(getPosition())
 	}
 

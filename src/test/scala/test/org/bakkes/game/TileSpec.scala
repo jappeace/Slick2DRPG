@@ -53,7 +53,7 @@ class TileSpec extends WordSpec {
 					(Direction.South, new Tile(1, 3)),
 					(Direction.South, new Tile(-1, 3)))
 				forAll(directionTile) { (direction, tile) =>
-					assert(tile.getDirection() == direction)
+					assert(tile.getDirection == direction)
 				}
 			}
 		}

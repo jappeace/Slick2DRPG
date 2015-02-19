@@ -1,7 +1,7 @@
 package org.bakkes.game.model.pokemon;
 
-import nl.jappieklooster.groovy.math.IMinusOperator;
-import nl.jappieklooster.groovy.math.IPlusOperator;
+import nl.jappieklooster.groovy.operator.IMinusOperator;
+import nl.jappieklooster.groovy.operator.IPlusOperator;
 
 import java.util.Random;
 

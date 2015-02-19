@@ -51,7 +51,7 @@ public class AnimationDsl extends ADsl{
         commands.call();
         for(Tile tile : dsl.getResult()){
         	tile = tile.plus(offset);
-            result[direction].addFrame(duration, tile.left, tile.top);
+            result[direction].addFrame(duration, tile.left(), tile.top());
         }
 	}
 	private Animation createAnimation(){

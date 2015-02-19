@@ -38,10 +38,10 @@ public class Camera {
 	public void centerOn(final float x, final float y) {
 
 		/** the height of the map in pixel */
-		final int mapHeight = map.getWidthInTiles() * Tile.WIDTH;
+		final int mapHeight = map.getWidthInTiles() * Tile.WIDTH();
 
 		/** the width of the map in pixel */
-		final int mapWidth = map.getHeightInTiles() * Tile.HEIGHT;
+		final int mapWidth = map.getHeightInTiles() * Tile.HEIGHT();
 		// try to set the given position as center of the camera by default
 		cameraX = x - canvasSize.x / 2;
 		cameraY = y - canvasSize.y / 2;
@@ -121,12 +121,12 @@ public class Camera {
 
 	public void drawMap(final int offsetX, final int offsetY) {
 		// calculate the offset to the next tile (needed by TiledMap.render())
-		final int tileOffsetX = (int) -(cameraX % Tile.WIDTH);
-		final int tileOffsetY = (int) -(cameraY % Tile.HEIGHT);
+		final int tileOffsetX = (int) -(cameraX % Tile.WIDTH());
+		final int tileOffsetY = (int) -(cameraY % Tile.HEIGHT());
 
 		// calculate the index of the leftmost tile that is being displayed
-		final int tileIndexX = (int) (cameraX / Tile.WIDTH);
-		final int tileIndexY = (int) (cameraY / Tile.HEIGHT);
+		final int tileIndexX = (int) (cameraX / Tile.WIDTH());
+		final int tileIndexY = (int) (cameraY / Tile.HEIGHT());
 
 		// finally draw the section of the map on the screen
 		map.render(
@@ -134,8 +134,8 @@ public class Camera {
             tileOffsetY + offsetY,
             tileIndexX,
             tileIndexY,
-            (int)(canvasSize.x - tileOffsetX) / Tile.WIDTH + 1,
-            (int)(canvasSize.y - tileOffsetY) / Tile.HEIGHT + 1
+            (int)(canvasSize.x - tileOffsetX) / Tile.WIDTH() + 1,
+            (int)(canvasSize.y - tileOffsetY) / Tile.HEIGHT() + 1
         );
 	}
 

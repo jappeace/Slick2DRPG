@@ -1,4 +1,4 @@
-package nl.jappieklooster.groovy.math;
+package nl.jappieklooster.groovy.operator;
 
 /**
  * if a java class implements this interface it allows the class to perform
@@ -6,5 +6,5 @@ package nl.jappieklooster.groovy.math;
  * @param <T>
  */
 public interface IPlusOperator<T> {
-	T plus(T rightHand);
+	T plus(T righthandSide);
 }

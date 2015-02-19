@@ -37,14 +37,14 @@ public class MoveOnOverworld extends AOneTimeCommand{
 	private Collection<Tile> moveTo(final Tile entityFacing, final Tile entityTile){
 
 		final Collection<Tile> result = new LinkedList<>();
-        Vector2f faceCorrection = new Vector2f(3,3);
+        Tile faceCorrection = new Tile(3,3);
         if(entityFacing.getDirection() == Direction.North || entityFacing.getDirection() == Direction.West){
-        	faceCorrection = new Vector2f(2,2); // nort and west need less correction, because they are drawn from top left, so the available tile is one less away
+        	faceCorrection = new Tile(2,2); // nort and west need less correction, because they are drawn from top left, so the available tile is one less away
         }
         // first move 2 tiles away in the direction the npc is facing
 		result.add(new Tile(entityFacing.multiply(faceCorrection)).plus(entityTile));
         // now move closer to garantee facing
-        faceCorrection = faceCorrection.sub(new Vector2f(1,1));
+        faceCorrection = faceCorrection.minus(new Tile(1,1));
         result.add(new Tile(entityFacing.multiply(faceCorrection)).plus(entityTile));
 
 
