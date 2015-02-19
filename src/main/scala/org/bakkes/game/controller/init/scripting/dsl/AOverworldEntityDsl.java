@@ -1,7 +1,7 @@
 package org.bakkes.game.controller.init.scripting.dsl;
 
 import org.bakkes.game.controller.init.scripting.dsl.anotation.Required;
-import org.bakkes.game.model.IInteractable;
+import org.bakkes.game.model.entity.IInteractable;
 import org.bakkes.game.model.entity.IOverworldEntity;
 import org.bakkes.game.model.map.Tile;
 import org.newdawn.slick.util.Log;

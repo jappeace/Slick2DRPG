@@ -25,7 +25,7 @@ class ItemMenuHandler @Inject() (
 			val result = viewsProvider.get()
 			result.setNamed(
 				path.resolve(item.getSpriteName+".png"),
-				"%xx %s".format(item.amount, item.getName))
+				"%xx %s".format(inventory.count(item), item.getName))
 			result
 		}
 		return result

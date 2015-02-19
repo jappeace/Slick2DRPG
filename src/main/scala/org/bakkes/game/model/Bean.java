@@ -12,7 +12,14 @@ import nl.jappieklooster.annotation.Nullable;
  * it is not really a model in that it is just a lack of pointers in Java
  * but this lack of pointers also make java easier to use... for newbies...
  */
-public class Bean< T> {
+public class Bean<T> {
+
+	public Bean(){
+		this(null);
+	}
+	public Bean(T initial){
+		data = initial;
+	}
 
 	private @Nullable T data;
 

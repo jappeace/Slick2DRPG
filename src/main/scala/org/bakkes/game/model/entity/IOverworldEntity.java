@@ -1,7 +1,6 @@
 package org.bakkes.game.model.entity;
 
 import org.bakkes.game.model.IHasSpriteName;
-import org.bakkes.game.model.IInteractable;
 import org.bakkes.game.model.IModel;
 import org.bakkes.game.model.map.IBlocksTiles;
 import org.bakkes.game.model.map.Tile;

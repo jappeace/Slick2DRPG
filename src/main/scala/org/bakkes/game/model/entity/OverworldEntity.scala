@@ -1,15 +1,13 @@
 package org.bakkes.game.model.entity
 
-import groovy.lang.Closure
 import org.bakkes.game.model.map.Tile
 import org.bakkes.game.model.{ASpriteNamedModel, TPosition}
-import org.newdawn.slick.util.Log
 
 /**
  * a entity in the overworld has to have a position (form top left of the map in pixels),
  * and offers
  */
-abstract class OverworldEntity extends ASpriteNamedModel with IOverworldEntity with TPosition {
+abstract class OverworldEntity extends ASpriteNamedModel with IOverworldEntity with TPosition with TInteractor {
 	def setPosition(to: Tile) {
 		setPosition(to.topLeftPixels)
 	}
@@ -29,18 +27,4 @@ abstract class OverworldEntity extends ASpriteNamedModel with IOverworldEntity w
 		return Tile.createFromPixelsCoordinates(position)
 	}
 
-	private var onInteract: Closure[Void] = null
-
-	override def interact {
-		Log.info("interacting with " + getName + " on location: " + getPosition)
-		if (onInteract == null) {
-			Log.info("no interaction present")
-			return
-		}
-		onInteract.call
-	}
-
-	def setInteract(callback: Closure[Void]) {
-		onInteract = callback
-	}
 }

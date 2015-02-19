@@ -15,8 +15,8 @@ public class ItemLoader {
 
 	public Item load(final String name){
         final ItemDefinitionDsl dsl = itemDslProvider.get();
+		dsl.setItemName(name);
         loader.load(path.resolve(name + ".dsl"), dsl);
-        dsl.setItemName(name);
-        return dsl.getItem();
+        return dsl.createItem();
 	}
 }
