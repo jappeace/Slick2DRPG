@@ -8,5 +8,6 @@ public interface ITextableShape extends IShape{
 	 * @param the text to set
 	 * @return a reference to the modified shape or itself
 	 */
-	public ITextableShape setText(final String text);
+	ITextableShape setText(final String text);
+	void setFont(final org.newdawn.slick.Font font);
 }

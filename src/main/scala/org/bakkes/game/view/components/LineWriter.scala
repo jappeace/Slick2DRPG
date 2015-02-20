@@ -7,14 +7,18 @@ import org.newdawn.slick.{Color, Font, Graphics}
 import scala.collection.immutable.List
 
 /**
+ * works like a type writer for shape, it will go down everytime a shape is added
+ * by the height of it, originaly intended only for strings, but after observation
+ * it works for anything with the dimensions of a shape
+ *
  * don't extends a view otherwise stackoverflow
  *
  * a simple utility to emulate the cout << "" kind of stuff on screen
  */
 class LineWriter @Inject() (
-		private var textLineProvider: Provider[TextLine]
+		private var textLineProvider: Provider[ITextableShape]
 						 )extends AShape with IRenderable {
-	private var lines = List[TextLine]()
+	private var lines = List[IShape]()
 	var color: Color = Color.black
 
 	def render(g: Graphics) {
@@ -27,7 +31,7 @@ class LineWriter @Inject() (
 	def width: Float = {
 		var result = 0f
 		val max = lines.sortWith(
-			(a:TextLine, b:TextLine) => a.x() + a.width() < b.x() + b.width()
+			(a, b) => a.x() + a.width() < b.x() + b.width()
 		).head
 		val min = lines.sortBy((x) => x.x()).last
 		result = max.x - min.x
@@ -44,7 +48,7 @@ class LineWriter @Inject() (
 	}
 
 	def write(str: String, font: Font) {
-		val t: TextLine = textLineProvider.get
+		val t = textLineProvider.get
 		t.setText(str)
 		t.y(y)
 		t.x(x)
@@ -52,11 +56,11 @@ class LineWriter @Inject() (
 		write(t)
 	}
 
-	def write(line: TextLine) {
+	def write(line: IShape) {
 		lines =  line :: lines
 		y(y + line.height)
 	}
 
-	def clear = lines = List[TextLine]()
+	def clear = lines = List[IShape]()
 	def lineCount: Int = lines.count((x)=>true)
 }
