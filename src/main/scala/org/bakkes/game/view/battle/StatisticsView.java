@@ -60,7 +60,7 @@ public class StatisticsView extends AShape{
 	/**
 	 *
 	 * @param g
-	 * @param fraction how much of the bar needs to be vissible between 0 .. 1
+	 * @param fraction how much of the bar needs to be visible between 0 .. 1
 	 * @param color
 	 */
 	private void drawBar(final Graphics g,final float fraction, final Color color){

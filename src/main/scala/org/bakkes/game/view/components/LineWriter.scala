@@ -36,7 +36,7 @@ class LineWriter @Inject() (
 
 	def height: Float = {
 		val sorted = lines.sortBy((y) => y.y())
-		return sorted.head.y() - sorted.last.y()
+		return sorted.last.y() - sorted.head.y()
 	}
 
 	def write(str: String) {
