@@ -13,13 +13,13 @@ public class CurrentAreaLoader {
 	@Inject ScriptLoader loader;
 	@Inject @Named("current area") Provider<Path> path;
 
-	public void loadNPC(final IScriptLoadableType type){
+	public void loadNPC(final Object type){
 		loader.load(path.get().resolve("npc.dsl"), type);
 	}
-	public void loadItems(final IScriptLoadableType type){
+	public void loadItems(final Object type){
 		loader.load(path.get().resolve("items.dsl"), type);
 	}
-	public void loadWild(final IScriptLoadableType type){
+	public void loadWild(final Object type){
 		loader.load(path.get().resolve("wild.dsl"), type);
 	}
 }

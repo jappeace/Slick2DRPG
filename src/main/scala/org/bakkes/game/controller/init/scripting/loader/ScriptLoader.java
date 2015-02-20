@@ -33,7 +33,7 @@ public class ScriptLoader {
 	 * @param delagate this object will handle the dsl calls
 	 * @return succes
 	 */
-	public boolean load(final Path path, final IScriptLoadableType delagate){
+	public boolean load(final Path path, Object delagate){
 		Log.info("loading script: " + path);
 		boolean success = false;
 		final File file = path.toFile();

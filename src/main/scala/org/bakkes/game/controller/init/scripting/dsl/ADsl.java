@@ -1,7 +1,6 @@
 package org.bakkes.game.controller.init.scripting.dsl;
 
 import groovy.lang.Closure;
-import org.bakkes.game.controller.init.scripting.loader.IScriptLoadableType;
 
 /**
  * just a base class
@@ -15,7 +14,7 @@ import org.bakkes.game.controller.init.scripting.loader.IScriptLoadableType;
  * dsl classes are more than often error handlers than anything else, make sure to log any user fuckups so he can learn
  * And don't trust the input
  */
-public abstract class ADsl implements IScriptLoadableType{
+public abstract class ADsl{
 
 	public boolean isDone(){
 		return true;
