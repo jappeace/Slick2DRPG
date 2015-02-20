@@ -1,4 +1,4 @@
-package org.bakkes.game.controller.event.input
+package org.bakkes.game.controller.state.event.input
 
 import java.util.Collection
 

@@ -1,6 +1,6 @@
 package org.bakkes.game.model;
 
-public interface IModel {
-	String getName();
+public interface IModel extends INamed{
+
 	void setName(String to);
 }

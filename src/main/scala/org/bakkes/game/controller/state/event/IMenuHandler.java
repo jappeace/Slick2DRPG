@@ -1,4 +1,4 @@
-package org.bakkes.game.controller.event;
+package org.bakkes.game.controller.state.event;
 
 import org.bakkes.game.view.components.IShape;
 

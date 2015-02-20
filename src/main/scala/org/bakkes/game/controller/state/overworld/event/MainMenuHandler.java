@@ -1,7 +1,8 @@
-package org.bakkes.game.controller.event;
+package org.bakkes.game.controller.state.overworld.event;
 
 import com.google.inject.Inject;
 import org.bakkes.game.controller.ShapesConverter;
+import org.bakkes.game.controller.state.event.IMenuHandler;
 import org.bakkes.game.view.components.IShape;
 
 import java.util.Collection;

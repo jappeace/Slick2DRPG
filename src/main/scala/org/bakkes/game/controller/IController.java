@@ -1,6 +1,6 @@
 package org.bakkes.game.controller;
 
-import org.bakkes.game.controller.event.input.IKeyListener;
+import org.bakkes.game.controller.state.event.input.IKeyListener;
 
 /**
  * ## Controller

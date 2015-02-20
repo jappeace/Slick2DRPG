@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
 import org.bakkes.game.controller.MessageBoxController;
-import org.bakkes.game.controller.event.input.CompositeKeyListener;
+import org.bakkes.game.controller.state.event.input.CompositeKeyListener;
 import org.bakkes.game.controller.init.PlayerLoader;
 import org.bakkes.game.controller.state.CommonGameState;
 import org.bakkes.game.controller.state.State;

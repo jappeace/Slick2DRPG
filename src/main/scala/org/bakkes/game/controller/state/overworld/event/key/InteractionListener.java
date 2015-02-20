@@ -1,7 +1,9 @@
-package org.bakkes.game.controller.event.input;
+package org.bakkes.game.controller.state.overworld.event.key;
 
 import com.google.inject.Inject;
 import org.bakkes.game.controller.async.IThreadPool;
+import org.bakkes.game.controller.state.event.input.AKeyListener;
+import org.bakkes.game.controller.state.event.input.Key;
 import org.bakkes.game.model.entity.EntityTracker;
 import org.bakkes.game.model.entity.IOverworldEntity;
 import org.bakkes.game.model.entity.player.Player;

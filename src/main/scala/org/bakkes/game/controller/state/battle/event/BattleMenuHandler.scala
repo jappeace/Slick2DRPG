@@ -1,9 +1,10 @@
-package org.bakkes.game.controller.event
+package org.bakkes.game.controller.state.battle.event
 
 import java.util.Collection
 
-import com.google.inject.{Inject, Provider}
 import com.google.inject.name.Named
+import com.google.inject.{Inject, Provider}
+import org.bakkes.game.controller.state.event.IMenuHandler
 import org.bakkes.game.controller.init.scripting.loader.ItemLoader
 import org.bakkes.game.controller.state.battle.contestent.PlayerContestent
 import org.bakkes.game.model.entity.player.invetory._

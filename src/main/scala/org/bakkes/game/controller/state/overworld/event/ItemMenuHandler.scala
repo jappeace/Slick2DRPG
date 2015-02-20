@@ -1,12 +1,13 @@
-package org.bakkes.game.controller.event
+package org.bakkes.game.controller.state.overworld.event
 
 import java.nio.file.Path
 import java.util.Collection
 
-import com.google.inject.{Inject, Provider}
 import com.google.inject.name.Named
+import com.google.inject.{Inject, Provider}
+import org.bakkes.game.controller.state.event.IMenuHandler
 import org.bakkes.game.model.entity.player.invetory.Inventory
-import org.bakkes.game.view.components.{SpritWithString, IShape}
+import org.bakkes.game.view.components.{IShape, SpritWithString}
 
 import scala.collection.JavaConversions._
 

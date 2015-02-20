@@ -1,7 +1,7 @@
-package org.bakkes.game.controller.event.input
+package org.bakkes.game.controller.state.overworld.event.key
 
-import com.google.inject.Inject
-import com.google.inject.Provider
+import com.google.inject.{Inject, Provider}
+import org.bakkes.game.controller.state.event.input.{AKeyListener, IKeyListener, Key}
 import org.bakkes.game.model.entity.player.Player
 import org.bakkes.game.model.map.Tile
 

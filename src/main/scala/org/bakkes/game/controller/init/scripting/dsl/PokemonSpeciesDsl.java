@@ -7,7 +7,6 @@ import groovy.lang.Closure;
 import org.bakkes.game.controller.init.scripting.dsl.anotation.Required;
 import org.bakkes.game.controller.init.scripting.dsl.anotation.Result;
 import org.bakkes.game.controller.init.scripting.loader.ScriptLoader;
-import org.bakkes.game.model.battle.move.Move;
 import org.bakkes.game.model.pokemon.PokemonSpecies;
 import org.bakkes.game.model.pokemon.PokemonStatistics;
 import org.bakkes.game.model.pokemon.Type;
@@ -20,7 +19,6 @@ public class PokemonSpeciesDsl extends ASpriteNamedDsl {
 
 	private PokemonSpecies target = new PokemonSpecies();
 	@Inject Provider<PokemonStatistics> statisticsProvider;
-	@Inject Provider<Move> movesProvider;
 	@Inject ScriptLoader loader;
 	@Inject @Named("moves") Path path;
 	public final void setEvolution(final String evolution) {
@@ -60,10 +58,9 @@ public class PokemonSpeciesDsl extends ASpriteNamedDsl {
 	public final void setMoves(final Collection<String> moves) {
 		for(final String moveName : moves){
 			Log.info("reading " + moveName);
-			final Move move = movesProvider.get();
-			loader.load(path.resolve(moveName + ".dsl"), move);
-			move.setName(moveName); // avoid confusion user can't override name
-			target.getMoves().add(move);
+			final MoveDsl factory = new MoveDsl(moveName);
+			loader.load(path.resolve(moveName + ".dsl"), factory);
+			target.getMoves().add(factory.createMove());
 		}
 	}
 	public void setTrainingSpeed(final float trainingSpeed) {

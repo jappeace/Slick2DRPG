@@ -1,10 +1,11 @@
-package org.bakkes.game.controller.event;
+package org.bakkes.game.controller.state.overworld.event;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import org.bakkes.game.controller.MenuController;
-import org.bakkes.game.controller.event.input.AKeyListener;
-import org.bakkes.game.controller.event.input.Key;
+import org.bakkes.game.controller.state.event.IMenuHandler;
+import org.bakkes.game.controller.state.event.input.AKeyListener;
+import org.bakkes.game.controller.state.event.input.Key;
 import org.bakkes.game.controller.state.overworld.OverworldState;
 import org.bakkes.game.view.components.Menu;
 

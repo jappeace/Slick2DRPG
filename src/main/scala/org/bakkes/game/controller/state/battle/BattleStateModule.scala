@@ -5,8 +5,9 @@ import com.google.inject.{Provider, Provides, Singleton}
 import net.codingwell.scalaguice.ScalaModule
 import org.bakkes.game.AModule
 import org.bakkes.game.controller.MenuController
-import org.bakkes.game.controller.event.BattleMenuHandler
-import org.bakkes.game.controller.event.input.{BattleEndListner, CompositeKeyListener}
+import org.bakkes.game.controller.state.event.input.CompositeKeyListener
+import org.bakkes.game.controller.state.battle.event.BattleMenuHandler
+import org.bakkes.game.controller.state.battle.event.key.BattleEndListner
 import org.bakkes.game.model.pokemon.Pokemon
 import org.bakkes.game.view.components.{ITextableShape, Menu}
 

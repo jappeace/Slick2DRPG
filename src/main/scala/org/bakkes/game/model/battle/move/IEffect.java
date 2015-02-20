@@ -1,18 +1,9 @@
 package org.bakkes.game.model.battle.move;
 
-import org.bakkes.game.model.pokemon.Pokemon;
-
 /**
- * sleep poison etc
+ * an effect is an move but last for multiple turns
  */
-public interface IEffect {
-	/**
-	 * to render it
-	 * @return
-	 */
-	String getName();
-
-	void execute(Pokemon pokemon);
+public interface IEffect extends IMove{
 
 	/**
 	 * needs to be removed?

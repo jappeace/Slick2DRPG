@@ -1,4 +1,4 @@
-package org.bakkes.game.controller.event.input;
+package org.bakkes.game.controller.state.event.input;
 
 public interface IKeyListener {
 	public void KeyDown(final Key key);
