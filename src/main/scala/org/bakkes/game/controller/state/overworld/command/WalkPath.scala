@@ -23,12 +23,12 @@ class WalkPath @Inject() (
 			firstTime = false
 			path = pathFinder.findPath(null, entity.getTile.left, entity.getTile.top, getDestination.left, getDestination.top)
 			if (path == null) {
-				done
+				done()
 				return
 			}
 		}
-		val destinationTile: Tile = new Tile(path.getStep(currentStep))
-		val diffTile = destinationTile.minus(entity.getTile)
+		val destinationTile = new Tile(path.getStep(currentStep))
+		val diffTile = destinationTile - entity.getTile
 		val delta = new Vector2f(diffTile.left*tpf, diffTile.top*tpf)
 		val position = entity.getPosition
 		if (delta == new Vector2f(0, 0)) {
@@ -65,7 +65,7 @@ class WalkPath @Inject() (
 		added.x = 0
 		added.y = 0
 		if (currentStep >= path.getLength || isInterupted) {
-			done
+			done()
 			currentStep = 0
 			entity.onFinishedWalking
 			return
