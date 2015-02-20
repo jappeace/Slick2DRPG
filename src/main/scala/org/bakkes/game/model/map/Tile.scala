@@ -108,4 +108,12 @@ object Tile {
 	def PixelsToGridPixels(p: Vector2f): Vector2f = {
 		return new Vector2f((p.getX - (p.getX % Tile.WIDTH)), (p.getY - (p.getY % Tile.HEIGHT)))
 	}
+
+	/**
+	 * this is allowed since no information is lost, the otherway around is lossy
+	 * and thus cannot be done implicitly
+	 * @param input
+	 * @return
+	 */
+	implicit def toVector2f(input:Tile) : Vector2f = new Vector2f(input.left, input.top)
 }
