@@ -2,7 +2,7 @@ package org.bakkes.game.controller.state.battle.contestent;
 
 import org.bakkes.game.model.battle.move.IMove;
 
-import java.util.List;
+import scala.collection.Seq;
 
 public class PlayerContestent extends AContestent {
 
@@ -12,14 +12,15 @@ public class PlayerContestent extends AContestent {
 	}
 
 	public synchronized boolean selectMove(final int which){
-		List<IMove> moves = getOwnPokemon().getMoves();
+		Seq<IMove> moves = getOwnPokemon().getMoves();
+		;
 		if(which < 0){
 			return false;
 		}
 		if(which >= moves.size()){
 			return false;
 		}
-		setMove(moves.get(which));
+		setMove(moves.take(which + 1).last());
 		return true;
 	}
 	@Override

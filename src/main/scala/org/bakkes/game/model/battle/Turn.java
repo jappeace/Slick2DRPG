@@ -30,8 +30,7 @@ public class Turn {
 	}
 	public void execute(){
 		change = new PokemonStatistics(target.getCurrentStats());
-		final int damage = move.getDamage();
-		target.damage(damage);
+		move.execute(agressor, target);
 		change = target.getCurrentStats().minus(change);
 	}
 	public IPokemonStatistics getChange(){

@@ -16,6 +16,9 @@ public enum SpriteType {
 		if(target.isFemale()){
 			female = "_female";
 		}
-		return target.getSpriteName() + "/" + shiny + this.name() + female +".png";
+		if(this == small || this == big){
+			female = shiny = "";
+		}
+		return target.getName() + "/" + shiny + this.name() + female +".png";
 	}
 }

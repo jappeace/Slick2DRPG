@@ -48,7 +48,7 @@ class BattleMenuHandler @Inject() (
 
 	}
 	override def getOptions : Collection[IShape] = {
-		val result = pokemon.get().getMoves().map{move =>
+		val result = pokemon.get().getMoves.map{move =>
 			toLine(move.getName())
 		}
 		result.add(toLine("pokeball"))

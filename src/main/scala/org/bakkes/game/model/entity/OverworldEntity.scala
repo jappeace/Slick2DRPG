@@ -1,13 +1,13 @@
 package org.bakkes.game.model.entity
 
 import org.bakkes.game.model.map.Tile
-import org.bakkes.game.model.{ASpriteNamedModel, TPosition}
+import org.bakkes.game.model.{ASpriteNamedModel, APosition}
 
 /**
  * a entity in the overworld has to have a position (form top left of the map in pixels),
  * and offers
  */
-abstract class OverworldEntity extends ASpriteNamedModel with IOverworldEntity with TPosition with TInteractor {
+abstract class OverworldEntity extends ASpriteNamedModel with IOverworldEntity with APosition with TInteractor {
 	def setPosition(to: Tile) {
 		setPosition(to.topLeftPixels)
 	}

@@ -1,6 +1,6 @@
 package org.bakkes.game.model
 
-class ASpriteNamedModel() extends AModel() with IHasSpriteName {
+abstract class ASpriteNamedModel extends AModel with IHasSpriteName {
 	/**
 	 * overwrite the regular name for a spritname,
 	 * By convention use a regular name, it makes things more readable.

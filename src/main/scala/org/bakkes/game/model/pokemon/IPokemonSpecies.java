@@ -1,22 +1,21 @@
 package org.bakkes.game.model.pokemon;
 
+import org.bakkes.game.model.INamed;
 import org.bakkes.game.model.battle.move.IMove;
-
-import java.util.List;
-
+import scala.Option;
+import scala.collection.Seq;
 
 
 /**
  * descibes how a certain kind of pokemon evolves over time
  */
-public interface IPokemonSpecies{
+public interface IPokemonSpecies extends INamed{
 	/**
 	 * sprites can be named weirdly
 	 * @return
 	 */
-	String getSpriteName();
-	String getEvolution();
-	String getName();
+	Option<IPokemonSpecies> getEvolution();
+	float getCatchChance();
 	/**
 	 * when do you become cooler
 	 * @return
@@ -38,7 +37,7 @@ public interface IPokemonSpecies{
 	 * the 'natural' moves of a pokemon
 	 * @return
 	 */
-	List<IMove> getMoves();
+	Seq<IMove> getMoves();
 
 	/**
 	 * tougher or rarer pokemon should be harder to train, ie dragonite should be a bitch to train

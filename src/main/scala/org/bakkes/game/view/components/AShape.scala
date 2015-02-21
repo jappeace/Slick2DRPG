@@ -1,6 +1,6 @@
 package org.bakkes.game.view.components
 
-import org.bakkes.game.model.TPosition
+import org.bakkes.game.model.APosition
 
-abstract class AShape extends TPosition with IShape {
+abstract class AShape extends APosition with IShape {
 }

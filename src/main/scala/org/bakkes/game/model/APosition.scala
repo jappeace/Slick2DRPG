@@ -1,7 +1,7 @@
 package org.bakkes.game.model
 
 import org.newdawn.slick.geom.Vector2f
-trait TPosition extends IPositionable{
+trait APosition extends IPositionable{
 
 	private val _position:Vector2f  = new Vector2f()
 	override def getPosition = _position

@@ -11,11 +11,14 @@ import org.bakkes.game.model.pokemon.IPokemonStatistics;
 import org.bakkes.game.model.pokemon.Pokemon;
 import org.bakkes.game.model.pokemon.PokemonStatistics;
 
+import java.util.Random;
+
 public class PokemonDsl extends ADsl{
     private IPokemonStatistics statistics;
 	private int level = 0;
 	private @Inject Provider<PokemonStatistics> pokemonStatsProvider;
 	private @Inject Provider<IPokemonSpecies> speciesProvider;
+	private @Inject Random random;
 
 	/**
 	 * name bean passes the species name to the module that creates the species
@@ -34,7 +37,7 @@ public class PokemonDsl extends ADsl{
 	}
 
 	public Pokemon createPokemon(){
-        final Pokemon result = new Pokemon(speciesProvider.get(), statistics);
+        final Pokemon result = new Pokemon(speciesProvider.get(), statistics, random);
 		result.setLevel(this.level);
 		return result;
 	}

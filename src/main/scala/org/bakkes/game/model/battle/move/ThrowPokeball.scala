@@ -2,12 +2,12 @@ package org.bakkes.game.model.battle.move
 
 import org.bakkes.game.model.pokemon.Pokemon
 
-class ThrowPokeball extends IMove{
+class ThrowPokeball() extends IMove{
 	private var success:Boolean = false
 
 	override def execute(self: Pokemon, other: Pokemon): Unit = {
 
-		other.getSpecies().getCatchChacne()
+		other.getSpecies.getCatchChance()
 	}
 
 	override def isBattleOver: Boolean = success
