@@ -8,6 +8,7 @@ import org.bakkes.game.model.pokemon.Pokemon
 import org.bakkes.game.view.components.{AShape, Sprite}
 import org.bakkes.game.view.SpriteType._
 import org.newdawn.slick.Graphics
+import org.newdawn.slick.geom.Vector2f
 
 class PokemonSprite @Inject() (
 	sprite:Sprite,
@@ -41,4 +42,7 @@ class PokemonSprite @Inject() (
 	override def width(): Float = sprite.width
 	override def height(): Float = sprite.height
 	override def render(g: Graphics): Unit = sprite.render(g)
+	override def onChangePosition(to:Vector2f){
+		sprite.setPosition(to)
+	}
 }
