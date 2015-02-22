@@ -32,7 +32,7 @@ class Pokemon(
 	private var level: Int = 0
 	private var experiance: Int = 0
 	val isFemale: Boolean = random.nextBoolean()
-	val isShiny: Boolean = random.nextFloat() < 0.001f
+	val isShiny: Boolean = random.nextFloat() < 0.01f
 
 	setName(species.getName)
 	heal
