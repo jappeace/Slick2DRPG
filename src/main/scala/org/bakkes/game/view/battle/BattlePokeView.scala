@@ -7,20 +7,21 @@ import com.google.inject.name.Named
 import org.bakkes.game.model.GameInfo
 import org.bakkes.game.model.map.Direction
 import org.bakkes.game.model.pokemon.Pokemon
-import org.bakkes.game.view.SpriteType
-import org.bakkes.game.view.components.{AShape, ShapeComposition, Sprite}
+import org.bakkes.game.view.components.{AShape, ShapeComposition}
+import org.bakkes.game.view.{PokemonSprite, SpriteType}
 import org.newdawn.slick.Graphics
 import org.newdawn.slick.geom.Vector2f;
 
 class BattlePokeView @Inject() (
-   val avatar:Sprite,
+   val avatar:PokemonSprite,
    val statsView:StatisticsView,
    view:ShapeComposition,
    @Named("spritePokemon") path:Path
 ) extends AShape{
 
 	def setPokemon(to:Pokemon, spriteType:SpriteType, avatarDir:Direction){
-		avatar.setSpritePath(path.resolve(spriteType.getImageName(to)))
+		avatar.spriteType = spriteType
+		avatar.setPokemon(to)
 		statsView.setPokemon(to)
 		val margin = 40
 		statsView.x(GameInfo.SCREEN_WIDTH - statsView.width() - margin)

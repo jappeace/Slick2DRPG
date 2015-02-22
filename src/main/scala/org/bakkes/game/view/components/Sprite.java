@@ -14,12 +14,13 @@ public class Sprite extends AShape{
 	private Image image;
 	private @Inject ImageCache cache;
 
-	public void setSpritePath(final Path path){
+	public Sprite setSpritePath(final Path path){
 		try {
 			image = cache.load(path);
 		} catch (final SlickException e) {
 			Log.warn("failed loading sprite " + path);
 		}
+		return this;
 	}
 
 	@Override

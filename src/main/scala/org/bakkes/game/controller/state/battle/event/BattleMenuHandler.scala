@@ -12,7 +12,6 @@ import org.bakkes.game.model.pokemon.Pokemon
 import org.bakkes.game.view.components.{IShape, ITextableShape}
 import org.newdawn.slick.util.Log
 
-import scala.collection.JavaConversions._
 import scala.util.Random
 
 class BattleMenuHandler @Inject() (
@@ -33,7 +32,7 @@ class BattleMenuHandler @Inject() (
 		throwPokeball(itemLoader.load("pokeball"))
 	}
 	private def throwPokeball(item:Item): Unit ={
-		if(!inventory.contains(item)){
+		if(!inventory.exists( i => i == item)){
 			Log.info("no pokeballs, show user message")
 			return
 		}
@@ -48,10 +47,11 @@ class BattleMenuHandler @Inject() (
 
 	}
 	override def getOptions : Collection[IShape] = {
-		val result = pokemon.get().getMoves.map{move =>
+		var result = pokemon.get().getMoves.map{move =>
 			toLine(move.getName())
 		}
-		result.add(toLine("pokeball"))
+		result :+ toLine("pokeball")
+		import scala.collection.JavaConversions._
 		return result
 	}
 
