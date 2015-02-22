@@ -20,16 +20,18 @@ public class Battle implements Runnable{
 	private int speed;
 	private @Inject List<BattleLogEvent> battleLog;
 	private @Inject Provider<BattleLogEvent> logProvider;
+	private boolean isOver;
 
 	@Override
 	public void run() {
 		speed = 0;
 		contIndex = 0;
 		battleLog.clear();
+		isOver = false;
 		if(getStats(0).getSpeed() < getStats(1).getSpeed()){
 			contIndex = 1;
 		}
-		while(true){
+		while(!isOver){
 			if(!contestents[contIndex].isReady()){
 				try {
 					Thread.sleep(10);
@@ -47,7 +49,8 @@ public class Battle implements Runnable{
 			Log.info("executing " + contestents[contIndex].getClass().getSimpleName() + " his turn");
 			turn.execute();
 
-			if(isOver()){
+			if(isOver(turn)){
+				isOver = true;
 				Log.info("it is al ogre now");
 				// perserve the current contestants' turn to detrmin winner
 				break;
@@ -67,13 +70,16 @@ public class Battle implements Runnable{
 	}
 
 	public boolean isOver(){
+		return isOver;
+	}
+	private boolean isOver(Turn t){
 		if(getStats(0).getHealth() < 0){
 			return true;
 		}
 		if(getStats(1).getHealth() < 0){
 			return true;
 		}
-		return false;
+		return t.getMove().isBattleOver();
 	}
 	private IPokemonStatistics getStats(final int who){
 		return contestents[who].getOwnPokemon().getCurrentStats();

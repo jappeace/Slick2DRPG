@@ -7,6 +7,7 @@ import com.google.inject.{Inject, Provider}
 import org.bakkes.game.controller.state.event.IMenuHandler
 import org.bakkes.game.controller.init.scripting.loader.ItemLoader
 import org.bakkes.game.controller.state.battle.contestent.PlayerContestent
+import org.bakkes.game.model.battle.move.ThrowPokeball
 import org.bakkes.game.model.entity.player.invetory._
 import org.bakkes.game.model.pokemon.Pokemon
 import org.bakkes.game.view.components.{IShape, ITextableShape}
@@ -21,6 +22,7 @@ class BattleMenuHandler @Inject() (
 	@Named("from player") inventory:Inventory,
 	lines : Provider[ITextableShape],
 	contestent : PlayerContestent,
+	pokeballProvider: Provider[ThrowPokeball],
 	itemLoader:ItemLoader,
 	random:Random
 ) extends IMenuHandler{
@@ -37,20 +39,13 @@ class BattleMenuHandler @Inject() (
 			return
 		}
 		inventory.remove(item)
-		val catchChance = 0.8
-		val enemy = enemyPokemon.get()
-		if (random.nextFloat() < catchChance){
-			Log.info("you caught a " + enemy.getName)
-			pokebelt.add(enemy)
-			enemy.damage(enemy.getCurrentStats.getHealth)
-		}
-
+		contestent.setMove(pokeballProvider.get())
 	}
 	override def getOptions : Collection[IShape] = {
 		var result = pokemon.get().getMoves.map{move =>
 			toLine(move.getName())
 		}
-		result :+ toLine("pokeball")
+		result = result :+ toLine("pokeball")
 		import scala.collection.JavaConversions._
 		return result
 	}

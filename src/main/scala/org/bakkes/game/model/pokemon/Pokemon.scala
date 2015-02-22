@@ -104,7 +104,7 @@ class Pokemon(
 			level(1)
 			return normalStats.minus(current).plus(addExperiance(0))
 		}
-		return null
+		return new PokemonStatistics(0,0,0,0)
 	}
 
 	def calculateXpFor(lvl: Int): Int = {
